@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ur-en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M S Solar Cleaning | Sahiwal Professional Solar Maintenance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes pulse-soft { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.95; transform: scale(1.01); } }
+        .tech-animate { animation: pulse-soft 4s infinite ease-in-out; }
+        html { scroll-behavior: smooth; }
+        img { image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="relative bg-blue-100 p-2 rounded-xl text-blue-600 text-xl"><i class="fas fa-solar-panel"></i></div>
+                <span class="text-2xl font-bold text-blue-900 tracking-tight">M S Solar<span class="text-yellow-500"> Cleaning</span></span>
+            </div>
+            <a href="#calculator" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-full font-semibold flex items-center space-x-2 transition shadow-lg">
+                <i class="fab fa-whatsapp text-xl"></i><span>Calculate & Book</span>
+            </a>
+        </div>
+    </header>
+
+    <section id="home" class="relative bg-blue-900 text-white py-16 px-4 overflow-hidden">
+        <div class="container mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-7 text-center md:text-left">
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">Gande Solar Panels?<br><span class="text-yellow-400">25% Tak Bijli Ka Nuqsaan!</span></h1>
+                <p class="text-base text-gray-300 mb-8 max-w-xl">Mitti aur dhool panels ki generation block karte hain. Hum Sahiwal mein Ingco pressure washers aur complete safety measures ke sath complete wash service dete hain.</p>
+            </div>
+            <div class="md:col-span-5 flex justify-center">
+                <div class="relative p-2 bg-gradient-to-b from-yellow-400 to-blue-800 rounded-3xl shadow-2xl max-w-[250px] w-full">
+                    <div class="bg-gray-800 rounded-2xl overflow-hidden h-[300px] w-full">
+                        <img src="owner.jpg" alt="M S Solar Expert" class="w-full h-full object-cover object-top">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ... (Baqi sections waisay hi hain) ... -->
+
+    <section id="calculator" class="py-12 bg-white px-4">
+        <div class="container mx-auto max-w-xl bg-gray-50 p-6 rounded-3xl shadow-xl">
+            <input type="text" id="cust-name" placeholder="Customer Name" class="w-full border p-3 rounded-lg mb-4">
+            <select id="inv-brand" class="w-full border p-3 rounded-lg mb-4"><option>Solis</option><option>Knox</option><option>MaxPower</option></select>
+            <select id="inv-size" class="w-full border p-3 rounded-lg mb-4"><option>3 KW</option><option>5 KW</option></select>
+            <div class="flex items-center space-x-3 mb-4">
+                <button type="button" onclick="changePanels(-1)" class="bg-blue-900 text-white w-12 h-12 rounded-xl">-</button>
+                <input type="number" id="panel-qty" value="8" oninput="calculateBill()" class="w-16 text-center border h-12 rounded-xl">
+                <button type="button" onclick="changePanels(1)" class="bg-blue-900 text-white w-12 h-12 rounded-xl">+</button>
+            </div>
+            <div class="bg-blue-900 text-white p-5 rounded-2xl text-center mb-4">Rs. <span id="total-price">480</span></div>
+            <button onclick="sendBooking()" class="w-full bg-green-500 text-white font-bold py-3.5 rounded-xl">Complete Booking</button>
+        </div>
+    </section>
+
+    <script>
+        function changePanels(amount) {
+            var qtyInput = document.getElementById("panel-qty");
+            var currentVal = parseInt(qtyInput.value) || 0;
+            var newVal = currentVal + amount;
+            if (newVal < 1) newVal = 1;
+            qtyInput.value = newVal;
+            calculateBill();
+        }
+        function calculateBill() {
+            var panels = parseInt(document.getElementById("panel-qty").value) || 0;
+            document.getElementById("total-price").innerText = panels * 60;
+        }
+        function sendBooking() {
+            var phoneNumber = "923084462121";
+            var name = document.getElementById("cust-name").value || "Valued Customer";
+            var brand = document.getElementById("inv-brand").value;
+            var size = document.getElementById("inv-size").value;
+            var qty = document.getElementById("panel-qty").value;
+            var finalPrice = document.getElementById("total-price").innerText;
+            var text = "🚀 *M S Solar Cleaning - New Booking* 🚀%0A%0A" + 
+                       "*Name:* " + encodeURIComponent(name) + "%0A" +
+                       "*Panels:* " + encodeURIComponent(qty) + "%0A" +
+                       "*Brand:* " + encodeURIComponent(brand) + "%0A" +
+                       "*Size:* " + encodeURIComponent(size) + "%0A" +
+                       "💰 *Total:* Rs. " + finalPrice;
+            window.open("https://wa.me/" + phoneNumber + "?text=" + text, '_blank');
+        }
+    </script>
+</body>
+</html>
+div>
+            <button onclick="sendBooking()" class="w-full bg-green-500 text-white font-bold py-3.5 rounded-xl">Complete Booking</button>
+        </div>
+    </section>
+</body>
+</html>
