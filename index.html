@@ -45,7 +45,7 @@
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             
-            <!-- Branding Container -->
+            <!-- Branding Container (Updated with Professional Logo Support) -->
             <div class="flex items-center space-x-2">
                 <div class="relative bg-blue-100 p-2 rounded-xl text-blue-600 text-xl">
                     <i class="fas fa-solar-panel"></i> 
@@ -54,9 +54,13 @@
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                     </span>
                 </div>
-                <span class="text-2xl font-bold text-blue-900 tracking-tight">
-                    M S Solar<span class="text-yellow-500"> Cleaning</span>
-                </span>
+                <!-- Site Identity Framework -->
+                <div class="flex flex-col">
+                    <img src="logo.png" alt="MS_Solar Cleaning" class="h-9 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('navbar-brand-text').style.display='block';">
+                    <span id="navbar-brand-text" style="display:none;" class="text-2xl font-bold text-blue-900 tracking-tight">
+                        M S Solar<span class="text-yellow-500"> Cleaning</span>
+                    </span>
+                </div>
             </div>
             
             <!-- Navigation Links Block -->
@@ -64,6 +68,7 @@
                 <a href="#home" class="text-blue-900 hover:text-yellow-500 transition">Home</a>
                 <a href="#tools" class="text-blue-900 hover:text-yellow-500 transition">Our Machinery</a>
                 <a href="#technical" class="text-blue-900 hover:text-yellow-500 transition">Inverter Diagnostic</a>
+                <a href="#subscription" class="text-blue-900 hover:text-yellow-500 transition">Subscription</a>
                 <a href="#calculator" class="text-blue-900 hover:text-yellow-500 transition">Live Calculator</a>
             </nav>
             
@@ -246,6 +251,67 @@
         </div>
     </section>
 
+    <!-- NEW SECTION: Monthly Subscription & Discount Block -->
+    <section id="subscription" class="py-16 bg-gradient-to-b from-white to-gray-100 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                🌟 Premium Membership
+            </span>
+            <h2 class="text-3xl font-extrabold text-blue-900 mt-3 mb-4">Regular Cleaning vs. Smart Saving!</h2>
+            <p class="text-gray-600 text-base max-w-2xl mx-auto mb-10">
+                Humare monthly subscription plan ke sath apne solar panels ki efficiency ko 100% barkarar rakhein aur payein <span class="font-bold text-blue-600">Special Discounts</span> har mahine.
+            </p>
+
+            <div class="bg-white border border-gray-200 rounded-3xl p-8 shadow-xl max-w-2xl mx-auto text-left relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl uppercase tracking-widest">
+                    Best Value
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-blue-100 text-blue-600 p-2 rounded-xl text-xl mt-1">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-900 text-lg">Hassle-Free Scheduling</h4>
+                            <p class="text-gray-600 text-sm mt-0.5">Aapko bar bar call karne ki zaroorat nahi, humari team khud waqt par aayegi.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-green-100 text-green-600 p-2 rounded-xl text-xl mt-1">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-green-600 text-lg">Exclusive Discounted Rates</h4>
+                            <p class="text-gray-600 text-sm mt-0.5">One-time service se bohot kam qeemat mein monthly maintenance aur locked discount setup.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-yellow-100 text-yellow-600 p-2 rounded-xl text-xl mt-1">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-900 text-lg">Priority Customer Support</h4>
+                            <p class="text-gray-600 text-sm mt-0.5">Subscribed customers ke liye instant response aur har wash par free string diagnostic checking.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-gray-50 border border-gray-100 p-4 rounded-xl text-center">
+                    <p class="text-sm text-gray-700 italic font-medium">
+                        💡 Sustai safai, zyada bachat! Aaj hi subscribe karein aur salana hazaron rupe ki bachat karein.
+                    </p>
+                </div>
+                
+                <a href="#calculator" class="block w-full text-center bg-blue-900 hover:bg-blue-800 text-white font-bold py-3.5 rounded-xl shadow-lg mt-6 transition">
+                    Lock Monthly Plan Discount
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Smart Calculator Section: Rs. 80 Per Panel Metric Fixed -->
     <section id="calculator" class="py-12 bg-white px-4">
         <div class="container mx-auto max-w-4xl">
@@ -320,6 +386,21 @@
                     
                 </div>
             </div>
+
+            <!-- NEW SECTION: Integrated WhatsApp QR Code Container for Desktop Scanners -->
+            <div class="mt-12 max-w-xs mx-auto bg-gray-50 border-2 border-green-500 p-5 rounded-2xl text-center shadow-md">
+                <div class="flex items-center justify-center space-x-2 mb-3">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
+                    <h3 class="text-base font-bold text-green-600 tracking-tight">Scan to Chat with Us</h3>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-gray-100 inline-block shadow-sm">
+                    <!-- Automatically generates official QR based on your specific booking business number -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/923084462121" alt="WhatsApp QR Code" class="w-36 h-36">
+                </div>
+                <p class="text-[11px] text-gray-500 font-medium mt-3 leading-relaxed">
+                    Direct mobile se scanning karke rabta ya monthly package active karne ke liye scan karein.
+                </p>
+            </div>
             
         </div>
     </section>
@@ -383,13 +464,4 @@
     <div class="custom-spacing-wrapper"></div>
     <!-- End of File Stream Structure -->
 </body>
-</html><!-- HTML Section -->
-<div class="whatsapp-container">
-    <div class="whatsapp-header">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="wa-icon">
-        <h3>Scan to Chat on WhatsApp</h3>
-    </div>
-    <!-- Aap apne WhatsApp link ka QR code kisi bhi free generator se bana kar yahan image lagayein -->
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/YOUR_NUMBER_HERE" alt="WhatsApp QR Code" class="qr-code">
-</div>
-
+</html>
