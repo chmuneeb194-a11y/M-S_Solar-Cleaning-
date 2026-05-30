@@ -32,7 +32,6 @@
             image-rendering: crisp-edges;
         }
 
-        /* Spacing utilities to expand code line depth structurally */
         .custom-spacing-wrapper {
             padding-top: 1rem;
             padding-bottom: 1rem;
@@ -41,46 +40,40 @@
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
 
-    <!-- Header / Navbar Section (With Finalized Sunrise Corporate Panel Logo) -->
+    <!-- Header / Navbar Section (Clean Single Instance - Exactly Sample 3) -->
     <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="container mx-auto px-3 py-3 flex justify-between items-center max-w-6xl">
             
-            <!-- Finalized Sample 3 Digital Logo Vector Inside Navbar -->
-            <a href="#home" class="flex items-center space-x-3 group">
-                <!-- Professional SVG Vector for Sample 3 (Sunrise behind Solar Structure) -->
-                <svg class="h-12 w-12 transform group-hover:scale-105 transition duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Rising Sun Circle in Background representing Power Generation -->
-                    <circle cx="50" cy="38" r="18" fill="#eab308" />
+            <!-- Exact Match: Sample No 3 (Sunrise Panel Logo) -->
+            <a href="#home" class="flex items-center space-x-2 group min-w-0">
+                <svg class="h-10 w-10 sm:h-12 sm:w-12 transform group-hover:scale-105 transition duration-300 flex-shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Sunrise Top Rays (Exact Shape) -->
+                    <circle cx="50" cy="50" r="14" fill="#eab308" />
+                    <path d="M50 24 L50 30 M31 31 L36 36 M69 31 L64 36 M24 50 L30 50 M76 50 L70 50" stroke="#eab308" stroke-width="4" stroke-linecap="round"/>
                     
-                    <!-- Sunburst Technical Rays -->
-                    <path d="M50 12 L50 16 M24 25 L28 28 M76 25 L72 28 M14 38 L20 38 M86 38 L80 38" stroke="#eab308" stroke-width="3.5" stroke-linecap="round"/>
+                    <!-- Clean Angular Blue Solar Panel Base -->
+                    <path d="M15 54 L85 54 L75 80 L25 80 Z" fill="#1e3a8a" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
                     
-                    <!-- Dark Blue Perspective Solar Panel Array Structure -->
-                    <path d="M22 52 L78 52 L88 78 L12 78 Z" fill="#1e3a8a" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
-                    
-                    <!-- High-Definition White Grid Lines Mapping -->
-                    <path d="M40 52 L32 78 M50 52 L50 78 M60 52 L68 78" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M17 64 L83 64" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
-                    
-                    <!-- Sleek Base Accent Line representing Solid Maintenance Foundations -->
-                    <path d="M10 84 L90 84" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+                    <!-- Internal Grid Lines -->
+                    <path d="M42 54 L35 80 M50 54 L50 80 M58 54 L65 80" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M19 66 L81 66" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
 
-                <!-- Brand Typography Container -->
-                <div class="flex flex-col m-0 p-0">
-                    <div class="text-2xl font-black text-blue-900 tracking-tighter leading-none flex items-center">
+                <!-- Brand Typography -->
+                <div class="flex flex-col m-0 p-0 min-w-0">
+                    <div class="text-xl sm:text-2xl font-black text-blue-900 tracking-tighter leading-none flex items-center truncate">
                         <span>MS</span>
                         <span class="text-blue-500 mx-0.5">_</span>
                         <span>SOLAR</span>
                     </div>
-                    <span class="text-[10px] font-black text-green-600 uppercase tracking-widest mt-1 leading-none flex items-center gap-1">
-                        <i class="fas fa-check-double text-[8px]"></i> Cleaning Services
+                    <span class="text-[9px] sm:text-[10px] font-black text-green-600 uppercase tracking-wider sm:tracking-widest mt-1 leading-none flex items-center gap-1 truncate">
+                        <i class="fas fa-check-double text-[7px] sm:text-[8px]"></i> Cleaning Services
                     </span>
                 </div>
             </a>
             
             <!-- Navigation Links Block -->
-            <nav class="hidden md:flex space-x-8 font-medium">
+            <nav class="hidden lg:flex space-x-6 font-medium">
                 <a href="#home" class="text-blue-900 hover:text-yellow-500 transition">Home</a>
                 <a href="#tools" class="text-blue-900 hover:text-yellow-500 transition">Our Machinery</a>
                 <a href="#technical" class="text-blue-900 hover:text-yellow-500 transition">Inverter Diagnostic</a>
@@ -88,29 +81,23 @@
                 <a href="#calculator" class="text-blue-900 hover:text-yellow-500 transition">Live Calculator</a>
             </nav>
             
-            <!-- Action Trigger Button -->
-            <a href="#calculator" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-full font-semibold flex items-center space-x-2 transition shadow-lg">
-                <i class="fab fa-whatsapp text-xl"></i>
+            <!-- WhatsApp Action Button -->
+            <a href="#calculator" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 sm:px-5 sm:py-2.5 rounded-full font-semibold flex items-center space-x-1 sm:space-x-2 transition shadow-lg text-xs sm:text-sm flex-shrink-0">
+                <i class="fab fa-whatsapp text-sm sm:text-xl"></i>
                 <span>Calculate & Book</span>
             </a>
             
         </div>
     </header>
 
-    <!-- Hero Section: Featuring M S Solar Team Professional Frame -->
+    <!-- Hero Section -->
     <section id="home" class="relative bg-blue-900 text-white py-16 px-4 overflow-hidden">
-        
-        <!-- Background Overlay Image Grid -->
         <div class="absolute inset-0 z-0 opacity-10">
             <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1920&q=80" alt="Solar Panels Grid" class="w-full h-full object-cover">
         </div>
         
         <div class="container mx-auto max-w-6xl relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            
-            <!-- Left Text Content Container -->
             <div class="md:col-span-7 text-center md:text-left">
-                
-                <!-- City Slogan Tagline Section -->
                 <span class="bg-yellow-500 text-blue-950 text-xs uppercase font-black px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow mb-4 tracking-wider">
                     <i class="fas fa-map-marker-alt animate-bounce"></i> Ab Apke shehar Sahiwal mein
                 </span>
@@ -132,38 +119,29 @@
                         Check Machinery
                     </a>
                 </div>
-                
             </div>
             
-            <!-- Right Profile Display: Match exact storage file name -->
+            <!-- Right Profile Frame -->
             <div class="md:col-span-5 flex justify-center">
                 <div class="relative p-2 bg-gradient-to-b from-yellow-400 to-blue-800 rounded-3xl shadow-2xl max-w-[340px] w-full">
-                    
                     <div class="bg-gray-800 rounded-2xl overflow-hidden h-[460px] w-full relative">
-                        <!-- Fixed image name to match team-solar-service.jpg perfectly -->
                         <img src="team-solar-service.jpg" alt="M S Solar Team Action" class="w-full h-full object-cover object-center">
-                        
-                        <!-- Overlay Tagging on Image Bottom -->
                         <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-blue-950 via-blue-950/80 to-transparent p-4 text-center">
                             <p class="text-base font-bold text-white tracking-wide">M S Solar Experts</p>
                             <p class="text-xs text-yellow-400 uppercase font-bold tracking-widest mt-0.5">Sahiwal Field Lead</p>
                         </div>
                     </div>
-                    
                     <span class="absolute -top-3 -right-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
                         <i class="fas fa-check-circle"></i> On-Site Action
                     </span>
-                    
                 </div>
             </div>
-            
         </div>
     </section>
 
     <!-- Tools & Machinery Showcase Section -->
     <section id="tools" class="py-16 bg-gray-50 px-4">
         <div class="container mx-auto max-w-6xl">
-            
             <div class="text-center mb-12">
                 <span class="text-blue-600 font-bold text-xs tracking-widest uppercase bg-blue-50 px-3 py-1 rounded-full">Machinery Profile</span>
                 <h2 class="text-3xl font-bold text-blue-900 mt-2">Hamare Professional Tools & Equipment</h2>
@@ -171,37 +149,33 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <!-- Tool Card 1: Ingco Pressure Washer -->
+                <!-- Tool 1 -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2">
-                        <img src="ingo.jpg" alt="Ingco Pressure Washer Machine 150Bar" class="w-full h-full object-contain">
+                        <img src="ingo.jpg" alt="Ingco Pressure Washer" class="w-full h-full object-contain">
                         <span class="absolute bottom-2 right-2 bg-blue-900 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">INGCO 1800W</span>
                     </div>
                     <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">Ingco Pressure Washer</h3>
                     <p class="text-xs text-gray-600 text-center leading-relaxed">High-pressure controlled flow aur special water hose jo bina scratch banaye jami hui sakht mitti ko mukammal utar deta hai.</p>
                 </div>
-                
-                <!-- Tool Card 2: Solar Telescopic Brush -->
+                <!-- Tool 2 -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=500&q=80" alt="Solar Telescopic Extended Brush" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=500&q=80" alt="Solar Telescopic Brush" class="w-full h-full object-cover">
                         <span class="absolute bottom-2 right-2 bg-yellow-500 text-blue-950 text-[10px] px-2 py-0.5 rounded font-bold uppercase">Soft Micro-Bristles</span>
                     </div>
                     <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">Soft Bristle Telescopic Brush</h3>
                     <p class="text-xs text-gray-600 text-center leading-relaxed">Solar protective layer aur anti-reflective glass coating ke liye special extended soft brush setup jo bina nuksaan pounchaye chamka deta hai.</p>
                 </div>
-                
-                <!-- Tool Card 3: Hyundai Blower -->
+                <!-- Tool 3 -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2">
-                        <img src="hyundai-blower.jpg" alt="Hyundai Electric Blower 700W" class="w-full h-full object-contain">
+                        <img src="hyundai-blower.jpg" alt="Hyundai Electric Blower" class="w-full h-full object-contain">
                         <span class="absolute bottom-2 right-2 bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">HYUNDAI 700W</span>
                     </div>
                     <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">High-Velocity Air Blower</h3>
                     <p class="text-xs text-gray-600 text-center leading-relaxed">Smart inverters ke cooling fans aur unke internal air filters ko mukammal saaf karne ke liye taake cooling performance up-to-date rahe.</p>
                 </div>
-                
             </div>
         </div>
     </section>
@@ -209,14 +183,13 @@
     <!-- Technical Diagnostic Guide Section -->
     <section id="technical" class="py-16 bg-blue-50 px-4 border-t border-b border-gray-200">
         <div class="container mx-auto max-w-5xl">
-            
             <div class="text-center mb-10">
                 <span class="text-yellow-600 font-bold text-xs tracking-widest uppercase bg-yellow-100 px-3 py-1 rounded-full">Inverter Diagnostic</span>
                 <h2 class="text-3xl font-bold text-blue-900 mt-2">Supported Smart Inverters & Telemetry</h2>
                 <p class="text-gray-600 text-sm mt-1">Hum sirf dhote nahi hain, balkay inverters par generation check kar ke farq dikhate hain.</p>
             </div>
 
-            <!-- Inverters Grid View Container -->
+            <!-- Inverters Grid -->
             <div class="grid grid-cols-2 md:grid-cols-6 gap-4 mb-10 text-center">
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center">
                     <i class="fas fa-solar-panel text-blue-600 text-2xl mb-1"></i>
@@ -245,7 +218,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div class="space-y-4">
+                <div>
                     <div class="bg-white p-5 rounded-xl shadow-sm flex items-start space-x-3">
                         <div class="bg-yellow-100 text-yellow-600 p-2.5 rounded-lg text-lg"><i class="fas fa-chart-line"></i></div>
                         <div>
@@ -254,8 +227,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Safety Protocol Display Card Overlay -->
                 <div class="bg-blue-900 text-white p-6 rounded-2xl shadow-lg relative overflow-hidden tech-animate">
                     <h3 class="text-lg font-bold text-yellow-400 mb-3 flex items-center gap-2">
                         <i class="fas fa-user-shield text-green-400"></i> Safety Harness Compliance
@@ -263,11 +234,10 @@
                     <p class="text-xs text-gray-300 mb-3">Hum high structural roofs par kaam karte waqt lifeline body safety belts, anti-slip shoes, aur safety helmets ka 100% istemal lazmi karte hain.</p>
                 </div>
             </div>
-            
         </div>
     </section>
 
-    <!-- Monthly Subscription & Discount Block -->
+    <!-- Subscription Section -->
     <section id="subscription" class="py-16 bg-gradient-to-b from-white to-gray-100 px-4">
         <div class="container mx-auto max-w-4xl text-center">
             <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
@@ -293,7 +263,6 @@
                             <p class="text-gray-600 text-sm mt-0.5">Aapko bar bar call karne ki zaroorat nahi, humari team khud waqt par aayegi.</p>
                         </div>
                     </div>
-
                     <div class="flex items-start space-x-4">
                         <div class="bg-green-100 text-green-600 p-2 rounded-xl text-xl mt-1">
                             <i class="fas fa-tags"></i>
@@ -303,7 +272,6 @@
                             <p class="text-gray-600 text-sm mt-0.5">One-time service se bohot kam qeemat mein monthly maintenance aur locked discount setup.</p>
                         </div>
                     </div>
-
                     <div class="flex items-start space-x-4">
                         <div class="bg-yellow-100 text-yellow-600 p-2 rounded-xl text-xl mt-1">
                             <i class="fas fa-tools"></i>
@@ -317,7 +285,7 @@
 
                 <div class="mt-8 bg-gray-50 border border-gray-100 p-4 rounded-xl text-center">
                     <p class="text-sm text-gray-700 italic font-medium">
-                        💡 Sustai safai, zyada bachat! Aaj hi subscribe karein aur salana hazaron rupe ki bachat karein.
+                        💡 Mustaqil safai, zyada bachat! Aaj hi subscribe karein aur salana hazaron rupe ki bachat karein.
                     </p>
                 </div>
                 
@@ -328,10 +296,9 @@
         </div>
     </section>
 
-    <!-- Smart Calculator Section: Rs. 80 Per Panel Metric Fixed -->
+    <!-- Calculator Section -->
     <section id="calculator" class="py-12 bg-white px-4">
         <div class="container mx-auto max-w-4xl">
-            
             <div class="text-center mb-8">
                 <span class="text-green-600 font-bold text-xs tracking-widest uppercase bg-green-50 px-3 py-1 rounded-full">Instant Quote</span>
                 <h2 class="text-3xl font-bold text-blue-900 mt-2">Live Price Estimation Calculator</h2>
@@ -340,14 +307,11 @@
 
             <div class="bg-gray-50 border border-gray-200 p-6 rounded-3xl shadow-xl max-w-xl mx-auto">
                 <div class="space-y-5">
-                    
-                    <!-- Customer Input -->
                     <div>
                         <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Customer Name</label>
                         <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
                     </div>
 
-                    <!-- Dropdowns Row Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Inverter Brand</label>
@@ -372,7 +336,6 @@
                         </div>
                     </div>
 
-                    <!-- Panel Quantity Counters -->
                     <div>
                         <label class="block text-xs font-bold uppercase text-gray-600 mb-2">Solar Panels Ki Tadad (Quantity)</label>
                         <div class="flex items-center space-x-3">
@@ -382,28 +345,24 @@
                         </div>
                     </div>
 
-                    <!-- Newly Implemented Inverter Blower Service Checkbox -->
                     <div class="bg-white p-4 rounded-xl border border-gray-200 flex items-center">
                         <input type="checkbox" id="blower-check" onchange="calculateBill()" class="w-5 h-5 mr-3 accent-green-500">
                         <label for="blower-check" class="font-bold text-blue-900 text-sm select-none">Add Inverter Blower Service (+Rs. 500)</label>
                     </div>
 
-                    <!-- Output Price Metric Container Card -->
                     <div class="bg-blue-900 text-white p-5 rounded-2xl text-center shadow-inner relative overflow-hidden">
                         <span class="text-[10px] uppercase tracking-widest text-yellow-400 font-bold">Estimated Service Cost</span>
-                        <div class="text-4xl font-black my-0.5">Rs. <span id="total-price">1140</span></div>
+                        <div class="text-4xl font-black my-0.5">Rs. <span id="total-price">640</span></div>
                         <p class="text-[10px] text-blue-200/80">*Standard washing rate calculated at Rs. 80 per panel</p>
                     </div>
 
-                    <!-- WhatsApp Messaging Redirect CTA Trigger -->
                     <button onclick="sendBooking()" class="w-full bg-green-500 hover:bg-green-600 text-white text-center font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
                         <i class="fab fa-whatsapp text-xl"></i> Complete Booking via WhatsApp
                     </button>
-                    
                 </div>
             </div>
 
-            <!-- Integrated WhatsApp QR Code Container for Desktop Scanners -->
+            <!-- WhatsApp QR Code Container -->
             <div class="mt-12 max-w-xs mx-auto bg-gray-50 border-2 border-green-500 p-5 rounded-2xl text-center shadow-md">
                 <div class="flex items-center justify-center space-x-2 mb-3">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
@@ -416,18 +375,16 @@
                     Direct mobile se scanning karke rabta ya monthly package active karne ke liye scan karein.
                 </p>
             </div>
-            
         </div>
     </section>
 
-    <!-- Footer Core Block Area -->
+    <!-- Footer -->
     <footer class="bg-gray-900 text-gray-500 py-6 px-4 text-center text-xs border-t border-gray-800">
         <p>&copy; 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
     </footer>
 
-    <!-- Comprehensive JavaScript Logic Engine -->
+    <!-- JavaScript Engine -->
     <script>
-        // Manages Panel Increments and Decrements
         function changePanels(amount) {
             var qtyInput = document.getElementById("panel-qty");
             var currentVal = parseInt(qtyInput.value) || 0;
@@ -437,7 +394,6 @@
             calculateBill();
         }
 
-        // Mathematical Operations for Dynamic Real-time Calculations
         function calculateBill() {
             var panels = parseInt(document.getElementById("panel-qty").value) || 0;
             var ratePerPanel = 80; 
@@ -447,7 +403,6 @@
             document.getElementById("total-price").innerText = total;
         }
 
-        // WhatsApp Custom Formatted String Generator Engine
         function sendBooking() {
             var phoneNumber = "923084462121"; 
             var name = document.getElementById("cust-name").value || "Valued Customer";
@@ -469,13 +424,11 @@
             window.open(url, '_blank');
         }
         
-        // Initial setup execution block
         window.onload = function() {
             calculateBill();
         };
     </script>
 
-    <!-- Structural Line Break Extension Blocks to explicitly lock the 300+ line constraint -->
     <div class="custom-spacing-wrapper"></div>
 </body>
 </html>
