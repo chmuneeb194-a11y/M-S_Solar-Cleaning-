@@ -41,24 +41,39 @@
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
 
-    <!-- Header / Navbar Section -->
+    <!-- Header / Navbar Section (With Built-in High-End SVG Logo) -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             
-            <!-- Branding Container (Updated with Professional Logo Support) -->
-            <div class="flex items-center space-x-2">
-                <div class="relative bg-blue-100 p-2 rounded-xl text-blue-600 text-xl">
-                    <i class="fas fa-solar-panel"></i> 
-                    <span class="absolute -top-1 -right-1 flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            <!-- Branding Container (Fully Coded Digital Logo - No Image File Needed) -->
+            <div class="flex items-center space-x-3">
+                <!-- Modern SVG Logo Vector -->
+                <svg class="h-12 w-12" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Outer Tech Circle representing Solar/Clean energy loop -->
+                    <circle cx="50" cy="50" r="46" stroke="#1e3a8a" stroke-width="4" stroke-dasharray="6 4" />
+                    
+                    <!-- Solar Panel Grid Background -->
+                    <path d="M30 45 L70 45 M25 60 L75 60 M20 75 L80 75 M50 30 L50 75 M35 30 L20 75 M65 30 L80 75" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"/>
+                    
+                    <!-- Glowing Sun Vector -->
+                    <circle cx="50" cy="30" r="12" fill="#eab308" />
+                    <path d="M50 12 L50 16 M50 44 L50 48 M32 30 L36 30 M64 30 L68 30" stroke="#eab308" stroke-width="3" stroke-linecap="round"/>
+                    
+                    <!-- Dynamic Pure Water Droplet Splash Effect representing Cleaning -->
+                    <path d="M50 32 C42 45 42 65 50 72 C58 65 58 45 50 32 Z" fill="#22c55e" fill-opacity="0.3" stroke="#22c55e" stroke-width="2"/>
+                    <path d="M50 40 C45 50 45 62 50 68 C55 62 55 50 50 40 Z" fill="#3b82f6" fill-opacity="0.8"/>
+                    
+                    <!-- Sparkle / Clean Indicator -->
+                    <path d="M72 22 L74 26 L78 27 L74 28 L72 32 L70 28 L66 27 L70 26 Z" fill="#eab308"/>
+                </svg>
+
+                <!-- Text Branding Integrated with Global Styling -->
+                <div class="flex flex-col m-0 p-0">
+                    <span class="text-2xl font-black text-blue-900 tracking-tighter leading-none">
+                        MS<span class="text-blue-500">_</span>SOLAR
                     </span>
-                </div>
-                <!-- Site Identity Framework -->
-                <div class="flex flex-col">
-                    <img src="logo.png" alt="MS_Solar Cleaning" class="h-9 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('navbar-brand-text').style.display='block';">
-                    <span id="navbar-brand-text" style="display:none;" class="text-2xl font-bold text-blue-900 tracking-tight">
-                        M S Solar<span class="text-yellow-500"> Cleaning</span>
+                    <span class="text-[10px] font-bold text-green-600 uppercase tracking-widest mt-0.5 leading-none">
+                        Cleaning Services
                     </span>
                 </div>
             </div>
@@ -251,7 +266,7 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: Monthly Subscription & Discount Block -->
+    <!-- Monthly Subscription & Discount Block -->
     <section id="subscription" class="py-16 bg-gradient-to-b from-white to-gray-100 px-4">
         <div class="container mx-auto max-w-4xl text-center">
             <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
@@ -387,14 +402,13 @@
                 </div>
             </div>
 
-            <!-- NEW SECTION: Integrated WhatsApp QR Code Container for Desktop Scanners -->
+            <!-- Integrated WhatsApp QR Code Container for Desktop Scanners -->
             <div class="mt-12 max-w-xs mx-auto bg-gray-50 border-2 border-green-500 p-5 rounded-2xl text-center shadow-md">
                 <div class="flex items-center justify-center space-x-2 mb-3">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
                     <h3 class="text-base font-bold text-green-600 tracking-tight">Scan to Chat with Us</h3>
                 </div>
                 <div class="bg-white p-3 rounded-xl border border-gray-100 inline-block shadow-sm">
-                    <!-- Automatically generates official QR based on your specific booking business number -->
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/923084462121" alt="WhatsApp QR Code" class="w-36 h-36">
                 </div>
                 <p class="text-[11px] text-gray-500 font-medium mt-3 leading-relaxed">
@@ -425,8 +439,8 @@
         // Mathematical Operations for Dynamic Real-time Calculations
         function calculateBill() {
             var panels = parseInt(document.getElementById("panel-qty").value) || 0;
-            var ratePerPanel = 80; // Updated explicitly to Rs. 80
-            var blowerCost = document.getElementById("blower-check").checked ? 500 : 0; // Added blower check criteria
+            var ratePerPanel = 80; 
+            var blowerCost = document.getElementById("blower-check").checked ? 500 : 0; 
             
             var total = (panels * ratePerPanel) + blowerCost;
             document.getElementById("total-price").innerText = total;
@@ -462,6 +476,5 @@
 
     <!-- Structural Line Break Extension Blocks to explicitly lock the 300+ line constraint -->
     <div class="custom-spacing-wrapper"></div>
-    <!-- End of File Stream Structure -->
 </body>
 </html>
