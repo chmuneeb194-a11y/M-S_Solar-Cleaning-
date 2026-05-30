@@ -344,7 +344,7 @@
                         </div>
                     </div>
 
-                    <!-- Red Circle Area Fixed with Professional Technical Wording -->
+                    <!-- Professional Checkbox Wording -->
                     <div class="bg-white p-4 rounded-xl border border-gray-200 flex items-start">
                         <input type="checkbox" id="blower-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-green-500 flex-shrink-0">
                         <label for="blower-check" class="font-bold text-blue-900 text-xs sm:text-sm select-none leading-tight">
@@ -364,7 +364,7 @@
                 </div>
             </div>
 
-            <!-- WhatsApp QR Code Container (WhatsApp Routing System Fully Active) -->
+            <!-- WhatsApp QR Code Container -->
             <div class="mt-12 max-w-xs mx-auto bg-gray-50 border-2 border-green-500 p-5 rounded-2xl text-center shadow-md">
                 <div class="flex items-center justify-center space-x-2 mb-3">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
@@ -410,9 +410,14 @@
             var name = document.getElementById("cust-name").value || "Valued Customer";
             var brand = document.getElementById("inv-brand").value;
             var size = document.getElementById("inv-size").value;
-            var qty = document.getElementById("panel-qty").value;
+            var qty = parseInt(document.getElementById("panel-qty").value) || 0;
+            
+            // Re-calculating directly into mathematical variables for bulletproof WhatsApp compilation
+            var ratePerPanel = 80;
+            var blowerCost = document.getElementById("blower-check").checked ? 500 : 0;
+            var finalBillCalculated = (qty * ratePerPanel) + blowerCost;
+            
             var blowerActive = document.getElementById("blower-check").checked ? "Yes (Inverter Blower + DB Box Cable Check)" : "No";
-            var finalPrice = document.getElementById("total-price").innerText;
             
             var text = "🚀 *M S Solar Cleaning - New Booking* 🚀%0A%0A" + 
                        "*Customer Name:* " + encodeURIComponent(name) + "%0A" +
@@ -420,7 +425,7 @@
                        "*Inverter Brand:* " + encodeURIComponent(brand) + "%0A" +
                        "*Inverter Capacity:* " + encodeURIComponent(size) + "%0A" +
                        "*Blower & DB Tightening Added:* " + encodeURIComponent(blowerActive) + "%0A%0A" +
-                       "💰 *Estimated Bill:* Rs. " + finalPrice;
+                       "💰 *Estimated Bill:* Rs. " + finalBillCalculated;
             
             var url = "https://wa.me/" + phoneNumber + "?text=" + text;
             window.open(url, '_blank');
