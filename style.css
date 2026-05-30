@@ -1,28 +1,220 @@
-/* WhatsApp Section ki Styling - CSS file ke end mein paste karein */
+/* Base Reset & Fonts */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header & Logo Layout */
+.main-header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.site-logo {
+    max-height: 50px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555;
+    margin-left: 20px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #007bff;
+}
+
+/* Premium Subscription Section Styling */
+.subscription-section {
+    padding: 60px 20px;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+}
+
+.subscription-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    max-width: 600px;
+    width: 100%;
+    border-top: 6px solid #007bff; /* Premium Blue Touch */
+}
+
+.subscription-card h2 {
+    color: #222;
+    margin-top: 15px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.subscription-card p {
+    color: #666;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.subscription-card .badge {
+    background: #fff3cd;
+    color: #856404;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.benefits-list {
+    margin: 30px 0;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.benefit-item .icon {
+    font-size: 24px;
+    margin-right: 15px;
+    margin-top: 2px;
+}
+
+.benefit-item h4 {
+    margin: 0 0 5px 0;
+    color: #007bff;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.benefit-item p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.subscription-card .tagline {
+    background: #e2e3e5;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    color: #383d41;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.sub-btn {
+    display: block;
+    text-align: center;
+    background: #28a745; /* Clean Green Button */
+    color: white;
+    text-decoration: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.sub-btn:hover {
+    background: #218838;
+}
+
+/* Contact & WhatsApp QR Section Styling */
+.contact-section {
+    padding: 50px 20px;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+}
+
 .whatsapp-container {
     text-align: center;
-    padding: 20px;
-    border: 2px solid #25D366;
-    border-radius: 10px;
-    max-width: 250px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9; /* Halka background color */
+    padding: 25px;
+    border: 2px solid #25D366; /* WhatsApp Official Green */
+    border-radius: 12px;
+    max-width: 280px;
+    width: 100%;
+    background-color: #fafafa;
 }
+
 .wa-icon {
-    width: 30px;
+    width: 28px;
     vertical-align: middle;
-    margin-right: 10px;
+    margin-right: 8px;
 }
-.whatsapp-header h3 {923084462121
+
+.whatsapp-header h3 {
     display: inline-block;
     font-size: 16px;
     color: #25D366;
     margin: 0;
+    font-weight: 700;
 }
+
 .qr-code {
-    margin-top: 15px;
-    border: 1px solid #ddd;
-    padding: 5px;
+    margin: 20px 0 15px 0;
+    border: 1px solid #eee;
+    padding: 8px;
     background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.qr-text {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Footer Styling */
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: #fff;
+    font-size: 14px;
+}
+
+/* Responsive Handling for Small Mobile Phones */
+@media (max-width: 480px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .nav-links a {
+        margin: 0 10px;
+    }
+    .subscription-card {
+        padding: 20px;
+    }
+    .subscription-card h2 {
+        font-size: 20px;
+    }
 }
