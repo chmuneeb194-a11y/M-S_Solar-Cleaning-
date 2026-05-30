@@ -1,0 +1,28 @@
+/* WhatsApp Section ki Styling - CSS file ke end mein paste karein */
+.whatsapp-container {
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #25D366;
+    border-radius: 10px;
+    max-width: 250px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* Halka background color */
+}
+.wa-icon {
+    width: 30px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.whatsapp-header h3 {923084462121
+    display: inline-block;
+    font-size: 16px;
+    color: #25D366;
+    margin: 0;
+}
+.qr-code {
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    background: white;
+}
