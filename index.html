@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @keyframes pulse-soft { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.95; transform: scale(1.01); } }
+        .tech-animate { animation: pulse-soft 4s infinite ease-in-out; }
         html { scroll-behavior: smooth; }
     </style>
 </head>
@@ -22,13 +24,14 @@
             <nav class="hidden md:flex space-x-8 font-medium">
                 <a href="#home" class="text-blue-900 hover:text-yellow-500">Home</a>
                 <a href="#tools" class="text-blue-900 hover:text-yellow-500">Our Machinery</a>
+                <a href="#technical" class="text-blue-900 hover:text-yellow-500">Inverter Diagnostic</a>
                 <a href="#calculator" class="text-blue-900 hover:text-yellow-500">Live Calculator</a>
             </nav>
             <a href="#calculator" class="bg-green-500 text-white px-5 py-2.5 rounded-full font-semibold">Booking</a>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (Team Image Included) -->
     <section id="home" class="relative bg-blue-900 text-white py-12 px-4 text-center">
         <div class="container mx-auto max-w-lg">
             <img src="13672_2.jpg" class="rounded-3xl shadow-2xl mb-8 border-4 border-yellow-500" alt="Team Lead">
@@ -38,17 +41,15 @@
         </div>
     </section>
 
-    <!-- Machinery Section (Blower removed) -->
+    <!-- Machinery Section (Blower details removed) -->
     <section id="tools" class="py-16 bg-gray-50 px-4">
         <div class="container mx-auto max-w-6xl">
             <h2 class="text-3xl font-bold text-blue-900 text-center mb-12">Hamare Professional Tools</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center">
-                <!-- Pressure Washer -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                     <img src="ingo.jpg" class="w-full h-56 object-contain mb-4">
                     <h3 class="font-bold text-blue-900 text-center">Ingco Pressure Washer</h3>
                 </div>
-                <!-- Soft Brush -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                     <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=500&q=80" class="w-full h-56 object-cover mb-4">
                     <h3 class="font-bold text-blue-900 text-center">Telescopic Soft Brush</h3>
@@ -57,7 +58,7 @@
         </div>
     </section>
 
-    <!-- Calculator Section -->
+    <!-- Calculator Section (Rate 80 + Blower Checkbox) -->
     <section id="calculator" class="py-16 px-4">
         <div class="container mx-auto max-w-xl bg-white p-8 rounded-3xl shadow-xl">
             <h2 class="text-2xl font-bold text-blue-900 mb-6 text-center">Live Price Calculator</h2>
@@ -79,6 +80,19 @@
         </div>
     </section>
 
+    <!-- Inverter Diagnostic Section -->
+    <section id="technical" class="py-16 bg-blue-50 px-4">
+        <div class="container mx-auto max-w-5xl text-center">
+            <h2 class="text-3xl font-bold text-blue-900">Inverter Diagnostic</h2>
+            <p class="text-gray-600 mt-4">Hum sirf dhote nahi hain, balkay inverters par generation check kar ke farq dikhate hain.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-500 py-6 text-center text-xs">
+        <p>&copy; 2026 M S Solar Cleaning. All Rights Reserved.</p>
+    </footer>
+
     <script>
         function changePanels(amount) {
             var qtyInput = document.getElementById("panel-qty");
@@ -90,7 +104,7 @@
         function calculateBill() {
             var panels = parseInt(document.getElementById("panel-qty").value) || 0;
             var blower = document.getElementById("blower-check").checked ? 500 : 0;
-            var total = (panels * 80) + blower;
+            var total = (panels * 80) + blower; // Rate 80
             document.getElementById("total-price").innerText = total;
         }
         function sendBooking() {
