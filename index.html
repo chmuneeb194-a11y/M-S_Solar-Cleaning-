@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M S Solar Cleaning | Sahiwal Professional Solar Maintenance</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @keyframes pulse-soft { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.95; transform: scale(1.01); } }
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.95; transform: scale(1.01); }
+        }
         .tech-animate { animation: pulse-soft 4s infinite ease-in-out; }
         html { scroll-behavior: smooth; }
         img { image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
@@ -20,7 +24,7 @@
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <div class="relative bg-blue-100 p-2 rounded-xl text-blue-600 text-xl">
-                    <i class="fas fa-solar-panel"></i>
+                    <i class="fas fa-solar-panel"></i> 
                 </div>
                 <span class="text-2xl font-bold text-blue-900 tracking-tight">M S Solar<span class="text-yellow-500"> Cleaning</span></span>
             </div>
@@ -37,12 +41,12 @@
     </header>
 
     <!-- Hero Section (Cleaned) -->
-    <section id="home" class="relative bg-blue-900 text-white py-24 px-4 text-center">
+    <section id="home" class="relative bg-blue-900 text-white py-24 px-4 text-center overflow-hidden">
         <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">Gande Solar Panels?<br><span class="text-yellow-400">25% Tak Bijli Ka Nuqsaan!</span></h1>
         <p class="text-xl text-gray-300">Ab aapke apne shehar Sahiwal mein - Professional solar cleaning service.</p>
     </section>
 
-    <!-- Tools & Machinery Showcase -->
+    <!-- Tools & Machinery Showcase (Blower removed from here) -->
     <section id="tools" class="py-16 bg-gray-50 px-4">
         <div class="container mx-auto max-w-6xl">
             <h2 class="text-3xl font-bold text-blue-900 text-center mb-12">Hamare Professional Tools</h2>
@@ -71,7 +75,7 @@
                     <button type="button" onclick="changePanels(1)" class="bg-blue-900 text-white w-12 h-12 rounded-xl text-xl">+</button>
                 </div>
 
-                <!-- Blower Service Toggle -->
+                <!-- Blower Service Toggle Added -->
                 <div class="mb-6 flex items-center p-4 bg-white border border-gray-200 rounded-xl">
                     <input type="checkbox" id="blower-check" onchange="calculateBill()" class="w-6 h-6 mr-3">
                     <label for="blower-check" class="font-bold text-blue-900">Add Inverter Blower Service (+Rs. 500)</label>
@@ -99,7 +103,7 @@
         function calculateBill() {
             var panels = parseInt(document.getElementById("panel-qty").value) || 0;
             var blower = document.getElementById("blower-check").checked ? 500 : 0;
-            var total = (panels * 80) + blower;
+            var total = (panels * 80) + blower; // Updated to Rs. 80
             document.getElementById("total-price").innerText = total;
         }
         function sendBooking() {
