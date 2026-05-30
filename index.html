@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Smooth Animation Transitions */
         @keyframes pulse-soft {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.95; transform: scale(1.01); }
@@ -26,7 +25,6 @@
             scroll-behavior: smooth; 
         }
         
-        /* Ultra HD image rendering settings */
         img {
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
@@ -40,39 +38,34 @@
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
 
-    <!-- Header / Navbar Section (Exact Brand & Logo Mapping from 13825.jpg) -->
+    <!-- Header / Navbar Section -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-3 py-3 flex justify-between items-center max-w-6xl">
             
-            <!-- Exact Match Identity Block -->
+            <!-- Exact Match Identity Block (13825.jpg) -->
             <a href="#home" class="flex items-center space-x-2 group min-w-0">
-                <!-- SVG Reconstructed Directly from Reference Image 13825.jpg -->
                 <svg class="h-11 w-11 sm:h-14 sm:w-14 transform group-hover:scale-105 transition duration-300 flex-shrink-0" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Background Sun (Right-Centered behind panel with sharp dynamic rays) -->
+                    <!-- Background Sun -->
                     <circle cx="68" cy="46" r="18" fill="#eab308" />
-                    <!-- Sun Rays Matching 13825.jpg Profile -->
                     <path d="M68 22 L68 12 M84 28 L92 20 M96 42 L106 42 M92 58 L100 66 M80 66 L86 76 M52 32 L44 26 M50 50 L40 46" stroke="#eab308" stroke-width="3.5" stroke-linecap="round"/>
                     
-                    <!-- Left 3D-Oriented Blue Solar Panel Base -->
+                    <!-- Left 3D Solar Panel Base -->
                     <path d="M28 42 L62 42 L62 66 L28 72 Z" fill="#0284c7" />
                     
-                    <!-- Dynamic Grid Cutouts / Cell Windows from 13825.jpg -->
-                    <fieldset style="display: none;"></fieldset>
-                    <!-- Row 1 Cells -->
+                    <!-- Grid Cells -->
                     <path d="M31 45 L40 45 L39 52 L31 54 Z" fill="#ffffff"/>
                     <path d="M43 45 L51 45 L50 52 L42 52 Z" fill="#ffffff"/>
                     <path d="M54 45 L60 45 L59 52 L53 52 Z" fill="#ffffff"/>
-                    <!-- Row 2 Cells -->
                     <path d="M31 57 L40 55 L39 65 L31 67 Z" fill="#ffffff"/>
                     <path d="M43 55 L51 55 L50 64 L42 64 Z" fill="#ffffff"/>
                     <path d="M54 55 L60 55 L59 63 L53 63 Z" fill="#ffffff"/>
                     
-                    <!-- Bottom Overlaying Cloud Outline & Waves (Exact Shape Base from 13825.jpg) -->
+                    <!-- Bottom Cloud Overlay -->
                     <path d="M22 74 C 24 64, 42 62, 46 68 C 50 58, 76 56, 82 66 C 88 58, 98 62, 94 76 C 96 84, 82 86, 78 84" stroke="#0284c7" stroke-width="3" stroke-linecap="round" fill="none"/>
                     <path d="M42 68 C 48 64, 62 63, 68 70 C 72 65, 82 66, 84 72" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                 </svg>
 
-                <!-- Brand Typography Match From 13827.jpg -->
+                <!-- Brand Typography -->
                 <div class="flex flex-col m-0 p-0 min-w-0">
                     <div class="text-xl sm:text-2xl font-black text-blue-900 tracking-tighter leading-none flex items-center truncate">
                         <span>MS</span>
@@ -85,7 +78,6 @@
                 </div>
             </a>
             
-            <!-- Navigation Links Block -->
             <nav class="hidden lg:flex space-x-6 font-medium">
                 <a href="#home" class="text-blue-900 hover:text-yellow-500 transition">Home</a>
                 <a href="#tools" class="text-blue-900 hover:text-yellow-500 transition">Our Machinery</a>
@@ -94,7 +86,6 @@
                 <a href="#calculator" class="text-blue-900 hover:text-yellow-500 transition">Live Calculator</a>
             </nav>
             
-            <!-- WhatsApp Action Button -->
             <a href="#calculator" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 sm:px-5 sm:py-2.5 rounded-full font-semibold flex items-center space-x-1 sm:space-x-2 transition shadow-lg text-xs sm:text-sm flex-shrink-0">
                 <i class="fab fa-whatsapp text-sm sm:text-xl"></i>
                 <span>Calculate & Book</span>
@@ -134,7 +125,6 @@
                 </div>
             </div>
             
-            <!-- Right Profile Frame -->
             <div class="md:col-span-5 flex justify-center">
                 <div class="relative p-2 bg-gradient-to-b from-yellow-400 to-blue-800 rounded-3xl shadow-2xl max-w-[340px] w-full">
                     <div class="bg-gray-800 rounded-2xl overflow-hidden h-[460px] w-full relative">
@@ -162,7 +152,6 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Tool 1 -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2">
                         <img src="ingo.jpg" alt="Ingco Pressure Washer" class="w-full h-full object-contain">
@@ -171,7 +160,6 @@
                     <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">Ingco Pressure Washer</h3>
                     <p class="text-xs text-gray-600 text-center leading-relaxed">High-pressure controlled flow aur special water hose jo bina scratch banaye jami hui sakht mitti ko mukammal utar deta hai.</p>
                 </div>
-                <!-- Tool 2 -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative">
                         <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=500&q=80" alt="Solar Telescopic Brush" class="w-full h-full object-cover">
@@ -180,7 +168,6 @@
                     <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">Soft Bristle Telescopic Brush</h3>
                     <p class="text-xs text-gray-600 text-center leading-relaxed">Solar protective layer aur anti-reflective glass coating ke liye special extended soft brush setup jo bina nuksaan pounchaye chamka deta hai.</p>
                 </div>
-                <!-- Tool 3 -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2">
                         <img src="hyundai-blower.jpg" alt="Hyundai Electric Blower" class="w-full h-full object-contain">
@@ -202,7 +189,6 @@
                 <p class="text-gray-600 text-sm mt-1">Hum sirf dhote nahi hain, balkay inverters par generation check kar ke farq dikhate hain.</p>
             </div>
 
-            <!-- Inverters Grid -->
             <div class="grid grid-cols-2 md:grid-cols-6 gap-4 mb-10 text-center">
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center">
                     <i class="fas fa-solar-panel text-blue-600 text-2xl mb-1"></i>
@@ -296,7 +282,6 @@
                     </div>
                 </div>
 
-                <!-- Fixed Text Layout Code Block -->
                 <div class="mt-8 bg-gray-50 border border-gray-100 p-4 rounded-xl text-center">
                     <p class="text-sm text-gray-700 italic font-medium">
                         💡 Sasti safai, zyada bachat! Aaj hi subscribe karein aur salana hazaron rupe ki bachat karein.
@@ -359,9 +344,12 @@
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-xl border border-gray-200 flex items-center">
-                        <input type="checkbox" id="blower-check" onchange="calculateBill()" class="w-5 h-5 mr-3 accent-green-500">
-                        <label for="blower-check" class="font-bold text-blue-900 text-sm select-none">Add Inverter Blower Service (+Rs. 500)</label>
+                    <!-- Red Circle Area Fixed with Professional Technical Wording -->
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 flex items-start">
+                        <input type="checkbox" id="blower-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-green-500 flex-shrink-0">
+                        <label for="blower-check" class="font-bold text-blue-900 text-xs sm:text-sm select-none leading-tight">
+                            Add Comprehensive Inverter Blower & DB Box Terminal Tightening Service (+Rs. 500)
+                        </label>
                     </div>
 
                     <div class="bg-blue-900 text-white p-5 rounded-2xl text-center shadow-inner relative overflow-hidden">
@@ -376,7 +364,7 @@
                 </div>
             </div>
 
-            <!-- WhatsApp QR Code Container -->
+            <!-- WhatsApp QR Code Container (WhatsApp Routing System Fully Active) -->
             <div class="mt-12 max-w-xs mx-auto bg-gray-50 border-2 border-green-500 p-5 rounded-2xl text-center shadow-md">
                 <div class="flex items-center justify-center space-x-2 mb-3">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
@@ -423,7 +411,7 @@
             var brand = document.getElementById("inv-brand").value;
             var size = document.getElementById("inv-size").value;
             var qty = document.getElementById("panel-qty").value;
-            var blowerActive = document.getElementById("blower-check").checked ? "Yes (+Rs. 500)" : "No";
+            var blowerActive = document.getElementById("blower-check").checked ? "Yes (Inverter Blower + DB Box Cable Check)" : "No";
             var finalPrice = document.getElementById("total-price").innerText;
             
             var text = "🚀 *M S Solar Cleaning - New Booking* 🚀%0A%0A" + 
@@ -431,7 +419,7 @@
                        "*Solar Panels Qty:* " + encodeURIComponent(qty) + " Panels%0A" +
                        "*Inverter Brand:* " + encodeURIComponent(brand) + "%0A" +
                        "*Inverter Capacity:* " + encodeURIComponent(size) + "%0A" +
-                       "*Blower Service Added:* " + encodeURIComponent(blowerActive) + "%0A%0A" +
+                       "*Blower & DB Tightening Added:* " + encodeURIComponent(blowerActive) + "%0A%0A" +
                        "💰 *Estimated Bill:* Rs. " + finalPrice;
             
             var url = "https://wa.me/" + phoneNumber + "?text=" + text;
