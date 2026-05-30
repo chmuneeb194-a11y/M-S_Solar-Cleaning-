@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M S Solar Cleaning | Sahiwal Professional Solar Maintenance</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -25,12 +24,17 @@
             <div class="flex items-center space-x-2">
                 <div class="relative bg-blue-100 p-2 rounded-xl text-blue-600 text-xl">
                     <i class="fas fa-solar-panel"></i> 
+                    <span class="absolute -top-1 -right-1 flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
                 </div>
                 <span class="text-2xl font-bold text-blue-900 tracking-tight">M S Solar<span class="text-yellow-500"> Cleaning</span></span>
             </div>
             <nav class="hidden md:flex space-x-8 font-medium">
                 <a href="#home" class="text-blue-900 hover:text-yellow-500 transition">Home</a>
                 <a href="#tools" class="text-blue-900 hover:text-yellow-500 transition">Our Machinery</a>
+                <a href="#technical" class="text-blue-900 hover:text-yellow-500 transition">Inverter Diagnostic</a>
                 <a href="#calculator" class="text-blue-900 hover:text-yellow-500 transition">Live Calculator</a>
             </nav>
             <a href="#calculator" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-full font-semibold flex items-center space-x-2 transition shadow-lg">
@@ -40,34 +44,52 @@
         </div>
     </header>
 
-    <!-- Hero Section (Cleaned) -->
-    <section id="home" class="relative bg-blue-900 text-white py-24 px-4 text-center overflow-hidden">
-        <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">Gande Solar Panels?<br><span class="text-yellow-400">25% Tak Bijli Ka Nuqsaan!</span></h1>
-        <p class="text-xl text-gray-300">Ab aapke apne shehar Sahiwal mein - Professional solar cleaning service.</p>
-    </section>
-
-    <!-- Tools & Machinery Showcase (Blower removed from here) -->
-    <section id="tools" class="py-16 bg-gray-50 px-4">
-        <div class="container mx-auto max-w-6xl">
-            <h2 class="text-3xl font-bold text-blue-900 text-center mb-12">Hamare Professional Tools</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="text-lg font-bold text-blue-900">Ingco Pressure Washer</h3>
-                    <p class="text-sm text-gray-600">High-pressure controlled flow, bina scratch banaye mitti saaf karta hai.</p>
-                </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="text-lg font-bold text-blue-900">Telescopic Soft Brush</h3>
-                    <p class="text-sm text-gray-600">Special extended brush setup jo anti-reflective coating ko mehfooz rakhta hai.</p>
+    <!-- Hero Section: Cleaned (Owner image removed) -->
+    <section id="home" class="relative bg-blue-900 text-white py-16 px-4 overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-10">
+            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1920&q=80" alt="Solar Panels Grid" class="w-full h-full object-cover">
+        </div>
+        
+        <div class="container mx-auto max-w-6xl relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-12 text-center">
+                <span class="bg-yellow-500 text-blue-950 text-xs uppercase font-bold px-3 py-1 rounded-full inline-flex items-center gap-1.5 shadow mb-4">
+                    <i class="fas fa-hard-hat animate-bounce"></i> 100% Safety Certified Cleaners
+                </span>
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">Gande Solar Panels?<br><span class="text-yellow-400">25% Tak Bijli Ka Nuqsaan!</span></h1>
+                <p class="text-base text-gray-300 mb-8 max-w-2xl mx-auto">Ab aapke apne shehar Sahiwal mein - Professional solar cleaning service. Hum Ingco pressure washers aur complete safety measures ke sath kaam karte hain.</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#calculator" class="bg-yellow-500 hover:bg-yellow-600 text-blue-950 font-bold px-6 py-3 rounded-lg text-center transition shadow-lg">Open Live Calculator</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Smart Calculator Section -->
-    <section id="calculator" class="py-16 bg-white px-4">
+    <!-- Tools & Machinery (Blower text removed) -->
+    <section id="tools" class="py-16 bg-gray-50 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2">
+                        <img src="ingo.jpg" alt="Ingco Pressure Washer" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-900 text-center">Ingco Pressure Washer</h3>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=500&q=80" alt="Brush" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-900 text-center">Telescopic Soft Brush</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Calculator Section (Rate 80 + Blower Checkbox added) -->
+    <section id="calculator" class="py-12 bg-white px-4">
         <div class="container mx-auto max-w-xl">
-            <h2 class="text-3xl font-bold text-blue-900 text-center mb-8">Live Price Calculator</h2>
-            <div class="bg-gray-50 p-8 rounded-3xl shadow-xl">
+            <div class="bg-gray-50 border border-gray-200 p-6 rounded-3xl shadow-xl">
+                <h2 class="text-2xl font-bold text-blue-900 mb-6 text-center">Live Price Calculator</h2>
+                
                 <label class="block text-xs font-bold uppercase text-gray-600 mb-2">Solar Panels Ki Tadad</label>
                 <div class="flex items-center space-x-3 mb-6">
                     <button type="button" onclick="changePanels(-1)" class="bg-blue-900 text-white w-12 h-12 rounded-xl text-xl">-</button>
@@ -75,18 +97,18 @@
                     <button type="button" onclick="changePanels(1)" class="bg-blue-900 text-white w-12 h-12 rounded-xl text-xl">+</button>
                 </div>
 
-                <!-- Blower Service Toggle Added -->
+                <!-- Blower Checkbox Added -->
                 <div class="mb-6 flex items-center p-4 bg-white border border-gray-200 rounded-xl">
                     <input type="checkbox" id="blower-check" onchange="calculateBill()" class="w-6 h-6 mr-3">
                     <label for="blower-check" class="font-bold text-blue-900">Add Inverter Blower Service (+Rs. 500)</label>
                 </div>
 
                 <div class="bg-blue-900 text-white p-5 rounded-2xl text-center">
-                    <p class="text-yellow-400 font-bold text-sm uppercase">Total Estimated Cost</p>
-                    <div class="text-4xl font-black mt-1">Rs. <span id="total-price">1140</span></div>
-                    <p class="text-[10px] text-blue-200 mt-2">Rate: Rs. 80 per panel</p>
+                    <p class="text-yellow-400 font-bold text-sm">Total Estimated Cost</p>
+                    <div class="text-4xl font-black">Rs. <span id="total-price">1140</span></div>
                 </div>
-                <button onclick="sendBooking()" class="w-full mt-5 bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-xl transition">WhatsApp Booking</button>
+
+                <button onclick="sendBooking()" class="w-full mt-5 bg-green-500 text-white font-bold py-3.5 rounded-xl">WhatsApp Booking</button>
             </div>
         </div>
     </section>
@@ -94,18 +116,19 @@
     <script>
         function changePanels(amount) {
             var qtyInput = document.getElementById("panel-qty");
-            var currentVal = parseInt(qtyInput.value) || 0;
-            var newVal = currentVal + amount;
+            var newVal = parseInt(qtyInput.value) + amount;
             if (newVal < 1) newVal = 1;
             qtyInput.value = newVal;
             calculateBill();
         }
+
         function calculateBill() {
             var panels = parseInt(document.getElementById("panel-qty").value) || 0;
             var blower = document.getElementById("blower-check").checked ? 500 : 0;
-            var total = (panels * 80) + blower; // Updated to Rs. 80
+            var total = (panels * 80) + blower; // Updated to 80
             document.getElementById("total-price").innerText = total;
         }
+
         function sendBooking() {
             var qty = document.getElementById("panel-qty").value;
             var blower = document.getElementById("blower-check").checked ? "Yes" : "No";
