@@ -13,8 +13,8 @@
     
     <style>
         @keyframes pulse-soft {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.95; transform: scale(1.01); }
+            0%, 100__% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.95; transform: scale(1.005); }
         }
         
         .tech-animate { 
@@ -30,35 +30,58 @@
             image-rendering: crisp-edges;
         }
 
-        /* Premium iOS iPhone Glossy Glass Style */
+        /* Pure iOS Dynamic Metallic Background Gradient */
+        body {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 40%, #cbd5e1 100%);
+            background-attachment: fixed;
+        }
+
+        /* Master iPhone Glossy Glassmorphism Engine */
         .ios-glass {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
+            background: rgba(255, 255, 255, 0.45) !important;
+            backdrop-filter: blur(20px) saturate(190%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.55) !important;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 
+                        inset 0 1px 1px 0 rgba(255, 255, 255, 0.6) !important;
         }
 
+        /* Dark Frosted Glass Overlay for Special Nodes */
         .ios-glass-dark {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            background: rgba(15, 23, 42, 0.65) !important;
+            backdrop-filter: blur(20px) saturate(160%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.3), 
+                        inset 0 1px 0 0 rgba(255, 255, 255, 0.2) !important;
         }
 
-        /* Fixed Image Slider Container for 14482_2.png */
+        /* Deep Sub-surface Gloss Panels */
+        .ios-input-glass {
+            background: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
+            box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.04) !important;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ios-input-glass:focus {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border-color: #2563eb !important;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15), inset 0 1.5px 3px rgba(0, 0, 0, 0.02) !important;
+        }
+
+        /* Fixed Image Slider Container aligned perfectly to befor-and-after-wash.png */
         .slider-container {
             position: relative;
             width: 100%;
             height: 380px;
             overflow: hidden;
             border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
-        /* Left Split Box - Houses the base image container */
         .slider-side {
             position: absolute;
             top: 0;
@@ -78,7 +101,6 @@
             z-index: 10;
         }
 
-        /* Image offsets to prevent squishing or resizing during movement */
         .slider-side img {
             position: absolute;
             top: 0;
@@ -89,21 +111,22 @@
 
         .side-left img {
             left: 0;
-            /* Explicit fallback image alignment framework */
         }
 
         .side-right img {
             right: 0;
         }
 
-        /* Overlays to simulate contrast logic cleanly */
+        /* Pure CSS Dynamic Tint filter simulating organic dust overlay */
         .dirty-overlay::after {
             content: "";
             position: absolute;
             inset: 0;
-            background: rgba(139, 92, 26, 0.25);
+            background: rgba(120, 85, 35, 0.28);
             mix-blend-mode: multiply;
             pointer-events: none;
+            backdrop-filter: contrast(85%) brightness(88%);
+            -webkit-backdrop-filter: contrast(85%) brightness(88%);
         }
 
         .slider-input {
@@ -136,6 +159,7 @@
             z-index: 25;
             pointer-events: none;
             transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
         }
         .slider-button {
             position: absolute;
@@ -143,7 +167,8 @@
             left: 50%;
             width: 44px;
             height: 44px;
-            background: #eab308;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
             color: #1e3a8a;
             border-radius: 50%;
             display: flex;
@@ -152,17 +177,17 @@
             z-index: 26;
             pointer-events: none;
             transform: translate(-50%, -50%);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             font-size: 14px;
-            border: 2px solid #ffffff;
+            border: 2px solid #eab308;
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800 antialiased">
+<body class="font-sans text-slate-800 antialiased">
 
     <!-- Header Section -->
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-white/40 shadow-sm">
-        <div class="container mx-auto px-3 py-3 flex justify-between items-center max-w-6xl">
+    <header class="sticky top-0 z-50 bg-white/40 backdrop-blur-xl border-b border-white/50 shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center max-w-6xl">
             
             <a href="#home" class="flex items-center space-x-2 group min-w-0">
                 <svg class="h-11 w-11 sm:h-14 sm:w-14 transform group-hover:scale-105 transition duration-300 flex-shrink-0" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -180,12 +205,12 @@
                 </svg>
 
                 <div class="flex flex-col m-0 p-0 min-w-0">
-                    <div class="text-xl sm:text-2xl font-black text-blue-900 tracking-tighter leading-none flex items-center truncate">
+                    <div class="text-xl sm:text-2xl font-black text-blue-950 tracking-tighter leading-none flex items-center truncate">
                         <span>MS</span>
                         <span class="text-blue-500 mx-0.5">_</span>
                         <span>SOLAR</span>
                     </div>
-                    <span class="text-[9px] sm:text-[10px] font-black text-green-600 uppercase tracking-wider sm:tracking-widest mt-1 leading-none flex items-center gap-1 truncate">
+                    <span class="text-[9px] sm:text-[10px] font-black text-green-700 uppercase tracking-wider sm:tracking-widest mt-1 leading-none flex items-center gap-1 truncate">
                         <i class="fas fa-check-double text-[7px] sm:text-[8px]"></i> Cleaning Services
                     </span>
                 </div>
@@ -239,7 +264,7 @@
             </div>
             
             <div class="md:col-span-5 flex justify-center">
-                <div class="relative p-2 bg-gradient-to-b from-white/20 to-white/5 backdrop-blur-xl rounded-3xl shadow-2xl max-w-[340px] w-full border border-white/30">
+                <div class="relative p-2 bg-white/15 backdrop-blur-xl rounded-3xl shadow-2xl max-w-[340px] w-full border border-white/30">
                     <div class="bg-slate-800 rounded-2xl overflow-hidden h-[460px] w-full relative">
                         <img src="team-solar-service.jpg" alt="M S Solar Team Action" class="w-full h-full object-cover object-center">
                         <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent p-5 text-center">
@@ -256,17 +281,17 @@
     </section>
 
     <!-- Machinery Profile & Slider Section -->
-    <section id="tools" class="py-20 bg-slate-50 px-4">
+    <section id="tools" class="py-20 px-4">
         <div class="container mx-auto max-w-6xl">
             <div class="text-center mb-16">
-                <span class="text-blue-600 font-bold text-xs tracking-widest uppercase bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">Machinery Profile</span>
+                <span class="text-blue-700 font-black text-xs tracking-widest uppercase bg-blue-100/60 px-3 py-1.5 rounded-full border border-white/60 shadow-sm inline-block">Machinery Profile</span>
                 <h2 class="text-3xl md:text-4xl font-black text-slate-900 mt-3">Hamare Professional Tools & Equipment</h2>
                 <p class="text-slate-600 text-sm mt-2 max-w-xl mx-auto">Hum panels aur inverter ki long-life performance bahal karne ke liye professional machinery ka istemal karte hain.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                 <div class="ios-glass p-5 rounded-3xl hover:shadow-xl transition duration-300">
-                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2 shadow-inner">
+                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative bg-white/50 flex items-center justify-center p-2 shadow-inner border border-white/40">
                         <img src="ingo.jpg" alt="Ingco Pressure Washer" class="w-full h-full object-contain">
                         <span class="absolute bottom-2 right-2 bg-slate-900 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">INGCO 1800W</span>
                     </div>
@@ -274,7 +299,7 @@
                     <p class="text-xs text-slate-600 text-center leading-relaxed">High-pressure controlled flow aur special water hose jo bina scratch banaye jami hui sakht mitti ko mukammal utar deta hai.</p>
                 </div>
                 <div class="ios-glass p-5 rounded-3xl hover:shadow-xl transition duration-300">
-                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative shadow-inner">
+                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative shadow-inner border border-white/40">
                         <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=500&q=80" alt="Solar Telescopic Brush" class="w-full h-full object-cover">
                         <span class="absolute bottom-2 right-2 bg-yellow-500 text-slate-950 text-[10px] px-2 py-0.5 rounded font-bold uppercase">Soft Micro-Bristles</span>
                     </div>
@@ -282,7 +307,7 @@
                     <p class="text-xs text-slate-600 text-center leading-relaxed">Solar protective layer aur anti-reflective glass coating ke liye special extended soft brush setup jo bina nuksaan pounchaye chamka deta hai.</p>
                 </div>
                 <div class="ios-glass p-5 rounded-3xl hover:shadow-xl transition duration-300">
-                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2 shadow-inner">
+                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative bg-white/50 flex items-center justify-center p-2 shadow-inner border border-white/40">
                         <img src="hyundai-blower.jpg" alt="Hyundai Electric Blower" class="w-full h-full object-contain">
                         <span class="absolute bottom-2 right-2 bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">HYUNDAI 700W</span>
                     </div>
@@ -291,8 +316,8 @@
                 </div>
             </div>
 
-            <!-- BEFORE/AFTER SLIDER BOX FIXED FOR 14482_2.png -->
-            <div class="max-w-2xl mx-auto ios-glass p-6 rounded-3xl shadow-xl border border-white/50">
+            <!-- BEFORE/AFTER SLIDER BOX LINKED TO NEW REPO FILENAME -->
+            <div class="max-w-2xl mx-auto ios-glass p-6 rounded-3xl shadow-xl">
                 <h3 class="text-xl font-black text-slate-900 text-center mb-3"><i class="fas fa-sparkles text-yellow-500"></i> Results (Before vs After)</h3>
                 
                 <div class="flex justify-center gap-3 mb-5">
@@ -307,12 +332,12 @@
                 <div class="slider-container" id="slider-box-shell">
                     <!-- Clean State Layer (Right Base View) -->
                     <div class="slider-side side-right">
-                        <img id="img-clean-src" src="14482_2.png" alt="Clean Solar Panel Stack" class="w-full h-full">
+                        <img id="img-clean-src" src="befor-and-after-wash.png" alt="Clean Solar Panel Stack" class="w-full h-full">
                     </div>
                     
                     <!-- Dirty State Layer (Left Adjustable Overlay View) -->
                     <div class="slider-side side-left dirty-overlay" id="left-clip-pane">
-                        <img id="img-dirty-src" src="14482_2.png" alt="Dirty Solar Panel Stack" class="w-full h-full">
+                        <img id="img-dirty-src" src="befor-and-after-wash.png" alt="Dirty Solar Panel Stack" class="w-full h-full">
                     </div>
                     
                     <!-- Interactive Slidebar Controls -->
@@ -326,21 +351,21 @@
             <!-- SAFETY & TRUST BADGES SECTION -->
             <div class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
                 <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-md border border-white">
+                    <div class="w-12 h-12 bg-white/60 text-blue-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h4 class="text-xs font-bold text-slate-900 mb-1">Certified Safety Standards</h4>
                     <p class="text-[11px] text-slate-500 leading-tight">Zero structural damage or scratching risks during process</p>
                 </div>
-                <div class="flex flex-col items-center border-y sm:border-y-0 sm:border-x border-slate-200/60 py-4 sm:py-0">
-                    <div class="w-12 h-12 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-md border border-white">
+                <div class="flex flex-col items-center border-y sm:border-y-0 sm:border-x border-white/50 py-4 sm:py-0">
+                    <div class="w-12 h-12 bg-white/60 text-green-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white">
                         <i class="fas fa-user-check"></i>
                     </div>
                     <h4 class="text-xs font-bold text-slate-900 mb-1">Trained Staff Team</h4>
                     <p class="text-[11px] text-slate-500 leading-tight">Equipped with anti-slip shoes and lifelines harness safety</p>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-md border border-white">
+                    <div class="w-12 h-12 bg-white/60 text-yellow-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white">
                         <i class="fas fa-handshake-angle"></i>
                     </div>
                     <h4 class="text-xs font-bold text-slate-900 mb-1">Damage Insurance Cover</h4>
@@ -352,10 +377,10 @@
     </section>
 
     <!-- Supported Inverters & Telemetry -->
-    <section id="technical" class="py-20 bg-gradient-to-b from-blue-50 to-slate-100 px-4 border-t border-b border-slate-200/60">
+    <section id="technical" class="py-20 px-4">
         <div class="container mx-auto max-w-5xl">
             <div class="text-center mb-14">
-                <span class="text-yellow-600 font-bold text-xs tracking-widest uppercase bg-yellow-100 px-3 py-1.5 rounded-full border border-yellow-200">Inverter Diagnostic</span>
+                <span class="text-yellow-800 font-black text-xs tracking-widest uppercase bg-yellow-100/60 px-3 py-1.5 rounded-full border border-white/60 shadow-sm inline-block">Inverter Diagnostic</span>
                 <h2 class="text-3xl font-black text-slate-900 mt-3">Supported Smart Inverters & Telemetry</h2>
                 <p class="text-slate-600 text-sm mt-2">Hum sirf dhote nahi hain, balkay inverters par generation check kar ke farq dikhate hain.</p>
             </div>
@@ -414,7 +439,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div>
                     <div class="ios-glass p-5 rounded-2xl flex items-start space-x-4">
-                        <div class="bg-blue-100 text-blue-600 p-3 rounded-xl text-xl"><i class="fas fa-chart-line"></i></div>
+                        <div class="bg-blue-100/80 text-blue-600 p-3 rounded-xl text-xl border border-white"><i class="fas fa-chart-line"></i></div>
                         <div>
                             <h4 class="font-bold text-slate-900 text-sm">KW Output Boost</h4>
                             <p class="text-slate-600 text-xs mt-1">Tamam inverter's jaise high-efficiency setups par wash ke foran baad Kilowatt (KW) production barh jati hai.</p>
@@ -432,9 +457,9 @@
     </section>
 
     <!-- Subscription Program -->
-    <section id="subscription" class="py-20 bg-slate-50 px-4">
+    <section id="subscription" class="py-20 px-4">
         <div class="container mx-auto max-w-4xl text-center">
-            <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider border border-yellow-200">
+            <span class="bg-yellow-100/70 text-yellow-800 text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider border border-white/60 shadow-sm inline-block">
                 🌟 Premium Membership
             </span>
             <h2 class="text-3xl font-black text-slate-900 mt-4 mb-4">Regular Cleaning vs. Smart Saving!</h2>
@@ -442,14 +467,14 @@
                 Humare monthly subscription plan ke sath apne solar panels ki efficiency ko 100% barkarar rakhein aur payein <span class="font-bold text-blue-600">Special Discounts</span> har mahine.
             </p>
 
-            <div class="ios-glass border border-white rounded-3xl p-8 shadow-2xl max-w-2xl mx-auto text-left relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-black px-4 py-1.5 rounded-bl-2xl uppercase tracking-widest">
+            <div class="ios-glass rounded-3xl p-8 shadow-2xl max-w-2xl mx-auto text-left relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-black px-4 py-1.5 rounded-bl-2xl uppercase tracking-widest shadow-md">
                     Best Value
                 </div>
                 
                 <div class="space-y-6">
                     <div class="flex items-start space-x-4">
-                        <div class="bg-blue-100 text-blue-600 p-2.5 rounded-xl text-xl mt-0.5">
+                        <div class="bg-white/60 text-blue-600 p-2.5 rounded-xl text-xl mt-0.5 shadow-sm border border-white">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div>
@@ -458,16 +483,16 @@
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
-                        <div class="bg-green-100 text-green-600 p-2.5 rounded-xl text-xl mt-0.5">
+                        <div class="bg-white/60 text-green-600 p-2.5 rounded-xl text-xl mt-0.5 shadow-sm border border-white">
                             <i class="fas fa-tags"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-green-600 text-base">Exclusive Discounted Rates</h4>
+                            <h4 class="font-bold text-green-700 text-base">Exclusive Discounted Rates</h4>
                             <p class="text-slate-600 text-sm mt-0.5">One-time service se bohot kam qeemat mein monthly maintenance aur locked discount setup.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
-                        <div class="bg-yellow-100 text-yellow-600 p-2.5 rounded-xl text-xl mt-0.5">
+                        <div class="bg-white/60 text-yellow-600 p-2.5 rounded-xl text-xl mt-0.5 shadow-sm border border-white">
                             <i class="fas fa-tools"></i>
                         </div>
                         <div>
@@ -477,7 +502,7 @@
                     </div>
                 </div>
 
-                <div class="mt-8 bg-white/60 border border-slate-200/40 p-4 rounded-xl text-center shadow-inner">
+                <div class="mt-8 bg-white/40 border border-white/50 p-4 rounded-xl text-center shadow-inner">
                     <p class="text-sm text-slate-700 italic font-semibold">
                         💡 Sasti safai, zyada bachat! Aaj hi subscribe karein aur salana hazaron rupe ki bachat karein.
                     </p>
@@ -491,15 +516,15 @@
     </section>
 
     <!-- Live Bill Calculator & Form Section -->
-    <section id="calculator" class="py-16 bg-white px-4">
+    <section id="calculator" class="py-16 px-4">
         <div class="container mx-auto max-w-4xl">
             <div class="text-center mb-10">
-                <span class="text-green-600 font-bold text-xs tracking-widest uppercase bg-green-50 px-3 py-1.5 rounded-full border border-green-200">Instant Quote</span>
+                <span class="text-green-700 font-black text-xs tracking-widest uppercase bg-green-100/60 px-3 py-1.5 rounded-full border border-white/60 shadow-sm inline-block">Instant Quote</span>
                 <h2 class="text-3xl font-black text-slate-900 mt-3">Live Price Estimation Calculator</h2>
                 <p class="text-slate-500 text-sm mt-2">Apne panels ki tadad set karein aur automatic real-time bill check karein (Rs. 80 Per Panel).</p>
             </div>
 
-            <div class="max-w-xl mx-auto mb-8 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-2xl shadow-sm animate-pulse">
+            <div class="max-w-xl mx-auto mb-8 bg-red-50/70 backdrop-blur-md border-l-4 border-red-500 p-4 rounded-r-2xl shadow-sm border-y border-r border-white/40">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <i class="fas fa-exclamation-triangle text-red-500 text-lg"></i>
@@ -513,19 +538,19 @@
                 </div>
             </div>
 
-            <div class="ios-glass p-6 rounded-3xl shadow-2xl max-w-xl mx-auto relative border border-white">
+            <div class="ios-glass p-6 rounded-3xl shadow-2xl max-w-xl mx-auto relative">
                 <div class="space-y-6">
                     
-                    <div class="bg-blue-50/60 border border-blue-200 p-4 rounded-2xl shadow-inner">
+                    <div class="bg-blue-50/40 border border-white p-4 rounded-2xl shadow-inner">
                         <label class="block text-xs font-black uppercase text-blue-900 mb-1">🔍 Customer Loyalty & Wash History Tracker</label>
                         <p class="text-[11px] text-slate-600 mb-2">Apna WhatsApp / Mobile Number likh kar record check karein:</p>
                         <div class="flex gap-2">
-                            <input type="text" id="cust-phone" oninput="calculateBill()" placeholder="e.g. 03084462121" class="w-full border border-slate-300 px-3 py-2 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-bold text-slate-700 shadow-sm">
+                            <input type="text" id="cust-phone" oninput="calculateBill()" placeholder="e.g. 03084462121" class="w-full ios-input-glass px-3 py-2 rounded-xl focus:outline-none font-bold text-slate-700 shadow-sm">
                             <button type="button" onclick="checkCustomerHistory()" class="bg-blue-900 text-white font-bold px-4 py-2 rounded-xl text-xs hover:bg-blue-800 transition shadow whitespace-nowrap">
                                 Check History
                             </button>
                         </div>
-                        <div id="history-status-box" class="hidden mt-3 bg-white border border-blue-100 p-3 rounded-xl text-xs shadow-sm">
+                        <div id="history-status-box" class="hidden mt-3 bg-white/60 border border-white p-3 rounded-xl text-xs shadow-sm">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="text-slate-600">Total Washes This Month:</span>
                                 <span id="history-count-badge" class="bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold">0</span>
@@ -539,7 +564,7 @@
                     
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Service Type / Plan Package</label>
-                        <select id="service-package" onchange="calculateBill()" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-bold text-blue-900 shadow-sm">
+                        <select id="service-package" onchange="calculateBill()" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-bold text-blue-900 shadow-sm">
                             <option value="One-Time">One-Time Standard Service (Regular Rate)</option>
                             <option value="Monthly">Monthly Subscribed Plan (10% Flat Discount On Total)</option>
                         </select>
@@ -548,12 +573,12 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Customer Name</label>
-                            <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
+                            <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                         </div>
                         
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Referral Code (Optional)</label>
-                            <input type="text" id="referral-code" placeholder="e.g. FRIEND10" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
+                            <input type="text" id="referral-code" placeholder="e.g. FRIEND10" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                         </div>
                     </div>
 
@@ -565,9 +590,9 @@
                             </a>
                         </label>
                         <div class="relative">
-                            <input type="text" id="cust-address" placeholder="e.g. Farid Town, Scheme No. 2, Tariq Road" class="w-full border border-slate-300 pl-4 pr-32 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium text-sm shadow-sm">
+                            <input type="text" id="cust-address" placeholder="e.g. Farid Town, Scheme No. 2, Tariq Road" class="w-full ios-input-glass pl-4 pr-32 py-3 rounded-xl focus:outline-none font-medium text-sm shadow-sm">
                             <div class="absolute right-2 top-2">
-                                <input type="text" id="maps-url" placeholder="Paste Map Link" class="border border-slate-200 text-[10px] px-2 py-1.5 rounded-lg focus:outline-none focus:border-blue-500 bg-slate-50 max-w-[110px] inline-block font-sans shadow-inner">
+                                <input type="text" id="maps-url" placeholder="Paste Map Link" class="border border-slate-300 text-[10px] px-2 py-1.5 rounded-lg focus:outline-none bg-white/70 backdrop-blur-sm max-w-[110px] inline-block font-sans shadow-inner">
                             </div>
                         </div>
                     </div>
@@ -575,11 +600,11 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Date</label>
-                            <input type="date" id="booking-date" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
+                            <input type="date" id="booking-date" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Time Slot</label>
-                            <select id="booking-time" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
+                            <select id="booking-time" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                                 <option value="08:00 AM - 11:00 AM">08:00 AM - 11:00 AM</option>
                                 <option value="11:00 AM - 02:00 PM">11:00 AM - 02:00 PM</option>
                                 <option value="02:00 PM - 05:00 PM">02:00 PM - 05:00 PM</option>
@@ -589,7 +614,7 @@
 
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Solar Panels Brand Model</label>
-                        <select id="panel-brand" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
+                        <select id="panel-brand" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                             <option value="Canadian Solar">Canadian Solar (High Efficiency)</option>
                             <option value="Longi Solar">Longi Solar</option>
                             <option value="Jinko Solar">Jinko Solar</option>
@@ -602,7 +627,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Inverter Brand</label>
-                            <select id="inv-brand" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
+                            <select id="inv-brand" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                                 <option value="Solis">Solis</option>
                                 <option value="Knox">Knox</option>
                                 <option value="MaxPower">MaxPower</option>
@@ -619,7 +644,7 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">System Size (KW)</label>
-                            <select id="inv-size" onchange="autoSuggestPanels(this.value)" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
+                            <select id="inv-size" onchange="autoSuggestPanels(this.value)" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                                 <option value="3 KW">3 KW</option>
                                 <option value="5 KW">5 KW</option>
                                 <option value="6 KW">6 KW</option>
@@ -636,7 +661,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Total Inverters Count</label>
-                            <select id="inverter-qty" onchange="calculateBill()" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
+                            <select id="inverter-qty" onchange="calculateBill()" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                                 <option value="1">1 Inverter Setup</option>
                                 <option value="2">2 Inverters Multi-Setup</option>
                                 <option value="3">3 Inverters Multi-Setup</option>
@@ -645,7 +670,7 @@
                         
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Last Cleaned Status</label>
-                            <select id="cleaning-history" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
+                            <select id="cleaning-history" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                                 <option value="1 Month Ago">Cleaned 1 Month Ago</option>
                                 <option value="3 Months Ago">Cleaned 3 Months Ago</option>
                                 <option value="More Than 6 Months">More Than 6 Months / Never</option>
@@ -657,19 +682,19 @@
                         <label class="block text-xs font-bold uppercase text-slate-600 mb-2">Solar Panels Ki Tadad (Quantity)</label>
                         <div class="flex items-center space-x-3">
                             <button type="button" onclick="changePanels(-1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl hover:opacity-90 transition flex items-center justify-center shadow">-</button>
-                            <input type="number" id="panel-qty" value="8" min="1" oninput="calculateBill()" class="w-16 text-center border border-slate-300 h-12 rounded-xl font-bold text-xl focus:outline-none focus:border-blue-500 bg-white shadow-inner">
+                            <input type="number" id="panel-qty" value="8" min="1" oninput="calculateBill()" class="w-16 text-center ios-input-glass h-12 rounded-xl font-bold text-xl focus:outline-none shadow-inner">
                             <button type="button" onclick="changePanels(1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl hover:opacity-90 transition flex items-center justify-center shadow">+</button>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-start shadow-sm">
+                    <div class="bg-white/40 backdrop-blur-sm p-4 rounded-xl border border-white flex items-start shadow-sm">
                         <input type="checkbox" id="blower-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-green-500 flex-shrink-0">
                         <label for="blower-check" class="font-bold text-blue-900 text-xs sm:text-sm select-none leading-tight">
                             Add Comprehensive Inverter Blower & DB Box Terminal Tightening Service (+Rs. 500 Per Inverter)
                         </label>
                     </div>
 
-                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl flex items-start shadow-sm">
+                    <div class="bg-amber-50/50 backdrop-blur-sm border border-amber-200 p-4 rounded-xl flex items-start shadow-sm">
                         <input type="checkbox" id="urgent-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-amber-500 flex-shrink-0">
                         <label for="urgent-check" class="font-bold text-amber-900 text-xs sm:text-sm select-none leading-tight">
                             Request Emergency / Same-Day Fast Track Service (+Rs. 300 Emergency Fleet Charge)
@@ -677,7 +702,7 @@
                     </div>
 
                     <div class="text-right px-2">
-                        <span class="text-xs font-bold text-slate-600 bg-slate-200 px-3 py-1 rounded-full inline-block">
+                        <span class="text-xs font-bold text-slate-600 bg-white/60 border border-white px-3 py-1 rounded-full inline-block shadow-sm">
                             <i class="fas fa-stopwatch text-blue-900"></i> Est. Service Duration: <span id="est-time" class="text-blue-900 font-extrabold">45 Mins</span>
                         </span>
                     </div>
@@ -707,7 +732,7 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
                     <h3 class="text-base font-bold text-green-600 tracking-tight">Scan to Chat with Us</h3>
                 </div>
-                <div class="bg-white p-3 rounded-xl border border-slate-100 inline-block shadow-inner">
+                <div class="bg-white/80 backdrop-blur-sm p-3 rounded-xl border border-white inline-block shadow-inner">
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/923084462121" alt="WhatsApp QR Code" class="w-36 h-36">
                 </div>
                 <p class="text-[11px] text-slate-500 font-medium mt-3 leading-relaxed">
@@ -718,38 +743,38 @@
     </section>
 
     <!-- FAQ ACCORDION SECTION -->
-    <section class="py-16 bg-slate-50 px-4 border-t border-slate-200/60">
+    <section class="py-16 px-4">
         <div class="container mx-auto max-w-3xl">
             <h2 class="text-2xl font-black text-center text-slate-900 mb-2">Frequently Asked Questions</h2>
             <p class="text-slate-500 text-xs text-center max-w-md mx-auto mb-10">Sahiwal ke solar customers ke aam sawalaat aur unke tafseeli jawabaat.</p>
             
             <div class="space-y-4">
                 <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm">
-                    <button type="button" onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/40">
+                    <button type="button" onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/20">
                         <span>Why shouldn't I wash my panels with normal tap/ground water?</span>
                         <i id="faq-icon-1" class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
                     </button>
-                    <div id="faq-ans-1" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-slate-100 bg-white/30">
+                    <div id="faq-ans-1" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-white/20 bg-white/20">
                         Sahiwal ka zameeni paani (ground water) bohot khara hota hai aur usme high TDS hotay hain. Agar aap aam paani se panels dhoenge to un par safaid dhabbe (scaling) jamm jayegi, jo panel ki glass efficiency ko hamesha ke liye kam kar deti hai. Hum protective standards ka khyal rakhte hain.
                     </div>
                 </div>
 
                 <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm">
-                    <button type="button" onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/40">
+                    <button type="button" onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/20">
                         <span>What is covered under your 3-day after cleaning protection warranty?</span>
                         <i id="faq-icon-2" class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
                     </button>
-                    <div id="faq-ans-2" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-slate-100 bg-white/30">
+                    <div id="faq-ans-2" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-white/20 bg-white/20">
                         Agar hamari safai ke baad agle 3 din ke andar Sahiwal mein achanak mitti ka tufan, aandhi, ya barish aa jaye jis se panels dobara gande ho jayen, to aapko agli wash par special flat 20% discount diya jayega taake aapka nuksaan na ho.
                     </div>
                 </div>
 
                 <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm">
-                    <button type="button" onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/40">
+                    <button type="button" onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/20">
                         <span>Can thermal stress crack the glass during peak afternoon washing hours?</span>
                         <i id="faq-icon-3" class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
                     </button>
-                    <div id="faq-ans-3" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-slate-100 bg-white/30">
+                    <div id="faq-ans-3" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-white/20 bg-white/20">
                         Ji haan! Jab dopahar mein dhoop tez hoti hai to solar panel ka sheesha intehai garm hota hai. Agar us par achanak thanda paani daala jaye to thermal shock ki wajah se panel crack ho sakta hai. Isliye hum hamesha safe timing slots ko tarjeeh dete hain.
                     </div>
                 </div>
@@ -802,13 +827,11 @@
             var leftPane = document.getElementById("left-clip-pane");
             var containerWidth = document.getElementById("slider-box-shell").offsetWidth;
             
-            // Sync dynamic widths accurately
             sliderInput.value = value;
             leftPane.style.width = value + "%";
             sliderLine.style.left = value + "%";
             sliderBtn.style.left = value + "%";
             
-            // Adjust internal image coordinates dynamically to prevent alignment stretching
             var imgDirty = document.getElementById("img-dirty-src");
             var imgClean = document.getElementById("img-clean-src");
             
@@ -912,7 +935,7 @@
                 total = 0; 
                 document.getElementById("rate-calc-note").innerHTML = "<span class='text-green-400 font-bold'>🎁 3+1 Loyalty Offer Applied: This Service is 100% FREE!</span>";
             } else if (servicePlan === "Monthly") {
-                total = Math.round(total * 0.90); // Adjusted from 0.85 to 0.90 for 10% premium flat discount rate
+                total = Math.round(total * 0.90); 
                 document.getElementById("rate-calc-note").innerText = "*Monthly Subscription package configuration active: Flat 10% Off Applied!";
             } else {
                 document.getElementById("rate-calc-note").innerText = "*Standard washing rate calculated at Rs. 80 per panel";
