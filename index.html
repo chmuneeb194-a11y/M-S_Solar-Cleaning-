@@ -32,6 +32,81 @@
             padding-top: 1rem;
             padding-bottom: 1rem;
         }
+
+        /* Styles for Point 6: Interactive Before/After Image Slider */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .slider-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .img-after {
+            z-index: 10;
+        }
+        .img-before {
+            z-index: 20;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+        }
+        .slider-input {
+            position: absolute;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 30;
+            outline: none;
+            margin: 0;
+            cursor: ew-resize;
+        }
+        .slider-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 4px;
+            height: 320px;
+            background: #eab308;
+            cursor: ew-resize;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .slider-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: #eab308;
+            z-index: 25;
+            pointer-events: none;
+            transform: translateX(-50%);
+        }
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: #eab308;
+            color: #1e3a8a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 26;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            font-size: 12px;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
@@ -140,7 +215,7 @@
                 <p class="text-gray-600 text-sm mt-1 max-w-xl mx-auto">Hum panels aur inverter ki long-life performance bahal karne ke liye professional machinery ka istemal karte hain.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2">
                         <img src="ingo.jpg" alt="Ingco Pressure Washer" class="w-full h-full object-contain">
@@ -165,6 +240,21 @@
                     <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">High-Velocity Air Blower</h3>
                     <p class="text-xs text-gray-600 text-center leading-relaxed">Smart inverters ke cooling fans aur unke internal air filters ko mukammal saaf karne ke liye taake cooling performance up-to-date rahe.</p>
                 </div>
+            </div>
+
+            <!-- Added Feature Point 6: Before vs After Interactive Slider Section -->
+            <div class="max-w-xl mx-auto bg-white p-6 rounded-3xl border border-gray-200 shadow-lg">
+                <h3 class="text-lg font-bold text-blue-900 text-center mb-4"><i class="fas fa-sparkles text-yellow-500"></i> Results Jo Aap Khud Dekhein (Before vs After)</h3>
+                <div class="slider-container">
+                    <!-- Clean State Image -->
+                    <img class="slider-img img-after" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80" alt="Clean Solar Panel">
+                    <!-- Dusty/Dirty State Image -->
+                    <img id="before-img" class="slider-img img-before" src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=800&q=80" alt="Dusty Solar Panel">
+                    <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input" oninput="moveSlider(this.value)">
+                    <div id="slider-line" class="slider-line"></div>
+                    <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
+                </div>
+                <p class="text-xs text-gray-500 text-center mt-3">Yellow handle ko pakar kar right/left swipe karke mitti aur safai ka farq dekhein.</p>
             </div>
         </div>
     </section>
@@ -308,26 +398,92 @@
 
     <section id="calculator" class="py-12 bg-white px-4">
         <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-8">
+            <div class="text-center mb-6">
                 <span class="text-green-600 font-bold text-xs tracking-widest uppercase bg-green-50 px-3 py-1 rounded-full">Instant Quote</span>
                 <h2 class="text-3xl font-bold text-blue-900 mt-2">Live Price Estimation Calculator</h2>
                 <p class="text-gray-500 text-sm mt-1">Apne panels ki tadad set karein aur automatic real-time bill check karein (Rs. 80 Per Panel).</p>
             </div>
 
+            <!-- Added Feature Point 12: Interactive Energy & Money Loss Warning Alert Banner -->
+            <div class="max-w-xl mx-auto mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl shadow-sm animate-pulse">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-exclamation-triangle text-red-500 text-lg"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-xs sm:text-sm font-bold text-red-800 uppercase tracking-wide">⚠️ Energy Loss Alert</h3>
+                        <p class="text-xs text-red-700 mt-0.5 font-medium">
+                            Gande panels ki wajah se aapka solar system rozana taqreeban <span class="font-bold underline" id="alert-units">3.2</span> Units (Bijli) aur mahana taqreeban Rs. <span class="font-bold underline" id="alert-money">4,500</span> tak zaya kar raha hai!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <div class="bg-gray-50 border border-gray-200 p-6 rounded-3xl shadow-xl max-w-xl mx-auto">
                 <div class="space-y-5">
+                    
+                    <!-- NEW LOYALTY PROFILE TRACKER UI FIELD -->
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
+                        <label class="block text-xs font-black uppercase text-blue-900 mb-1">🔍 Customer Loyalty & Wash History Tracker</label>
+                        <p class="text-[11px] text-gray-600 mb-2">Apna WhatsApp / Mobile Number likh kar record check karein:</p>
+                        <div class="flex gap-2">
+                            <input type="text" id="cust-phone" oninput="calculateBill()" placeholder="e.g. 03084462121" class="w-full border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-bold text-gray-700">
+                            <button type="button" onclick="checkCustomerHistory()" class="bg-blue-900 text-white font-bold px-4 py-2 rounded-lg text-xs hover:bg-blue-800 transition shadow whitespace-nowrap">
+                                Check History
+                            </button>
+                        </div>
+                        <!-- Live Dynamic History Status Card -->
+                        <div id="history-status-box" class="hidden mt-3 bg-white border border-blue-100 p-3 rounded-xl text-xs">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-gray-600">Total Washes This Month:</span>
+                                <span id="history-count-badge" class="bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between items-center font-bold">
+                                <span class="text-gray-700">Next Service Status:</span>
+                                <span id="history-reward-msg" class="text-gray-800">Regular Service Rate</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature Point 9: Service Type Package Selector (One-Time vs Subscribed) -->
                     <div>
-                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Customer Name</label>
-                        <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Service Type / Plan Package</label>
+                        <select id="service-package" onchange="calculateBill()" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-bold text-blue-900">
+                            <option value="One-Time">One-Time Standard Service (Regular Rate)</option>
+                            <option value="Monthly">Monthly Subscribed Plan (15% Flat Discount On Total)</option>
+                        </select>
                     </div>
 
-                    <!-- Added Input: Sahiwal Area Address Field -->
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Sahiwal Area Address / Colony</label>
-                        <input type="text" id="cust-address" placeholder="e.g. Farid Town, Scheme No. 2, Tariq Road" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Customer Name</label>
+                            <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                        </div>
+                        
+                        <!-- Feature Point 13: Referral Code Setup Input -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Referral Code (Optional)</label>
+                            <input type="text" id="referral-code" placeholder="e.g. FRIEND10" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                        </div>
                     </div>
 
-                    <!-- Added Inputs: Preferred Date & Time Selection -->
+                    <!-- Added Input: Sahiwal Area Address Field (Point 2) & Google Maps Link Button (Point 7) -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1 flex justify-between items-center">
+                            <span>Sahiwal Area Address / Colony</span>
+                            <a href="https://maps.google.com" target="_blank" class="text-[10px] text-blue-600 font-bold hover:underline flex items-center gap-0.5">
+                                <i class="fas fa-map-marked-alt"></i> Open Google Maps Pin
+                            </a>
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="cust-address" placeholder="e.g. Farid Town, Scheme No. 2, Tariq Road" class="w-full border border-gray-300 pl-4 pr-32 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium text-sm">
+                            <div class="absolute right-1.5 top-1.5">
+                                <input type="text" id="maps-url" placeholder="Paste Map Link" class="border border-gray-200 text-[10px] px-2 py-1 rounded focus:outline-none focus:border-blue-500 bg-gray-50 max-w-[110px] inline-block font-sans">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Added Inputs: Preferred Date & Time Selection (Point 3) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Preferred Date</label>
@@ -341,6 +497,19 @@
                                 <option value="02:00 PM - 05:00 PM">02:00 PM - 05:00 PM</option>
                             </select>
                         </div>
+                    </div>
+
+                    <!-- Feature Point 10: Solar Panel Brand Dropdown Menu Menu -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Solar Panels Brand Model</label>
+                        <select id="panel-brand" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                            <option value="Canadian Solar">Canadian Solar (High Efficiency)</option>
+                            <option value="Longi Solar">Longi Solar</option>
+                            <option value="Jinko Solar">Jinko Solar</option>
+                            <option value="JA Solar">JA Solar</option>
+                            <option value="Trina Solar">Trina Solar</option>
+                            <option value="Other Brand">Other Tier-1 Brand</option>
+                        </select>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -362,9 +531,10 @@
                             </select>
                         </div>
                         <div>
+                            <!-- Feature Point 1: System Size Options Extended up to 25KW -->
+                            <!-- Feature Point 1.1: Triggers Smart Auto-Suggestion Panel Qty Logic -->
                             <label class="block text-xs font-bold uppercase text-gray-600 mb-1">System Size (KW)</label>
-                            <!-- Updated Options Menu: Sizes Extended to 25KW -->
-                            <select id="inv-size" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                            <select id="inv-size" onchange="autoSuggestPanels(this.value)" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
                                 <option value="3 KW">3 KW</option>
                                 <option value="5 KW">5 KW</option>
                                 <option value="6 KW">6 KW</option>
@@ -374,6 +544,28 @@
                                 <option value="15 KW">15 KW</option>
                                 <option value="20 KW">20 KW</option>
                                 <option value="25 KW">25 KW</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Feature Point 2: Multiple Inverter Units Dropdown -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Total Inverters Count</label>
+                            <select id="inverter-qty" onchange="calculateBill()" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                                <option value="1">1 Inverter Setup</option>
+                                <option value="2">2 Inverters Multi-Setup</option>
+                                <option value="3">3 Inverters Multi-Setup</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Feature Point 11: Service History Log Field -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Last Cleaned Status</label>
+                            <select id="cleaning-history" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                                <option value="1 Month Ago">Cleaned 1 Month Ago</option>
+                                <option value="3 Months Ago">Cleaned 3 Months Ago</option>
+                                <option value="More Than 6 Months">More Than 6 Months / Never</option>
                             </select>
                         </div>
                     </div>
@@ -390,14 +582,29 @@
                     <div class="bg-white p-4 rounded-xl border border-gray-200 flex items-start">
                         <input type="checkbox" id="blower-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-green-500 flex-shrink-0">
                         <label for="blower-check" class="font-bold text-blue-900 text-xs sm:text-sm select-none leading-tight">
-                            Add Comprehensive Inverter Blower & DB Box Terminal Tightening Service (+Rs. 500)
+                            Add Comprehensive Inverter Blower & DB Box Terminal Tightening Service (+Rs. 500 Per Inverter)
                         </label>
+                    </div>
+
+                    <!-- Feature Point 8: Automated Emergency/Urgent Booking Toggle -->
+                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl flex items-start">
+                        <input type="checkbox" id="urgent-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-amber-500 flex-shrink-0">
+                        <label for="urgent-check" class="font-bold text-amber-900 text-xs sm:text-sm select-none leading-tight">
+                            Request Emergency / Same-Day Fast Track Service (+Rs. 300 Emergency Fleet Charge)
+                        </label>
+                    </div>
+
+                    <!-- Feature Point 14: Automated "Estimated Cleaning Time" Counter Overlay -->
+                    <div class="text-right px-2">
+                        <span class="text-xs font-bold text-gray-500 bg-gray-200 px-2.5 py-1 rounded-full inline-block">
+                            <i class="fas fa-stopwatch text-blue-900"></i> Est. Service Duration: <span id="est-time" class="text-blue-900 font-extrabold">45 Mins</span>
+                        </span>
                     </div>
 
                     <div class="bg-blue-900 text-white p-5 rounded-2xl text-center shadow-inner relative overflow-hidden">
                         <span class="text-[10px] uppercase tracking-widest text-yellow-400 font-bold">Estimated Service Cost</span>
                         <div class="text-4xl font-black my-0.5">Rs. <span id="total-price">640</span></div>
-                        <p class="text-[10px] text-blue-200/80">*Standard washing rate calculated at Rs. 80 per panel</p>
+                        <p class="text-[10px] text-blue-200/80" id="rate-calc-note">*Standard washing rate calculated at Rs. 80 per panel</p>
                     </div>
 
                     <button onclick="sendBooking()" class="w-full bg-green-500 hover:bg-green-600 text-white text-center font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
@@ -425,12 +632,34 @@
         <p>&copy; 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
     </footer>
 
-    <!-- Added Feature: Floating WhatsApp Corner Chat Button -->
+    <!-- Added Feature Point 4: Floating WhatsApp Corner Chat Button -->
     <a href="https://wa.me/923084462121" target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-50 transition duration-300 transform hover:scale-110" title="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <script>
+        // JS Function for Point 6: Before/After Slider Engine
+        function moveSlider(value) {
+            var beforeImg = document.getElementById("before-img");
+            var sliderLine = document.getElementById("slider-line");
+            var sliderBtn = document.getElementById("slider-btn");
+            
+            beforeImg.style.clipPath = "polygon(0 0, " + value + "% 0, " + value + "% 100%, 0 100%)";
+            sliderLine.style.left = value + "%";
+            sliderBtn.style.left = value + "%";
+        }
+
+        // JS Logic for Point 1.1: Automatic Solar Capacity to Panels Suggestion
+        function autoSuggestPanels(systemSize) {
+            var qtyInput = document.getElementById("panel-qty");
+            var sizeNum = parseInt(systemSize) || 3;
+            
+            var calculatedPanels = Math.ceil((sizeNum * 1000) / 585);
+            qtyInput.value = calculatedPanels;
+            
+            calculateBill();
+        }
+
         function changePanels(amount) {
             var qtyInput = document.getElementById("panel-qty");
             var currentVal = parseInt(qtyInput.value) || 0;
@@ -440,52 +669,168 @@
             calculateBill();
         }
 
+        // NEW LOYALTY HISTORY LOGIC: Tracks dynamic users via local Storage Database
+        function checkCustomerHistory() {
+            var phone = document.getElementById("cust-phone").value.trim();
+            var statusBox = document.getElementById("history-status-box");
+            var countBadge = document.getElementById("history-count-badge");
+            var rewardMsg = document.getElementById("history-reward-msg");
+            
+            if (!phone) {
+                alert("Meherbani karke pehle Mobile Number darj karein!");
+                statusBox.classList.add("hidden");
+                return;
+            }
+            
+            var currentMonth = new Date().getMonth(); // Current running month index
+            var dataKey = "ms_solar_user_" + phone;
+            var userData = JSON.parse(localStorage.getItem(dataKey)) || { month: currentMonth, count: 0 };
+            
+            // Reset count if it's a completely new calendar month context
+            if (userData.month !== currentMonth) {
+                userData.month = currentMonth;
+                userData.count = 0;
+                localStorage.setItem(dataKey, JSON.stringify(userData));
+            }
+            
+            statusBox.classList.remove("hidden");
+            countBadge.innerText = userData.count;
+            
+            // Reward system messages mapping logic
+            if (userData.count === 3) {
+                rewardMsg.innerHTML = "<span class='text-green-600 animate-pulse'>🎉 Mubarak Ho! 3 Services Mukammal. Yeh Wash FREE Hai!</span>";
+            } else if (userData.count >= 4) {
+                rewardMsg.innerHTML = "<span class='text-blue-600'>Loyalty Cycle Restarted (Next Reward after 3 washes)</span>";
+            } else {
+                var remaining = 3 - userData.count;
+                rewardMsg.innerHTML = "<span class='text-amber-600'>Agli " + remaining + " services ke baad 1 FREE wash milegi!</span>";
+            }
+            
+            calculateBill();
+        }
+
         function calculateBill() {
             var panels = parseInt(document.getElementById("panel-qty").value) || 0;
-            var ratePerPanel = 80; 
-            var blowerCost = document.getElementById("blower-check").checked ? 500 : 0; 
+            var invertersCount = parseInt(document.getElementById("inverter-qty").value) || 1;
+            var servicePlan = document.getElementById("service-package").value;
+            var phone = document.getElementById("cust-phone").value.trim();
             
-            var total = (panels * ratePerPanel) + blowerCost;
+            var ratePerPanel = 80; 
+            var blowerCost = document.getElementById("blower-check").checked ? (500 * invertersCount) : 0; 
+            var urgentCost = document.getElementById("urgent-check").checked ? 300 : 0;
+            
+            var total = (panels * ratePerPanel) + blowerCost + urgentCost;
+            var isFreeReward = false;
+            
+            // Check if user qualifies for the 3+1 Free Loyalty Deal
+            if (phone) {
+                var currentMonth = new Date().getMonth();
+                var userData = JSON.parse(localStorage.getItem("ms_solar_user_" + phone)) || { month: currentMonth, count: 0 };
+                if (userData.month === currentMonth && userData.count === 3) {
+                    isFreeReward = true;
+                }
+            }
+            
+            if (isFreeReward) {
+                total = 0; // Completely Free Service
+                document.getElementById("rate-calc-note").innerHTML = "<span class='text-green-400 font-bold'>🎁 3+1 Loyalty Offer Applied: This Service is 100% FREE!</span>";
+            } else if (servicePlan === "Monthly") {
+                total = Math.round(total * 0.85);
+                document.getElementById("rate-calc-note").innerText = "*Monthly Subscription package configuration active: Flat 15% Off Applied!";
+            } else {
+                document.getElementById("rate-calc-note").innerText = "*Standard washing rate calculated at Rs. 80 per panel";
+            }
+            
             document.getElementById("total-price").innerText = total;
+
+            // Update Point 12 & 14: Dynamic Energy Loss Alert Counter and Service Time Tracker
+            var powerLossUnits = (panels * 0.4).toFixed(1); 
+            var moneyLossValue = Math.round(powerLossUnits * 45 * 30); 
+            
+            document.getElementById("alert-units").innerText = powerLossUnits;
+            document.getElementById("alert-money").innerText = moneyLossValue.toLocaleString();
+            
+            var serviceMinutes = (panels * 4) + (document.getElementById("blower-check").checked ? (20 * invertersCount) : 0);
+            document.getElementById("est-time").innerText = serviceMinutes + " Mins";
         }
 
         function sendBooking() {
             var phoneNumber = "923084462121"; 
             var name = document.getElementById("cust-name").value || "Valued Customer";
+            var custPhone = document.getElementById("cust-phone").value.trim() || "Not Provided";
+            var referral = document.getElementById("referral-code").value || "None Used";
             
-            // Captured new layout variables safely
             var address = document.getElementById("cust-address").value || "Not Provided (Sahiwal Region)";
+            var mapUrlStr = document.getElementById("maps-url").value || "No Live Pin Attached";
             var date = document.getElementById("booking-date").value || "As soon as possible";
             var time = document.getElementById("booking-time").value;
             
+            var planType = document.getElementById("service-package").value;
+            var pBrand = document.getElementById("panel-brand").value;
             var brand = document.getElementById("inv-brand").value;
             var size = document.getElementById("inv-size").value;
+            var invertersCount = document.getElementById("inverter-qty").value;
+            var historyLog = document.getElementById("cleaning-history").value;
             var qty = parseInt(document.getElementById("panel-qty").value) || 0;
             
-            var ratePerPanel = 80;
-            var blowerCost = document.getElementById("blower-check").checked ? 500 : 0;
-            var numericBill = (qty * ratePerPanel) + blowerCost;
+            var finalBill = document.getElementById("total-price").innerText;
+            var blowerActive = document.getElementById("blower-check").checked ? "Yes (" + invertersCount + " Inverters)" : "No";
+            var urgentActive = document.getElementById("urgent-check").checked ? "Yes (Urgent Priority Service Requested)" : "No";
+            var estTimeDuration = document.getElementById("est-time").innerText;
             
-            var blowerActive = document.getElementById("blower-check").checked ? "Yes (Inverter Blower + DB Box Cable Check)" : "No";
+            // Loyalty State Tracker Configuration Update
+            var loyaltyStatusText = "Regular Client Campaign";
+            if (custPhone !== "Not Provided") {
+                var currentMonth = new Date().getMonth();
+                var dataKey = "ms_solar_user_" + custPhone;
+                var userData = JSON.parse(localStorage.getItem(dataKey)) || { month: currentMonth, count: 0 };
+                
+                if (userData.count === 3) {
+                    loyaltyStatusText = "🎁 3+1 FREE LOYALTY WASH APPLIED!";
+                    // Reset counter back to 0 or increment cycle
+                    userData.count = 4; // Cycle marks completed
+                } else {
+                    if(userData.count >= 4) {
+                        userData.count = 1; // Restart cycle counter
+                    } else {
+                        userData.count += 1; // Increment user count safely on success submission
+                    }
+                    loyaltyStatusText = "Active Service Count: " + userData.count + " This Month";
+                }
+                localStorage.setItem(dataKey, JSON.stringify(userData));
+            }
             
-            // Upgraded message configuration to support scheduling data tracking
-            var rawMessageText = "🚀 *M S SOLAR CLEANING - NEW SERVICE BOOKING* 🚀\n\n" + 
+            var rawMessageText = "🚀 *M S SOLAR CLEANING - NEW ADVANCED BOOKING* 🚀\n\n" + 
                                  "*Customer Name:* " + name + "\n" +
+                                 "📞 *Customer Phone:* " + custPhone + "\n" +
+                                 "🏆 *Loyalty Reward Status:* " + loyaltyStatusText + "\n" +
                                  "📍 *Sahiwal Address:* " + address + "\n" +
+                                 "🗺️ *Google Maps Pin:* " + mapUrlStr + "\n" +
                                  "📅 *Scheduled Date:* " + date + "\n" +
-                                 "⏰ *Time Slot:* " + time + "\n\n" +
+                                 "⏰ *Time Slot:* " + time + "\n" +
+                                 "📦 *Package Selected:* " + planType + " Plan\n\n" +
                                  "*Solar Panels Qty:* " + qty + " Panels\n" +
-                                 "*Inverter Brand:* " + brand + "\n" +
-                                 "*Inverter Capacity:* " + size + "\n" +
-                                 "*Blower & DB Tightening Added:* " + blowerActive + "\n\n" +
-                                 "💰 *Estimated Bill:* Rs. " + numericBill;
+                                 "🏷️ *Panels Brand:* " + pBrand + "\n" +
+                                 "⚡ *Inverter Setup:* " + brand + " (" + size + ") x" + invertersCount + " Unit(s)\n" +
+                                 "⏳ *Last Cleaned Status:* " + historyLog + "\n" +
+                                 "💨 *Inverter Blower Service:* " + blowerActive + "\n" +
+                                 "🚨 *Urgent Fast Track:* " + urgentActive + "\n" +
+                                 "⏱️ *Est. Cleaning Duration:* " + estTimeDuration + "\n" +
+                                 "🎟️ *Referral Promo Code:* " + referral + "\n\n" +
+                                 "💰 *Final Estimated Bill:* Rs. " + finalBill;
             
             var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
             window.open(url, '_blank');
+            
+            // Refresh UI state logs immediately
+            if (custPhone !== "Not Provided") {
+                checkCustomerHistory();
+            }
         }
         
         window.onload = function() {
             calculateBill();
+            moveSlider(50);
         };
     </script>
 
