@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M S Solar Cleaning | Sahiwal Professional Solar Maintenance</title>
+    <title>MS Solar Cleaning | Sahiwal Professional Solar Maintenance</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -242,14 +242,14 @@
                 </div>
             </div>
 
-            <!-- Added Feature Point 6: Before vs After Interactive Slider Section -->
+            <!-- FIXED: Real Ganda vs Saaf Solar Panel Slider Image Section -->
             <div class="max-w-xl mx-auto bg-white p-6 rounded-3xl border border-gray-200 shadow-lg">
                 <h3 class="text-lg font-bold text-blue-900 text-center mb-4"><i class="fas fa-sparkles text-yellow-500"></i> Results Jo Aap Khud Dekhein (Before vs After)</h3>
                 <div class="slider-container">
-                    <!-- Clean State Image -->
+                    <!-- Right Side: Clean Panel (After State) -->
                     <img class="slider-img img-after" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80" alt="Clean Solar Panel">
-                    <!-- Dusty/Dirty State Image -->
-                    <img id="before-img" class="slider-img img-before" src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=800&q=80" alt="Dusty Solar Panel">
+                    <!-- Left Side: Real Dusty/Dirty Panel (Before State) -->
+                    <img id="before-img" class="slider-img img-before" src="https://images.unsplash.com/photo-1618944847828-82e943c33324?auto=format&fit=crop&w=800&q=80" alt="Real Dusty Solar Panel">
                     <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input" oninput="moveSlider(this.value)">
                     <div id="slider-line" class="slider-line"></div>
                     <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
@@ -404,7 +404,6 @@
                 <p class="text-gray-500 text-sm mt-1">Apne panels ki tadad set karein aur automatic real-time bill check karein (Rs. 80 Per Panel).</p>
             </div>
 
-            <!-- Added Feature Point 12: Interactive Energy & Money Loss Warning Alert Banner -->
             <div class="max-w-xl mx-auto mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl shadow-sm animate-pulse">
                 <div class="flex">
                     <div class="flex-shrink-0">
@@ -422,7 +421,6 @@
             <div class="bg-gray-50 border border-gray-200 p-6 rounded-3xl shadow-xl max-w-xl mx-auto">
                 <div class="space-y-5">
                     
-                    <!-- NEW LOYALTY PROFILE TRACKER UI FIELD -->
                     <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
                         <label class="block text-xs font-black uppercase text-blue-900 mb-1">🔍 Customer Loyalty & Wash History Tracker</label>
                         <p class="text-[11px] text-gray-600 mb-2">Apna WhatsApp / Mobile Number likh kar record check karein:</p>
@@ -432,7 +430,6 @@
                                 Check History
                             </button>
                         </div>
-                        <!-- Live Dynamic History Status Card -->
                         <div id="history-status-box" class="hidden mt-3 bg-white border border-blue-100 p-3 rounded-xl text-xs">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="text-gray-600">Total Washes This Month:</span>
@@ -445,7 +442,6 @@
                         </div>
                     </div>
                     
-                    <!-- Feature Point 9: Service Type Package Selector (One-Time vs Subscribed) -->
                     <div>
                         <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Service Type / Plan Package</label>
                         <select id="service-package" onchange="calculateBill()" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-bold text-blue-900">
@@ -460,14 +456,12 @@
                             <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
                         </div>
                         
-                        <!-- Feature Point 13: Referral Code Setup Input -->
                         <div>
                             <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Referral Code (Optional)</label>
                             <input type="text" id="referral-code" placeholder="e.g. FRIEND10" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
                         </div>
                     </div>
 
-                    <!-- Added Input: Sahiwal Area Address Field (Point 2) & Google Maps Link Button (Point 7) -->
                     <div>
                         <label class="block text-xs font-bold uppercase text-gray-600 mb-1 flex justify-between items-center">
                             <span>Sahiwal Area Address / Colony</span>
@@ -483,7 +477,6 @@
                         </div>
                     </div>
 
-                    <!-- Added Inputs: Preferred Date & Time Selection (Point 3) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Preferred Date</label>
@@ -499,7 +492,6 @@
                         </div>
                     </div>
 
-                    <!-- Feature Point 10: Solar Panel Brand Dropdown Menu Menu -->
                     <div>
                         <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Solar Panels Brand Model</label>
                         <select id="panel-brand" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
@@ -531,8 +523,6 @@
                             </select>
                         </div>
                         <div>
-                            <!-- Feature Point 1: System Size Options Extended up to 25KW -->
-                            <!-- Feature Point 1.1: Triggers Smart Auto-Suggestion Panel Qty Logic -->
                             <label class="block text-xs font-bold uppercase text-gray-600 mb-1">System Size (KW)</label>
                             <select id="inv-size" onchange="autoSuggestPanels(this.value)" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
                                 <option value="3 KW">3 KW</option>
@@ -548,7 +538,6 @@
                         </div>
                     </div>
 
-                    <!-- Feature Point 2: Multiple Inverter Units Dropdown -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Total Inverters Count</label>
@@ -559,7 +548,6 @@
                             </select>
                         </div>
                         
-                        <!-- Feature Point 11: Service History Log Field -->
                         <div>
                             <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Last Cleaned Status</label>
                             <select id="cleaning-history" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
@@ -586,7 +574,6 @@
                         </label>
                     </div>
 
-                    <!-- Feature Point 8: Automated Emergency/Urgent Booking Toggle -->
                     <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl flex items-start">
                         <input type="checkbox" id="urgent-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-amber-500 flex-shrink-0">
                         <label for="urgent-check" class="font-bold text-amber-900 text-xs sm:text-sm select-none leading-tight">
@@ -594,7 +581,6 @@
                         </label>
                     </div>
 
-                    <!-- Feature Point 14: Automated "Estimated Cleaning Time" Counter Overlay -->
                     <div class="text-right px-2">
                         <span class="text-xs font-bold text-gray-500 bg-gray-200 px-2.5 py-1 rounded-full inline-block">
                             <i class="fas fa-stopwatch text-blue-900"></i> Est. Service Duration: <span id="est-time" class="text-blue-900 font-extrabold">45 Mins</span>
@@ -628,17 +614,36 @@
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-gray-500 py-6 px-4 text-center text-xs border-t border-gray-800">
-        <p>&copy; 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
+    <!-- FIXED & ADDED: Inquiry & Contact Info Footer Setup -->
+    <footer class="bg-gray-900 text-gray-400 py-10 px-4 text-center border-t border-gray-800">
+        <div class="container mx-auto max-w-2xl mb-6">
+            <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4"><i class="fas fa-headset text-yellow-500 mr-1"></i> For Inquiry / Support</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto text-left">
+                <div class="bg-gray-800/60 border border-gray-700/50 p-3.5 rounded-xl flex items-center space-x-3">
+                    <div class="bg-blue-900/50 text-blue-400 p-2 rounded-lg text-base"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <p class="text-xs text-gray-400 font-medium">1. Muneeb Sarwar</p>
+                        <a href="tel:+923084462121" class="text-sm font-bold text-white hover:text-yellow-400 transition block mt-0.5">+92 308 4462121</a>
+                    </div>
+                </div>
+                <div class="bg-gray-800/60 border border-gray-700/50 p-3.5 rounded-xl flex items-center space-x-3">
+                    <div class="bg-blue-900/50 text-blue-400 p-2 rounded-lg text-base"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <p class="text-xs text-gray-400 font-medium">2. Safdar</p>
+                        <a href="tel:+923087274525" class="text-sm font-bold text-white hover:text-yellow-400 transition block mt-0.5">+92 308 7274525</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="border-gray-800 my-6 max-w-xl mx-auto">
+        <p class="text-xs text-gray-500">&copy; 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
     </footer>
 
-    <!-- Added Feature Point 4: Floating WhatsApp Corner Chat Button -->
     <a href="https://wa.me/923084462121" target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-50 transition duration-300 transform hover:scale-110" title="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <script>
-        // JS Function for Point 6: Before/After Slider Engine
         function moveSlider(value) {
             var beforeImg = document.getElementById("before-img");
             var sliderLine = document.getElementById("slider-line");
@@ -649,7 +654,6 @@
             sliderBtn.style.left = value + "%";
         }
 
-        // JS Logic for Point 1.1: Automatic Solar Capacity to Panels Suggestion
         function autoSuggestPanels(systemSize) {
             var qtyInput = document.getElementById("panel-qty");
             var sizeNum = parseInt(systemSize) || 3;
@@ -669,7 +673,6 @@
             calculateBill();
         }
 
-        // NEW LOYALTY HISTORY LOGIC: Tracks dynamic users via local Storage Database
         function checkCustomerHistory() {
             var phone = document.getElementById("cust-phone").value.trim();
             var statusBox = document.getElementById("history-status-box");
@@ -682,11 +685,10 @@
                 return;
             }
             
-            var currentMonth = new Date().getMonth(); // Current running month index
+            var currentMonth = new Date().getMonth(); 
             var dataKey = "ms_solar_user_" + phone;
             var userData = JSON.parse(localStorage.getItem(dataKey)) || { month: currentMonth, count: 0 };
             
-            // Reset count if it's a completely new calendar month context
             if (userData.month !== currentMonth) {
                 userData.month = currentMonth;
                 userData.count = 0;
@@ -696,7 +698,6 @@
             statusBox.classList.remove("hidden");
             countBadge.innerText = userData.count;
             
-            // Reward system messages mapping logic
             if (userData.count === 3) {
                 rewardMsg.innerHTML = "<span class='text-green-600 animate-pulse'>🎉 Mubarak Ho! 3 Services Mukammal. Yeh Wash FREE Hai!</span>";
             } else if (userData.count >= 4) {
@@ -722,7 +723,6 @@
             var total = (panels * ratePerPanel) + blowerCost + urgentCost;
             var isFreeReward = false;
             
-            // Check if user qualifies for the 3+1 Free Loyalty Deal
             if (phone) {
                 var currentMonth = new Date().getMonth();
                 var userData = JSON.parse(localStorage.getItem("ms_solar_user_" + phone)) || { month: currentMonth, count: 0 };
@@ -732,7 +732,7 @@
             }
             
             if (isFreeReward) {
-                total = 0; // Completely Free Service
+                total = 0; 
                 document.getElementById("rate-calc-note").innerHTML = "<span class='text-green-400 font-bold'>🎁 3+1 Loyalty Offer Applied: This Service is 100% FREE!</span>";
             } else if (servicePlan === "Monthly") {
                 total = Math.round(total * 0.85);
@@ -743,7 +743,6 @@
             
             document.getElementById("total-price").innerText = total;
 
-            // Update Point 12 & 14: Dynamic Energy Loss Alert Counter and Service Time Tracker
             var powerLossUnits = (panels * 0.4).toFixed(1); 
             var moneyLossValue = Math.round(powerLossUnits * 45 * 30); 
             
@@ -778,7 +777,6 @@
             var urgentActive = document.getElementById("urgent-check").checked ? "Yes (Urgent Priority Service Requested)" : "No";
             var estTimeDuration = document.getElementById("est-time").innerText;
             
-            // Loyalty State Tracker Configuration Update
             var loyaltyStatusText = "Regular Client Campaign";
             if (custPhone !== "Not Provided") {
                 var currentMonth = new Date().getMonth();
@@ -787,13 +785,12 @@
                 
                 if (userData.count === 3) {
                     loyaltyStatusText = "🎁 3+1 FREE LOYALTY WASH APPLIED!";
-                    // Reset counter back to 0 or increment cycle
-                    userData.count = 4; // Cycle marks completed
+                    userData.count = 4; 
                 } else {
                     if(userData.count >= 4) {
-                        userData.count = 1; // Restart cycle counter
+                        userData.count = 1; 
                     } else {
-                        userData.count += 1; // Increment user count safely on success submission
+                        userData.count += 1; 
                     }
                     loyaltyStatusText = "Active Service Count: " + userData.count + " This Month";
                 }
@@ -816,13 +813,12 @@
                                  "💨 *Inverter Blower Service:* " + blowerActive + "\n" +
                                  "🚨 *Urgent Fast Track:* " + urgentActive + "\n" +
                                  "⏱️ *Est. Cleaning Duration:* " + estTimeDuration + "\n" +
-                                 "🎟️ *Referral Promo Code:* " + referral + "\n\n" +
+                                 "🎟️ *Referral Promo Code:* " + referral + "\n" +
                                  "💰 *Final Estimated Bill:* Rs. " + finalBill;
             
             var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
             window.open(url, '_blank');
             
-            // Refresh UI state logs immediately
             if (custPhone !== "Not Provided") {
                 checkCustomerHistory();
             }
@@ -833,7 +829,5 @@
             moveSlider(50);
         };
     </script>
-
-    <div class="custom-spacing-wrapper"></div>
 </body>
 </html>
