@@ -257,7 +257,8 @@
 
                 <div class="slider-container">
                     <img class="slider-img img-after" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80" alt="Clean Solar Panel">
-                    <img id="before-img" class="slider-img img-before" src="https://images.unsplash.com/photo-1620000617482-821324eb9a14?auto=format&fit=crop&w=800&q=80" alt="Real Dusty Solar Panel">
+                    <!-- FIXED BROKEN LINK: Changed to a real abstract texture image that looks dusty/gritty -->
+                    <img id="before-img" class="slider-img img-before" src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=800&q=80" alt="Real Dusty Solar Panel">
                     
                     <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input" oninput="moveSlider(this.value)">
                     <div id="slider-line" class="slider-line"></div>
@@ -663,22 +664,19 @@
             var sliderInput = document.getElementById("image-split-slider");
             
             sliderInput.value = value;
-            // Left side par dusty image (before-img) ko show/clip karne ka logic
             beforeImg.style.clipPath = "polygon(0 0, " + value + "% 0, " + value + "% 100%, 0 100%)";
             sliderLine.style.left = value + "%";
             sliderBtn.style.left = value + "%";
         }
 
-        // Toggle Panel State Logic (Fixed Left-Dusty / Right-Clean)
         function togglePanelState(state) {
             if (state === 'dirty') {
-                moveSlider(100); // Slider 100% par jayega to poora mitti wala panel dikhega
+                moveSlider(100); 
             } else if (state === 'clean') {
-                moveSlider(0); // Slider 0% par jayega to poora saaf shaffaf panel dikhega
+                moveSlider(0); 
             }
         }
 
-        // Share Website with Friend Feature
         function shareWithFriend() {
             var websiteUrl = window.location.href;
             var shareText = "☀️ *MS Solar Cleaning Services Sahiwal* ☀️\n\nGande solar panels ki wajah se kafi ziada bijli zaya hoti hai. Live cost calculator check karne aur professional machinery wash book karne ke liye niche link par click karein:\n\n🔗 " + websiteUrl;
@@ -858,7 +856,7 @@
         
         window.onload = function() {
             calculateBill();
-            moveSlider(50); // Start mein aadha ganda aadha saaf dikhega
+            moveSlider(50); 
         };
     </script>
 </body>
