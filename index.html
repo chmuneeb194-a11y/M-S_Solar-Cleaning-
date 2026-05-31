@@ -80,11 +80,38 @@
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25), inset 0 1.5px 3px rgba(0, 0, 0, 0.02) !important;
         }
 
-        /* Target options within select to try and force matching render layers where supported */
-        select.ios-input-glass option {
-            background: rgba(255, 255, 255, 0.95);
-            color: #0f172a;
-            backdrop-filter: blur(20px);
+        /* 80% High-Glossmorphic Custom Dropdown Panels (Bypasses Image 14517.jpg Overlay) */
+        .custom-dropdown-panel {
+            display: none;
+            position: absolute;
+            top: 104%;
+            left: 0;
+            right: 0;
+            z-index: 150;
+            max-height: 260px;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.82) !important;
+            backdrop-filter: blur(45px) saturate(380%) !important;
+            -webkit-backdrop-filter: blur(45px) saturate(380%) !important;
+            border: 1.8px solid rgba(255, 255, 255, 0.95) !important;
+            border-radius: 1.25rem;
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.18),
+                        inset 0 4px 15px 0 rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .custom-dropdown-panel div {
+            padding: 11px 16px;
+            font-weight: 700;
+            color: #1e293b;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            transition: all 0.2s ease;
+        }
+
+        .custom-dropdown-panel div:hover {
+            background: rgba(37, 99, 235, 0.12);
+            color: #1d4ed8;
+            padding-left: 20px;
         }
 
         .slider-container {
@@ -527,12 +554,18 @@
                         </div>
                     </div>
                     
-                    <div>
+                    <!-- 1. Custom Service Type Dropdown -->
+                    <div class="relative">
                         <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Service Type / Plan Package</label>
-                        <select id="service-package" onchange="calculateBill()" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-bold text-blue-900 shadow-sm">
-                            <option value="One-Time">One-Time Standard Service (Regular Rate)</option>
-                            <option value="Monthly">Monthly Subscribed Plan (10% Flat Discount On Total)</option>
-                        </select>
+                        <div id="trigger-service-package" onclick="openCustomDropdown('service-package')" class="ios-input-glass px-4 py-3 rounded-xl font-bold text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
+                            <span id="label-service-package" class="text-blue-900">One-Time Standard Service (Regular Rate)</span>
+                            <i class="fas fa-chevron-down text-xs opacity-60 text-blue-900"></i>
+                        </div>
+                        <input type="hidden" id="service-package" value="One-Time">
+                        <div id="panel-service-package" class="custom-dropdown-panel shadow-2xl">
+                            <div onclick="selectCustomOption('service-package', 'One-Time', 'One-Time Standard Service (Regular Rate)')">One-Time Standard Service (Regular Rate)</div>
+                            <div onclick="selectCustomOption('service-package', 'Monthly', 'Monthly Subscribed Plan (10% Flat Discount On Total)')">Monthly Subscribed Plan (10% Flat Discount On Total)</div>
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -566,74 +599,101 @@
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Date</label>
                             <input type="date" id="booking-date" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                         </div>
-                        <div>
+                        <!-- 2. Custom Time Slot Dropdown -->
+                        <div class="relative">
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Time Slot</label>
-                            <select id="booking-time" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
-                                <option value="08:00 AM - 11:00 AM">08:00 AM - 11:00 AM</option>
-                                <option value="11:00 AM - 02:00 PM">11:00 AM - 02:00 PM</option>
-                                <option value="02:00 PM - 05:00 PM">02:00 PM - 05:00 PM</option>
-                            </select>
+                            <div id="trigger-booking-time" onclick="openCustomDropdown('booking-time')" class="ios-input-glass px-4 py-3 rounded-xl font-medium text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
+                                <span id="label-booking-time" class="text-slate-700">08:00 AM - 11:00 AM</span>
+                                <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
+                            </div>
+                            <input type="hidden" id="booking-time" value="08:00 AM - 11:00 AM">
+                            <div id="panel-booking-time" class="custom-dropdown-panel shadow-2xl">
+                                <div onclick="selectCustomOption('booking-time', '08:00 AM - 11:00 AM', '08:00 AM - 11:00 AM')">08:00 AM - 11:00 AM</div>
+                                <div onclick="selectCustomOption('booking-time', '11:00 AM - 02:00 PM', '11:00 AM - 02:00 PM')">11:00 AM - 02:00 PM</div>
+                                <div onclick="selectCustomOption('booking-time', '02:00 PM - 05:00 PM', '02:00 PM - 05:00 PM')">02:00 PM - 05:00 PM</div>
+                            </div>
                         </div>
                     </div>
 
-                    <div>
+                    <!-- 3. Custom Solar Brand Dropdown -->
+                    <div class="relative">
                         <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Solar Panels Brand Model</label>
-                        <select id="panel-brand" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
-                            <option value="Canadian Solar">Canadian Solar (High Efficiency)</option>
-                            <option value="Longi Solar">Longi Solar</option>
-                            <option value="Jinko Solar">Jinko Solar</option>
-                            <option value="JA Solar">JA Solar</option>
-                            <option value="Trina Solar">Trina Solar</option>
-                            <option value="Other Brand">Other Tier-1 Brand</option>
-                        </select>
+                        <div id="trigger-panel-brand" onclick="openCustomDropdown('panel-brand')" class="ios-input-glass px-4 py-3 rounded-xl font-medium text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
+                            <span id="label-panel-brand" class="text-slate-700">Canadian Solar (High Efficiency)</span>
+                            <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
+                        </div>
+                        <input type="hidden" id="panel-brand" value="Canadian Solar">
+                        <div id="panel-panel-brand" class="custom-dropdown-panel shadow-2xl">
+                            <div onclick="selectCustomOption('panel-brand', 'Canadian Solar', 'Canadian Solar (High Efficiency)')">Canadian Solar (High Efficiency)</div>
+                            <div onclick="selectCustomOption('panel-brand', 'Longi Solar', 'Longi Solar')">Longi Solar</div>
+                            <div onclick="selectCustomOption('panel-brand', 'Jinko Solar', 'Jinko Solar')">Jinko Solar</div>
+                            <div onclick="selectCustomOption('panel-brand', 'JA Solar', 'JA Solar')">JA Solar</div>
+                            <div onclick="selectCustomOption('panel-brand', 'Trina Solar', 'Trina Solar')">Trina Solar</div>
+                            <div onclick="selectCustomOption('panel-brand', 'Other Brand', 'Other Tier-1 Brand')">Other Tier-1 Brand</div>
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
+                        <!-- 4. Custom Inverter Brand Dropdown -->
+                        <div class="relative">
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Inverter Brand</label>
-                            <select id="inv-brand" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
-                                <option value="Solis">Solis</option>
-                                <option value="Knox">Knox</option>
-                                <option value="MaxPower">MaxPower</option>
-                                <option value="Nitrox">Nitrox</option>
-                                <option value="Inverex">Inverex</option>
-                                <option value="Huawei">Huawei</option>
-                                <option value="Crown">Crown</option>
-                                <option value="Tesla">Tesla</option>
-                                <option value="Orient">Orient</option>
-                                <option value="Fronus">Fronus</option>
-                                <option value="GoodWe">GoodWe</option>
-                                <option value="Growatt">Growatt</option>
-                            </select>
+                            <div id="trigger-inv-brand" onclick="openCustomDropdown('inv-brand')" class="ios-input-glass px-4 py-3 rounded-xl font-bold text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
+                                <span id="label-inv-brand" class="text-blue-900">Solis</span>
+                                <i class="fas fa-chevron-down text-xs opacity-60 text-blue-900"></i>
+                            </div>
+                            <input type="hidden" id="inv-brand" value="Solis">
+                            <div id="panel-inv-brand" class="custom-dropdown-panel shadow-2xl">
+                                <div onclick="selectCustomOption('inv-brand', 'Solis', 'Solis')">Solis</div>
+                                <div onclick="selectCustomOption('inv-brand', 'Knox', 'Knox')">Knox</div>
+                                <div onclick="selectCustomOption('inv-brand', 'MaxPower', 'MaxPower')">MaxPower</div>
+                                <div onclick="selectCustomOption('inv-brand', 'Nitrox', 'Nitrox')">Nitrox</div>
+                                <div onclick="selectCustomOption('inv-brand', 'Inverex', 'Inverex')">Inverex</div>
+                                <div onclick="selectCustomOption('inv-brand', 'Huawei', 'Huawei')">Huawei</div>
+                                <div onclick="selectCustomOption('inv-brand', 'Crown', 'Crown')">Crown</div>
+                                <div onclick="selectCustomOption('inv-brand', 'Tesla', 'Tesla')">Tesla</div>
+                                <div onclick="selectCustomOption('inv-brand', 'Orient', 'Orient')">Orient</div>
+                                <div onclick="selectCustomOption('inv-brand', 'Fronus', 'Fronus')">Fronus</div>
+                                <div onclick="selectCustomOption('inv-brand', 'GoodWe', 'GoodWe')">GoodWe</div>
+                                <div onclick="selectCustomOption('inv-brand', 'Growatt', 'Growatt')">Growatt</div>
+                            </div>
                         </div>
-                        <div>
+
+                        <!-- 5. Custom System Size Dropdown -->
+                        <div class="relative">
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">System Size (KW)</label>
-                            <select id="inv-size" onchange="autoSuggestPanels(this.value)" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
-                                <option value="3 KW">3 KW</option>
-                                <option value="5 KW">5 KW</option>
-                                <option value="6 KW">6 KW</option>
-                                <option value="8 KW">8 KW</option>
-                                <option value="10 KW">10 KW</option>
-                                <option value="12 KW">12 KW</option>
-                                <option value="15 KW">15 KW</option>
-                                <option value="20 KW">20 KW</option>
-                                <option value="25 KW">25 KW</option>
-                            </select>
+                            <div id="trigger-inv-size" onclick="openCustomDropdown('inv-size')" class="ios-input-glass px-4 py-3 rounded-xl font-medium text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
+                                <span id="label-inv-size" class="text-slate-700">3 KW</span>
+                                <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
+                            </div>
+                            <input type="hidden" id="inv-size" value="3 KW">
+                            <div id="panel-inv-size" class="custom-dropdown-panel shadow-2xl">
+                                <div onclick="selectCustomOption('inv-size', '3 KW', '3 KW')">3 KW</div>
+                                <div onclick="selectCustomOption('inv-size', '5 KW', '5 KW')">5 KW</div>
+                                <div onclick="selectCustomOption('inv-size', '6 KW', '6 KW')">6 KW</div>
+                                <div onclick="selectCustomOption('inv-size', '8 KW', '8 KW')">8 KW</div>
+                                <div onclick="selectCustomOption('inv-size', '10 KW', '10 KW')">10 KW</div>
+                                <div onclick="selectCustomOption('inv-size', '12 KW', '12 KW')">12 KW</div>
+                                <div onclick="selectCustomOption('inv-size', '15 KW', '15 KW')">15 KW</div>
+                                <div onclick="selectCustomOption('inv-size', '20 KW', '20 KW')">20 KW</div>
+                                <div onclick="selectCustomOption('inv-size', '25 KW', '25 KW')">25 KW</div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Total Inverters Native Component -->
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Total Inverters Count</label>
-                            <select id="inverter-qty" onchange="calculateBill()" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
+                            <select id="inverter-qty" onchange="calculateBill()" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm bg-white/90">
                                 <option value="1">1 Inverter Setup</option>
                                 <option value="2">2 Inverters Multi-Setup</option>
                                 <option value="3">3 Inverters Multi-Setup</option>
                             </select>
                         </div>
+                        <!-- Last Cleaned Native Component -->
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Last Cleaned Status</label>
-                            <select id="cleaning-history" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
+                            <select id="cleaning-history" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm bg-white/90">
                                 <option value="1 Month Ago">Cleaned 1 Month Ago</option>
                                 <option value="3 Months Ago">Cleaned 3 Months Ago</option>
                                 <option value="More Than 6 Months">More Than 6 Months / Never</option>
@@ -777,6 +837,46 @@
     </a>
 
     <script>
+        /* Multi-Dropdown Custom Engine Controls */
+        function openCustomDropdown(id) {
+            var targetPanel = document.getElementById('panel-' + id);
+            if (!targetPanel) return;
+            
+            // Auto close all other panels to keep UI neat
+            var activePanels = document.querySelectorAll('.custom-dropdown-panel');
+            activePanels.forEach(function(p) {
+                if(p.id !== 'panel-' + id) p.style.display = 'none';
+            });
+
+            if (targetPanel.style.display === 'block') {
+                targetPanel.style.display = 'none';
+            } else {
+                targetPanel.style.display = 'block';
+            }
+        }
+
+        function selectCustomOption(id, actualValue, textLabel) {
+            // Write to the legacy state storage layer
+            document.getElementById(id).value = actualValue;
+            document.getElementById('label-' + id).innerText = textLabel;
+            document.getElementById('panel-' + id).style.display = 'none';
+            
+            // Intercept special hooks for reactive component linking
+            if (id === 'inv-size') {
+                autoSuggestPanels(actualValue);
+            }
+            
+            calculateBill();
+        }
+
+        // Global Event listener for out-of-bounds focus loss
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.relative')) {
+                var panels = document.querySelectorAll('.custom-dropdown-panel');
+                panels.forEach(function(p) { p.style.display = 'none'; });
+            }
+        });
+
         function moveSlider(value) {
             var sliderLine = document.getElementById("slider-line");
             var sliderBtn = document.getElementById("slider-btn");
