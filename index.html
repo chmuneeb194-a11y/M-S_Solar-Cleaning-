@@ -242,9 +242,20 @@
                 </div>
             </div>
 
-            <!-- FIXED: Real Ganda vs Saaf Solar Panel Slider Image Section -->
+            <!-- FIXED: Real Ganda vs Saaf Solar Panel Slider Image Section WITH ADDED TOGGLE BUTTONS -->
             <div class="max-w-xl mx-auto bg-white p-6 rounded-3xl border border-gray-200 shadow-lg">
-                <h3 class="text-lg font-bold text-blue-900 text-center mb-4"><i class="fas fa-sparkles text-yellow-500"></i> Results Jo Aap Khud Dekhein (Before vs After)</h3>
+                <h3 class="text-lg font-bold text-blue-900 text-center mb-2"><i class="fas fa-sparkles text-yellow-500"></i> Results Jo Aap Khud Dekhein (Before vs After)</h3>
+                
+                <!-- Added Toggle Buttons -->
+                <div class="flex justify-center gap-2 mb-4">
+                    <button type="button" onclick="togglePanelState('dirty')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-amber-300">
+                        🏜️ Mitti Wala Panel
+                    </button>
+                    <button type="button" onclick="togglePanelState('clean')" class="bg-green-100 hover:bg-green-200 text-green-800 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-green-300">
+                        ✨ Saaf Shaffaf Panel
+                    </button>
+                </div>
+
                 <div class="slider-container">
                     <!-- Right Side: Clean Panel (After State) -->
                     <img class="slider-img img-after" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80" alt="Clean Solar Panel">
@@ -254,7 +265,7 @@
                     <div id="slider-line" class="slider-line"></div>
                     <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
                 </div>
-                <p class="text-xs text-gray-500 text-center mt-3">Yellow handle ko pakar kar right/left swipe karke mitti aur safai ka farq dekhein.</p>
+                <p class="text-xs text-gray-500 text-center mt-3">Buttons dabayein ya slider handle ko swipe karke mitti aur safai ka farq dekhein.</p>
             </div>
         </div>
     </section>
@@ -596,6 +607,11 @@
                     <button onclick="sendBooking()" class="w-full bg-green-500 hover:bg-green-600 text-white text-center font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
                         <i class="fab fa-whatsapp text-xl"></i> Complete Booking via WhatsApp
                     </button>
+                    
+                    <!-- ADDED: Share Website with Friend Button Section -->
+                    <button type="button" onclick="shareWithFriend()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow md text-sm mt-2">
+                        <i class="fas fa-share-nodes"></i> Share Website with Friend / Customer
+                    </button>
                 </div>
             </div>
 
@@ -648,10 +664,29 @@
             var beforeImg = document.getElementById("before-img");
             var sliderLine = document.getElementById("slider-line");
             var sliderBtn = document.getElementById("slider-btn");
+            var sliderInput = document.getElementById("image-split-slider");
             
+            sliderInput.value = value;
             beforeImg.style.clipPath = "polygon(0 0, " + value + "% 0, " + value + "% 100%, 0 100%)";
             sliderLine.style.left = value + "%";
             sliderBtn.style.left = value + "%";
+        }
+
+        // ADDED: Direct Panel Toggle State System
+        function togglePanelState(state) {
+            if (state === 'dirty') {
+                moveSlider(100); // Poora Ganda panel dikhane ke liye slider end par shift
+            } else if (state === 'clean') {
+                moveSlider(0); // Poora Saaf panel dikhane ke liye slider start par shift
+            }
+        }
+
+        // ADDED: Share Website with Friend Feature
+        function shareWithFriend() {
+            var websiteUrl = window.location.href;
+            var shareText = "☀️ *MS Solar Cleaning Services Sahiwal* ☀️\n\nGande solar panels ki wajah se kafi ziada bijli zaya hoti hai. Live cost calculator check karne aur professional machinery wash book karne ke liye niche link par click karein:\n\n🔗 " + websiteUrl;
+            var whatsappUrl = "https://wa.me/?text=" + encodeURIComponent(shareText);
+            window.open(whatsappUrl, '_blank');
         }
 
         function autoSuggestPanels(systemSize) {
