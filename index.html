@@ -132,6 +132,14 @@
             width: 100%;
         }
 
+        .slider-side img {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            max-width: none;
+            object-fit: cover;
+        }
+
         .side-left {
             left: 0;
             width: 50%;
@@ -141,14 +149,6 @@
         .side-right {
             right: 0;
             z-index: 10;
-        }
-
-        .slider-side img {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            max-width: none;
-            object-fit: cover;
         }
 
         .side-left img {
@@ -554,7 +554,6 @@
                         </div>
                     </div>
                     
-                    <!-- 1. Custom Service Type Dropdown -->
                     <div class="relative">
                         <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Service Type / Plan Package</label>
                         <div id="trigger-service-package" onclick="openCustomDropdown('service-package')" class="ios-input-glass px-4 py-3 rounded-xl font-bold text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
@@ -599,23 +598,19 @@
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Date</label>
                             <input type="date" id="booking-date" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                         </div>
-                        <!-- 2. Custom Time Slot Dropdown -->
                         <div class="relative">
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Time Slot</label>
                             <div id="trigger-booking-time" onclick="openCustomDropdown('booking-time')" class="ios-input-glass px-4 py-3 rounded-xl font-medium text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
-                                <span id="label-booking-time" class="text-slate-700">08:00 AM - 11:00 AM</span>
+                                <span id="label-booking-time" class="text-slate-700">05:00 PM - 12:00 AM</span>
                                 <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
                             </div>
-                            <input type="hidden" id="booking-time" value="08:00 AM - 11:00 AM">
+                            <input type="hidden" id="booking-time" value="05:00 PM - 12:00 AM">
                             <div id="panel-booking-time" class="custom-dropdown-panel shadow-2xl">
-                                <div onclick="selectCustomOption('booking-time', '08:00 AM - 11:00 AM', '08:00 AM - 11:00 AM')">08:00 AM - 11:00 AM</div>
-                                <div onclick="selectCustomOption('booking-time', '11:00 AM - 02:00 PM', '11:00 AM - 02:00 PM')">11:00 AM - 02:00 PM</div>
-                                <div onclick="selectCustomOption('booking-time', '02:00 PM - 05:00 PM', '02:00 PM - 05:00 PM')">02:00 PM - 05:00 PM</div>
+                                <div onclick="selectCustomOption('booking-time', '05:00 PM - 12:00 AM', '05:00 PM - 12:00 AM')">05:00 PM - 12:00 AM</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 3. Custom Solar Brand Dropdown -->
                     <div class="relative">
                         <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Solar Panels Brand Model</label>
                         <div id="trigger-panel-brand" onclick="openCustomDropdown('panel-brand')" class="ios-input-glass px-4 py-3 rounded-xl font-medium text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
@@ -634,7 +629,6 @@
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- 4. Custom Inverter Brand Dropdown -->
                         <div class="relative">
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Inverter Brand</label>
                             <div id="trigger-inv-brand" onclick="openCustomDropdown('inv-brand')" class="ios-input-glass px-4 py-3 rounded-xl font-bold text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
@@ -658,7 +652,6 @@
                             </div>
                         </div>
 
-                        <!-- 5. Custom System Size Dropdown -->
                         <div class="relative">
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">System Size (KW)</label>
                             <div id="trigger-inv-size" onclick="openCustomDropdown('inv-size')" class="ios-input-glass px-4 py-3 rounded-xl font-medium text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
@@ -681,7 +674,6 @@
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Total Inverters Native Component -->
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Total Inverters Count</label>
                             <select id="inverter-qty" onchange="calculateBill()" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm bg-white/90">
@@ -690,7 +682,6 @@
                                 <option value="3">3 Inverters Multi-Setup</option>
                             </select>
                         </div>
-                        <!-- Last Cleaned Native Component -->
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Last Cleaned Status</label>
                             <select id="cleaning-history" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm bg-white/90">
