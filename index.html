@@ -246,32 +246,31 @@
             </div>
 
             <!-- BEFORE/AFTER SLIDER BOX WITH GENUINE DUSTY VS SHINING SOLAR IMAGES -->
-            <div class="max-w-xl mx-auto bg-white p-6 rounded-3xl border border-gray-200 shadow-lg">
-                <h3 class="text-lg font-bold text-blue-900 text-center mb-2"><i class="fas fa-sparkles text-yellow-500"></i> Results (Before vs After)</h3>
-                
-                <div class="flex justify-center gap-2 mb-4">
-                    <button type="button" onclick="togglePanelState('dirty')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-amber-300">
-                        🏜️ Mitti Wala Panel
-                    </button>
-                    <button type="button" onclick="togglePanelState('clean')" class="bg-green-100 hover:bg-green-200 text-green-800 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-green-300">
-                        ✨ Saaf Shaffaf Panel
-                    </button>
-                </div>
 
-                <div class="slider-container">
-                    <!-- Saaf Shaffaf Panel (After Image - Underneath - Shining Under Sunlight) -->
-                    <img class="slider-img img-after" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80" alt="Sooraj Ki Roshni Mein Chamakta Solar Panel">
-                    
-                    <!-- Mitti Se Bhara Ganda Panel (Before Image - On Top - Thick Layer of Dust) -->
-                    <img id="before-img" class="slider-img img-before" src="https://images.unsplash.com/photo-1624953587687-daf255b6b80a?auto=format&fit=crop&w=800&q=80" alt="Mitti Aur Dhool Se Bhara Solar Panel">
-                    
-                    <!-- Slider Interactive Controls -->
-                    <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input" oninput="moveSlider(this.value)">
-                    <div id="slider-line" class="slider-line"></div>
-                    <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
-                </div>
-                <p class="text-xs text-gray-500 text-center mt-3">Buttons dabayein ya slider handle ko swipe karke mitti aur safai ka farq dekhein.</p>
-            </div>
+<div class="max-w-xl mx-auto bg-white p-6 rounded-3xl border border-gray-200 shadow-lg">
+    <h3 class="text-lg font-bold text-blue-900 text-center mb-2"><i class="fas fa-sparkles text-yellow-500"></i> Results (Before vs After)</h3>
+    
+    <div class="flex justify-center gap-2 mb-4">
+        <button type="button" onclick="togglePanelState('dirty')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-amber-300">
+            🏜️ Mitti Wala Panel
+        </button>
+        <button type="button" onclick="togglePanelState('clean')" class="bg-green-100 hover:bg-green-200 text-green-800 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-green-300">
+            ✨ Saaf Shaffaf Panel
+        </button>
+    </div>
+
+    <div class="slider-container">
+        <!-- Image source update kar di hai -->
+        <img class="slider-img img-after" src="14482.png" alt="Saaf Solar Panel">
+        <img id="before-img" class="slider-img img-before" src="14482.png" alt="Ganda Solar Panel">
+        
+        <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input" oninput="moveSlider(this.value)">
+        <div id="slider-line" class="slider-line"></div>
+        <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
+    </div>
+    <p class="text-xs text-gray-500 text-center mt-3">Buttons dabayein ya slider handle ko swipe karke mitti aur safai ka farq dekhein.</p>
+</div>
+            
         </div>
     </section>
 
