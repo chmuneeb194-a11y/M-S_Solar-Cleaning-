@@ -1,23 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur-en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS Solar Cleaning Sahiwal</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome Icons -->
+    <title>MS Solar Cleaning | Sahiwal Professional Solar Maintenance</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.95; transform: scale(1.01); }
+        }
+        
+        .tech-animate { 
+            animation: pulse-soft 4s infinite ease-in-out; 
+        }
+        
+        html { 
+            scroll-behavior: smooth; 
+        }
+        
+        img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
+        .custom-spacing-wrapper {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        /* Interactive Before/After Image Slider CSS */
         .slider-container {
             position: relative;
             width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            aspect-ratio: 16 / 9;
+            height: 320px;
             overflow: hidden;
             border-radius: 1rem;
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         .slider-img {
             position: absolute;
@@ -26,513 +49,899 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            user-select: none;
             pointer-events: none;
         }
-        /* CSS to isolate Left (Dirty) side from 14482.png */
-        .img-before {
-            object-position: left center;
-            transform: scaleX(2);
-            transform-origin: left center;
-            z-index: 2;
-        }
-        /* CSS to isolate Right (Clean) side from 14482.png */
         .img-after {
-            object-position: right center;
-            transform: scaleX(2);
-            transform-origin: right center;
-            z-index: 1;
+            z-index: 10;
+        }
+        .img-before {
+            z-index: 20;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
         }
         .slider-input {
             position: absolute;
-            WebkitAppearance: none;
+            -webkit-appearance: none;
             appearance: none;
             width: 100%;
             height: 100%;
             background: transparent;
+            z-index: 30;
             outline: none;
             margin: 0;
-            transition: all 0.3s;
             cursor: ew-resize;
-            z-index: 5;
+        }
+        .slider-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 4px;
+            height: 320px;
+            background: #eab308;
+            cursor: ew-resize;
         }
         .slider-line {
             position: absolute;
             top: 0;
             bottom: 0;
+            left: 50%;
             width: 4px;
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            z-index: 4;
+            background: #eab308;
+            z-index: 25;
             pointer-events: none;
+            transform: translateX(-50%);
         }
         .slider-button {
             position: absolute;
             top: 50%;
-            transform: translate(-50%, -50%);
+            left: 50%;
             width: 40px;
             height: 40px;
-            background: #10b981;
-            color: white;
+            background: #eab308;
+            color: #1e3a8a;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
-            z-index: 4;
+            z-index: 26;
             pointer-events: none;
-        }
-        .pulse-dot {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: .3; }
+            transform: translate(-50%, -50%);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            font-size: 12px;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased pb-24">
+<body class="bg-gray-50 font-sans text-gray-800">
 
-    <!-- Custom Loading Overlay -->
-    <div id="loadingOverlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex-col items-center justify-center text-white">
-        <div class="animate-spin rounded-full h-16 w-16 border-4 border-emerald-500 border-t-transparent mb-4"></div>
-        <h3 class="text-xl font-bold tracking-wide">Generating Your Booking Invoice...</h3>
-        <p class="text-slate-400 text-sm mt-1">Connecting securely to WhatsApp Fleet Dispatch</p>
-    </div>
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-3 py-3 flex justify-between items-center max-w-6xl">
+            
+            <a href="#home" class="flex items-center space-x-2 group min-w-0">
+                <svg class="h-11 w-11 sm:h-14 sm:w-14 transform group-hover:scale-105 transition duration-300 flex-shrink-0" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="68" cy="46" r="18" fill="#eab308" />
+                    <path d="M68 22 L68 12 M84 28 L92 20 M96 42 L106 42 M92 58 L100 66 M80 66 L86 76 M52 32 L44 26 M50 50 L40 46" stroke="#eab308" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M28 42 L62 42 L62 66 L28 72 Z" fill="#0284c7" />
+                    <path d="M31 45 L40 45 L39 52 L31 54 Z" fill="#ffffff"/>
+                    <path d="M43 45 L51 45 L50 52 L42 52 Z" fill="#ffffff"/>
+                    <path d="M54 45 L60 45 L59 52 L53 52 Z" fill="#ffffff"/>
+                    <path d="M31 57 L40 55 L39 65 L31 67 Z" fill="#ffffff"/>
+                    <path d="M43 55 L51 55 L50 64 L42 64 Z" fill="#ffffff"/>
+                    <path d="M54 55 L60 55 L59 63 L53 63 Z" fill="#ffffff"/>
+                    <path d="M22 74 C 24 64, 42 62, 46 68 C 50 58, 76 56, 82 66 C 88 58, 98 62, 94 76 C 96 84, 82 86, 78 84" stroke="#0284c7" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M42 68 C 48 64, 62 63, 68 70 C 72 65, 82 66, 84 72" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                </svg>
 
-    <!-- Header Section -->
-    <header class="bg-white border-b border-slate-100 sticky top-0 z-40 backdrop-blur-md bg-white/90">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="bg-emerald-500 text-white p-2.5 rounded-xl shadow-md shadow-emerald-200">
-                    <i class="fas fa-solar-panel text-2xl"></i>
+                <div class="flex flex-col m-0 p-0 min-w-0">
+                    <div class="text-xl sm:text-2xl font-black text-blue-900 tracking-tighter leading-none flex items-center truncate">
+                        <span>MS</span>
+                        <span class="text-blue-500 mx-0.5">_</span>
+                        <span>SOLAR</span>
+                    </div>
+                    <span class="text-[9px] sm:text-[10px] font-black text-green-600 uppercase tracking-wider sm:tracking-widest mt-1 leading-none flex items-center gap-1 truncate">
+                        <i class="fas fa-check-double text-[7px] sm:text-[8px]"></i> Cleaning Services
+                    </span>
                 </div>
-                <div>
-                    <h1 class="text-xl font-black text-slate-900 tracking-tight">MS SOLAR CLEANING</h1>
-                    <p class="text-xs font-semibold text-emerald-600 tracking-wider uppercase">Sahiwal Division Division</p>
-                </div>
-            </div>
-            <!-- Live Active Indicator -->
-            <div class="flex items-center gap-2 bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-full">
-                <span class="h-2.5 w-2.5 rounded-full bg-emerald-500 pulse-dot"></span>
-                <span class="text-xs font-bold text-emerald-700">Fleet Active in Sahiwal</span>
-            </div>
+            </a>
+            
+            <nav class="hidden lg:flex space-x-6 font-medium">
+                <a href="#home" class="text-blue-900 hover:text-yellow-500 transition">Home</a>
+                <a href="#tools" class="text-blue-900 hover:text-yellow-500 transition">Our Machinery</a>
+                <a href="#technical" class="text-blue-900 hover:text-yellow-500 transition">Inverter Diagnostic</a>
+                <a href="#subscription" class="text-blue-900 hover:text-yellow-500 transition">Subscription</a>
+                <a href="#calculator" class="text-blue-900 hover:text-yellow-500 transition">Live Calculator</a>
+            </nav>
+            
+            <a href="#calculator" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 sm:px-5 sm:py-2.5 rounded-full font-semibold flex items-center space-x-1 sm:space-x-2 transition shadow-lg text-xs sm:text-sm flex-shrink-0">
+                <i class="fab fa-whatsapp text-sm sm:text-xl"></i>
+                <span>Calculate & Book</span>
+            </a>
+            
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 py-8">
+    <section id="home" class="relative bg-blue-900 text-white py-16 px-4 overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-10">
+            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1920&q=80" alt="Solar Panels Grid" class="w-full h-full object-cover">
+        </div>
         
-        <!-- Before vs After Interactive Slider Section -->
-        <section class="mb-10 text-center">
-            <h2 class="text-2xl font-extrabold text-slate-900 mb-2">Experience The Power Loss Reality</h2>
-            <p class="text-slate-500 text-sm max-w-lg mx-auto mb-6">Slide back and forth to see how much thick dust blocks your solar generation efficiency.</p>
-            
-            <div class="slider-container">
-                <!-- Using 14482.png for both layers, styled via CSS classes -->
-                <img src="14482.png" alt="Dirty Solar Panel Layer" class="slider-img img-before" id="beforeImg">
-                <img src="14482.png" alt="Clean Solar Panel Layer" class="slider-img img-after">
+        <div class="container mx-auto max-w-6xl relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-7 text-center md:text-left">
+                <span class="bg-yellow-500 text-blue-950 text-xs uppercase font-black px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow mb-4 tracking-wider">
+                    <i class="fas fa-map-marker-alt animate-bounce"></i> Ab Apke shehar Sahiwal mein
+                </span>
                 
-                <input type="range" min="0" max="100" value="50" class="slider-input" id="sliderRange" oninput="moveSlider(this.value)">
-                <div class="slider-line" id="sliderLine" style="left: 50%;"></div>
-                <div class="slider-button" id="sliderBtn" style="left: 50%;"><i class="fas fa-arrows-alt-h"></i></div>
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">
+                    Gande Solar Panels?<br>
+                    <span class="text-yellow-400">25% Tak Bijli Ka Nuqsaan!</span>
+                </h1>
+                
+                <p class="text-base text-gray-300 mb-8 max-w-xl leading-relaxed">
+                    Mitti aur dhool panels ki generation block karte hain. Hum Sahiwal mein Ingco pressure washers aur complete safety measures ke sath complete wash service dete hain.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#calculator" class="bg-yellow-500 hover:bg-yellow-600 text-blue-950 font-bold px-6 py-3 rounded-lg text-center transition shadow-lg">
+                        Open Live Calculator
+                    </a>
+                    <a href="#tools" class="bg-blue-800 border border-blue-700 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg text-center transition">
+                        Check Machinery
+                    </a>
+                </div>
+            </div>
+            
+            <div class="md:col-span-5 flex justify-center">
+                <div class="relative p-2 bg-gradient-to-b from-yellow-400 to-blue-800 rounded-3xl shadow-2xl max-w-[340px] w-full">
+                    <div class="bg-gray-800 rounded-2xl overflow-hidden h-[460px] w-full relative">
+                        <img src="team-solar-service.jpg" alt="M S Solar Team Action" class="w-full h-full object-cover object-center">
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-blue-950 via-blue-950/80 to-transparent p-4 text-center">
+                            <p class="text-base font-bold text-white tracking-wide">MS Solar Experts</p>
+                            <p class="text-xs text-yellow-400 uppercase font-bold tracking-widest mt-0.5">Sahiwal Field Lead</p>
+                        </div>
+                    </div>
+                    <span class="absolute -top-3 -right-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
+                        <i class="fas fa-check-circle"></i> On-Site Action
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tools" class="py-16 bg-gray-50 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-12">
+                <span class="text-blue-600 font-bold text-xs tracking-widest uppercase bg-blue-50 px-3 py-1 rounded-full">Machinery Profile</span>
+                <h2 class="text-3xl font-bold text-blue-900 mt-2">Hamare Professional Tools & Equipment</h2>
+                <p class="text-gray-600 text-sm mt-1 max-w-xl mx-auto">Hum panels aur inverter ki long-life performance bahal karne ke liye professional machinery ka istemal karte hain.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2">
+                        <img src="ingo.jpg" alt="Ingco Pressure Washer" class="w-full h-full object-contain">
+                        <span class="absolute bottom-2 right-2 bg-blue-900 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">INGCO 1800W</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">Ingco Pressure Washer</h3>
+                    <p class="text-xs text-gray-600 text-center leading-relaxed">High-pressure controlled flow aur special water hose jo bina scratch banaye jami hui sakht mitti ko mukammal utar deta hai.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=500&q=80" alt="Solar Telescopic Brush" class="w-full h-full object-cover">
+                        <span class="absolute bottom-2 right-2 bg-yellow-500 text-blue-950 text-[10px] px-2 py-0.5 rounded font-bold uppercase">Soft Micro-Bristles</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">Soft Bristle Telescopic Brush</h3>
+                    <p class="text-xs text-gray-600 text-center leading-relaxed">Solar protective layer aur anti-reflective glass coating ke liye special extended soft brush setup jo bina nuksaan pounchaye chamka deta hai.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                    <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2">
+                        <img src="hyundai-blower.jpg" alt="Hyundai Electric Blower" class="w-full h-full object-contain">
+                        <span class="absolute bottom-2 right-2 bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">HYUNDAI 700W</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">High-Velocity Air Blower</h3>
+                    <p class="text-xs text-gray-600 text-center leading-relaxed">Smart inverters ke cooling fans aur unke internal air filters ko mukammal saaf karne ke liye taake cooling performance up-to-date rahe.</p>
+                </div>
             </div>
 
-            <div class="flex justify-center gap-4 mt-4">
-                <button onclick="setSlider(0)" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold px-4 py-2 rounded-lg transition-colors">Show Dirty Status</button>
-                <button onclick="setSlider(100)" class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors shadow-md shadow-emerald-100">Show Ultra Clean</button>
-            </div>
-        </section>
+            <div class="max-w-xl mx-auto bg-white p-6 rounded-3xl border border-gray-200 shadow-lg">
+                <h3 class="text-lg font-bold text-blue-900 text-center mb-2"><i class="fas fa-sparkles text-yellow-500"></i> Results (Before vs After)</h3>
+                
+                <div class="flex justify-center gap-2 mb-4">
+                    <button type="button" onclick="togglePanelState('dirty')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-amber-300">
+                        🏜️ Mitti Wala Panel
+                    </button>
+                    <button type="button" onclick="togglePanelState('clean')" class="bg-green-100 hover:bg-green-200 text-green-800 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-green-300">
+                        ✨ Saaf Shaffaf Panel
+                    </button>
+                </div>
 
-        <!-- Step 1: Safety & Trust Badges -->
-        <section class="mb-10">
-            <div class="bg-white border border-slate-100 shadow-sm rounded-2xl p-5 flex flex-wrap items-center justify-around gap-6 text-center">
-                <div class="flex flex-col items-center max-w-[200px]">
-                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mb-3 text-lg shadow-inner">
+                <div class="slider-container">
+                    <img class="slider-img img-after" src="14482.png" alt="Clean Solar Panel">
+                    
+                    <img id="before-img" class="slider-img img-before" src="14482.png" alt="Dirty Solar Panel">
+                    
+                    <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input" oninput="moveSlider(this.value)">
+                    <div id="slider-line" class="slider-line"></div>
+                    <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
+                </div>
+                <p class="text-xs text-gray-500 text-center mt-3">Buttons dabayein ya slider handle ko swipe karke mitti aur safai ka farq dekhein.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-white border border-gray-200 shadow-sm rounded-2xl p-5 mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-2 text-lg shadow-inner">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h4 class="text-sm font-bold text-slate-800 mb-1">Certified Safety Standards</h4>
-                    <p class="text-xs text-slate-400">Zero pressure water damage risk structure setup</p>
+                    <h4 class="text-xs font-bold text-gray-800 mb-1">Certified Safety Standards</h4>
+                    <p class="text-[11px] text-gray-500 leading-tight">Zero structural damage or scratching risks during process</p>
                 </div>
-                <div class="flex flex-col items-center max-w-[200px]">
-                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mb-3 text-lg shadow-inner">
+                <div class="flex flex-col items-center border-y sm:border-y-0 sm:border-x border-gray-100 py-4 sm:py-0">
+                    <div class="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center mb-2 text-lg shadow-inner">
                         <i class="fas fa-user-check"></i>
                     </div>
-                    <h4 class="text-sm font-bold text-slate-800 mb-1">Trained Staff Team</h4>
-                    <p class="text-xs text-slate-400">Professionals equipped with special glass brushes</p>
+                    <h4 class="text-xs font-bold text-gray-800 mb-1">Trained Staff Team</h4>
+                    <p class="text-[11px] text-gray-500 leading-tight">Equipped with anti-slip shoes and lifelines harness safety</p>
                 </div>
-                <div class="flex flex-col items-center max-w-[200px]">
-                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mb-3 text-lg shadow-inner">
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center mb-2 text-lg shadow-inner">
                         <i class="fas fa-handshake-angle"></i>
                     </div>
-                    <h4 class="text-sm font-bold text-slate-800 mb-1">Damage Insurance Cover</h4>
-                    <p class="text-xs text-slate-400">Full peace of mind guarantee during entire execution</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Main Workspace: Calculator & History -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-            
-            <!-- Left Side: History & Loyalty Tracker -->
-            <div class="md:col-span-1 bg-white border border-slate-100 shadow-sm rounded-2xl p-5">
-                <h3 class="text-md font-extrabold text-slate-900 mb-3 flex items-center gap-2">
-                    <i class="fas fa-gift text-amber-500"></i> Loyalty Counter
-                </h3>
-                <p class="text-xs text-slate-500 mb-4">Enter your number to check current month cleaning cycle history.</p>
-                
-                <div class="space-y-3">
-                    <input type="tel" id="historyPhone" placeholder="03XXXXXXXXX" class="w-full border border-slate-200 rounded-xl p-3 text-sm focus:outline-emerald-500">
-                    <button onclick="checkUserHistory()" class="w-full bg-slate-900 text-white font-bold text-xs p-3 rounded-xl hover:bg-slate-800 transition-all shadow-md">Check History Tracker</button>
-                </div>
-
-                <div id="historyResult" class="mt-4 pt-4 border-t border-slate-100 hidden">
-                    <!-- Status dynamically injected here -->
+                    <h4 class="text-xs font-bold text-gray-800 mb-1">Damage Insurance Cover</h4>
+                    <p class="text-[11px] text-gray-500 leading-tight">Full baseline security assurance for supreme peace of mind</p>
                 </div>
             </div>
 
-            <!-- Right Side: Advanced Booking Calculator -->
-            <div class="md:col-span-2 bg-white border border-slate-100 shadow-md shadow-slate-100 rounded-2xl p-6 relative">
+        </div>
+    </section>
+
+    <section id="technical" class="py-16 bg-blue-50 px-4 border-t border-b border-gray-200">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center mb-10">
+                <span class="text-yellow-600 font-bold text-xs tracking-widest uppercase bg-yellow-100 px-3 py-1 rounded-full">Inverter Diagnostic</span>
+                <h2 class="text-3xl font-bold text-blue-900 mt-2">Supported Smart Inverters & Telemetry</h2>
+                <p class="text-gray-600 text-sm mt-1">Hum sirf dhote nahi hain, balkay inverters par generation check kar ke farq dikhate hain.</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-10 text-center">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-solar-panel text-blue-600 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">SOLIS</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-charging-station text-orange-500 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">KNOX PV</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-bolt text-yellow-500 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">MAXPOWER</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-microchip text-red-500 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">NITROX</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-network-wired text-green-600 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">HUAWEI</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-industry text-purple-600 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">INVEREX</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-crown text-yellow-600 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">CROWN</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-car-battery text-blue-500 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">TESLA</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-star text-red-600 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">ORIENT</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-shield-alt text-teal-600 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">FRONUS</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-sun text-amber-500 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">GOODWE</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
+                    <i class="fas fa-plug text-lime-600 text-2xl mb-1"></i>
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">GROWATT</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm flex items-start space-x-3">
+                        <div class="bg-yellow-100 text-yellow-600 p-2.5 rounded-lg text-lg"><i class="fas fa-chart-line"></i></div>
+                        <div>
+                            <h4 class="font-bold text-blue-900 text-sm">KW Output Boost</h4>
+                            <p class="text-gray-600 text-xs mt-0.5">Tamam inverter's jaise high-efficiency setups par wash ke foran baad Kilowatt (KW) production barh jati hai.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-blue-900 text-white p-6 rounded-2xl shadow-lg relative overflow-hidden tech-animate">
+                    <h3 class="text-lg font-bold text-yellow-400 mb-3 flex items-center gap-2">
+                        <i class="fas fa-user-shield text-green-400"></i> Safety Harness Compliance
+                    </h3>
+                    <p class="text-xs text-gray-300 mb-3">Hum high structural roofs par kaam karte waqt lifeline body safety belts, anti-slip shoes, aur safety helmets ka 100% istemal lazmi karte hain.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="subscription" class="py-16 bg-gradient-to-b from-white to-gray-100 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                🌟 Premium Membership
+            </span>
+            <h2 class="text-3xl font-extrabold text-blue-900 mt-3 mb-4">Regular Cleaning vs. Smart Saving!</h2>
+            <p class="text-gray-600 text-base max-w-2xl mx-auto mb-10">
+                Humare monthly subscription plan ke sath apne solar panels ki efficiency ko 100% barkarar rakhein aur payein <span class="font-bold text-blue-600">Special Discounts</span> har mahine.
+            </p>
+
+            <div class="bg-white border border-gray-200 rounded-3xl p-8 shadow-xl max-w-2xl mx-auto text-left relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl uppercase tracking-widest">
+                    Best Value
+                </div>
                 
-                <!-- After Cleaning Warranty Badge Hook -->
-                <div class="absolute -top-3 right-4 bg-amber-500 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-full shadow-md tracking-wider flex items-center gap-1">
-                    <i class="fas fa-award"></i> 3-Day Dust & Rain Protection Covered
-                </div>
-
-                <h3 class="text-lg font-extrabold text-slate-900 mb-4 flex items-center gap-2">
-                    <i class="fas fa-calculator text-emerald-500"></i> Dynamic Telemetry Calculator
-                </h3>
-
-                <!-- Alert Message Box -->
-                <div id="lossAlert" class="bg-rose-50 border border-rose-100 rounded-xl p-4 mb-6 flex items-start gap-3">
-                    <i class="fas fa-exclamation-triangle text-rose-500 text-lg mt-0.5"></i>
-                    <div>
-                        <h4 class="text-xs font-bold text-rose-900 uppercase tracking-wide">Heavy Generative Efficiency Loss Detected</h4>
-                        <p id="lossText" class="text-xs text-rose-700 mt-0.5">Select system setups below to see estimated monthly unit losses and calculated financial impacts.</p>
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-blue-100 text-blue-600 p-2 rounded-xl text-xl mt-1">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-900 text-lg">Hassle-Free Scheduling</h4>
+                            <p class="text-gray-600 text-sm mt-0.5">Aapko bar bar call karne ki zaroorat nahi, humari team khud waqt par aayegi.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-green-100 text-green-600 p-2 rounded-xl text-xl mt-1">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-green-600 text-lg">Exclusive Discounted Rates</h4>
+                            <p class="text-gray-600 text-sm mt-0.5">One-time service se bohot kam qeemat mein monthly maintenance aur locked discount setup.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-yellow-100 text-yellow-600 p-2 rounded-xl text-xl mt-1">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-900 text-lg">Priority Customer Support</h4>
+                            <p class="text-gray-600 text-sm mt-0.5">Subscribed customers ke liye instant response aur har wash par free string diagnostic checking.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Form Interactive Elements -->
-                <div class="space-y-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Inverter System Setup</label>
-                            <select id="systemSize" onchange="autoSuggestPanels(this.value)" class="w-full border border-slate-200 rounded-xl p-3 text-sm focus:outline-emerald-500 bg-white">
-                                <option value="custom">Manual Panel Count</option>
-                                <option value="5">5 KW System</option>
-                                <option value="10">10 KW System</option>
-                                <option value="15">15 KW System</option>
-                                <option value="20">20 KW System</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Total Solar Panels</label>
-                            <input type="number" id="panelCount" value="8" min="1" oninput="calculateBill()" class="w-full border border-slate-200 rounded-xl p-3 text-sm focus:outline-emerald-500">
-                        </div>
-                    </div>
+                <div class="mt-8 bg-gray-50 border border-gray-100 p-4 rounded-xl text-center">
+                    <p class="text-sm text-gray-700 italic font-medium">
+                        💡 Sasti safai, zyada bachat! Aaj hi subscribe karein aur salana hazaron rupe ki bachat karein.
+                    </p>
+                </div>
+                
+                <a href="#calculator" class="block w-full text-center bg-blue-900 hover:bg-blue-800 text-white font-bold py-3.5 rounded-xl shadow-lg mt-6 transition">
+                    Lock Monthly Plan Discount
+                </a>
+            </div>
+        </div>
+    </section>
 
-                    <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
-                                <input type="checkbox" id="blowerClean" onchange="calculateBill()" checked class="accent-emerald-500 h-4 w-4">
-                                Deep Clean DB Box & Inverter Blower
-                            </label>
-                            <span class="text-xs font-extrabold text-slate-500">+ Rs. 500</span>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <label class="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
-                                <input type="checkbox" id="sameDay" onchange="calculateBill()" class="accent-emerald-500 h-4 w-4">
-                                Emergency Rush Setup (Same-Day Queue)
-                            </label>
-                            <span class="text-xs font-extrabold text-slate-500">+ Rs. 300</span>
-                        </div>
-                    </div>
+    <section id="calculator" class="py-12 bg-white px-4">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-6">
+                <span class="text-green-600 font-bold text-xs tracking-widest uppercase bg-green-50 px-3 py-1 rounded-full">Instant Quote</span>
+                <h2 class="text-3xl font-bold text-blue-900 mt-2">Live Price Estimation Calculator</h2>
+                <p class="text-gray-500 text-sm mt-1">Apne panels ki tadad set karein aur automatic real-time bill check karein (Rs. 80 Per Panel).</p>
+            </div>
 
-                    <!-- Customer Contact Sub-form -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                        <input type="text" id="custName" placeholder="Your Full Name" class="border border-slate-200 rounded-xl p-3 text-sm focus:outline-emerald-500">
-                        <input type="tel" id="custPhone" placeholder="Active WhatsApp Number" class="border border-slate-200 rounded-xl p-3 text-sm focus:outline-emerald-500">
-                        <input type="text" id="custAddress" placeholder="Sahiwal Home Address Details" class="border border-slate-200 rounded-xl p-3 text-sm focus:outline-emerald-500 sm:col-span-2">
-                        <input type="text" id="custMap" placeholder="Google Maps Pin Link (Optional)" class="border border-slate-200 rounded-xl p-3 text-sm focus:outline-emerald-500 sm:col-span-2">
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Scheduled Date</label>
-                            <input type="date" id="bookDate" class="w-full border border-slate-200 rounded-xl p-3 text-sm focus:outline-emerald-500">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Preferred Safe Window</label>
-                            <select id="bookTime" class="w-full border border-slate-200 rounded-xl p-3 text-sm focus:outline-emerald-500 bg-white">
-                                <option value="Early Morning (06:00 AM - 09:00 AM)">Early Morning (06:00 AM - 09:00 AM)</option>
-                                <option value="Mid Morning (09:00 AM - 11:00 AM)">Mid Morning (09:00 AM - 11:00 AM)</option>
-                                <option value="Late Evening (04:00 PM - 07:00 PM)">Late Evening (04:00 PM - 07:00 PM)</option>
-                            </select>
-                        </div>
+            <div class="max-w-xl mx-auto mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl shadow-sm animate-pulse">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-exclamation-triangle text-red-500 text-lg"></i>
                     </div>
+                    <div class="ml-3">
+                        <h3 class="text-xs sm:text-sm font-bold text-red-800 uppercase tracking-wide">⚠️ Energy Loss Alert</h3>
+                        <p class="text-xs text-red-700 mt-0.5 font-medium">
+                            Gande panels ki wajah se aapka solar system rozana taqreeban <span class="font-bold underline" id="alert-units">3.2</span> Units (Bijli) aur mahana taqreeban Rs. <span class="font-bold underline" id="alert-money">4,500</span> tak zaya kar raha hai!
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-                    <!-- Bill Breakdown Display -->
-                    <div class="border-t border-dashed border-slate-200 pt-4 mt-6 flex flex-wrap items-center justify-between gap-4">
-                        <div>
-                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Estimated Total Due</div>
-                            <div class="flex items-baseline gap-1">
-                                <span class="text-3xl font-black text-slate-900" id="grandTotal">Rs. 0</span>
-                                <span class="text-xs font-semibold text-slate-400" id="durationEst">/ 0 Mins</span>
+            <div class="bg-gray-50 border border-gray-200 p-6 rounded-3xl shadow-xl max-w-xl mx-auto relative">
+                <div class="space-y-5">
+                    
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
+                        <label class="block text-xs font-black uppercase text-blue-900 mb-1">🔍 Customer Loyalty & Wash History Tracker</label>
+                        <p class="text-[11px] text-gray-600 mb-2">Apna WhatsApp / Mobile Number likh kar record check karein:</p>
+                        <div class="flex gap-2">
+                            <input type="text" id="cust-phone" oninput="calculateBill()" placeholder="e.g. 03084462121" class="w-full border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-bold text-gray-700">
+                            <button type="button" onclick="checkCustomerHistory()" class="bg-blue-900 text-white font-bold px-4 py-2 rounded-lg text-xs hover:bg-blue-800 transition shadow whitespace-nowrap">
+                                Check History
+                            </button>
+                        </div>
+                        <div id="history-status-box" class="hidden mt-3 bg-white border border-blue-100 p-3 rounded-xl text-xs">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-gray-600">Total Washes This Month:</span>
+                                <span id="history-count-badge" class="bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between items-center font-bold">
+                                <span class="text-gray-700">Next Service Status:</span>
+                                <span id="history-reward-msg" class="text-gray-800">Regular Service Rate</span>
                             </div>
                         </div>
-                        <button onclick="sendBooking()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-black text-sm px-6 py-4 rounded-xl shadow-lg shadow-emerald-100 flex items-center gap-2 transition-all transform hover:-translate-y-0.5">
-                            <i class="fab fa-whatsapp text-lg"></i> Complete Booking via WhatsApp
-                        </button>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Service Type / Plan Package</label>
+                        <select id="service-package" onchange="calculateBill()" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-bold text-blue-900">
+                            <option value="One-Time">One-Time Standard Service (Regular Rate)</option>
+                            <option value="Monthly">Monthly Subscribed Plan (15% Flat Discount On Total)</option>
+                        </select>
                     </div>
 
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Customer Name</label>
+                            <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Referral Code (Optional)</label>
+                            <input type="text" id="referral-code" placeholder="e.g. FRIEND10" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-2 flex justify-between items-center">
+                            <span>Sahiwal Area Address / Colony</span>
+                            <a href="https://maps.google.com" target="_blank" class="text-[10px] text-blue-600 font-bold hover:underline flex items-center gap-0.5">
+                                <i class="fas fa-map-marked-alt"></i> Open Google Maps Pin
+                            </a>
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="cust-address" placeholder="e.g. Farid Town, Scheme No. 2, Tariq Road" class="w-full border border-gray-300 pl-4 pr-32 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium text-sm">
+                            <div class="absolute right-1.5 top-1.5">
+                                <input type="text" id="maps-url" placeholder="Paste Map Link" class="border border-gray-200 text-[10px] px-2 py-1 rounded focus:outline-none focus:border-blue-500 bg-gray-50 max-w-[110px] inline-block font-sans">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Preferred Date</label>
+                            <input type="date" id="booking-date" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Preferred Time Slot</label>
+                            <select id="booking-time" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                                <option value="08:00 AM - 11:00 AM">08:00 AM - 11:00 AM</option>
+                                <option value="11:00 AM - 02:00 PM">11:00 AM - 02:00 PM</option>
+                                <option value="02:00 PM - 05:00 PM">02:00 PM - 05:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Solar Panels Brand Model</label>
+                        <select id="panel-brand" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                            <option value="Canadian Solar">Canadian Solar (High Efficiency)</option>
+                            <option value="Longi Solar">Longi Solar</option>
+                            <option value="Jinko Solar">Jinko Solar</option>
+                            <option value="JA Solar">JA Solar</option>
+                            <option value="Trina Solar">Trina Solar</option>
+                            <option value="Other Brand">Other Tier-1 Brand</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Inverter Brand</label>
+                            <select id="inv-brand" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                                <option value="Solis">Solis</option>
+                                <option value="Knox">Knox</option>
+                                <option value="MaxPower">MaxPower</option>
+                                <option value="Nitrox">Nitrox</option>
+                                <option value="Inverex">Inverex</option>
+                                <option value="Huawei">Huawei</option>
+                                <option value="Crown">Crown</option>
+                                <option value="Tesla">Tesla</option>
+                                <option value="Orient">Orient</option>
+                                <option value="Fronus">Fronus</option>
+                                <option value="GoodWe">GoodWe</option>
+                                <option value="Growatt">Growatt</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">System Size (KW)</label>
+                            <select id="inv-size" onchange="autoSuggestPanels(this.value)" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                                <option value="3 KW">3 KW</option>
+                                <option value="5 KW">5 KW</option>
+                                <option value="6 KW">6 KW</option>
+                                <option value="8 KW">8 KW</option>
+                                <option value="10 KW">10 KW</option>
+                                <option value="12 KW">12 KW</option>
+                                <option value="15 KW">15 KW</option>
+                                <option value="20 KW">20 KW</option>
+                                <option value="25 KW">25 KW</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Total Inverters Count</label>
+                            <select id="inverter-qty" onchange="calculateBill()" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                                <option value="1">1 Inverter Setup</option>
+                                <option value="2">2 Inverters Multi-Setup</option>
+                                <option value="3">3 Inverters Multi-Setup</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Last Cleaned Status</label>
+                            <select id="cleaning-history" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                                <option value="1 Month Ago">Cleaned 1 Month Ago</option>
+                                <option value="3 Months Ago">Cleaned 3 Months Ago</option>
+                                <option value="More Than 6 Months">More Than 6 Months / Never</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-2">Solar Panels Ki Tadad (Quantity)</label>
+                        <div class="flex items-center space-x-3">
+                            <button type="button" onclick="changePanels(-1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl hover:bg-blue-800 transition flex items-center justify-center shadow">-</button>
+                            <input type="number" id="panel-qty" value="8" min="1" oninput="calculateBill()" class="w-16 text-center border border-gray-300 h-12 rounded-xl font-bold text-xl focus:outline-none focus:border-blue-500 bg-white">
+                            <button type="button" onclick="changePanels(1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl hover:bg-blue-800 transition flex items-center justify-center shadow">+</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 flex items-start">
+                        <input type="checkbox" id="blower-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-green-500 flex-shrink-0">
+                        <label for="blower-check" class="font-bold text-blue-900 text-xs sm:text-sm select-none leading-tight">
+                            Add Comprehensive Inverter Blower & DB Box Terminal Tightening Service (+Rs. 500 Per Inverter)
+                        </label>
+                    </div>
+
+                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl flex items-start">
+                        <input type="checkbox" id="urgent-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-amber-500 flex-shrink-0">
+                        <label for="urgent-check" class="font-bold text-amber-900 text-xs sm:text-sm select-none leading-tight">
+                            Request Emergency / Same-Day Fast Track Service (+Rs. 300 Emergency Fleet Charge)
+                        </label>
+                    </div>
+
+                    <div class="text-right px-2">
+                        <span class="text-xs font-bold text-gray-500 bg-gray-200 px-2.5 py-1 rounded-full inline-block">
+                            <i class="fas fa-stopwatch text-blue-900"></i> Est. Service Duration: <span id="est-time" class="text-blue-900 font-extrabold">45 Mins</span>
+                        </span>
+                    </div>
+
+                    <div class="bg-blue-900 text-white p-5 rounded-2xl text-center shadow-inner relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-amber-500 text-blue-950 text-[9px] font-black uppercase px-3 py-1 rounded-bl-xl tracking-wider">
+                            <i class="fas fa-shield-halved"></i> 3-Day Dust & Rain Protection Covered
+                        </div>
+                        <span class="text-[10px] uppercase tracking-widest text-yellow-400 font-bold">Estimated Service Cost</span>
+                        <div class="text-4xl font-black my-0.5">Rs. <span id="total-price">640</span></div>
+                        <p class="text-[10px] text-blue-200/80" id="rate-calc-note">*Standard washing rate calculated at Rs. 80 per panel</p>
+                    </div>
+
+                    <button onclick="sendBooking()" class="w-full bg-green-500 hover:bg-green-600 text-white text-center font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
+                        <i class="fab fa-whatsapp text-xl"></i> Complete Booking via WhatsApp
+                    </button>
+                    
+                    <button type="button" onclick="shareWithFriend()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow md text-sm mt-2">
+                        <i class="fas fa-share-nodes"></i> Share Website with Friend / Customer
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Step 4: Interactive FAQ Accordion Section -->
-        <section class="mt-16 border-t border-slate-200 pt-12">
-            <h2 class="text-2xl font-extrabold text-center text-slate-900 mb-2">Frequently Asked Inquiries</h2>
-            <p class="text-slate-500 text-sm text-center max-w-md mx-auto mb-8">Everything you need to know about our specialized high efficiency solar wash metrics.</p>
+            <div class="mt-12 max-w-xs mx-auto bg-gray-50 border-2 border-green-500 p-5 rounded-2xl text-center shadow-md">
+                <div class="flex items-center justify-center space-x-2 mb-3">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
+                    <h3 class="text-base font-bold text-green-600 tracking-tight">Scan to Chat with Us</h3>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-gray-100 inline-block shadow-sm">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/923084462121" alt="WhatsApp QR Code" class="w-36 h-36">
+                </div>
+                <p class="text-[11px] text-gray-500 font-medium mt-3 leading-relaxed">
+                    Direct mobile se scanning karke rabta ya monthly package active karne ke liye scan karein.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-gray-50 px-4 border-t border-gray-200">
+        <div class="container mx-auto max-w-3xl">
+            <h2 class="text-2xl font-bold text-center text-blue-900 mb-2">Frequently Asked Questions</h2>
+            <p class="text-gray-500 text-xs text-center max-w-md mx-auto mb-8">Sahiwal ke solar customers ke aam sawalaat aur unke tafseeli jawabaat.</p>
             
-            <div class="max-w-2xl mx-auto space-y-3">
-                <div class="border border-slate-200 bg-white rounded-xl overflow-hidden transition-all duration-300">
-                    <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 font-bold text-sm text-slate-800 text-left hover:bg-slate-50">
+            <div class="space-y-3">
+                <div class="border border-gray-200 bg-white rounded-xl overflow-hidden transition-all">
+                    <button type="button" onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-gray-800 text-left hover:bg-gray-50">
                         <span>Why shouldn't I wash my panels with normal tap/ground water?</span>
-                        <i id="faqIcon1" class="fas fa-chevron-down text-xs text-slate-400 transition-transform duration-300"></i>
+                        <i id="faq-icon-1" class="fas fa-chevron-down text-xs text-gray-400 transition-transform"></i>
                     </button>
-                    <div id="faqAns1" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-slate-50">
-                        Normal underground water in Sahiwal contains high TDS levels (hard scale parameters). Washing panels with hard water leaves severe white magnesium scaling behind, which permanently limits solar ray absorption and degrades the glass structural integrity. We strictly control our chemical and fluid applications.
+                    <div id="faq-ans-1" class="hidden p-4 pt-0 text-xs text-gray-500 leading-relaxed border-t border-gray-50 bg-gray-50/50">
+                        Sahiwal ka zameeni paani (ground water) bohot khara hota hai aur usme high TDS hotay hain. Agar aap aam paani se panels dhoenge to un par safaid dhabbe (scaling) jamm jayegi, jo panel ki glass efficiency ko hamesha ke liye kam kar deti hai. Hum protective standards ka khyal rakhte hain.
                     </div>
                 </div>
 
-                <div class="border border-slate-200 bg-white rounded-xl overflow-hidden transition-all duration-300">
-                    <button onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 font-bold text-sm text-slate-800 text-left hover:bg-slate-50">
+                <div class="border border-gray-200 bg-white rounded-xl overflow-hidden transition-all">
+                    <button type="button" onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-gray-800 text-left hover:bg-gray-50">
                         <span>What is covered under your 3-day after cleaning protection warranty?</span>
-                        <i id="faqIcon2" class="fas fa-chevron-down text-xs text-slate-400 transition-transform duration-300"></i>
+                        <i id="faq-icon-2" class="fas fa-chevron-down text-xs text-gray-400 transition-transform"></i>
                     </button>
-                    <div id="faqAns2" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-slate-50">
-                        If heavy environmental sandstorms, construction dust blowbacks, or sudden dirty downpours compromise your panel visibility indexes within 3 continuous days post-cleaning, you will instantly lock in a 20% discount value structure for your next urgent wash sequence.
+                    <div id="faq-ans-2" class="hidden p-4 pt-0 text-xs text-gray-500 leading-relaxed border-t border-gray-50 bg-gray-50/50">
+                        Agar hamari safai ke baad agle 3 din ke andar Sahiwal mein achanak mitti ka tufan, aandhi, ya barish aa jaye jis se panels dobara gande ho jayen, to aapko agli wash par special flat 20% discount diya jayega taake aapka nuksaan na ho.
                     </div>
                 </div>
 
-                <div class="border border-slate-200 bg-white rounded-xl overflow-hidden transition-all duration-300">
-                    <button onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-4 font-bold text-sm text-slate-800 text-left hover:bg-slate-50">
+                <div class="border border-gray-200 bg-white rounded-xl overflow-hidden transition-all">
+                    <button type="button" onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-gray-800 text-left hover:bg-gray-50">
                         <span>Can thermal stress crack the glass during peak afternoon washing hours?</span>
-                        <i id="faqIcon3" class="fas fa-chevron-down text-xs text-slate-400 transition-transform duration-300"></i>
+                        <i id="faq-icon-3" class="fas fa-chevron-down text-xs text-gray-400 transition-transform"></i>
                     </button>
-                    <div id="faqAns3" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-slate-50">
-                        Yes, splashing cold liquid matrices on highly heated midday panels risks thermal shock fracturing. To eliminate structural vulnerability completely, we carefully mandate safe cooling operation shift windows: Early Mornings or Late Evenings only.
+                    <div id="faq-ans-3" class="hidden p-4 pt-0 text-xs text-gray-500 leading-relaxed border-t border-gray-50 bg-gray-50/50">
+                        Ji haan! Jab dopahar mein dhoop tez hoti hai to solar panel ka sheesha intehai garm hota hai. Agar us par achanak thanda paani daala jaye to thermal shock ki wajah se panel crack ho sakta hai. Isliye hum hamesha safe timing slots ko tarjeeh dete hain.
                     </div>
                 </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer Section -->
-    <footer class="bg-slate-900 text-slate-400 text-xs py-10 mt-16 border-t border-slate-800">
-        <div class="max-w-4xl mx-auto px-4 text-center space-y-3">
-            <p class="font-bold text-slate-300">&copy; 2026 MS Solar Cleaning Sahiwal. Engineered for maximum generation.</p>
-            <div class="flex flex-wrap justify-center gap-6 text-slate-500">
-                <span><i class="fas fa-phone mr-1"></i> Muneeb Sarwar: +92 308 4462121</span>
-                <span><i class="fas fa-phone mr-1"></i> Safdar: +92 300 7505292</span>
             </div>
         </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-10 px-4 text-center border-t border-gray-800">
+        <div class="container mx-auto max-w-2xl mb-6">
+            <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4"><i class="fas fa-headset text-yellow-500 mr-1"></i> For Inquiry / Support</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto text-left">
+                <div class="bg-gray-800/60 border border-gray-700/50 p-3.5 rounded-xl flex items-center space-x-3">
+                    <div class="bg-blue-900/50 text-blue-400 p-2 rounded-lg text-base"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <p class="text-xs text-gray-400 font-medium">1. Muneeb Sarwar</p>
+                        <a href="tel:+923084462121" class="text-sm font-bold text-white hover:text-yellow-400 transition block mt-0.5">+92 308 4462121</a>
+                    </div>
+                </div>
+                <div class="bg-gray-800/60 border border-gray-700/50 p-3.5 rounded-xl flex items-center space-x-3">
+                    <div class="bg-blue-900/50 text-blue-400 p-2 rounded-lg text-base"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <p class="text-xs text-gray-400 font-medium">2. Safdar</p>
+                        <a href="tel:+923087274525" class="text-sm font-bold text-white hover:text-yellow-400 transition block mt-0.5">+92 308 7274525</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="border-gray-800 my-6 max-w-xl mx-auto">
+        <p class="text-xs text-gray-500">© 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
     </footer>
 
-    <!-- Step 6: Sticky Floating WhatsApp Action Button -->
-    <a href="https://wa.me/923084462121?text=Hi%20MS%20Solar%20Cleaning,%20I%20need%20general%20information%20regarding%20cleaning%20schedules." 
+    <a href="https://wa.me/923084462121?text=Hi%20MS%20Solar%20Cleaning,%20I%20want%20to%20know%20more%20about%20your%20services." 
        target="_blank" 
-       class="fixed bottom-6 right-6 bg-emerald-500 text-white p-4 rounded-full shadow-2xl hover:bg-emerald-600 transition-all transform hover:scale-110 z-50 flex items-center justify-center group"
-       aria-label="Direct Chat Connection">
-        <i class="fab fa-whatsapp text-3xl"></i>
+       class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-50 transition duration-300 transform hover:scale-110 group" 
+       title="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
         <span class="absolute right-16 bg-slate-900 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-xl border border-slate-800">
-            Quick Inquiries
+            Chat With Us
         </span>
     </a>
 
-    <!-- Core Business Application Core Telemetry Logic script engine -->
     <script>
-        const basePricePerPanel = 80;
-        let isFreeReward = false;
-
-        // Initialize Form Parameters
-        window.onload = function() {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('bookDate').value = today;
-            calculateBill();
-        }
-
-        // Before/After Image Slider Logic adapted perfectly for single source 14482.png
         function moveSlider(value) {
-            const beforeImg = document.getElementById('beforeImg');
-            const line = document.getElementById('sliderLine');
-            const btn = document.getElementById('sliderBtn');
+            var beforeImg = document.getElementById("before-img");
+            var sliderLine = document.getElementById("slider-line");
+            var sliderBtn = document.getElementById("slider-btn");
+            var sliderInput = document.getElementById("image-split-slider");
             
-            // Adjust clip path based on range slide percentages
-            beforeImg.style.clipPath = `polygon(0 0, ${value}% 0, ${value}% 100%, 0 100%)`;
-            line.style.left = `${value}%`;
-            btn.style.left = `${value}%`;
+            sliderInput.value = value;
+            beforeImg.style.clipPath = "polygon(0 0, " + value + "% 0, " + value + "% 100%, 0 100%)";
+            sliderLine.style.left = value + "%";
+            sliderBtn.style.left = value + "%";
         }
 
-        function setSlider(value) {
-            document.getElementById('sliderRange').value = value;
-            moveSlider(value);
+        function togglePanelState(state) {
+            if (state === 'dirty') {
+                moveSlider(100); 
+            } else if (state === 'clean') {
+                moveSlider(0); 
+            }
         }
 
-        // Auto-Suggesting panel thresholds based on standard residential module density matrix ratios
+        function shareWithFriend() {
+            var websiteUrl = window.location.href;
+            var shareText = "☀️ *MS Solar Cleaning Services Sahiwal* ☀️\n\nGande solar panels ki wajah se kafi ziada bijli zaya hoti hai. Live cost calculator check karne aur professional machinery wash book karne ke liye niche link par click karein:\n\n🔗 " + websiteUrl;
+            var whatsappUrl = "https://wa.me/?text=" + encodeURIComponent(shareText);
+            window.open(whatsappUrl, '_blank');
+        }
+
         function autoSuggestPanels(systemSize) {
-            if (systemSize === 'custom') return;
-            const kw = parseInt(systemSize);
-            // Dynamic generation logic matching common 585W panel form factor distributions
-            const calculatedPanels = Math.ceil((kw * 1000) / 585);
-            document.getElementById('panelCount').value = calculatedPanels;
+            var qtyInput = document.getElementById("panel-qty");
+            var sizeNum = parseInt(systemSize) || 3;
+            
+            var calculatedPanels = Math.ceil((sizeNum * 1000) / 585);
+            qtyInput.value = calculatedPanels;
+            
             calculateBill();
         }
 
-        // Integrated Local History & Loyalty Management Matrix Engine
-        function checkUserHistory() {
-            const phone = document.getElementById('historyPhone').value.trim();
-            const container = document.getElementById('historyResult');
+        function changePanels(amount) {
+            var qtyInput = document.getElementById("panel-qty");
+            var currentVal = parseInt(qtyInput.value) || 0;
+            var newVal = currentVal + amount;
+            if (newVal < 1) newVal = 1;
+            qtyInput.value = newVal;
+            calculateBill();
+        }
+
+        function checkCustomerHistory() {
+            var phone = document.getElementById("cust-phone").value.trim();
+            var statusBox = document.getElementById("history-status-box");
+            var countBadge = document.getElementById("history-count-badge");
+            var rewardMsg = document.getElementById("history-reward-msg");
             
-            if(!phone) {
-                alert('Please input a valid phone index link.');
+            if (!phone) {
+                alert("Meherbani karke pehle Mobile Number darj karein!");
+                statusBox.classList.add("hidden");
                 return;
             }
-
-            container.classList.remove('hidden');
-            let historyLog = JSON.parse(localStorage.getItem('ms_solar_' + phone)) || { washes: 0, lastReset: new Date().getMonth() };
             
-            // Auto Reset check if a new calendar month cycles in
-            const currentMonth = new Date().getMonth();
-            if(historyLog.lastReset !== currentMonth) {
-                historyLog.washes = 0;
-                historyLog.lastReset = currentMonth;
+            var currentMonth = new Date().getMonth(); 
+            var dataKey = "ms_solar_user_" + phone;
+            var userData = JSON.parse(localStorage.getItem(dataKey)) || { month: currentMonth, count: 0 };
+            
+            if (userData.month !== currentMonth) {
+                userData.month = currentMonth;
+                userData.count = 0;
+                localStorage.setItem(dataKey, JSON.stringify(userData));
             }
-
-            if(historyLog.washes >= 3) {
-                isFreeReward = true;
-                container.innerHTML = `
-                    <div class="bg-amber-50 border border-amber-200 text-amber-900 p-3 rounded-xl text-xs font-medium">
-                        🎉 <strong class="font-bold text-amber-900">Loyalty Unlock achieved!</strong> This current booking is 100% <strong>FREE</strong> via the 3+1 reward program logic!
-                    </div>`;
+            
+            statusBox.classList.remove("hidden");
+            countBadge.innerText = userData.count;
+            
+            if (userData.count === 3) {
+                rewardMsg.innerHTML = "<span class='text-green-600 animate-pulse'>🎉 Mubarak Ho! 3 Services Mukammal. Yeh Wash FREE Hai!</span>";
+            } else if (userData.count >= 4) {
+                rewardMsg.innerHTML = "<span class='text-blue-600'>Loyalty Cycle Restarted (Next Reward after 3 washes)</span>";
             } else {
-                isFreeReward = false;
-                const remaining = 3 - historyLog.washes;
-                container.innerHTML = `
-                    <div class="bg-slate-50 border border-slate-200 text-slate-700 p-3 rounded-xl text-xs">
-                        📊 Current Month Cycles Completed: <strong class="font-bold text-slate-900">${historyLog.washes}/3</strong>.<br>
-                        <span class="text-[11px] text-emerald-600 font-medium">Book ${remaining} more sessions to secure your next free service!</span>
-                    </div>`;
+                var remaining = 3 - userData.count;
+                rewardMsg.innerHTML = "<span class='text-amber-600'>Agli " + remaining + " services ke baad 1 FREE wash milegi!</span>";
             }
+            
             calculateBill();
         }
 
-        // Core Mathematical Telemetry Formulation Engine
         function calculateBill() {
-            const panels = parseInt(document.getElementById('panelCount').value) || 0;
-            const blowerClean = document.getElementById('blowerClean').checked;
-            const sameDay = document.getElementById('sameDay').checked;
-
-            // Psychological Urgency Trigger formulation calculation
-            const unitLossEst = (panels * 0.4).toFixed(1);
-            const financialLossEst = Math.round(unitLossEst * 45 * 30);
+            var panels = parseInt(document.getElementById("panel-qty").value) || 0;
+            var invertersCount = parseInt(document.getElementById("inverter-qty").value) || 1;
+            var servicePlan = document.getElementById("service-package").value;
+            var phone = document.getElementById("cust-phone").value.trim();
             
-            if (panels > 0) {
-                document.getElementById('lossAlert').className = "bg-rose-50 border border-rose-100 rounded-xl p-4 mb-6 flex items-start gap-3";
-                document.getElementById('lossText').innerHTML = `Your accumulation index shows an estimated generation leakage of ~<strong class="font-bold text-rose-700">${unitLossEst} Units/Day</strong>. This equates to an approximated overhead drag of <strong class="font-bold text-rose-700">Rs. ${financialLossEst.toLocaleString()}/Month</strong> if left unserviced!`;
-            }
-
-            let blowerCharge = blowerClean ? 500 : 0;
-            let fleetCharge = sameDay ? 300 : 0;
+            var ratePerPanel = 80; 
+            var blowerCost = document.getElementById("blower-check").checked ? (500 * invertersCount) : 0; 
+            var urgentCost = document.getElementById("urgent-check").checked ? 300 : 0;
             
-            let total = (panels * basePricePerPanel) + blowerCharge + fleetCharge;
-            let executionMinutes = (panels * 4) + (blowerClean ? 20 : 0);
-
-            if(isFreeReward) {
-                total = 0; // Absolute Loyalty Override execution
-            }
-
-            document.getElementById('grandTotal').innerText = `Rs. ${total.toLocaleString()}`;
-            document.getElementById('durationEst').innerText = `/ ~${executionMinutes} Mins`;
-        }
-
-        // Interactive FAQs UI layout accordion toggle controller logic
-        function toggleFaq(id) {
-            const ans = document.getElementById(`faqAns${id}`);
-            const icon = document.getElementById(`faqIcon1${id}`);
+            var total = (panels * ratePerPanel) + blowerCost + urgentCost;
+            var isFreeReward = false;
             
-            if (ans.classList.contains('hidden')) {
-                ans.classList.remove('hidden');
-                document.getElementById(`faqIcon${id}`).style.transform = 'rotate(180deg)';
-            } else {
-                ans.classList.add('hidden');
-                document.getElementById(`faqIcon${id}`).style.transform = 'rotate(0deg)';
-            }
-        }
-
-        // Structured WhatsApp Messaging Output pipeline engine
-        function sendBooking() {
-            const name = document.getElementById('custName').value.trim();
-            const phone = document.getElementById('custPhone').value.trim();
-            const address = document.getElementById('custAddress').value.trim();
-            const mapLink = document.getElementById('custMap').value.trim();
-            const date = document.getElementById('bookDate').value;
-            const timeSlot = document.getElementById('bookTime').value;
-            const panels = document.getElementById('panelCount').value;
-            const sys = document.getElementById('systemSize').value;
-            const blower = document.getElementById('blowerClean').checked ? "Yes (Deep Clean)" : "No";
-            const rush = document.getElementById('sameDay').checked ? "Yes (Same-Day Queue)" : "Standard Queue Allocation";
-            const dueBill = document.getElementById('grandTotal').innerText;
-
-            if(!name || !phone || !address) {
-                alert('Please supply correct parameters inside Full Name, Phone contact, and Home Address lines.');
-                return;
-            }
-
-            // Launch Premium User-Experience Spinner Sequence
-            const overlay = document.getElementById('loadingOverlay');
-            overlay.classList.remove('hidden');
-            overlay.classList.add('flex');
-
-            setTimeout(() => {
-                // Compile Structured Booking Text Stream Matrix
-                let message = `⚡ *NEW ONLINE BOOKING DISPATCH* ⚡\n\n`;
-                message += `👤 *Customer Name:* ${name}\n`;
-                message += `📞 *Contact Link:* ${phone}\n`;
-                message += `📍 *Sahiwal Address:* ${address}\n`;
-                if(mapLink) message += `🗺️ *Google Maps:* ${mapLink}\n`;
-                message += `📅 *Date Specified:* ${date}\n`;
-                message += `🕒 *Safe Windows:* ${timeSlot}\n\n`;
-                
-                message += `⚙️ *SYSTEM CONFIGURATION SPECIFICATION*\n`;
-                message += `▪️ *Inverter Type Selection:* ${sys === 'custom' ? 'Manual Layout' : sys + ' KW Setup'}\n`;
-                message += `▪️ *Volume Count Matrix:* ${panels} Solar Panels\n`;
-                message += `▪️ *Blower & DB Inclusions:* ${blower}\n`;
-                message += `▪️ *Priority Timeline Flag:* ${rush}\n\n`;
-
-                message += `🛡️ *WARRANTY & TRUST VERIFICATION*\n`;
-                message += `✅ *3-Day Dust/Rain Protection:* Active Cover Added\n`;
-                message += `✅ *Safety Infrastructure & Damage Insurance:* Verified Active\n\n`;
-                
-                message += `💵 *TOTAL CERTIFIED PAYABLE DUE:* ${dueBill}\n`;
-                if(isFreeReward) message += `🎁 *Loyalty Note:* 4th Free Cycle Activated!\n`;
-
-                // Update localStorage history profile index tracking counters
-                let currentMonth = new Date().getMonth();
-                let historyLog = JSON.parse(localStorage.getItem('ms_solar_' + phone)) || { washes: 0, lastReset: currentMonth };
-                
-                if(isFreeReward) {
-                    historyLog.washes = 0; // Clear index loop counters upon successfully claiming rewards
-                } else {
-                    historyLog.washes = parseInt(historyLog.washes) + 1;
+            if (phone) {
+                var currentMonth = new Date().getMonth();
+                var userData = JSON.parse(localStorage.getItem("ms_solar_user_" + phone)) || { month: currentMonth, count: 0 };
+                if (userData.month === currentMonth && userData.count === 3) {
+                    isFreeReward = true;
                 }
-                historyLog.lastReset = currentMonth;
-                localStorage.setItem('ms_solar_' + phone, JSON.stringify(historyLog));
+            }
+            
+            if (isFreeReward) {
+                total = 0; 
+                document.getElementById("rate-calc-note").innerHTML = "<span class='text-green-400 font-bold'>🎁 3+1 Loyalty Offer Applied: This Service is 100% FREE!</span>";
+            } else if (servicePlan === "Monthly") {
+                total = Math.round(total * 0.85);
+                document.getElementById("rate-calc-note").innerText = "*Monthly Subscription package configuration active: Flat 15% Off Applied!";
+            } else {
+                document.getElementById("rate-calc-note").innerText = "*Standard washing rate calculated at Rs. 80 per panel";
+            }
+            
+            document.getElementById("total-price").innerText = total;
 
-                // Clean up overlay and transfer processing stream control directly to WhatsApp endpoint
-                overlay.classList.add('hidden');
-                overlay.classList.remove('flex');
-
-                const targetURI = "https://wa.me/923084462121?text=" + encodeURIComponent(message);
-                window.open(targetURI, '_blank');
-            }, 1500);
+            var powerLossUnits = (panels * 0.4).toFixed(1); 
+            var moneyLossValue = Math.round(powerLossUnits * 45 * 30); 
+            
+            document.getElementById("alert-units").innerText = powerLossUnits;
+            document.getElementById("alert-money").innerText = moneyLossValue.toLocaleString();
+            
+            var serviceMinutes = (panels * 4) + (document.getElementById("blower-check").checked ? (20 * invertersCount) : 0);
+            document.getElementById("est-time").innerText = serviceMinutes + " Mins";
         }
+
+        // ADDITIONAL STEP FUNCTION FOR FAQ TOGGLE MANAGEMENT
+        function toggleFaq(id) {
+            var ans = document.getElementById("faq-ans-" + id);
+            var icon = document.getElementById("faq-icon-" + id);
+            if (ans.classList.contains("hidden")) {
+                ans.classList.remove("hidden");
+                icon.style.transform = "rotate(180deg)";
+            } else {
+                ans.classList.add("hidden");
+                icon.style.transform = "rotate(0deg)";
+            }
+        }
+
+        function sendBooking() {
+            var phoneNumber = "923084462121"; 
+            var name = document.getElementById("cust-name").value || "Valued Customer";
+            var custPhone = document.getElementById("cust-phone").value.trim() || "Not Provided";
+            var referral = document.getElementById("referral-code").value || "None Used";
+            
+            var address = document.getElementById("cust-address").value || "Not Provided (Sahiwal Region)";
+            var mapUrlStr = document.getElementById("maps-url").value || "No Live Pin Attached";
+            var date = document.getElementById("booking-date").value || "As soon as possible";
+            var time = document.getElementById("booking-time").value;
+            
+            var planType = document.getElementById("service-package").value;
+            var pBrand = document.getElementById("panel-brand").value;
+            var brand = document.getElementById("inv-brand").value;
+            var size = document.getElementById("inv-size").value;
+            var invertersCount = document.getElementById("inverter-qty").value;
+            var historyLog = document.getElementById("cleaning-history").value;
+            var qty = parseInt(document.getElementById("panel-qty").value) || 0;
+            
+            var finalBill = document.getElementById("total-price").innerText;
+            var blowerActive = document.getElementById("blower-check").checked ? "Yes (" + invertersCount + " Inverters)" : "No";
+            var urgentActive = document.getElementById("urgent-check").checked ? "Yes (Urgent Priority Service Requested)" : "No";
+            var estTimeDuration = document.getElementById("est-time").innerText;
+            
+            var loyaltyStatusText = "Regular Client Campaign";
+            if (custPhone !== "Not Provided") {
+                var currentMonth = new Date().getMonth();
+                var dataKey = "ms_solar_user_" + custPhone;
+                var userData = JSON.parse(localStorage.getItem(dataKey)) || { month: currentMonth, count: 0 };
+                
+                if (userData.count === 3) {
+                    loyaltyStatusText = "🎁 *3+1 FREE LOYALTY WASH APPLIED!*";
+                    userData.count = 4; 
+                } else {
+                    if(userData.count >= 4) {
+                        userData.count = 1; 
+                    } else {
+                        userData.count += 1; 
+                    }
+                    loyaltyStatusText = "Active Service Count: " + userData.count + " This Month";
+                }
+                localStorage.setItem(dataKey, JSON.stringify(userData));
+            }
+            
+            var rawMessageText = "🚀 *M S SOLAR CLEANING - NEW ADVANCED BOOKING* 🚀\n\n" + 
+                                 "*Customer Name:* " + name + "\n" +
+                                 "📞 *Customer Phone:* " + custPhone + "\n" +
+                                 "🏆 *Loyalty Reward Status:* " + loyaltyStatusText + "\n" +
+                                 "📍 *Sahiwal Address:* " + address + "\n" +
+                                 "🗺️ *Google Maps Pin:* " + mapUrlStr + "\n" +
+                                 "📅 *Scheduled Date:* " + date + "\n" +
+                                 "⏰ *Time Slot:* " + time + "\n" +
+                                 "📦 *Package Selected:* " + planType + " Plan\n\n" +
+                                 "*Solar Panels Qty:* " + qty + " Panels\n" +
+                                 "🏷️ *Panels Brand:* " + pBrand + "\n" +
+                                 "⚡ *Inverter Setup:* " + brand + " (" + size + ") x" + invertersCount + " Unit(s)\n" +
+                                 "⏳ *Last Cleaned Status:* " + historyLog + "\n" +
+                                 "💨 *Inverter Blower Service:* " + blowerActive + "\n" +
+                                 "🚨 *Urgent Fast Track:* " + urgentActive + "\n" +
+                                 "⏱️ *Est. Cleaning Duration:* " + estTimeDuration + "\n" +
+                                 "🎟️ *Referral Promo Code:* " + referral + "\n" +
+                                 "🛡️ *Warranty Status:* 3-Day Protection Active Cover Added\n" +
+                                 "💰 *Final Estimated Bill:* Rs. " + finalBill;
+            
+            var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
+            window.open(url, '_blank');
+            
+            if (custPhone !== "Not Provided") {
+                checkCustomerHistory();
+            }
+        }
+        
+        window.onload = function() {
+            calculateBill();
+            moveSlider(50); 
+        };
     </script>
 </body>
 </html>
