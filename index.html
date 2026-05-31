@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MS Solar Cleaning | Sahiwal Professional Solar Maintenance</title>
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -112,6 +114,7 @@
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
 
+    <!-- Header Section -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-3 py-3 flex justify-between items-center max-w-6xl">
             
@@ -158,6 +161,7 @@
         </div>
     </header>
 
+    <!-- Hero Section -->
     <section id="home" class="relative bg-blue-900 text-white py-16 px-4 overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-10">
             <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1920&q=80" alt="Solar Panels Grid" class="w-full h-full object-cover">
@@ -205,6 +209,7 @@
         </div>
     </section>
 
+    <!-- Machinery Profile & Slider Section -->
     <section id="tools" class="py-16 bg-gray-50 px-4">
         <div class="container mx-auto max-w-6xl">
             <div class="text-center mb-12">
@@ -240,6 +245,7 @@
                 </div>
             </div>
 
+            <!-- FIXED BEFORE/AFTER SLIDER BOX WITH MATCHING REAL IMAGES -->
             <div class="max-w-xl mx-auto bg-white p-6 rounded-3xl border border-gray-200 shadow-lg">
                 <h3 class="text-lg font-bold text-blue-900 text-center mb-2"><i class="fas fa-sparkles text-yellow-500"></i> Results (Before vs After)</h3>
                 
@@ -253,10 +259,13 @@
                 </div>
 
                 <div class="slider-container">
+                    <!-- Saaf Panel (After Image - Underneath) -->
                     <img class="slider-img img-after" src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80" alt="Saaf Shaffaf Solar Panel">
                     
-                    <img id="before-img" class="slider-img img-before" src="https://images.unsplash.com/photo-1624397640148-949b1732bb0a?auto=format&fit=crop&w=800&q=80" alt="Mitti Wala Ganda Solar Panel">
+                    <!-- Ganda Panel (Before Image - On Top) -->
+                    <img id="before-img" class="slider-img img-before" src="https://images.unsplash.com/photo-1545259742-b4fd8fea67e4?auto=format&fit=crop&w=800&q=80" alt="Mitti Wala Ganda Solar Panel">
                     
+                    <!-- Slider Interactive Controls -->
                     <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input" oninput="moveSlider(this.value)">
                     <div id="slider-line" class="slider-line"></div>
                     <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
@@ -266,6 +275,7 @@
         </div>
     </section>
 
+    <!-- Supported Inverters & Telemetry -->
     <section id="technical" class="py-16 bg-blue-50 px-4 border-t border-b border-gray-200">
         <div class="container mx-auto max-w-5xl">
             <div class="text-center mb-10">
@@ -345,6 +355,7 @@
         </div>
     </section>
 
+    <!-- Subscription Program -->
     <section id="subscription" class="py-16 bg-gradient-to-b from-white to-gray-100 px-4">
         <div class="container mx-auto max-w-4xl text-center">
             <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
@@ -403,6 +414,7 @@
         </div>
     </section>
 
+    <!-- Live Bill Calculator & Form Section -->
     <section id="calculator" class="py-12 bg-white px-4">
         <div class="container mx-auto max-w-4xl">
             <div class="text-center mb-6">
@@ -470,7 +482,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1 flex justify-between items-center">
+                        <label class="block text-xs font-bold uppercase text-gray-600 mb-2 flex justify-between items-center">
                             <span>Sahiwal Area Address / Colony</span>
                             <a href="https://maps.google.com" target="_blank" class="text-[10px] text-blue-600 font-bold hover:underline flex items-center gap-0.5">
                                 <i class="fas fa-map-marked-alt"></i> Open Google Maps Pin
@@ -625,6 +637,7 @@
         </div>
     </section>
 
+    <!-- Footer Section -->
     <footer class="bg-gray-900 text-gray-400 py-10 px-4 text-center border-t border-gray-800">
         <div class="container mx-auto max-w-2xl mb-6">
             <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4"><i class="fas fa-headset text-yellow-500 mr-1"></i> For Inquiry / Support</h3>
@@ -649,10 +662,12 @@
         <p class="text-xs text-gray-500">© 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
     </footer>
 
+    <!-- WhatsApp Floating Action Button -->
     <a href="https://wa.me/923084462121" target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-50 transition duration-300 transform hover:scale-110" title="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- Core Interactive Scripts -->
     <script>
         function moveSlider(value) {
             var beforeImg = document.getElementById("before-img");
