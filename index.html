@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MS Solar Cleaning | Sahiwal Professional Solar Maintenance</title>
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -28,37 +30,82 @@
             image-rendering: crisp-edges;
         }
 
-        .custom-spacing-wrapper {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
+        /* Premium iOS iPhone Glossy Glass Style */
+        .ios-glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
         }
 
-        /* Interactive Before/After Image Slider CSS */
+        .ios-glass-dark {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* Fixed Image Slider Container for 14482_2.png */
         .slider-container {
             position: relative;
             width: 100%;
-            height: 320px;
+            height: 380px;
             overflow: hidden;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
-        .slider-img {
+
+        /* Left Split Box - Houses the base image container */
+        .slider-side {
             position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
             height: 100%;
-            object-fit: cover;
-            user-select: none;
-            pointer-events: none;
+            overflow: hidden;
+            width: 100%;
         }
-        .img-after {
+
+        .side-left {
+            left: 0;
+            width: 50%;
+            z-index: 20;
+        }
+
+        .side-right {
+            right: 0;
             z-index: 10;
         }
-        .img-before {
-            z-index: 20;
-            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+
+        /* Image offsets to prevent squishing or resizing during movement */
+        .slider-side img {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            max-width: none;
+            object-fit: cover;
         }
+
+        .side-left img {
+            left: 0;
+            /* Explicit fallback image alignment framework */
+        }
+
+        .side-right img {
+            right: 0;
+        }
+
+        /* Overlays to simulate contrast logic cleanly */
+        .dirty-overlay::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(139, 92, 26, 0.25);
+            mix-blend-mode: multiply;
+            pointer-events: none;
+        }
+
         .slider-input {
             position: absolute;
             -webkit-appearance: none;
@@ -75,7 +122,7 @@
             -webkit-appearance: none;
             appearance: none;
             width: 4px;
-            height: 320px;
+            height: 380px;
             background: #eab308;
             cursor: ew-resize;
         }
@@ -94,8 +141,8 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             background: #eab308;
             color: #1e3a8a;
             border-radius: 50%;
@@ -105,14 +152,16 @@
             z-index: 26;
             pointer-events: none;
             transform: translate(-50%, -50%);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            font-size: 14px;
+            border: 2px solid #ffffff;
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans text-gray-800">
+<body class="bg-slate-50 font-sans text-slate-800 antialiased">
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <!-- Header Section -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-white/40 shadow-sm">
         <div class="container mx-auto px-3 py-3 flex justify-between items-center max-w-6xl">
             
             <a href="#home" class="flex items-center space-x-2 group min-w-0">
@@ -142,62 +191,63 @@
                 </div>
             </a>
             
-            <nav class="hidden lg:flex space-x-6 font-medium">
-                <a href="#home" class="text-blue-900 hover:text-yellow-500 transition">Home</a>
-                <a href="#tools" class="text-blue-900 hover:text-yellow-500 transition">Our Machinery</a>
-                <a href="#technical" class="text-blue-900 hover:text-yellow-500 transition">Inverter Diagnostic</a>
-                <a href="#subscription" class="text-blue-900 hover:text-yellow-500 transition">Subscription</a>
-                <a href="#calculator" class="text-blue-900 hover:text-yellow-500 transition">Live Calculator</a>
+            <nav class="hidden lg:flex space-x-6 font-semibold text-sm">
+                <a href="#home" class="text-slate-700 hover:text-blue-600 transition">Home</a>
+                <a href="#tools" class="text-slate-700 hover:text-blue-600 transition">Our Machinery</a>
+                <a href="#technical" class="text-slate-700 hover:text-blue-600 transition">Inverter Diagnostic</a>
+                <a href="#subscription" class="text-slate-700 hover:text-blue-600 transition">Subscription</a>
+                <a href="#calculator" class="text-slate-700 hover:text-blue-600 transition">Live Calculator</a>
             </nav>
             
-            <a href="#calculator" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 sm:px-5 sm:py-2.5 rounded-full font-semibold flex items-center space-x-1 sm:space-x-2 transition shadow-lg text-xs sm:text-sm flex-shrink-0">
-                <i class="fab fa-whatsapp text-sm sm:text-xl"></i>
+            <a href="#calculator" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-90 text-white px-4 py-2 rounded-full font-bold flex items-center space-x-1.5 transition shadow-md text-xs sm:text-sm flex-shrink-0">
+                <i class="fab fa-whatsapp text-sm sm:text-lg"></i>
                 <span>Calculate & Book</span>
             </a>
             
         </div>
     </header>
 
-    <section id="home" class="relative bg-blue-900 text-white py-16 px-4 overflow-hidden">
-        <div class="absolute inset-0 z-0 opacity-10">
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-20 px-4 overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-15">
             <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1920&q=80" alt="Solar Panels Grid" class="w-full h-full object-cover">
         </div>
         
-        <div class="container mx-auto max-w-6xl relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div class="container mx-auto max-w-6xl relative z-10 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
             <div class="md:col-span-7 text-center md:text-left">
-                <span class="bg-yellow-500 text-blue-950 text-xs uppercase font-black px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow mb-4 tracking-wider">
-                    <i class="fas fa-map-marker-alt animate-bounce"></i> Ab Apke shehar Sahiwal mein
+                <span class="bg-white/10 backdrop-blur-md border border-white/20 text-yellow-400 text-xs uppercase font-black px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-sm mb-5 tracking-wider">
+                    <i class="fas fa-map-marker-alt animate-bounce text-red-400"></i> Ab Apke shehar Sahiwal mein
                 </span>
                 
-                <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight tracking-tight">
+                <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight tracking-tight">
                     Gande Solar Panels?<br>
-                    <span class="text-yellow-400">25% Tak Bijli Ka Nuqsaan!</span>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">25% Tak Bijli Ka Nuqsaan!</span>
                 </h1>
                 
-                <p class="text-base text-gray-300 mb-8 max-w-xl leading-relaxed">
+                <p class="text-base text-slate-300 mb-8 max-w-xl leading-relaxed">
                     Mitti aur dhool panels ki generation block karte hain. Hum Sahiwal mein Ingco pressure washers aur complete safety measures ke sath complete wash service dete hain.
                 </p>
                 
                 <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#calculator" class="bg-yellow-500 hover:bg-yellow-600 text-blue-950 font-bold px-6 py-3 rounded-lg text-center transition shadow-lg">
+                    <a href="#calculator" class="bg-gradient-to-r from-yellow-400 to-amber-500 hover:opacity-95 text-slate-950 font-extrabold px-6 py-3.5 rounded-xl text-center transition shadow-lg">
                         Open Live Calculator
                     </a>
-                    <a href="#tools" class="bg-blue-800 border border-blue-700 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg text-center transition">
+                    <a href="#tools" class="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-bold px-6 py-3.5 rounded-xl text-center transition">
                         Check Machinery
                     </a>
                 </div>
             </div>
             
             <div class="md:col-span-5 flex justify-center">
-                <div class="relative p-2 bg-gradient-to-b from-yellow-400 to-blue-800 rounded-3xl shadow-2xl max-w-[340px] w-full">
-                    <div class="bg-gray-800 rounded-2xl overflow-hidden h-[460px] w-full relative">
+                <div class="relative p-2 bg-gradient-to-b from-white/20 to-white/5 backdrop-blur-xl rounded-3xl shadow-2xl max-w-[340px] w-full border border-white/30">
+                    <div class="bg-slate-800 rounded-2xl overflow-hidden h-[460px] w-full relative">
                         <img src="team-solar-service.jpg" alt="M S Solar Team Action" class="w-full h-full object-cover object-center">
-                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-blue-950 via-blue-950/80 to-transparent p-4 text-center">
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent p-5 text-center">
                             <p class="text-base font-bold text-white tracking-wide">MS Solar Experts</p>
-                            <p class="text-xs text-yellow-400 uppercase font-bold tracking-widest mt-0.5">Sahiwal Field Lead</p>
+                            <p class="text-xs text-yellow-400 uppercase font-bold tracking-widest mt-1">Sahiwal Field Lead</p>
                         </div>
                     </div>
-                    <span class="absolute -top-3 -right-3 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
+                    <span class="absolute -top-3 -right-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 border border-white/20">
                         <i class="fas fa-check-circle"></i> On-Site Action
                     </span>
                 </div>
@@ -205,318 +255,331 @@
         </div>
     </section>
 
-    <section id="tools" class="py-16 bg-gray-50 px-4">
+    <!-- Machinery Profile & Slider Section -->
+    <section id="tools" class="py-20 bg-slate-50 px-4">
         <div class="container mx-auto max-w-6xl">
-            <div class="text-center mb-12">
-                <span class="text-blue-600 font-bold text-xs tracking-widest uppercase bg-blue-50 px-3 py-1 rounded-full">Machinery Profile</span>
-                <h2 class="text-3xl font-bold text-blue-900 mt-2">Hamare Professional Tools & Equipment</h2>
-                <p class="text-gray-600 text-sm mt-1 max-w-xl mx-auto">Hum panels aur inverter ki long-life performance bahal karne ke liye professional machinery ka istemal karte hain.</p>
+            <div class="text-center mb-16">
+                <span class="text-blue-600 font-bold text-xs tracking-widest uppercase bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">Machinery Profile</span>
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 mt-3">Hamare Professional Tools & Equipment</h2>
+                <p class="text-slate-600 text-sm mt-2 max-w-xl mx-auto">Hum panels aur inverter ki long-life performance bahal karne ke liye professional machinery ka istemal karte hain.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                    <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="ios-glass p-5 rounded-3xl hover:shadow-xl transition duration-300">
+                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2 shadow-inner">
                         <img src="ingo.jpg" alt="Ingco Pressure Washer" class="w-full h-full object-contain">
-                        <span class="absolute bottom-2 right-2 bg-blue-900 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">INGCO 1800W</span>
+                        <span class="absolute bottom-2 right-2 bg-slate-900 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">INGCO 1800W</span>
                     </div>
-                    <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">Ingco Pressure Washer</h3>
-                    <p class="text-xs text-gray-600 text-center leading-relaxed">High-pressure controlled flow aur special water hose jo bina scratch banaye jami hui sakht mitti ko mukammal utar deta hai.</p>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2 text-center">Ingco Pressure Washer</h3>
+                    <p class="text-xs text-slate-600 text-center leading-relaxed">High-pressure controlled flow aur special water hose jo bina scratch banaye jami hui sakht mitti ko mukammal utar deta hai.</p>
                 </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                    <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative">
+                <div class="ios-glass p-5 rounded-3xl hover:shadow-xl transition duration-300">
+                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative shadow-inner">
                         <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=500&q=80" alt="Solar Telescopic Brush" class="w-full h-full object-cover">
-                        <span class="absolute bottom-2 right-2 bg-yellow-500 text-blue-950 text-[10px] px-2 py-0.5 rounded font-bold uppercase">Soft Micro-Bristles</span>
+                        <span class="absolute bottom-2 right-2 bg-yellow-500 text-slate-950 text-[10px] px-2 py-0.5 rounded font-bold uppercase">Soft Micro-Bristles</span>
                     </div>
-                    <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">Soft Bristle Telescopic Brush</h3>
-                    <p class="text-xs text-gray-600 text-center leading-relaxed">Solar protective layer aur anti-reflective glass coating ke liye special extended soft brush setup jo bina nuksaan pounchaye chamka deta hai.</p>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2 text-center">Soft Bristle Telescopic Brush</h3>
+                    <p class="text-xs text-slate-600 text-center leading-relaxed">Solar protective layer aur anti-reflective glass coating ke liye special extended soft brush setup jo bina nuksaan pounchaye chamka deta hai.</p>
                 </div>
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                    <div class="w-full h-56 rounded-xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2">
+                <div class="ios-glass p-5 rounded-3xl hover:shadow-xl transition duration-300">
+                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative bg-white flex items-center justify-center p-2 shadow-inner">
                         <img src="hyundai-blower.jpg" alt="Hyundai Electric Blower" class="w-full h-full object-contain">
                         <span class="absolute bottom-2 right-2 bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">HYUNDAI 700W</span>
                     </div>
-                    <h3 class="text-lg font-bold text-blue-900 mb-1.5 text-center">High-Velocity Air Blower</h3>
-                    <p class="text-xs text-gray-600 text-center leading-relaxed">Smart inverters ke cooling fans aur unke internal air filters ko mukammal saaf karne ke liye taake cooling performance up-to-date rahe.</p>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2 text-center">High-Velocity Air Blower</h3>
+                    <p class="text-xs text-slate-600 text-center leading-relaxed">Smart inverters ke cooling fans aur unke internal air filters ko mukammal saaf karne ke liye taake cooling performance up-to-date rahe.</p>
                 </div>
             </div>
 
-            <div class="max-w-xl mx-auto bg-white p-6 rounded-3xl border border-gray-200 shadow-lg">
-                <h3 class="text-lg font-bold text-blue-900 text-center mb-2"><i class="fas fa-sparkles text-yellow-500"></i> Results (Before vs After)</h3>
+            <!-- BEFORE/AFTER SLIDER BOX FIXED FOR 14482_2.png -->
+            <div class="max-w-2xl mx-auto ios-glass p-6 rounded-3xl shadow-xl border border-white/50">
+                <h3 class="text-xl font-black text-slate-900 text-center mb-3"><i class="fas fa-sparkles text-yellow-500"></i> Results (Before vs After)</h3>
                 
-                <div class="flex justify-center gap-2 mb-4">
-                    <button type="button" onclick="togglePanelState('dirty')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-amber-300">
+                <div class="flex justify-center gap-3 mb-5">
+                    <button type="button" onclick="togglePanelState('dirty')" class="bg-amber-500 hover:bg-amber-600 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-md">
                         🏜️ Mitti Wala Panel
                     </button>
-                    <button type="button" onclick="togglePanelState('clean')" class="bg-green-100 hover:bg-green-200 text-green-800 font-bold px-3 py-1.5 rounded-lg text-xs transition border border-green-300">
+                    <button type="button" onclick="togglePanelState('clean')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-md">
                         ✨ Saaf Shaffaf Panel
                     </button>
                 </div>
 
-                <div class="slider-container">
-                    <img class="slider-img img-after" src="14482.png" alt="Clean Solar Panel">
+                <div class="slider-container" id="slider-box-shell">
+                    <!-- Clean State Layer (Right Base View) -->
+                    <div class="slider-side side-right">
+                        <img id="img-clean-src" src="14482_2.png" alt="Clean Solar Panel Stack" class="w-full h-full">
+                    </div>
                     
-                    <img id="before-img" class="slider-img img-before" src="14482.png" alt="Dirty Solar Panel">
+                    <!-- Dirty State Layer (Left Adjustable Overlay View) -->
+                    <div class="slider-side side-left dirty-overlay" id="left-clip-pane">
+                        <img id="img-dirty-src" src="14482_2.png" alt="Dirty Solar Panel Stack" class="w-full h-full">
+                    </div>
                     
+                    <!-- Interactive Slidebar Controls -->
                     <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input" oninput="moveSlider(this.value)">
                     <div id="slider-line" class="slider-line"></div>
                     <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
                 </div>
-                <p class="text-xs text-gray-500 text-center mt-3">Buttons dabayein ya slider handle ko swipe karke mitti aur safai ka farq dekhein.</p>
+                <p class="text-xs text-slate-500 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
             </div>
 
-            <div class="max-w-3xl mx-auto bg-white border border-gray-200 shadow-sm rounded-2xl p-5 mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+            <!-- SAFETY & TRUST BADGES SECTION -->
+            <div class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
                 <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-2 text-lg shadow-inner">
+                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-md border border-white">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h4 class="text-xs font-bold text-gray-800 mb-1">Certified Safety Standards</h4>
-                    <p class="text-[11px] text-gray-500 leading-tight">Zero structural damage or scratching risks during process</p>
+                    <h4 class="text-xs font-bold text-slate-900 mb-1">Certified Safety Standards</h4>
+                    <p class="text-[11px] text-slate-500 leading-tight">Zero structural damage or scratching risks during process</p>
                 </div>
-                <div class="flex flex-col items-center border-y sm:border-y-0 sm:border-x border-gray-100 py-4 sm:py-0">
-                    <div class="w-12 h-12 bg-green-50 text-green-600 rounded-full flex items-center justify-center mb-2 text-lg shadow-inner">
+                <div class="flex flex-col items-center border-y sm:border-y-0 sm:border-x border-slate-200/60 py-4 sm:py-0">
+                    <div class="w-12 h-12 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-md border border-white">
                         <i class="fas fa-user-check"></i>
                     </div>
-                    <h4 class="text-xs font-bold text-gray-800 mb-1">Trained Staff Team</h4>
-                    <p class="text-[11px] text-gray-500 leading-tight">Equipped with anti-slip shoes and lifelines harness safety</p>
+                    <h4 class="text-xs font-bold text-slate-900 mb-1">Trained Staff Team</h4>
+                    <p class="text-[11px] text-slate-500 leading-tight">Equipped with anti-slip shoes and lifelines harness safety</p>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center mb-2 text-lg shadow-inner">
+                    <div class="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-md border border-white">
                         <i class="fas fa-handshake-angle"></i>
                     </div>
-                    <h4 class="text-xs font-bold text-gray-800 mb-1">Damage Insurance Cover</h4>
-                    <p class="text-[11px] text-gray-500 leading-tight">Full baseline security assurance for supreme peace of mind</p>
+                    <h4 class="text-xs font-bold text-slate-900 mb-1">Damage Insurance Cover</h4>
+                    <p class="text-[11px] text-slate-500 leading-tight">Full baseline security assurance for supreme peace of mind</p>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <section id="technical" class="py-16 bg-blue-50 px-4 border-t border-b border-gray-200">
+    <!-- Supported Inverters & Telemetry -->
+    <section id="technical" class="py-20 bg-gradient-to-b from-blue-50 to-slate-100 px-4 border-t border-b border-slate-200/60">
         <div class="container mx-auto max-w-5xl">
-            <div class="text-center mb-10">
-                <span class="text-yellow-600 font-bold text-xs tracking-widest uppercase bg-yellow-100 px-3 py-1 rounded-full">Inverter Diagnostic</span>
-                <h2 class="text-3xl font-bold text-blue-900 mt-2">Supported Smart Inverters & Telemetry</h2>
-                <p class="text-gray-600 text-sm mt-1">Hum sirf dhote nahi hain, balkay inverters par generation check kar ke farq dikhate hain.</p>
+            <div class="text-center mb-14">
+                <span class="text-yellow-600 font-bold text-xs tracking-widest uppercase bg-yellow-100 px-3 py-1.5 rounded-full border border-yellow-200">Inverter Diagnostic</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-3">Supported Smart Inverters & Telemetry</h2>
+                <p class="text-slate-600 text-sm mt-2">Hum sirf dhote nahi hain, balkay inverters par generation check kar ke farq dikhate hain.</p>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-10 text-center">
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-solar-panel text-blue-600 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">SOLIS</span>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-12 text-center">
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-solar-panel text-blue-600 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">SOLIS</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-charging-station text-orange-500 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">KNOX PV</span>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-charging-station text-orange-500 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">KNOX PV</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-bolt text-yellow-500 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">MAXPOWER</span>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-bolt text-yellow-500 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">MAXPOWER</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-microchip text-red-500 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">NITROX</span>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-microchip text-red-500 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">NITROX</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-network-wired text-green-600 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">HUAWEI</span>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-network-wired text-green-600 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">HUAWEI</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-industry text-purple-600 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">INVEREX</span>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-industry text-purple-600 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">INVEREX</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-crown text-yellow-600 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">CROWN</span>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-crown text-yellow-600 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">CROWN</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-car-battery text-blue-500 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">TESLA</span>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-car-battery text-blue-500 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">TESLA</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-star text-red-600 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">ORIENT</span>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-star text-red-600 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">ORIENT</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-shield-alt text-teal-600 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">FRONUS</span>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-shield-alt text-teal-600 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">FRONUS</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-sun text-amber-500 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">GOODWE</span>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-sun text-amber-500 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">GOODWE</span>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center hover:shadow-md transition">
-                    <i class="fas fa-plug text-lime-600 text-2xl mb-1"></i>
-                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">GROWATT</span>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition duration-300">
+                    <i class="fas fa-plug text-lime-600 text-2xl mb-1.5"></i>
+                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">GROWATT</span>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div>
-                    <div class="bg-white p-5 rounded-xl shadow-sm flex items-start space-x-3">
-                        <div class="bg-yellow-100 text-yellow-600 p-2.5 rounded-lg text-lg"><i class="fas fa-chart-line"></i></div>
+                    <div class="ios-glass p-5 rounded-2xl flex items-start space-x-4">
+                        <div class="bg-blue-100 text-blue-600 p-3 rounded-xl text-xl"><i class="fas fa-chart-line"></i></div>
                         <div>
-                            <h4 class="font-bold text-blue-900 text-sm">KW Output Boost</h4>
-                            <p class="text-gray-600 text-xs mt-0.5">Tamam inverter's jaise high-efficiency setups par wash ke foran baad Kilowatt (KW) production barh jati hai.</p>
+                            <h4 class="font-bold text-slate-900 text-sm">KW Output Boost</h4>
+                            <p class="text-slate-600 text-xs mt-1">Tamam inverter's jaise high-efficiency setups par wash ke foran baad Kilowatt (KW) production barh jati hai.</p>
                         </div>
                     </div>
                 </div>
-                <div class="bg-blue-900 text-white p-6 rounded-2xl shadow-lg relative overflow-hidden tech-animate">
+                <div class="ios-glass-dark text-white p-6 rounded-2xl relative overflow-hidden tech-animate">
                     <h3 class="text-lg font-bold text-yellow-400 mb-3 flex items-center gap-2">
                         <i class="fas fa-user-shield text-green-400"></i> Safety Harness Compliance
                     </h3>
-                    <p class="text-xs text-gray-300 mb-3">Hum high structural roofs par kaam karte waqt lifeline body safety belts, anti-slip shoes, aur safety helmets ka 100% istemal lazmi karte hain.</p>
+                    <p class="text-xs text-slate-300 mb-3 leading-relaxed">Hum high structural roofs par kaam karte waqt lifeline body safety belts, anti-slip shoes, aur safety helmets ka 100% istemal lazmi karte hain.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="subscription" class="py-16 bg-gradient-to-b from-white to-gray-100 px-4">
+    <!-- Subscription Program -->
+    <section id="subscription" class="py-20 bg-slate-50 px-4">
         <div class="container mx-auto max-w-4xl text-center">
-            <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+            <span class="bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider border border-yellow-200">
                 🌟 Premium Membership
             </span>
-            <h2 class="text-3xl font-extrabold text-blue-900 mt-3 mb-4">Regular Cleaning vs. Smart Saving!</h2>
-            <p class="text-gray-600 text-base max-w-2xl mx-auto mb-10">
+            <h2 class="text-3xl font-black text-slate-900 mt-4 mb-4">Regular Cleaning vs. Smart Saving!</h2>
+            <p class="text-slate-600 text-base max-w-2xl mx-auto mb-12">
                 Humare monthly subscription plan ke sath apne solar panels ki efficiency ko 100% barkarar rakhein aur payein <span class="font-bold text-blue-600">Special Discounts</span> har mahine.
             </p>
 
-            <div class="bg-white border border-gray-200 rounded-3xl p-8 shadow-xl max-w-2xl mx-auto text-left relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl uppercase tracking-widest">
+            <div class="ios-glass border border-white rounded-3xl p-8 shadow-2xl max-w-2xl mx-auto text-left relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-black px-4 py-1.5 rounded-bl-2xl uppercase tracking-widest">
                     Best Value
                 </div>
                 
                 <div class="space-y-6">
                     <div class="flex items-start space-x-4">
-                        <div class="bg-blue-100 text-blue-600 p-2 rounded-xl text-xl mt-1">
+                        <div class="bg-blue-100 text-blue-600 p-2.5 rounded-xl text-xl mt-0.5">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-blue-900 text-lg">Hassle-Free Scheduling</h4>
-                            <p class="text-gray-600 text-sm mt-0.5">Aapko bar bar call karne ki zaroorat nahi, humari team khud waqt par aayegi.</p>
+                            <h4 class="font-bold text-slate-900 text-base">Hassle-Free Scheduling</h4>
+                            <p class="text-slate-600 text-sm mt-0.5">Aapko bar bar call karne ki zaroorat nahi, humari team khud waqt par aayegi.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
-                        <div class="bg-green-100 text-green-600 p-2 rounded-xl text-xl mt-1">
+                        <div class="bg-green-100 text-green-600 p-2.5 rounded-xl text-xl mt-0.5">
                             <i class="fas fa-tags"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-green-600 text-lg">Exclusive Discounted Rates</h4>
-                            <p class="text-gray-600 text-sm mt-0.5">One-time service se bohot kam qeemat mein monthly maintenance aur locked discount setup.</p>
+                            <h4 class="font-bold text-green-600 text-base">Exclusive Discounted Rates</h4>
+                            <p class="text-slate-600 text-sm mt-0.5">One-time service se bohot kam qeemat mein monthly maintenance aur locked discount setup.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
-                        <div class="bg-yellow-100 text-yellow-600 p-2 rounded-xl text-xl mt-1">
+                        <div class="bg-yellow-100 text-yellow-600 p-2.5 rounded-xl text-xl mt-0.5">
                             <i class="fas fa-tools"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-blue-900 text-lg">Priority Customer Support</h4>
-                            <p class="text-gray-600 text-sm mt-0.5">Subscribed customers ke liye instant response aur har wash par free string diagnostic checking.</p>
+                            <h4 class="font-bold text-slate-900 text-base">Priority Customer Support</h4>
+                            <p class="text-slate-600 text-sm mt-0.5">Subscribed customers ke liye instant response aur har wash par free string diagnostic checking.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-8 bg-gray-50 border border-gray-100 p-4 rounded-xl text-center">
-                    <p class="text-sm text-gray-700 italic font-medium">
+                <div class="mt-8 bg-white/60 border border-slate-200/40 p-4 rounded-xl text-center shadow-inner">
+                    <p class="text-sm text-slate-700 italic font-semibold">
                         💡 Sasti safai, zyada bachat! Aaj hi subscribe karein aur salana hazaron rupe ki bachat karein.
                     </p>
                 </div>
                 
-                <a href="#calculator" class="block w-full text-center bg-blue-900 hover:bg-blue-800 text-white font-bold py-3.5 rounded-xl shadow-lg mt-6 transition">
+                <a href="#calculator" class="block w-full text-center bg-gradient-to-r from-blue-900 to-slate-900 hover:opacity-95 text-white font-extrabold py-4 rounded-xl shadow-lg mt-6 transition">
                     Lock Monthly Plan Discount
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="calculator" class="py-12 bg-white px-4">
+    <!-- Live Bill Calculator & Form Section -->
+    <section id="calculator" class="py-16 bg-white px-4">
         <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-6">
-                <span class="text-green-600 font-bold text-xs tracking-widest uppercase bg-green-50 px-3 py-1 rounded-full">Instant Quote</span>
-                <h2 class="text-3xl font-bold text-blue-900 mt-2">Live Price Estimation Calculator</h2>
-                <p class="text-gray-500 text-sm mt-1">Apne panels ki tadad set karein aur automatic real-time bill check karein (Rs. 80 Per Panel).</p>
+            <div class="text-center mb-10">
+                <span class="text-green-600 font-bold text-xs tracking-widest uppercase bg-green-50 px-3 py-1.5 rounded-full border border-green-200">Instant Quote</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-3">Live Price Estimation Calculator</h2>
+                <p class="text-slate-500 text-sm mt-2">Apne panels ki tadad set karein aur automatic real-time bill check karein (Rs. 80 Per Panel).</p>
             </div>
 
-            <div class="max-w-xl mx-auto mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl shadow-sm animate-pulse">
+            <div class="max-w-xl mx-auto mb-8 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-2xl shadow-sm animate-pulse">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <i class="fas fa-exclamation-triangle text-red-500 text-lg"></i>
                     </div>
                     <div class="ml-3">
                         <h3 class="text-xs sm:text-sm font-bold text-red-800 uppercase tracking-wide">⚠️ Energy Loss Alert</h3>
-                        <p class="text-xs text-red-700 mt-0.5 font-medium">
+                        <p class="text-xs text-red-700 mt-0.5 font-semibold">
                             Gande panels ki wajah se aapka solar system rozana taqreeban <span class="font-bold underline" id="alert-units">3.2</span> Units (Bijli) aur mahana taqreeban Rs. <span class="font-bold underline" id="alert-money">4,500</span> tak zaya kar raha hai!
                         </p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gray-50 border border-gray-200 p-6 rounded-3xl shadow-xl max-w-xl mx-auto relative">
-                <div class="space-y-5">
+            <div class="ios-glass p-6 rounded-3xl shadow-2xl max-w-xl mx-auto relative border border-white">
+                <div class="space-y-6">
                     
-                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
+                    <div class="bg-blue-50/60 border border-blue-200 p-4 rounded-2xl shadow-inner">
                         <label class="block text-xs font-black uppercase text-blue-900 mb-1">🔍 Customer Loyalty & Wash History Tracker</label>
-                        <p class="text-[11px] text-gray-600 mb-2">Apna WhatsApp / Mobile Number likh kar record check karein:</p>
+                        <p class="text-[11px] text-slate-600 mb-2">Apna WhatsApp / Mobile Number likh kar record check karein:</p>
                         <div class="flex gap-2">
-                            <input type="text" id="cust-phone" oninput="calculateBill()" placeholder="e.g. 03084462121" class="w-full border border-gray-300 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-bold text-gray-700">
-                            <button type="button" onclick="checkCustomerHistory()" class="bg-blue-900 text-white font-bold px-4 py-2 rounded-lg text-xs hover:bg-blue-800 transition shadow whitespace-nowrap">
+                            <input type="text" id="cust-phone" oninput="calculateBill()" placeholder="e.g. 03084462121" class="w-full border border-slate-300 px-3 py-2 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-bold text-slate-700 shadow-sm">
+                            <button type="button" onclick="checkCustomerHistory()" class="bg-blue-900 text-white font-bold px-4 py-2 rounded-xl text-xs hover:bg-blue-800 transition shadow whitespace-nowrap">
                                 Check History
                             </button>
                         </div>
-                        <div id="history-status-box" class="hidden mt-3 bg-white border border-blue-100 p-3 rounded-xl text-xs">
+                        <div id="history-status-box" class="hidden mt-3 bg-white border border-blue-100 p-3 rounded-xl text-xs shadow-sm">
                             <div class="flex justify-between items-center mb-1">
-                                <span class="text-gray-600">Total Washes This Month:</span>
+                                <span class="text-slate-600">Total Washes This Month:</span>
                                 <span id="history-count-badge" class="bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold">0</span>
                             </div>
                             <div class="flex justify-between items-center font-bold">
-                                <span class="text-gray-700">Next Service Status:</span>
-                                <span id="history-reward-msg" class="text-gray-800">Regular Service Rate</span>
+                                <span class="text-slate-700">Next Service Status:</span>
+                                <span id="history-reward-msg" class="text-slate-800">Regular Service Rate</span>
                             </div>
                         </div>
                     </div>
                     
                     <div>
-                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Service Type / Plan Package</label>
-                        <select id="service-package" onchange="calculateBill()" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-bold text-blue-900">
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Service Type / Plan Package</label>
+                        <select id="service-package" onchange="calculateBill()" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-bold text-blue-900 shadow-sm">
                             <option value="One-Time">One-Time Standard Service (Regular Rate)</option>
-                            <option value="Monthly">Monthly Subscribed Plan (15% Flat Discount On Total)</option>
+                            <option value="Monthly">Monthly Subscribed Plan (10% Flat Discount On Total)</option>
                         </select>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Customer Name</label>
-                            <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Customer Name</label>
+                            <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
                         </div>
                         
                         <div>
-                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Referral Code (Optional)</label>
-                            <input type="text" id="referral-code" placeholder="e.g. FRIEND10" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Referral Code (Optional)</label>
+                            <input type="text" id="referral-code" placeholder="e.g. FRIEND10" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold uppercase text-gray-600 mb-2 flex justify-between items-center">
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-2 flex justify-between items-center">
                             <span>Sahiwal Area Address / Colony</span>
                             <a href="https://maps.google.com" target="_blank" class="text-[10px] text-blue-600 font-bold hover:underline flex items-center gap-0.5">
                                 <i class="fas fa-map-marked-alt"></i> Open Google Maps Pin
                             </a>
                         </label>
                         <div class="relative">
-                            <input type="text" id="cust-address" placeholder="e.g. Farid Town, Scheme No. 2, Tariq Road" class="w-full border border-gray-300 pl-4 pr-32 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium text-sm">
-                            <div class="absolute right-1.5 top-1.5">
-                                <input type="text" id="maps-url" placeholder="Paste Map Link" class="border border-gray-200 text-[10px] px-2 py-1 rounded focus:outline-none focus:border-blue-500 bg-gray-50 max-w-[110px] inline-block font-sans">
+                            <input type="text" id="cust-address" placeholder="e.g. Farid Town, Scheme No. 2, Tariq Road" class="w-full border border-slate-300 pl-4 pr-32 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium text-sm shadow-sm">
+                            <div class="absolute right-2 top-2">
+                                <input type="text" id="maps-url" placeholder="Paste Map Link" class="border border-slate-200 text-[10px] px-2 py-1.5 rounded-lg focus:outline-none focus:border-blue-500 bg-slate-50 max-w-[110px] inline-block font-sans shadow-inner">
                             </div>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Preferred Date</label>
-                            <input type="date" id="booking-date" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Date</label>
+                            <input type="date" id="booking-date" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Preferred Time Slot</label>
-                            <select id="booking-time" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Time Slot</label>
+                            <select id="booking-time" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
                                 <option value="08:00 AM - 11:00 AM">08:00 AM - 11:00 AM</option>
                                 <option value="11:00 AM - 02:00 PM">11:00 AM - 02:00 PM</option>
                                 <option value="02:00 PM - 05:00 PM">02:00 PM - 05:00 PM</option>
@@ -525,8 +588,8 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Solar Panels Brand Model</label>
-                        <select id="panel-brand" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Solar Panels Brand Model</label>
+                        <select id="panel-brand" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
                             <option value="Canadian Solar">Canadian Solar (High Efficiency)</option>
                             <option value="Longi Solar">Longi Solar</option>
                             <option value="Jinko Solar">Jinko Solar</option>
@@ -538,8 +601,8 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Inverter Brand</label>
-                            <select id="inv-brand" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Inverter Brand</label>
+                            <select id="inv-brand" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
                                 <option value="Solis">Solis</option>
                                 <option value="Knox">Knox</option>
                                 <option value="MaxPower">MaxPower</option>
@@ -555,8 +618,8 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">System Size (KW)</label>
-                            <select id="inv-size" onchange="autoSuggestPanels(this.value)" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">System Size (KW)</label>
+                            <select id="inv-size" onchange="autoSuggestPanels(this.value)" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
                                 <option value="3 KW">3 KW</option>
                                 <option value="5 KW">5 KW</option>
                                 <option value="6 KW">6 KW</option>
@@ -572,8 +635,8 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Total Inverters Count</label>
-                            <select id="inverter-qty" onchange="calculateBill()" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Total Inverters Count</label>
+                            <select id="inverter-qty" onchange="calculateBill()" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
                                 <option value="1">1 Inverter Setup</option>
                                 <option value="2">2 Inverters Multi-Setup</option>
                                 <option value="3">3 Inverters Multi-Setup</option>
@@ -581,8 +644,8 @@
                         </div>
                         
                         <div>
-                            <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Last Cleaned Status</label>
-                            <select id="cleaning-history" class="w-full border border-gray-300 px-4 py-2.5 rounded-lg focus:outline-none focus:border-blue-500 bg-white font-medium">
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Last Cleaned Status</label>
+                            <select id="cleaning-history" class="w-full border border-slate-300 px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 bg-white font-medium shadow-sm">
                                 <option value="1 Month Ago">Cleaned 1 Month Ago</option>
                                 <option value="3 Months Ago">Cleaned 3 Months Ago</option>
                                 <option value="More Than 6 Months">More Than 6 Months / Never</option>
@@ -591,22 +654,22 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold uppercase text-gray-600 mb-2">Solar Panels Ki Tadad (Quantity)</label>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-2">Solar Panels Ki Tadad (Quantity)</label>
                         <div class="flex items-center space-x-3">
-                            <button type="button" onclick="changePanels(-1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl hover:bg-blue-800 transition flex items-center justify-center shadow">-</button>
-                            <input type="number" id="panel-qty" value="8" min="1" oninput="calculateBill()" class="w-16 text-center border border-gray-300 h-12 rounded-xl font-bold text-xl focus:outline-none focus:border-blue-500 bg-white">
-                            <button type="button" onclick="changePanels(1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl hover:bg-blue-800 transition flex items-center justify-center shadow">+</button>
+                            <button type="button" onclick="changePanels(-1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl hover:opacity-90 transition flex items-center justify-center shadow">-</button>
+                            <input type="number" id="panel-qty" value="8" min="1" oninput="calculateBill()" class="w-16 text-center border border-slate-300 h-12 rounded-xl font-bold text-xl focus:outline-none focus:border-blue-500 bg-white shadow-inner">
+                            <button type="button" onclick="changePanels(1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl hover:opacity-90 transition flex items-center justify-center shadow">+</button>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-xl border border-gray-200 flex items-start">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-start shadow-sm">
                         <input type="checkbox" id="blower-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-green-500 flex-shrink-0">
                         <label for="blower-check" class="font-bold text-blue-900 text-xs sm:text-sm select-none leading-tight">
                             Add Comprehensive Inverter Blower & DB Box Terminal Tightening Service (+Rs. 500 Per Inverter)
                         </label>
                     </div>
 
-                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl flex items-start">
+                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl flex items-start shadow-sm">
                         <input type="checkbox" id="urgent-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-amber-500 flex-shrink-0">
                         <label for="urgent-check" class="font-bold text-amber-900 text-xs sm:text-sm select-none leading-tight">
                             Request Emergency / Same-Day Fast Track Service (+Rs. 300 Emergency Fleet Charge)
@@ -614,21 +677,22 @@
                     </div>
 
                     <div class="text-right px-2">
-                        <span class="text-xs font-bold text-gray-500 bg-gray-200 px-2.5 py-1 rounded-full inline-block">
+                        <span class="text-xs font-bold text-slate-600 bg-slate-200 px-3 py-1 rounded-full inline-block">
                             <i class="fas fa-stopwatch text-blue-900"></i> Est. Service Duration: <span id="est-time" class="text-blue-900 font-extrabold">45 Mins</span>
                         </span>
                     </div>
 
-                    <div class="bg-blue-900 text-white p-5 rounded-2xl text-center shadow-inner relative overflow-hidden">
+                    <!-- ESTIMATED SERVICE COST BOX WITH INTEGRATED 3-DAY WARRANTY BADGE HOOK -->
+                    <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-2xl text-center shadow-2xl relative overflow-hidden border border-white/10">
                         <div class="absolute top-0 right-0 bg-amber-500 text-blue-950 text-[9px] font-black uppercase px-3 py-1 rounded-bl-xl tracking-wider">
                             <i class="fas fa-shield-halved"></i> 3-Day Dust & Rain Protection Covered
                         </div>
                         <span class="text-[10px] uppercase tracking-widest text-yellow-400 font-bold">Estimated Service Cost</span>
-                        <div class="text-4xl font-black my-0.5">Rs. <span id="total-price">640</span></div>
-                        <p class="text-[10px] text-blue-200/80" id="rate-calc-note">*Standard washing rate calculated at Rs. 80 per panel</p>
+                        <div class="text-4xl font-black my-1">Rs. <span id="total-price">640</span></div>
+                        <p class="text-[10px] text-slate-300" id="rate-calc-note">*Standard washing rate calculated at Rs. 80 per panel</p>
                     </div>
 
-                    <button onclick="sendBooking()" class="w-full bg-green-500 hover:bg-green-600 text-white text-center font-bold py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
+                    <button onclick="sendBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
                         <i class="fab fa-whatsapp text-xl"></i> Complete Booking via WhatsApp
                     </button>
                     
@@ -638,53 +702,54 @@
                 </div>
             </div>
 
-            <div class="mt-12 max-w-xs mx-auto bg-gray-50 border-2 border-green-500 p-5 rounded-2xl text-center shadow-md">
+            <div class="mt-14 max-w-xs mx-auto ios-glass p-5 rounded-2xl text-center shadow-md">
                 <div class="flex items-center justify-center space-x-2 mb-3">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
                     <h3 class="text-base font-bold text-green-600 tracking-tight">Scan to Chat with Us</h3>
                 </div>
-                <div class="bg-white p-3 rounded-xl border border-gray-100 inline-block shadow-sm">
+                <div class="bg-white p-3 rounded-xl border border-slate-100 inline-block shadow-inner">
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/923084462121" alt="WhatsApp QR Code" class="w-36 h-36">
                 </div>
-                <p class="text-[11px] text-gray-500 font-medium mt-3 leading-relaxed">
+                <p class="text-[11px] text-slate-500 font-medium mt-3 leading-relaxed">
                     Direct mobile se scanning karke rabta ya monthly package active karne ke liye scan karein.
                 </p>
             </div>
         </div>
     </section>
 
-    <section class="py-12 bg-gray-50 px-4 border-t border-gray-200">
+    <!-- FAQ ACCORDION SECTION -->
+    <section class="py-16 bg-slate-50 px-4 border-t border-slate-200/60">
         <div class="container mx-auto max-w-3xl">
-            <h2 class="text-2xl font-bold text-center text-blue-900 mb-2">Frequently Asked Questions</h2>
-            <p class="text-gray-500 text-xs text-center max-w-md mx-auto mb-8">Sahiwal ke solar customers ke aam sawalaat aur unke tafseeli jawabaat.</p>
+            <h2 class="text-2xl font-black text-center text-slate-900 mb-2">Frequently Asked Questions</h2>
+            <p class="text-slate-500 text-xs text-center max-w-md mx-auto mb-10">Sahiwal ke solar customers ke aam sawalaat aur unke tafseeli jawabaat.</p>
             
-            <div class="space-y-3">
-                <div class="border border-gray-200 bg-white rounded-xl overflow-hidden transition-all">
-                    <button type="button" onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-gray-800 text-left hover:bg-gray-50">
+            <div class="space-y-4">
+                <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm">
+                    <button type="button" onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/40">
                         <span>Why shouldn't I wash my panels with normal tap/ground water?</span>
-                        <i id="faq-icon-1" class="fas fa-chevron-down text-xs text-gray-400 transition-transform"></i>
+                        <i id="faq-icon-1" class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
                     </button>
-                    <div id="faq-ans-1" class="hidden p-4 pt-0 text-xs text-gray-500 leading-relaxed border-t border-gray-50 bg-gray-50/50">
+                    <div id="faq-ans-1" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-slate-100 bg-white/30">
                         Sahiwal ka zameeni paani (ground water) bohot khara hota hai aur usme high TDS hotay hain. Agar aap aam paani se panels dhoenge to un par safaid dhabbe (scaling) jamm jayegi, jo panel ki glass efficiency ko hamesha ke liye kam kar deti hai. Hum protective standards ka khyal rakhte hain.
                     </div>
                 </div>
 
-                <div class="border border-gray-200 bg-white rounded-xl overflow-hidden transition-all">
-                    <button type="button" onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-gray-800 text-left hover:bg-gray-50">
+                <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm">
+                    <button type="button" onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/40">
                         <span>What is covered under your 3-day after cleaning protection warranty?</span>
-                        <i id="faq-icon-2" class="fas fa-chevron-down text-xs text-gray-400 transition-transform"></i>
+                        <i id="faq-icon-2" class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
                     </button>
-                    <div id="faq-ans-2" class="hidden p-4 pt-0 text-xs text-gray-500 leading-relaxed border-t border-gray-50 bg-gray-50/50">
+                    <div id="faq-ans-2" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-slate-100 bg-white/30">
                         Agar hamari safai ke baad agle 3 din ke andar Sahiwal mein achanak mitti ka tufan, aandhi, ya barish aa jaye jis se panels dobara gande ho jayen, to aapko agli wash par special flat 20% discount diya jayega taake aapka nuksaan na ho.
                     </div>
                 </div>
 
-                <div class="border border-gray-200 bg-white rounded-xl overflow-hidden transition-all">
-                    <button type="button" onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-gray-800 text-left hover:bg-gray-50">
+                <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm">
+                    <button type="button" onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/40">
                         <span>Can thermal stress crack the glass during peak afternoon washing hours?</span>
-                        <i id="faq-icon-3" class="fas fa-chevron-down text-xs text-gray-400 transition-transform"></i>
+                        <i id="faq-icon-3" class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
                     </button>
-                    <div id="faq-ans-3" class="hidden p-4 pt-0 text-xs text-gray-500 leading-relaxed border-t border-gray-50 bg-gray-50/50">
+                    <div id="faq-ans-3" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-slate-100 bg-white/30">
                         Ji haan! Jab dopahar mein dhoop tez hoti hai to solar panel ka sheesha intehai garm hota hai. Agar us par achanak thanda paani daala jaye to thermal shock ki wajah se panel crack ho sakta hai. Isliye hum hamesha safe timing slots ko tarjeeh dete hain.
                     </div>
                 </div>
@@ -692,33 +757,35 @@
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-gray-400 py-10 px-4 text-center border-t border-gray-800">
-        <div class="container mx-auto max-w-2xl mb-6">
-            <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-4"><i class="fas fa-headset text-yellow-500 mr-1"></i> For Inquiry / Support</h3>
+    <!-- Footer Section -->
+    <footer class="bg-slate-950 text-slate-400 py-12 px-4 text-center border-t border-slate-900">
+        <div class="container mx-auto max-w-2xl mb-8">
+            <h3 class="text-white font-bold text-sm uppercase tracking-wider mb-5"><i class="fas fa-headset text-yellow-500 mr-1"></i> For Inquiry / Support</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto text-left">
-                <div class="bg-gray-800/60 border border-gray-700/50 p-3.5 rounded-xl flex items-center space-x-3">
-                    <div class="bg-blue-900/50 text-blue-400 p-2 rounded-lg text-base"><i class="fas fa-user-tie"></i></div>
+                <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl flex items-center space-x-3 shadow-md">
+                    <div class="bg-blue-950 text-blue-400 p-2.5 rounded-lg text-base"><i class="fas fa-user-tie"></i></div>
                     <div>
-                        <p class="text-xs text-gray-400 font-medium">1. Muneeb Sarwar</p>
+                        <p class="text-xs text-slate-400 font-medium">1. Muneeb Sarwar</p>
                         <a href="tel:+923084462121" class="text-sm font-bold text-white hover:text-yellow-400 transition block mt-0.5">+92 308 4462121</a>
                     </div>
                 </div>
-                <div class="bg-gray-800/60 border border-gray-700/50 p-3.5 rounded-xl flex items-center space-x-3">
-                    <div class="bg-blue-900/50 text-blue-400 p-2 rounded-lg text-base"><i class="fas fa-user-tie"></i></div>
+                <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl flex items-center space-x-3 shadow-md">
+                    <div class="bg-blue-950 text-blue-400 p-2.5 rounded-lg text-base"><i class="fas fa-user-tie"></i></div>
                     <div>
-                        <p class="text-xs text-gray-400 font-medium">2. Safdar</p>
+                        <p class="text-xs text-slate-400 font-medium">2. Safdar</p>
                         <a href="tel:+923087274525" class="text-sm font-bold text-white hover:text-yellow-400 transition block mt-0.5">+92 308 7274525</a>
                     </div>
                 </div>
             </div>
         </div>
-        <hr class="border-gray-800 my-6 max-w-xl mx-auto">
-        <p class="text-xs text-gray-500">© 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
+        <hr class="border-slate-900 my-6 max-w-xl mx-auto">
+        <p class="text-xs text-slate-500">© 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
     </footer>
 
+    <!-- STICKY FLOATING WHATSAPP BUTTON -->
     <a href="https://wa.me/923084462121?text=Hi%20MS%20Solar%20Cleaning,%20I%20want%20to%20know%20more%20about%20your%20services." 
        target="_blank" 
-       class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-50 transition duration-300 transform hover:scale-110 group" 
+       class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-50 transition duration-300 transform hover:scale-110 group border border-white/20" 
        title="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
         <span class="absolute right-16 bg-slate-900 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-xl border border-slate-800">
@@ -726,17 +793,27 @@
         </span>
     </a>
 
+    <!-- Core Interactive Scripts -->
     <script>
         function moveSlider(value) {
-            var beforeImg = document.getElementById("before-img");
             var sliderLine = document.getElementById("slider-line");
             var sliderBtn = document.getElementById("slider-btn");
             var sliderInput = document.getElementById("image-split-slider");
+            var leftPane = document.getElementById("left-clip-pane");
+            var containerWidth = document.getElementById("slider-box-shell").offsetWidth;
             
+            // Sync dynamic widths accurately
             sliderInput.value = value;
-            beforeImg.style.clipPath = "polygon(0 0, " + value + "% 0, " + value + "% 100%, 0 100%)";
+            leftPane.style.width = value + "%";
             sliderLine.style.left = value + "%";
             sliderBtn.style.left = value + "%";
+            
+            // Adjust internal image coordinates dynamically to prevent alignment stretching
+            var imgDirty = document.getElementById("img-dirty-src");
+            var imgClean = document.getElementById("img-clean-src");
+            
+            imgDirty.style.width = containerWidth + "px";
+            imgClean.style.width = containerWidth + "px";
         }
 
         function togglePanelState(state) {
@@ -835,8 +912,8 @@
                 total = 0; 
                 document.getElementById("rate-calc-note").innerHTML = "<span class='text-green-400 font-bold'>🎁 3+1 Loyalty Offer Applied: This Service is 100% FREE!</span>";
             } else if (servicePlan === "Monthly") {
-                total = Math.round(total * 0.85);
-                document.getElementById("rate-calc-note").innerText = "*Monthly Subscription package configuration active: Flat 15% Off Applied!";
+                total = Math.round(total * 0.90); // Adjusted from 0.85 to 0.90 for 10% premium flat discount rate
+                document.getElementById("rate-calc-note").innerText = "*Monthly Subscription package configuration active: Flat 10% Off Applied!";
             } else {
                 document.getElementById("rate-calc-note").innerText = "*Standard washing rate calculated at Rs. 80 per panel";
             }
@@ -853,7 +930,6 @@
             document.getElementById("est-time").innerText = serviceMinutes + " Mins";
         }
 
-        // ADDITIONAL STEP FUNCTION FOR FAQ TOGGLE MANAGEMENT
         function toggleFaq(id) {
             var ans = document.getElementById("faq-ans-" + id);
             var icon = document.getElementById("faq-icon-" + id);
@@ -938,9 +1014,15 @@
             }
         }
         
+        window.onresize = function() {
+            moveSlider(document.getElementById("image-split-slider").value);
+        };
+
         window.onload = function() {
             calculateBill();
-            moveSlider(50); 
+            setTimeout(function(){
+                moveSlider(50); 
+            }, 300);
         };
     </script>
 </body>
