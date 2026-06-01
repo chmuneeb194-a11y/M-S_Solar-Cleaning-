@@ -6,7 +6,7 @@
     <title>MS Solar Cleaning & Car Wash | Sahiwal Professional Maintenance</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link class="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         @keyframes pulse-soft {
@@ -816,7 +816,7 @@
                     <h3 class="text-xl font-black text-slate-900 text-center mb-6"><i class="fas fa-images text-blue-600"></i> Our Professional Car Wash Gallery</h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         <div class="overflow-hidden rounded-2xl border border-white shadow-md bg-slate-200 h-36">
-                            <img src="Haval-foam.jpg" alt="Haval Foam Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                            <img src="haval-foam.jpg" alt="Haval Foam Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
                         </div>
                         <div class="overflow-hidden rounded-2xl border border-white shadow-md bg-slate-200 h-36">
                             <img src="honda-civic-wash.jpg" alt="Honda Civic Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
@@ -942,6 +942,12 @@
             // Auto close dropdown panels
             document.getElementById('panel-main-tab-carwash').style.display = 'none';
             document.getElementById('panel-main-tab-solar').style.display = 'none';
+            
+            // Recalculate slider sizing if visible
+            setTimeout(function() {
+                var sliderInput = document.getElementById("image-split-slider");
+                if(sliderInput) moveSlider(sliderInput.value);
+            }, 50);
         }
 
         /* Car Wash Calculation Engine */
@@ -1237,9 +1243,14 @@
         window.onload = function() {
             calculateBill();
             calculateCarWashBill();
-            setTimeout(function(){
-                moveSlider(50); 
-            }, 300);
+            // Added safe check loop for proper width loading on high latency screens
+            var initSlider = setInterval(function(){
+                var shell = document.getElementById("slider-box-shell");
+                if (shell && shell.offsetWidth > 0) {
+                    moveSlider(50);
+                    clearInterval(initSlider);
+                }
+            }, 100);
         };
     </script>
 </body>
