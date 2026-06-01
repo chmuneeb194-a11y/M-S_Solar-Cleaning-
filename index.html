@@ -433,16 +433,7 @@
                 <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-plug text-lime-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">GROWATT</span></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div>
-                    <div class="ios-glass p-5 rounded-2xl flex items-start space-x-4">
-                        <div class="bg-blue-100/90 text-blue-600 p-3 rounded-xl text-xl border border-white"><i class="fas fa-chart-line"></i></div>
-                        <div>
-                            <h4 class="font-bold text-slate-900 text-sm">KW Output Boost</h4>
-                            <p class="text-slate-600 text-xs mt-1">Tamam inverter's jaise high-efficiency setups par wash ke foran baad Kilowatt (KW) production barh jati hai.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="grid grid-cols-1 gap-8 items-center">
                 <div class="ios-glass-dark text-white p-6 rounded-2xl relative overflow-hidden tech-animate">
                     <h3 class="text-lg font-bold text-yellow-400 mb-3 flex items-center gap-2">
                         <i class="fas fa-user-shield text-green-400"></i> Safety Harness Compliance
@@ -567,15 +558,9 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Customer Name</label>
-                            <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Referral Code (Optional)</label>
-                            <input type="text" id="referral-code" placeholder="e.g. FRIEND10" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
-                        </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Customer Name</label>
+                        <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                     </div>
 
                     <div>
@@ -708,23 +693,7 @@
                         </label>
                     </div>
 
-                    <div class="bg-amber-50/60 backdrop-blur-md border border-amber-200 p-4 rounded-xl flex items-start shadow-sm">
-                        <input type="checkbox" id="urgent-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-amber-500 flex-shrink-0">
-                        <label for="urgent-check" class="font-bold text-amber-900 text-xs sm:text-sm select-none leading-tight">
-                            Request Emergency / Same-Day Fast Track Service (+Rs. 300 Emergency Fleet Charge)
-                        </label>
-                    </div>
-
-                    <div class="text-right px-2">
-                        <span class="text-xs font-bold text-slate-600 bg-white/70 border border-white px-3 py-1 rounded-full inline-block shadow-sm">
-                            <i class="fas fa-stopwatch text-blue-900"></i> Est. Service Duration: <span id="est-time" class="text-blue-900 font-extrabold">45 Mins</span>
-                        </span>
-                    </div>
-
                     <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-2xl text-center shadow-2xl relative overflow-hidden border border-white/10">
-                        <div class="absolute top-0 right-0 bg-amber-500 text-blue-950 text-[9px] font-black uppercase px-3 py-1 rounded-bl-xl tracking-wider">
-                            <i class="fas fa-shield-halved"></i> 3-Day Dust & Rain Protection Covered
-                        </div>
                         <span class="text-[10px] uppercase tracking-widest text-yellow-400 font-bold">Estimated Service Cost</span>
                         <div class="text-4xl font-black my-1">Rs. <span id="total-price">640</span></div>
                         <p class="text-[10px] text-slate-300" id="rate-calc-note">*Standard washing rate calculated at Rs. 80 per panel</p>
@@ -897,6 +866,7 @@
             }
         }
 
+        // Modified functions to ensure accurate runtime synchronization
         function shareWithFriend() {
             var websiteUrl = window.location.href;
             var shareText = "☀️ *MS Solar Cleaning Services Sahiwal* ☀️\n\nGande solar panels ki wajah se kafi ziada bijli zaya hoti hai. Live cost calculator check karne aur professional machinery wash book karne ke liye niche link par click karein:\n\n🔗 " + websiteUrl;
@@ -965,9 +935,8 @@
             
             var ratePerPanel = 80; 
             var blowerCost = document.getElementById("blower-check").checked ? (500 * invertersCount) : 0; 
-            var urgentCost = document.getElementById("urgent-check").checked ? 300 : 0;
             
-            var total = (panels * ratePerPanel) + blowerCost + urgentCost;
+            var total = (panels * ratePerPanel) + blowerCost;
             var isFreeReward = false;
             
             if (phone) {
@@ -995,9 +964,6 @@
             
             document.getElementById("alert-units").innerText = powerLossUnits;
             document.getElementById("alert-money").innerText = moneyLossValue.toLocaleString();
-            
-            var serviceMinutes = (panels * 4) + (document.getElementById("blower-check").checked ? (20 * invertersCount) : 0);
-            document.getElementById("est-time").innerText = serviceMinutes + " Mins";
         }
 
         function toggleFaq(id) {
@@ -1016,7 +982,6 @@
             var phoneNumber = "923084462121"; 
             var name = document.getElementById("cust-name").value || "Valued Customer";
             var custPhone = document.getElementById("cust-phone").value.trim() || "Not Provided";
-            var referral = document.getElementById("referral-code").value || "None Used";
             
             var address = document.getElementById("cust-address").value || "Not Provided (Sahiwal Region)";
             var mapUrlStr = document.getElementById("maps-url").value || "No Live Pin Attached";
@@ -1033,8 +998,6 @@
             
             var finalBill = document.getElementById("total-price").innerText;
             var blowerActive = document.getElementById("blower-check").checked ? "Yes (" + invertersCount + " Inverters)" : "No";
-            var urgentActive = document.getElementById("urgent-check").checked ? "Yes (Urgent Priority Service Requested)" : "No";
-            var estTimeDuration = document.getElementById("est-time").innerText;
             
             var loyaltyStatusText = "Regular Client Campaign";
             if (custPhone !== "Not Provided") {
@@ -1070,10 +1033,6 @@
                                  "⚡ *Inverter Setup:* " + brand + " (" + size + ") x" + invertersCount + " Unit(s)\n" +
                                  "⏳ *Last Cleaned Status:* " + historyLog + "\n" +
                                  "💨 *Inverter Blower Service:* " + blowerActive + "\n" +
-                                 "🚨 *Urgent Fast Track:* " + urgentActive + "\n" +
-                                 "⏱️ *Est. Cleaning Duration:* " + estTimeDuration + "\n" +
-                                 "🎟️ *Referral Promo Code:* " + referral + "\n" +
-                                 "🎟️ *Warranty Status:* 3-Day Protection Active Cover Added\n" +
                                  "💰 *Final Estimated Bill:* Rs. " + finalBill;
             
             var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
