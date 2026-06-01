@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ur-en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,22 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f172a',
+                        darkCard: 'rgba(30, 41, 59, 0.7)',
+                        glassBorder: 'rgba(255, 255, 255, 0.4)'
+                    }
+                }
+            }
+        }
+    </script>
     
     <style>
         @keyframes pulse-soft {
@@ -27,15 +43,19 @@
             image-rendering: crisp-edges;
         }
 
-        /* Ambient vibrant background to maximize glass contrast */
         body {
             background: radial-gradient(circle at 10% 20%, rgba(2, 132, 199, 0.15) 0%, transparent 50%),
                         radial-gradient(circle at 90% 80%, rgba(22, 163, 74, 0.12) 0%, transparent 50%),
                         linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
             background-attachment: fixed;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* 70% Cranked Up Premium Glassmorphic Core UI */
+        body.dark {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1e38 50%, #090d16 100%) !important;
+            color: #f1f5f9;
+        }
+
         .ios-glass {
             background: rgba(255, 255, 255, 0.68) !important;
             backdrop-filter: blur(45px) saturate(350%) !important;
@@ -47,12 +67,26 @@
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
+        body.dark .ios-glass {
+            background: rgba(30, 41, 59, 0.65) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5),
+                        inset 0 4px 16px 0 rgba(255, 255, 255, 0.05) !important;
+            color: #f1f5f9;
+        }
+        
         .ios-glass:hover {
             background: rgba(255, 255, 255, 0.78) !important;
             border-color: rgba(255, 255, 255, 1) !important;
             box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.15), 
                         inset 0 6px 20px 0 rgba(255, 255, 255, 0.95) !important;
             transform: translateY(-4px);
+        }
+
+        body.dark .ios-glass:hover {
+            background: rgba(30, 41, 59, 0.8) !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6) !important;
         }
 
         .ios-glass-dark {
@@ -64,7 +98,6 @@
                         inset 0 2px 4px 0 rgba(255, 255, 255, 0.35) !important;
         }
 
-        /* Heavy Gloss Inputs and Overwritten Native Webkit Select Dropdowns */
         .ios-input-glass {
             background: rgba(255, 255, 255, 0.8) !important;
             backdrop-filter: blur(25px) saturate(250%) !important;
@@ -73,6 +106,13 @@
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(255,255,255,0.6) !important;
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        body.dark .ios-input-glass {
+            background: rgba(15, 23, 42, 0.6) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+            color: white;
+            box-shadow: none !important;
+        }
         
         .ios-input-glass:focus {
             background: rgba(255, 255, 255, 0.98) !important;
@@ -80,7 +120,11 @@
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25), inset 0 1.5px 3px rgba(0, 0, 0, 0.02) !important;
         }
 
-        /* 80% High-Glossmorphic Custom Dropdown Panels */
+        body.dark .ios-input-glass:focus {
+            background: rgba(15, 23, 42, 0.9) !important;
+            border-color: #3b82f6 !important;
+        }
+
         .custom-dropdown-panel {
             display: none;
             position: absolute;
@@ -99,6 +143,12 @@
                         inset 0 4px 15px 0 rgba(255, 255, 255, 0.8) !important;
         }
 
+        body.dark .custom-dropdown-panel {
+            background: rgba(30, 41, 59, 0.95) !important;
+            border: 1.8px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+        }
+
         .custom-dropdown-panel div {
             padding: 11px 16px;
             font-weight: 700;
@@ -108,10 +158,20 @@
             transition: all 0.2s ease;
         }
 
+        body.dark .custom-dropdown-panel div {
+            color: #f1f5f9;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
         .custom-dropdown-panel div:hover {
             background: rgba(37, 99, 235, 0.12);
             color: #1d4ed8;
             padding-left: 20px;
+        }
+
+        body.dark .custom-dropdown-panel div:hover {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
         }
 
         .slider-container {
@@ -223,18 +283,64 @@
             border: 2px solid #eab308;
         }
 
-        /* Active/Hidden states for main calculation sections */
         .calculator-block {
             display: none;
         }
         .calculator-block.active-block {
             display: block;
         }
+
+        /* Top Progress scroll line track */
+        #top-scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(to right, #eab308, #22c55e);
+            width: 0%;
+            z-index: 100;
+            transition: width 0.1s linear;
+        }
+
+        /* Custom Halo cursor setup layer */
+        #custom-halo-cursor {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #3b82f6;
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.08s ease-out, background-color 0.2s ease;
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            #custom-halo-cursor { display: block; }
+        }
+
+        /* Scroll driven entries styles setup */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            filter: blur(5px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
     </style>
 </head>
-<body class="font-sans text-slate-800 antialiased">
+<body class="font-sans text-slate-800 antialiased dark:text-slate-200">
 
-    <header class="sticky top-0 z-50 bg-white/50 backdrop-blur-2xl border-b border-white/60 shadow-sm">
+    <div id="top-scroll-progress"></div>
+    
+    <div id="custom-halo-cursor"></div>
+
+    <header class="sticky top-0 z-50 bg-white/50 backdrop-blur-2xl border-b border-white/60 shadow-sm dark:bg-slate-900/60 dark:border-slate-800/60">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center max-w-6xl">
             <a href="#home" class="flex items-center space-x-2 group min-w-0">
                 <svg class="h-11 w-11 sm:h-14 sm:w-14 transform group-hover:scale-105 transition duration-300 flex-shrink-0" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -251,62 +357,74 @@
                     <path d="M42 68 C 48 64, 62 63, 68 70 C 72 65, 82 66, 84 72" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                 </svg>
                 <div class="flex flex-col m-0 p-0 min-w-0">
-                    <div class="text-xl sm:text-2xl font-black text-blue-950 tracking-tighter leading-none flex items-center truncate">
+                    <div class="text-xl sm:text-2xl font-black text-blue-950 tracking-tighter leading-none flex items-center truncate dark:text-white">
                         <span>MS</span><span class="text-blue-500 mx-0.5">_</span><span>SOLAR</span>
                     </div>
-                    <span class="text-[9px] sm:text-[10px] font-black text-green-700 uppercase tracking-wider sm:tracking-widest mt-1 leading-none flex items-center gap-1 truncate">
+                    <span data-en="Cleaning Services & Car Wash" data-ur="کلیننگ سروسز اور کار واش" class="lang-text text-[9px] sm:text-[10px] font-black text-green-700 uppercase tracking-wider sm:tracking-widest mt-1 leading-none flex items-center gap-1 truncate dark:text-green-400">
                         <i class="fas fa-check-double text-[7px] sm:text-[8px]"></i> Cleaning Services & Car Wash
                     </span>
                 </div>
             </a>
             
-            <nav class="hidden lg:flex space-x-6 font-semibold text-sm">
-                <a href="#home" class="text-slate-700 hover:text-blue-600 transition">Home</a>
-                <a href="#tools" class="text-slate-700 hover:text-blue-600 transition">Our Machinery</a>
-                <a href="#technical" class="text-slate-700 hover:text-blue-600 transition">Inverter Diagnostic</a>
-                <a href="#subscription" class="text-slate-700 hover:text-blue-600 transition">Subscription</a>
-                <a href="#calculator-section" class="text-slate-700 hover:text-blue-600 transition">Live Calculator</a>
-                <a href="#gallery-section" class="text-slate-700 hover:text-blue-600 transition">Car Gallery</a>
+            <nav class="hidden lg:flex space-x-6 font-semibold text-sm items-center">
+                <a href="#home" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Home" data-ur="ہوم">Home</a>
+                <a href="#tools" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Our Machinery" data-ur="ہماری مشینری">Our Machinery</a>
+                <a href="#technical" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Inverter Diagnostic" data-ur="انورٹر معائنہ">Inverter Diagnostic</a>
+                <a href="#subscription" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Subscription" data-ur="سبسکرپشن">Subscription</a>
+                <a href="#calculator-section" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Live Calculator" data-ur="لائیو کیلکولیٹر">Live Calculator</a>
+                <a href="#gallery-section" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Car Gallery" data-ur="کار گیلری">Car Gallery</a>
             </nav>
             
-            <a href="#calculator-section" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-90 text-white px-4 py-2 rounded-full font-bold flex items-center space-x-1.5 transition shadow-md text-xs sm:text-sm flex-shrink-0">
-                <i class="fab fa-whatsapp text-sm sm:text-lg"></i>
-                <span>Calculate & Book</span>
-            </a>
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleLanguage()" class="ios-glass text-xs font-bold px-2.5 py-1.5 rounded-xl border hover:bg-slate-100 transition shadow-sm flex items-center gap-1">
+                    <i class="fas fa-language text-base text-blue-600"></i>
+                    <span id="lang-btn-label">اردو</span>
+                </button>
+
+                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-yellow-400 border border-slate-200 dark:border-slate-700 hover:scale-105 transition shadow-sm">
+                    <i id="theme-toggle-icon" class="fas fa-moon"></i>
+                </button>
+
+                <a href="#calculator-section" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:scale-105 hover:shadow-lg text-white px-4 py-2 rounded-full font-bold flex items-center space-x-1.5 transition shadow-md text-xs sm:text-sm flex-shrink-0">
+                    <i class="fab fa-whatsapp text-sm sm:text-lg"></i>
+                    <span data-en="Calculate & Book" data-ur="حساب کریں اور بکنگ">Calculate & Book</span>
+                </a>
+            </div>
         </div>
     </header>
 
-    <section id="home" class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-20 px-4 overflow-hidden">
+    <section id="home" class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-15">
             <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1920&q=80" alt="Solar Panels Grid" class="w-full h-full object-cover">
         </div>
         
-        <div class="container mx-auto max-w-6xl relative z-10 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
-            <div class="md:col-span-7 text-center md:text-left">
-                <span class="bg-white/10 backdrop-blur-xl border border-white/25 text-yellow-400 text-xs uppercase font-black px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-sm mb-5 tracking-wider">
-                    <i class="fas fa-map-marker-alt animate-bounce text-red-400"></i> Ab Apke shehar Sahiwal mein
-                </span>
+        <div class="container mx-auto max-w-6xl relative z-10 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7 text-center md:text-left scroll-reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/20 backdrop-blur-xl border border-blue-400/40 text-yellow-400 text-xs font-black uppercase tracking-wider mb-6 shadow-md animate-pulse">
+                    <i class="fas fa-award text-yellow-400"></i> 
+                    <span data-en="As Seen In Sahiwal Trust Badge" data-ur="اسین ان ساہیوال ٹرسٹ بیج">As Seen In Sahiwal</span>
+                </div>
+
                 <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight tracking-tight">
-                    Gande Solar Panels?<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">25% Tak Bijli Ka Nuqsaan!</span>
+                    <span data-en="Dirty Solar Panels?" data-ur="گندے سولر پینلز؟">Dirty Solar Panels?</span><br>
+                    <span data-en="Up to 25% Electricity Loss!" data-ur="25% تک بجلی کا نقصان!" class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">25% Tak Bijli Ka Nuqsaan!</span>
                 </h1>
-                <p class="text-base text-slate-300 mb-8 max-w-xl leading-relaxed">
+                <p data-en="Dust and mud completely block solar cell generation capacity. We deliver premium Ingco washer pressure systems with safe harness deployment structures in Sahiwal." data-ur="مٹی اور دھول پینلز کی جنریشن بلاک کرتے ہیں۔ ہم ساہیوال میں انگکو پریشر واشرز اور مکمل حفاظتی اقدامات کے ساتھ سروس فراہم کرتے ہیں۔" class="lang-text text-base text-slate-300 mb-8 max-w-xl leading-relaxed">
                     Mitti aur dhool panels ki generation block karte hain. Hum Sahiwal mein Ingco pressure washers aur complete safety measures ke sath complete wash service dete hain.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#calculator-section" class="bg-gradient-to-r from-yellow-400 to-amber-500 hover:opacity-95 text-slate-950 font-extrabold px-6 py-3.5 rounded-xl text-center transition shadow-lg">
+                    <a href="#calculator-section" class="bg-gradient-to-r from-yellow-400 to-amber-500 hover:scale-105 hover:shadow-xl text-slate-950 font-extrabold px-6 py-3.5 rounded-xl text-center transition shadow-lg" data-en="Open Live Calculator" data-ur="لائیو کیلکولیٹر کھولیں">
                         Open Live Calculator
                     </a>
-                    <a href="#tools" class="bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white font-bold px-6 py-3.5 rounded-xl text-center transition">
+                    <a href="#tools" class="bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white font-bold px-6 py-3.5 rounded-xl text-center transition" data-en="Check Machinery" data-ur="مشینری چیک کریں">
                         Check Machinery
                     </a>
                 </div>
             </div>
             
-            <div class="md:col-span-5 flex justify-center">
+            <div class="md:col-span-5 flex justify-center scroll-reveal">
                 <div class="relative p-2 bg-white/20 backdrop-blur-2xl rounded-3xl shadow-2xl max-w-[340px] w-full border border-white/40">
                     <div class="bg-slate-800 rounded-2xl overflow-hidden h-[460px] w-full relative">
-                        <!-- Sahiwal solar installation/maintenance visual mapped to team image -->
                         <img src="team-solar-service.jpg" alt="M S Solar Team Action" class="w-full h-full object-cover object-center">
                         <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent p-5 text-center">
                             <p class="text-base font-bold text-white tracking-wide">MS Solar Experts</p>
@@ -321,58 +439,71 @@
         </div>
     </section>
 
-    <section id="tools" class="py-20 px-4">
+    <section class="py-6 bg-slate-100 dark:bg-slate-800/50 border-y border-slate-200 dark:border-slate-700/60">
+        <div class="container mx-auto max-w-4xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="text-3xl text-amber-500 animate-spin" style="animation-duration: 20s;"><i class="fas fa-sun"></i></div>
+                <div>
+                    <h4 class="text-xs font-black text-slate-500 uppercase tracking-wider" data-en="Sahiwal Weather Context Alerts" data-ur="ساہیوال موسم الرٹ">Sahiwal Local Weather Alert</h4>
+                    <p class="text-xs text-slate-700 dark:text-slate-300 font-bold" data-en="High solar irradiation index active. Keep setups clean to prevent cell degradation risks." data-ur="دھول اور زیادہ درجہ حرارت ریکارڈ۔ پینلز صاف رکھیں تاکہ کارکردگی بہتر رہے۔">Optimal generation weather conditions. Keep panels washed to avoid thermal dust burning losses.</p>
+                </div>
+            </div>
+            <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white dark:border-slate-700 px-4 py-2 rounded-2xl text-center shadow-sm min-w-[120px]">
+                <span class="block text-xl font-black text-blue-600 dark:text-blue-400">38°C</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-slate-400" data-en="Sahiwal Region" data-ur="ساہیوال ریجن">Sahiwal Region</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="tools" class="py-24 px-4">
         <div class="container mx-auto max-w-6xl">
-            <div class="text-center mb-16">
-                <span class="text-blue-700 font-black text-xs tracking-widest uppercase bg-blue-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block">Machinery Profile</span>
-                <h2 class="text-3xl md:text-4xl font-black text-slate-900 mt-3">Hamare Professional Tools & Equipment</h2>
-                <p class="text-slate-600 text-sm mt-2 max-w-xl mx-auto">Hum panels aur inverter ki long-life performance bahal karne ke liye professional machinery ka istemal karte hain.</p>
+            <div class="text-center mb-16 scroll-reveal">
+                <span class="text-blue-700 font-black text-xs tracking-widest uppercase bg-blue-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block dark:bg-blue-900/40 dark:text-blue-300" data-en="Machinery Profile" data-ur="مشینری پروفائل">Machinery Profile</span>
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mt-3" data-en="Our Professional Tools & Equipment" data-ur="ہمارے پروفیشنل ٹولز اور مشینری">Hamare Professional Tools & Equipment</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2 max-w-xl mx-auto" data-en="We deploy heavy specialized industrial infrastructure to maintain inverter protection compliance curves perfectly." data-ur="ہم پینلز اور انورٹر کی طویل کارکردگی بحال کرنے کے لیے پیشہ ورانہ مشینری کا استعمال کرتے ہیں۔">Hum panels aur inverter ki long-life performance bahal karne ke liye professional machinery ka istemal karte hain.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                <div class="ios-glass p-5 rounded-3xl hover:shadow-xl transition duration-300">
+                <div class="ios-glass p-6 rounded-3xl hover:shadow-xl transition duration-300 scroll-reveal">
                     <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative bg-white/70 flex items-center justify-center p-2 shadow-inner border border-white/50">
-                        <!-- High pressure washer machine visual mapping directly to ingo.jpg from repo -->
                         <img src="ingo.jpg" alt="Ingco Pressure Washer" class="w-full h-full object-contain">
                         <span class="absolute bottom-2 right-2 bg-slate-900 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">INGCO 1800W</span>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2 text-center">Ingco Pressure Washer</h3>
-                    <p class="text-xs text-slate-600 text-center leading-relaxed">High-pressure controlled flow aur special water hose jo bina scratch banaye jami hui sakht mitti ko mukammal utar deta hai.</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 text-center" data-en="Ingco Pressure Washer" data-ur="انگکو پریشر واشر">Ingco Pressure Washer</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 text-center leading-relaxed" data-en="High-pressure controlled flow structures engineered to strip hardened mud scales without fracturing glasses." data-ur="ہائی پریشر کنٹرولڈ فلو جو بغیر سکریچ بنائے جمی ہوئی سخت مٹی کو مکمل اتار دیتا ہے۔">High-pressure controlled flow aur special water hose jo bina scratch banaye jami hui sakht mitti ko mukammal utar deta hai.</p>
                 </div>
-                <div class="ios-glass p-5 rounded-3xl hover:shadow-xl transition duration-300">
+                <div class="ios-glass p-6 rounded-3xl hover:shadow-xl transition duration-300 scroll-reveal">
                     <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative shadow-inner border border-white/50">
                         <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=500&q=80" alt="Solar Telescopic Brush" class="w-full h-full object-cover">
                         <span class="absolute bottom-2 right-2 bg-yellow-500 text-slate-950 text-[10px] px-2 py-0.5 rounded font-bold uppercase">Soft Micro-Bristles</span>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2 text-center">Soft Bristle Telescopic Brush</h3>
-                    <p class="text-xs text-slate-600 text-center leading-relaxed">Solar protective layer aur anti-reflective glass coating ke liye special extended soft brush setup jo bina nuksaan pounchaye chamka deta hai.</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 text-center" data-en="Soft Bristle Telescopic Brush" data-ur="ٹیلی سکوپک سوفٹ برش">Soft Bristle Telescopic Brush</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 text-center leading-relaxed" data-en="Specially engineered non-abrasive scratch-proof extension poles to process anti-reflective coats carefully." data-ur="سولر پروٹیکٹو لیئر اور کوٹنگ کے تحفظ کے لیے خاص سوفٹ مائیکرو ریشے والا ٹیلی سکوپک برش۔">Solar protective layer aur anti-reflective glass coating ke liye special extended soft brush setup jo bina nuksaan pounchaye chamka deta hai.</p>
                 </div>
-                <div class="ios-glass p-5 rounded-3xl hover:shadow-xl transition duration-300">
+                <div class="ios-glass p-6 rounded-3xl hover:shadow-xl transition duration-300 scroll-reveal">
                     <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative bg-white/70 flex items-center justify-center p-2 shadow-inner border border-white/50">
-                        <!-- High-velocity cleaning blower tool representation mapped to hyundai-blower.jpg -->
                         <img src="hyundai-blower.jpg" alt="Hyundai Electric Blower" class="w-full h-full object-contain">
                         <span class="absolute bottom-2 right-2 bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">HYUNDAI 700W</span>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2 text-center">High-Velocity Air Blower</h3>
-                    <p class="text-xs text-slate-600 text-center leading-relaxed">Smart inverters ke cooling fans aur unke internal air filters ko mukammal saaf karne ke liye taake cooling performance up-to-date rahe.</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 text-center" data-en="High-Velocity Air Blower" data-ur="ہائپر ویلوسٹی ایئر بلوئر">High-Velocity Air Blower</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 text-center leading-relaxed" data-en="High displacement clean pressure blowing tool sets engineered to evacuate fine structural inverter heat sinks dust." data-ur="سمارٹ انورٹرز کے کولنگ فینز اور انٹرنل ایئر فلٹرز کو صاف کرنے کے لیے بہترین بلوئر سروس۔">Smart inverters ke cooling fans aur unke internal air filters ko mukammal saaf karne ke liye taake cooling performance up-to-date rahe.</p>
                 </div>
             </div>
 
-            <div class="max-w-2xl mx-auto ios-glass p-6 rounded-3xl shadow-xl">
-                <h3 class="text-xl font-black text-slate-900 text-center mb-3"><i class="fas fa-sparkles text-yellow-500"></i> Results (Before vs After)</h3>
+            <div class="max-w-2xl mx-auto ios-glass p-6 rounded-3xl shadow-xl scroll-reveal">
+                <h3 class="text-xl font-black text-slate-900 dark:text-white text-center mb-3"><i class="fas fa-sparkles text-yellow-500"></i> Results (Before vs After)</h3>
                 
                 <div class="flex justify-center gap-3 mb-5">
-                    <button type="button" onclick="togglePanelState('dirty')" class="bg-amber-500 hover:bg-amber-600 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-md">
+                    <button type="button" onclick="togglePanelState('dirty')" class="bg-amber-500 hover:scale-105 hover:bg-amber-600 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-md">
                         🏜️ Mitti Wala Panel
                     </button>
-                    <button type="button" onclick="togglePanelState('clean')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-md">
+                    <button type="button" onclick="togglePanelState('clean')" class="bg-emerald-600 hover:scale-105 hover:bg-emerald-700 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-md">
                         ✨ Saaf Shaffaf Panel
                     </button>
                 </div>
 
                 <div class="slider-container" id="slider-box-shell">
                     <div class="slider-side side-right">
-                        <!-- Mapped to the specific png slider image in the repo -->
                         <img id="img-clean-src" src="befor-and-after-wash.png" alt="Clean Solar Panel Stack" class="w-full h-full">
                     </div>
                     <div class="slider-side side-left dirty-overlay" id="left-clip-pane">
@@ -382,135 +513,161 @@
                     <div id="slider-line" class="slider-line"></div>
                     <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
                 </div>
-                <p class="text-xs text-slate-500 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium" data-en="Drag the slider layout handle to view live performance difference comparisons instantly." data-ur="ہینڈل کو لیفٹ یا رائٹ ڈریگ کر کے لائیو صفائی کا واضح فرق دیکھیں۔">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
             </div>
 
-            <div class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+            <div class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center scroll-reveal">
                 <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 bg-white/80 text-blue-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white">
+                    <div class="w-12 h-12 bg-white/80 text-blue-600 dark:bg-slate-800 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h4 class="text-xs font-bold text-slate-900 mb-1">Certified Safety Standards</h4>
-                    <p class="text-[11px] text-slate-500 leading-tight">Zero structural damage or scratching risks during process</p>
+                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Certified Safety Standards</h4>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Zero structural damage or scratching risks during process</p>
                 </div>
-                <div class="flex flex-col items-center border-y sm:border-y-0 sm:border-x border-white/60 py-4 sm:py-0">
-                    <div class="w-12 h-12 bg-white/80 text-green-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white">
+                <div class="flex flex-col items-center border-y sm:border-y-0 sm:border-x border-white/60 dark:border-slate-700 py-4 sm:py-0">
+                    <div class="w-12 h-12 bg-white/80 text-green-600 dark:bg-slate-800 dark:text-green-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
                         <i class="fas fa-user-check"></i>
                     </div>
-                    <h4 class="text-xs font-bold text-slate-900 mb-1">Trained Staff Team</h4>
-                    <p class="text-[11px] text-slate-500 leading-tight">Equipped with anti-slip shoes and lifelines harness safety</p>
+                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Trained Staff Team</h4>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Equipped with anti-slip shoes and lifelines harness safety</p>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 bg-white/80 text-yellow-600 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white">
+                    <div class="w-12 h-12 bg-white/80 text-yellow-600 dark:bg-slate-800 dark:text-yellow-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
                         <i class="fas fa-handshake-angle"></i>
                     </div>
-                    <h4 class="text-xs font-bold text-slate-900 mb-1">Damage Insurance Cover</h4>
-                    <p class="text-[11px] text-slate-500 leading-tight">Full baseline security assurance for supreme peace of mind</p>
+                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Damage Insurance Cover</h4>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Full baseline security assurance for supreme peace of mind</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="technical" class="py-20 px-4">
+    <section id="technical" class="py-20 px-4 bg-white/20 dark:bg-slate-900/20">
         <div class="container mx-auto max-w-5xl">
-            <div class="max-w-md mx-auto ios-glass rounded-2xl p-4 mb-10 flex items-center justify-around text-center shadow-lg border border-white">
+            <div class="max-w-md mx-auto ios-glass rounded-2xl p-6 mb-12 flex items-center justify-around text-center shadow-lg border border-white scroll-reveal">
                 <div class="flex-1">
-                    <span class="block text-2xl sm:text-3xl font-black text-emerald-600 tracking-tight">5+ Years</span>
-                    <span class="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Field Experience</span>
+                    <span id="counter-years" class="block text-3xl sm:text-4xl font-black text-emerald-600 tracking-tight">0</span>
+                    <span class="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider" data-en="Field Experience" data-ur="فیلڈ تجربہ">Field Experience</span>
                 </div>
                 <div class="w-[1.5px] bg-slate-300/80 h-10 self-center"></div>
                 <div class="flex-1">
-                    <span class="block text-2xl sm:text-3xl font-black text-emerald-600 tracking-tight">1000+</span>
-                    <span class="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Happy Customers</span>
+                    <span id="counter-customers" class="block text-3xl sm:text-4xl font-black text-emerald-600 tracking-tight">0</span>
+                    <span class="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider" data-en="Happy Customers" data-ur="خوشگوار گاہک">Happy Customers</span>
                 </div>
             </div>
 
-            <div class="text-center mb-14">
-                <span class="text-yellow-800 font-black text-xs tracking-widest uppercase bg-yellow-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block">Inverter Diagnostic</span>
-                <h2 class="text-3xl font-black text-slate-900 mt-3">Supported Smart Inverters & Telemetry</h2>
-                <p class="text-slate-600 text-sm mt-2">Hum sirf dhote nahi hain, balkay inverters par generation check kar ke farq dikhate hain.</p>
+            <div class="text-center mb-14 scroll-reveal">
+                <span class="text-yellow-800 font-black text-xs tracking-widest uppercase bg-yellow-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block dark:bg-yellow-900/40 dark:text-yellow-300">Inverter Diagnostic</span>
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3" data-en="Supported Smart Inverters & Telemetry" data-ur="سپورٹڈ اسمارٹ انورٹرز برانڈز">Supported Smart Inverters & Telemetry</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2" data-en="We audit real-time technical parameters post-cleaning to prove generation recovery." data-ur="ہم صرف دھوتے نہیں ہیں، بلکہ انورٹرز پر جنریشن چیک کر کے لائیو فرق دکھاتے ہیں۔">Hum sirf dhote nahi hain, balkay inverters par generation check kar ke farq dikhate hain.</p>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-12 text-center">
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-solar-panel text-blue-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">SOLIS</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-charging-station text-orange-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">KNOX PV</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-bolt text-yellow-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">MAXPOWER</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-microchip text-red-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">NITROX</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-network-wired text-green-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">HUAWEI</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-industry text-purple-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">INVEREX</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-crown text-yellow-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">CROWN</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-car-battery text-blue-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">TESLA</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-star text-red-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">ORIENT</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-shield-alt text-teal-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">FRONUS</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-sun text-amber-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">GOODWE</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center"><i class="fas fa-plug text-lime-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 uppercase tracking-wide">GROWATT</span></div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-12 text-center scroll-reveal">
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-solar-panel text-blue-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">SOLIS</span></div>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-charging-station text-orange-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">KNOX PV</span></div>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-bolt text-yellow-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">MAXPOWER</span></div>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-microchip text-red-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">NITROX</span></div>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-network-wired text-green-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">HUAWEI</span></div>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-industry text-purple-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">INVEREX</span></div>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-crown text-yellow-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">CROWN</span></div>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-car-battery text-blue-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">TESLA</span></div>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-star text-red-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">ORIENT</span></div>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-shield-alt text-teal-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">FRONUS</span></div>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-sun text-amber-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">GOODWE</span></div>
+                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-plug text-lime-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">GROWATT</span></div>
             </div>
 
-            <div class="grid grid-cols-1 gap-8 items-center">
+            <div class="grid grid-cols-1 gap-8 items-center scroll-reveal">
                 <div class="ios-glass-dark text-white p-6 rounded-2xl relative overflow-hidden tech-animate">
                     <h3 class="text-lg font-bold text-yellow-400 mb-3 flex items-center gap-2">
                         <i class="fas fa-user-shield text-green-400"></i> Safety Harness Compliance
                     </h3>
-                    <p class="text-xs text-slate-300 mb-3 leading-relaxed">Hum high structural roofs par kaam karte waqt lifeline body safety belts, anti-slip shoes, aur safety helmets ka 100% istemal lazmi karte hain.</p>
+                    <p class="text-xs text-slate-300 mb-3 leading-relaxed" data-en="We strictly enforce anchor configurations, lifelines, and helmets when engineering roof operations." data-ur="ہم ہائی روف پر کام کرتے وقت لائف لائن باڈی بیلٹس، اینٹی سلپ جوتے، اور ہیلمٹ کا لازمی استعمال کرتے ہیں۔">Hum high structural roofs par kaam karte waqt lifeline body safety belts, anti-slip shoes, aur safety helmets ka 100% istemal lazmi karte hain.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="subscription" class="py-20 px-4">
+    <section id="subscription" class="py-24 px-4">
         <div class="container mx-auto max-w-4xl text-center">
-            <span class="bg-yellow-100/80 text-yellow-800 text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider border border-white/80 shadow-sm inline-block">
+            <span class="bg-yellow-100/80 text-yellow-800 text-xs font-black px-3 py-1.5 rounded-full uppercase tracking-wider border border-white/80 shadow-sm inline-block dark:bg-yellow-900/40 dark:text-yellow-300">
                 🌟 Premium Membership
             </span>
-            <h2 class="text-3xl font-black text-slate-900 mt-4 mb-4">Regular Cleaning vs. Smart Saving!</h2>
-            <p class="text-slate-600 text-base max-w-2xl mx-auto mb-12">
-                Humare monthly subscription plan ke sath apne solar panels ki efficiency ko 100% barkarar rakhein aur payein <span class="font-bold text-blue-600">Special Discounts</span> har mahine.
+            <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-4 mb-4" data-en="Regular Cleaning vs. Smart Saving Plan" data-ur="باقاعدہ صفائی بمقابلہ سمارٹ بچت پلان">Regular Cleaning vs. Smart Saving!</h2>
+            <p class="text-slate-600 dark:text-slate-400 text-base max-w-2xl mx-auto mb-12">
+                Humare monthly subscription plan ke sath apne solar panels ki efficiency ko 100% barkarar rakhein aur payein <span class="font-bold text-blue-600 dark:text-blue-400">Special Discounts</span> har mahine.
             </p>
 
-            <div class="ios-glass rounded-3xl p-8 shadow-2xl max-w-2xl mx-auto text-left relative overflow-hidden">
+            <div class="ios-glass rounded-3xl p-8 shadow-2xl max-w-2xl mx-auto text-left relative overflow-hidden scroll-reveal">
                 <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-black px-4 py-1.5 rounded-bl-2xl uppercase tracking-widest shadow-md">
                     Best Value
                 </div>
                 
                 <div class="space-y-6">
                     <div class="flex items-start space-x-4">
-                        <div class="bg-white/80 text-blue-600 p-2.5 rounded-xl text-xl mt-0.5 shadow-sm border border-white">
+                        <div class="bg-white/80 text-blue-600 dark:bg-slate-800 dark:text-blue-400 p-2.5 rounded-xl text-xl mt-0.5 shadow-sm border border-white dark:border-slate-700">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-slate-900 text-base">Hassle-Free Scheduling</h4>
-                            <p class="text-slate-600 text-sm mt-0.5">Aapko bar bar call karne ki zaroorat nahi, humari team khud waqt par aayegi.</p>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-base">Hassle-Free Scheduling</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mt-0.5">Aapko bar bar call karne ki zaroorat nahi, humari team khud waqt par aayegi.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
-                        <div class="bg-white/80 text-green-600 p-2.5 rounded-xl text-xl mt-0.5 shadow-sm border border-white">
+                        <div class="bg-white/80 text-green-600 dark:bg-slate-800 dark:text-green-400 p-2.5 rounded-xl text-xl mt-0.5 shadow-sm border border-white dark:border-slate-700">
                             <i class="fas fa-tags"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-green-700 text-base">Exclusive Discounted Rates</h4>
-                            <p class="text-slate-600 text-sm mt-0.5">One-time service se bohot kam qeemat mein monthly maintenance aur locked discount setup.</p>
+                            <h4 class="font-bold text-green-700 dark:text-green-400 text-base">Exclusive Discounted Rates</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mt-0.5">One-time service se bohot kam qeemat mein monthly maintenance aur locked discount setup.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
-                        <div class="bg-white/80 text-yellow-600 p-2.5 rounded-xl text-xl mt-0.5 shadow-sm border border-white">
+                        <div class="bg-white/80 text-yellow-600 dark:bg-slate-800 dark:text-yellow-400 p-2.5 rounded-xl text-xl mt-0.5 shadow-sm border border-white dark:border-slate-700">
                             <i class="fas fa-tools"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-slate-900 text-base">Priority Customer Support</h4>
-                            <p class="text-slate-600 text-sm mt-0.5">Subscribed customers ke liye instant response aur har wash par free string diagnostic checking.</p>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-base">Priority Customer Support</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm mt-0.5">Subscribed customers ke liye instant response aur har wash par free string diagnostic checking.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-8 bg-white/50 border border-white/60 p-4 rounded-xl text-center shadow-inner">
-                    <p class="text-sm text-slate-700 italic font-semibold">
+                <div class="mt-8 bg-white/50 dark:bg-slate-800/40 border border-white/60 dark:border-slate-700 p-4 rounded-xl text-center shadow-inner">
+                    <p class="text-sm text-slate-700 dark:text-slate-300 italic font-semibold">
                         💡 Sasti safai, zyada bachat! Aaj hi subscribe karein aur salana hazaron rupe ki bachat karein.
                     </p>
                 </div>
                 
-                <a href="#calculator-section" class="block w-full text-center bg-gradient-to-r from-blue-900 to-slate-900 hover:opacity-95 text-white font-extrabold py-4 rounded-xl shadow-lg mt-6 transition">
+                <a href="#calculator-section" class="block w-full text-center bg-gradient-to-r from-blue-900 to-slate-900 hover:scale-[1.02] text-white font-extrabold py-4 rounded-xl shadow-lg mt-6 transition">
                     Lock Monthly Plan Discount
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-slate-50 dark:bg-slate-900/40">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center mb-12 scroll-reveal">
+                <span class="text-xs font-black uppercase tracking-widest text-emerald-600 bg-emerald-100 dark:bg-emerald-900/40 dark:text-emerald-400 px-3 py-1.5 rounded-full">Testimonials</span>
+                <h3 class="text-2xl font-black mt-2 text-slate-900 dark:text-white" data-en="What Sahiwal Solar Owners Say" data-ur="ساہیوال کے کسٹمرز کی رائے">Customer Live Reviews Grid</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="ios-glass p-6 rounded-2xl shadow-sm scroll-reveal">
+                    <div class="flex items-center space-x-1 text-amber-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-xs italic text-slate-600 dark:text-slate-400">"Excellent service in Farid Town. My solar generation increased by 4kW immediately after the high pressure wash!"</p>
+                    <span class="block text-xs font-bold mt-4 text-slate-900 dark:text-white">— Kamran M. (Farid Town)</span>
+                </div>
+                <div class="ios-glass p-6 rounded-2xl shadow-sm scroll-reveal">
+                    <div class="flex items-center space-x-1 text-amber-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-xs italic text-slate-600 dark:text-slate-400">"The monthly subscription is highly recommended. Safe harness belts usage and professional staff behavior."</p>
+                    <span class="block text-xs font-bold mt-4 text-slate-900 dark:text-white">— Dr. Asif (Scheme No. 2)</span>
+                </div>
+                <div class="ios-glass p-6 rounded-2xl shadow-sm scroll-reveal">
+                    <div class="flex items-center space-x-1 text-amber-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-xs italic text-slate-600 dark:text-slate-400">"They cleaned both my 10kW system and my Honda Civic using specialized washers. Best multi-maintenance crew!"</p>
+                    <span class="block text-xs font-bold mt-4 text-slate-900 dark:text-white">— M. Tariq (Tariq Road)</span>
+                </div>
             </div>
         </div>
     </section>
@@ -520,7 +677,7 @@
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-10">
                 <div class="relative">
-                    <label class="block text-[11px] font-black uppercase text-slate-600 mb-1">🚗 Car Wash Services</label>
+                    <label class="block text-[11px] font-black uppercase text-slate-600 dark:text-slate-400 mb-1">🚗 Car Wash Services</label>
                     <div id="trigger-main-tab-carwash" onclick="openCustomDropdown('main-tab-carwash')" class="ios-input-glass px-4 py-3 rounded-xl font-bold flex justify-between items-center cursor-pointer select-none shadow-sm bg-white">
                         <span id="label-main-tab-carwash" class="text-blue-600">Open Car Wash</span>
                         <i class="fas fa-chevron-down text-xs opacity-60 text-blue-600"></i>
@@ -531,7 +688,7 @@
                 </div>
 
                 <div class="relative">
-                    <label class="block text-[11px] font-black uppercase text-slate-600 mb-1 md:text-right">☀️ Solar Wash Services</label>
+                    <label class="block text-[11px] font-black uppercase text-slate-600 dark:text-slate-400 mb-1 md:text-right">☀️ Solar Wash Services</label>
                     <div id="trigger-main-tab-solar" onclick="openCustomDropdown('main-tab-solar')" class="ios-input-glass px-4 py-3 rounded-xl font-bold flex justify-between items-center cursor-pointer select-none shadow-sm bg-white">
                         <span id="label-main-tab-solar" class="text-amber-600">Open Solar Setup</span>
                         <i class="fas fa-chevron-down text-xs opacity-60 text-amber-600"></i>
@@ -544,51 +701,51 @@
 
             <div id="solar-calc-block" class="calculator-block active-block">
                 <div class="text-center mb-10">
-                    <span class="text-green-700 font-black text-xs tracking-widest uppercase bg-green-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block">Instant Solar Quote</span>
-                    <h2 class="text-3xl font-black text-slate-900 mt-3">Solar Panel Cost Estimation</h2>
+                    <span class="text-green-700 font-black text-xs tracking-widest uppercase bg-green-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block dark:bg-green-900/40 dark:text-green-300">Instant Solar Quote</span>
+                    <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3" data-en="Solar Panel Cost Estimation" data-ur="سولر پینل سروس بل کیلکولیٹر">Solar Panel Cost Estimation</h2>
                     <p class="text-slate-500 text-sm mt-2">Apne panels ki tadad set karein aur automatic real-time bill check karein (Rs. 80 Per Panel).</p>
                 </div>
 
-                <div class="max-w-xl mx-auto mb-8 bg-red-50/80 backdrop-blur-xl border-l-4 border-red-500 p-4 rounded-r-2xl shadow-sm border-y border-r border-white/50">
+                <div class="max-w-xl mx-auto mb-8 bg-red-50/80 backdrop-blur-xl border-l-4 border-red-500 p-4 rounded-r-2xl shadow-sm border-y border-r border-white/50 dark:bg-red-950/20 dark:border-red-700">
                     <div class="flex">
                         <div class="flex-shrink-0"><i class="fas fa-exclamation-triangle text-red-500 text-lg"></i></div>
                         <div class="ml-3">
-                            <h3 class="text-xs sm:text-sm font-bold text-red-800 uppercase tracking-wide">⚠️ Energy Loss Alert</h3>
-                            <p class="text-xs text-red-700 mt-0.5 font-semibold">
+                            <h3 class="text-xs sm:text-sm font-bold text-red-800 dark:text-red-400 uppercase tracking-wide">⚠️ Energy Loss Alert</h3>
+                            <p class="text-xs text-red-700 dark:text-red-300 mt-0.5 font-semibold">
                                 Gande panels ki wajah se aapka solar system rozana taqreeban <span class="font-bold underline" id="alert-units">3.2</span> Units (Bijli) aur mahana taqreeban Rs. <span class="font-bold underline" id="alert-money">4,500</span> tak zaya kar raha hai!
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="ios-glass p-6 rounded-3xl shadow-2xl max-w-xl mx-auto relative">
+                <div id="pdf-solar-target" class="ios-glass p-6 rounded-3xl shadow-2xl max-w-xl mx-auto relative">
                     <div class="space-y-6">
-                        <div class="bg-blue-50/60 border border-white p-4 rounded-2xl shadow-inner">
-                            <label class="block text-xs font-black uppercase text-blue-900 mb-1">🔍 Customer Loyalty & Wash History Tracker</label>
-                            <p class="text-[11px] text-slate-600 mb-2">Apna WhatsApp / Mobile Number likh kar record check karein:</p>
+                        <div class="bg-blue-50/60 border border-white p-4 rounded-2xl shadow-inner dark:bg-slate-800/40 dark:border-slate-700">
+                            <label class="block text-xs font-black uppercase text-blue-900 dark:text-blue-400 mb-1">🔍 Customer Loyalty & Wash History Tracker</label>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-400 mb-2">Apna WhatsApp / Mobile Number likh kar record check karein:</p>
                             <div class="flex gap-2">
                                 <input type="text" id="cust-phone" oninput="calculateBill()" placeholder="e.g. 03084462121" class="w-full ios-input-glass px-3 py-2 rounded-xl focus:outline-none font-bold text-slate-700 shadow-sm">
-                                <button type="button" onclick="checkCustomerHistory()" class="bg-blue-900 text-white font-bold px-4 py-2 rounded-xl text-xs hover:bg-blue-800 transition shadow whitespace-nowrap">
+                                <button type="button" onclick="checkCustomerHistory()" class="bg-blue-900 text-white font-bold px-4 py-2 rounded-xl text-xs hover:bg-blue-800 transition shadow whitespace-nowrap dark:bg-blue-600 dark:hover:bg-blue-500">
                                     Check History
                                 </button>
                             </div>
-                            <div id="history-status-box" class="hidden mt-3 bg-white/70 border border-white p-3 rounded-xl text-xs shadow-sm">
+                            <div id="history-status-box" class="hidden mt-3 bg-white/70 border border-white p-3 rounded-xl text-xs shadow-sm dark:bg-slate-900/70 dark:border-slate-800">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-slate-600">Total Washes This Month:</span>
+                                    <span class="text-slate-600 dark:text-slate-400">Total Washes This Month:</span>
                                     <span id="history-count-badge" class="bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold">0</span>
                                 </div>
                                 <div class="flex justify-between items-center font-bold">
-                                    <span class="text-slate-700">Next Service Status:</span>
-                                    <span id="history-reward-msg" class="text-slate-800">Regular Service Rate</span>
+                                    <span class="text-slate-700 dark:text-slate-300">Next Service Status:</span>
+                                    <span id="history-reward-msg" class="text-slate-800 dark:text-slate-200">Regular Service Rate</span>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="relative">
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Service Type / Plan Package</label>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Service Type / Plan Package</label>
                             <div id="trigger-service-package" onclick="openCustomDropdown('service-package')" class="ios-input-glass px-4 py-3 rounded-xl font-bold text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
-                                <span id="label-service-package" class="text-blue-900">One-Time Standard Service (Regular Rate)</span>
-                                <i class="fas fa-chevron-down text-xs opacity-60 text-blue-900"></i>
+                                <span id="label-service-package" class="text-blue-900 dark:text-blue-400">One-Time Standard Service (Regular Rate)</span>
+                                <i class="fas fa-chevron-down text-xs opacity-60 text-blue-900 dark:text-blue-400"></i>
                             </div>
                             <input type="hidden" id="service-package" value="One-Time">
                             <div id="panel-service-package" class="custom-dropdown-panel shadow-2xl">
@@ -598,12 +755,12 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Customer Name</label>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Customer Name</label>
                             <input type="text" id="cust-name" placeholder="e.g. Ali" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-2 flex justify-between items-center">
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-2 flex justify-between items-center">
                                 <span>Sahiwal Area Address / Colony</span>
                                 <a href="https://maps.google.com" target="_blank" class="text-[10px] text-blue-600 font-bold hover:underline flex items-center gap-0.5">
                                     <i class="fas fa-map-marked-alt"></i> Open Google Maps Pin
@@ -612,18 +769,18 @@
                             <div class="relative">
                                 <input type="text" id="cust-address" placeholder="e.g. Farid Town, Scheme No. 2, Tariq Road" class="w-full ios-input-glass pl-4 pr-32 py-3 rounded-xl focus:outline-none font-medium text-sm shadow-sm">
                                 <div class="absolute right-2 top-2">
-                                    <input type="text" id="maps-url" placeholder="Paste Map Link" class="border border-slate-300 text-[10px] px-2 py-1.5 rounded-lg focus:outline-none bg-white/80 backdrop-blur-sm max-w-[110px] inline-block font-sans shadow-inner">
+                                    <input type="text" id="maps-url" placeholder="Paste Map Link" class="border border-slate-300 dark:border-slate-700 text-[10px] px-2 py-1.5 rounded-lg focus:outline-none bg-white/80 backdrop-blur-sm max-w-[110px] inline-block font-sans shadow-inner text-slate-800">
                                 </div>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Date</label>
+                                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Preferred Date</label>
                                 <input type="date" id="booking-date" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                             </div>
                             <div class="relative">
-                                <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Time Slot</label>
+                                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Preferred Time Slot</label>
                                 <div id="trigger-booking-time" onclick="openCustomDropdown('booking-time')" class="ios-input-glass px-4 py-3 rounded-xl font-medium text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
                                     <span id="label-booking-time" class="text-slate-700">05:00 PM - 12:00 AM</span>
                                     <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
@@ -631,12 +788,14 @@
                                 <input type="hidden" id="booking-time" value="05:00 PM - 12:00 AM">
                                 <div id="panel-booking-time" class="custom-dropdown-panel shadow-2xl">
                                     <div onclick="selectCustomOption('booking-time', '05:00 PM - 12:00 AM', '05:00 PM - 12:00 AM')">05:00 PM - 12:00 AM</div>
+                                    <div onclick="selectCustomOption('booking-time', '09:00 AM - 01:00 PM', '09:00 AM - 01:00 PM')">09:00 AM - 01:00 PM</div>
+                                    <div onclick="selectCustomOption('booking-time', '01:00 PM - 05:00 PM', '01:00 PM - 05:00 PM')">01:00 PM - 05:00 PM</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="relative">
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Solar Panels Brand Model</label>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Solar Panels Brand Model</label>
                             <div id="trigger-panel-brand" onclick="openCustomDropdown('panel-brand')" class="ios-input-glass px-4 py-3 rounded-xl font-medium text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
                                 <span id="label-panel-brand" class="text-slate-700">Canadian Solar (High Efficiency)</span>
                                 <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
@@ -654,7 +813,7 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="relative">
-                                <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Inverter Brand</label>
+                                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Inverter Brand</label>
                                 <div id="trigger-inv-brand" onclick="openCustomDropdown('inv-brand')" class="ios-input-glass px-4 py-3 rounded-xl font-bold text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
                                     <span id="label-inv-brand" class="text-blue-900">Solis</span>
                                     <i class="fas fa-chevron-down text-xs opacity-60 text-blue-900"></i>
@@ -677,7 +836,7 @@
                             </div>
 
                             <div class="relative">
-                                <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">System Size (KW)</label>
+                                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">System Size (KW)</label>
                                 <div id="trigger-inv-size" onclick="openCustomDropdown('inv-size')" class="ios-input-glass px-4 py-3 rounded-xl font-medium text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
                                     <span id="label-inv-size" class="text-slate-700">3 KW</span>
                                     <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
@@ -699,16 +858,16 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Total Inverters Count</label>
-                                <select id="inverter-qty" onchange="calculateBill()" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm bg-white/90">
+                                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Total Inverters Count</label>
+                                <select id="inverter-qty" onchange="calculateBill()" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm bg-white/90 text-slate-800">
                                     <option value="1">1 Inverter Setup</option>
                                     <option value="2">2 Inverters Multi-Setup</option>
                                     <option value="3">3 Inverters Multi-Setup</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Last Cleaned Status</label>
-                                <select id="cleaning-history" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm bg-white/90">
+                                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Last Cleaned Status</label>
+                                <select id="cleaning-history" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm bg-white/90 text-slate-800">
                                     <option value="1 Month Ago">Cleaned 1 Month Ago</option>
                                     <option value="3 Months Ago">Cleaned 3 Months Ago</option>
                                     <option value="More Than 6 Months">More Than 6 Months / Never</option>
@@ -717,7 +876,7 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-2">Solar Panels Ki Tadad (Quantity)</label>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-2">Solar Panels Ki Tadad (Quantity)</label>
                             <div class="flex items-center space-x-3">
                                 <button type="button" onclick="changePanels(-1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl hover:opacity-90 transition flex items-center justify-center shadow">-</button>
                                 <input type="number" id="panel-qty" value="8" min="1" oninput="calculateBill()" class="w-16 text-center ios-input-glass h-12 rounded-xl font-bold text-xl focus:outline-none shadow-inner">
@@ -725,9 +884,9 @@
                             </div>
                         </div>
 
-                        <div class="bg-white/50 backdrop-blur-md p-4 rounded-xl border border-white flex items-start shadow-sm">
+                        <div class="bg-white/50 backdrop-blur-md p-4 rounded-xl border border-white flex items-start shadow-sm dark:bg-slate-800/50 dark:border-slate-700">
                             <input type="checkbox" id="blower-check" onchange="calculateBill()" class="w-5 h-5 mr-3 mt-0.5 accent-green-500 flex-shrink-0">
-                            <label for="blower-check" class="font-bold text-blue-900 text-xs sm:text-sm select-none leading-tight">
+                            <label for="blower-check" class="font-bold text-blue-900 dark:text-blue-400 text-xs sm:text-sm select-none leading-tight">
                                 Add Comprehensive Inverter Blower & DB Box Terminal Tightening Service (+Rs. 500 Per Inverter)
                             </label>
                         </div>
@@ -737,6 +896,10 @@
                             <div class="text-4xl font-black my-1">Rs. <span id="total-price">640</span></div>
                             <p class="text-[10px] text-slate-300" id="rate-calc-note">*Standard washing rate calculated at Rs. 80 per panel</p>
                         </div>
+
+                        <button type="button" onclick="downloadBillPDF('solar')" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
+                            <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
+                        </button>
 
                         <button onclick="sendBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
                             <i class="fab fa-whatsapp text-xl"></i> Complete Booking via WhatsApp
@@ -750,15 +913,20 @@
 
             <div id="carwash-calc-block" class="calculator-block">
                 <div class="text-center mb-10">
-                    <span class="text-blue-700 font-black text-xs tracking-widest uppercase bg-blue-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block">Instant Car Wash Quote</span>
-                    <h2 class="text-3xl font-black text-slate-900 mt-3">Professional Car Wash Calculator</h2>
+                    <span class="text-blue-700 font-black text-xs tracking-widest uppercase bg-blue-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block dark:bg-blue-900/40 dark:text-blue-300">Instant Car Wash Quote</span>
+                    <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3" data-en="Professional Car Wash Calculator" data-ur="کار واش قیمت کیلکولیٹر">Professional Car Wash Calculator</h2>
                     <p class="text-slate-500 text-sm mt-2">Apni vehicle type aur quantity select karein aur automatic real-time bill check karein.</p>
                 </div>
 
-                <div class="ios-glass p-6 rounded-3xl shadow-2xl max-w-xl mx-auto relative">
+                <div id="pdf-carwash-target" class="ios-glass p-6 rounded-3xl shadow-2xl max-w-xl mx-auto relative">
                     <div class="space-y-6">
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Select Vehicle Type</label>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Select Vehicle Type</label>
+                            <div class="grid grid-cols-3 gap-2 mb-3 text-center">
+                                <div onclick="setVehicleTypeViaBadge(300)" class="cursor-pointer border-2 border-blue-500 bg-blue-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-blue-100 transition"><i class="fas fa-motorcycle text-base text-blue-600 mb-1 block"></i>Bike<br>Rs.300</div>
+                                <div onclick="setVehicleTypeViaBadge(800)" class="cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition"><i class="fas fa-car text-base text-emerald-600 mb-1 block"></i>Sedan<br>Rs.800</div>
+                                <div onclick="setVehicleTypeViaBadge(1200)" class="cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition"><i class="fas fa-truck-pickup text-base text-purple-600 mb-1 block"></i>SUV/Jeep<br>Rs.1200</div>
+                            </div>
                             <select id="carwash-type" onchange="calculateCarWashBill()" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-bold shadow-sm bg-white/90 text-slate-800">
                                 <option value="300">Bike — Rs. 300</option>
                                 <option value="800" selected>Sedan Car — Rs. 800</option>
@@ -767,27 +935,27 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Customer Name</label>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Customer Name</label>
                             <input type="text" id="carwash-cust-name" placeholder="e.g. Asif" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">WhatsApp / Mobile Number</label>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">WhatsApp / Mobile Number</label>
                             <input type="text" id="carwash-cust-phone" placeholder="e.g. 03001234567" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Sahiwal Area Address / Location</label>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Sahiwal Area Address / Location</label>
                             <input type="text" id="carwash-cust-address" placeholder="e.g. Farid Town, Sahiwal" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Date</label>
+                                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Preferred Date</label>
                                 <input type="date" id="carwash-booking-date" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Preferred Time Slot</label>
+                                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Preferred Time Slot</label>
                                 <select id="carwash-booking-time" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-medium shadow-sm bg-white/90 text-slate-700">
                                     <option value="09:00 AM - 12:00 PM">09:00 AM - 12:00 PM</option>
                                     <option value="12:00 PM - 03:00 PM">12:00 PM - 03:00 PM</option>
@@ -797,7 +965,7 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 mb-2">Vehicles Ki Tadad (Quantity)</label>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-2">Vehicles Ki Tadad (Quantity)</label>
                             <div class="flex items-center space-x-3">
                                 <button type="button" onclick="changeCarWashQty(-1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl hover:opacity-90 transition flex items-center justify-center shadow">-</button>
                                 <input type="number" id="carwash-qty" value="1" min="1" oninput="calculateCarWashBill()" class="w-16 text-center ios-input-glass h-12 rounded-xl font-bold text-xl focus:outline-none shadow-inner">
@@ -811,6 +979,10 @@
                             <p class="text-[10px] text-slate-300">*Premium high-pressure washer cleaning with deep glossy finishing</p>
                         </div>
 
+                        <button type="button" onclick="downloadBillPDF('carwash')" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
+                            <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
+                        </button>
+
                         <button onclick="sendCarWashBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
                             <i class="fab fa-whatsapp text-xl"></i> Book Car Wash via WhatsApp
                         </button>
@@ -818,8 +990,7 @@
                 </div>
             </div>
 
-            <!-- Permanent QR Code Panel inside Calculator Section -->
-            <div class="mt-14 max-w-xs mx-auto ios-glass p-5 rounded-2xl text-center shadow-md">
+            <div class="mt-14 max-w-xs mx-auto ios-glass p-5 rounded-2xl text-center shadow-md scroll-reveal">
                 <div class="flex items-center justify-center space-x-2 mb-3">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
                     <h3 class="text-base font-bold text-green-600 tracking-tight">Scan to Chat with Us</h3>
@@ -827,30 +998,29 @@
                 <div class="bg-white/90 backdrop-blur-md p-3 rounded-xl border border-white inline-block shadow-inner">
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/923084462121" alt="WhatsApp QR Code" class="w-36 h-36">
                 </div>
-                <p class="text-[11px] text-slate-500 font-medium mt-3 leading-relaxed">
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-3 leading-relaxed">
                     Direct mobile se scanning karke rabta ya monthly package active karne ke liye scan karein.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Permanent Car Wash Gallery Section (Outside Dropdowns) -->
-    <section id="gallery-section" class="py-12 px-4 border-t border-white/40">
+    <section id="gallery-section" class="py-16 px-4 border-t border-slate-200 dark:border-slate-800">
         <div class="container mx-auto max-w-4xl">
-            <h3 class="text-xl font-black text-slate-900 text-center mb-6 flex items-center justify-center gap-2">
+            <h3 class="text-xl font-black text-slate-900 dark:text-white text-center mb-6 flex items-center justify-center gap-2 scroll-reveal">
                 <i class="fas fa-images text-blue-600"></i> Our Professional Car Wash Gallery
             </h3>
-            <div class="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
-                <div class="overflow-hidden rounded-2xl border border-white shadow-md bg-slate-200 h-44 sm:h-52">
+            <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
                     <img src="haval-foam.jpg" alt="Haval Foam Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
                 </div>
-                <div class="overflow-hidden rounded-2xl border border-white shadow-md bg-slate-200 h-44 sm:h-52">
+                <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
                     <img src="honda-civic-wash.jpg" alt="Honda Civic Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
                 </div>
-                <div class="overflow-hidden rounded-2xl border border-white shadow-md bg-slate-200 h-44 sm:h-52">
+                <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
                     <img src="suzuki-alto.jpg" alt="Suzuki Alto Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
                 </div>
-                <div class="overflow-hidden rounded-2xl border border-white shadow-md bg-slate-200 h-44 sm:h-52">
+                <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
                     <img src="corolla-wash.jpg" alt="Toyota Corolla Shine" class="w-full h-full object-cover hover:scale-105 transition duration-300">
                 </div>
             </div>
@@ -859,36 +1029,36 @@
 
     <section class="py-16 px-4">
         <div class="container mx-auto max-w-3xl">
-            <h2 class="text-2xl font-black text-center text-slate-900 mb-2">Frequently Asked Questions</h2>
+            <h2 class="text-2xl font-black text-center text-slate-900 dark:text-white mb-2">Frequently Asked Questions</h2>
             <p class="text-slate-500 text-xs text-center max-w-md mx-auto mb-10">Sahiwal ke solar customers ke aam sawalaat aur unke tafseeli jawabaat.</p>
             
             <div class="space-y-4">
-                <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm">
-                    <button type="button" onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/20">
+                <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm scroll-reveal">
+                    <button type="button" onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 dark:text-white text-left hover:bg-white/20">
                         <span>Why shouldn't I wash my panels with normal tap/ground water?</span>
                         <i id="faq-icon-1" class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
                     </button>
-                    <div id="faq-ans-1" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-white/20 bg-white/30">
+                    <div id="faq-ans-1" class="hidden p-4 pt-0 text-xs text-slate-500 dark:text-slate-400 leading-relaxed border-t border-white/20 bg-white/30">
                         Sahiwal ka zameeni paani (ground water) bohot khara hota hai aur usme high TDS hotay hain. Agar aap aam paani se panels dhoenge to un par safaid dhabbe (scaling) jamm jayegi, jo panel ki glass efficiency ko hamesha ke liye kam kar deti hai. Hum protective standards ka khyal rakhte hain.
                     </div>
                 </div>
 
-                <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm">
-                    <button type="button" onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/20">
+                <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm scroll-reveal">
+                    <button type="button" onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 dark:text-white text-left hover:bg-white/20">
                         <span>What is covered under your 3-day after cleaning protection warranty?</span>
                         <i id="faq-icon-2" class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
                     </button>
-                    <div id="faq-ans-2" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-white/20 bg-white/30">
+                    <div id="faq-ans-2" class="hidden p-4 pt-0 text-xs text-slate-500 dark:text-slate-400 leading-relaxed border-t border-white/20 bg-white/30">
                         Agar hamari safai ke baad agle 3 din ke andar Sahiwal mein achanak mitti ka tufan, aandhi, ya barish aa jaye jis se panels dobara gande ho jayen, to aapko agli wash par special flat 20% discount diya jayega taake aapka nuksaan na ho.
                     </div>
                 </div>
 
-                <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm">
-                    <button type="button" onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 text-left hover:bg-white/20">
+                <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm scroll-reveal">
+                    <button type="button" onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 dark:text-white text-left hover:bg-white/20">
                         <span>Can thermal stress crack the glass during peak afternoon washing hours?</span>
                         <i id="faq-icon-3" class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
                     </button>
-                    <div id="faq-ans-3" class="hidden p-4 pt-0 text-xs text-slate-500 leading-relaxed border-t border-white/20 bg-white/30">
+                    <div id="faq-ans-3" class="hidden p-4 pt-0 text-xs text-slate-500 dark:text-slate-400 leading-relaxed border-t border-white/20 bg-white/30">
                         Ji haan! Jab dopahar mein dhoop tez hoti hai to solar panel ka sheesha intehai garm hota hai. Agar us par achanak thanda paani daala jaye to thermal shock ki wajah se panel crack ho sakta hai. Isliye hum hamesha safe timing slots ko tarjeeh dete hain.
                     </div>
                 </div>
@@ -920,9 +1090,19 @@
         <p class="text-xs text-slate-500">© 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
     </footer>
 
+    <div class="fixed bottom-0 inset-x-0 bg-white/80 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center justify-between z-40 lg:hidden shadow-lg">
+        <div class="flex flex-col">
+            <span class="text-[10px] font-black uppercase text-slate-400" data-en="Sahiwal Maintenance" data-ur="ساہیوال مینٹیننس">Sahiwal Service Desk</span>
+            <span class="text-xs font-bold text-slate-800 dark:text-white" data-en="Instant Calculation Active" data-ur="لائیو بکنگ مینو">Fast Operations Desk</span>
+        </div>
+        <a href="#calculator-section" class="bg-blue-600 text-white font-black text-xs px-4 py-2 rounded-xl shadow-md transform active:scale-95 transition" data-en="Quick Book Now" data-ur="فوری بکنگ کریں">
+            Book Now
+        </a>
+    </div>
+
     <a href="https://wa.me/923084462121?text=Hi%20MS%20Solar%20Cleaning,%20I%20want%20to%20know%20more%20about%20your%20services." 
        target="_blank" 
-       class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-50 transition duration-300 transform hover:scale-110 group border border-white/20" 
+       class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-50 transition duration-300 transform hover:scale-110 group border border-white/20" 
        title="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
         <span class="absolute right-16 bg-slate-900 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-xl border border-slate-800">
@@ -931,7 +1111,128 @@
     </a>
 
     <script>
-        /* Switch Toggles between Solar and Car Wash Blocks */
+        /* Light Dark mode system toggle switch configuration */
+        function toggleDarkMode() {
+            var body = document.body;
+            var themeIcon = document.getElementById('theme-toggle-icon');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                document.documentElement.classList.remove('dark');
+                themeIcon.className = "fas fa-moon";
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                document.documentElement.classList.add('dark');
+                themeIcon.className = "fas fa-sun";
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        /* Fluid multi language dynamic translation mapping */
+        var currentLang = 'en';
+        function toggleLanguage() {
+            var elements = document.querySelectorAll('[data-en]');
+            var btnLabel = document.getElementById('lang-btn-label');
+            
+            if (currentLang === 'en') {
+                currentLang = 'ur';
+                btnLabel.innerText = "English";
+                elements.forEach(function(el) {
+                    el.innerText = el.getAttribute('data-ur');
+                });
+            } else {
+                currentLang = 'en';
+                btnLabel.innerText = "اردو";
+                elements.forEach(function(el) {
+                    el.innerText = el.getAttribute('data-en');
+                });
+            }
+        }
+
+        /* High fidelity structural localized printable pdf invoicing engine */
+        function downloadBillPDF(type) {
+            var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
+            var element = document.getElementById(elementId);
+            var opt = {
+                margin:       10,
+                filename:     'MS_Maintenance_Bill_Statement.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        /* Badge Driven quick vehicle selection engine toggler matrix */
+        function setVehicleTypeViaBadge(val) {
+            var selectObj = document.getElementById('carwash-type');
+            selectObj.value = val;
+            calculateCarWashBill();
+        }
+
+        /* Stats smooth counting animation loop interval logic */
+        function runAnimatedCounters() {
+            var targetYears = 5;
+            var targetCust = 1000;
+            var currYears = 0;
+            var currCust = 0;
+            
+            var yElem = document.getElementById('counter-years');
+            var cElem = document.getElementById('counter-customers');
+            
+            var intervalY = setInterval(function() {
+                if(currYears >= targetYears) {
+                    clearInterval(intervalY);
+                } else {
+                    currYears++;
+                    yElem.innerText = currYears + "+ Years";
+                }
+            }, 100);
+
+            var intervalC = setInterval(function() {
+                if(currCust >= targetCust) {
+                    clearInterval(intervalC);
+                    cElem.innerText = targetCust + "+";
+                } else {
+                    currCust += 25;
+                    cElem.innerText = currCust + "+";
+                }
+            }, 30);
+        }
+
+        /* Scroll driven content transition observer setup */
+        function initScrollAnimations() {
+            var elements = document.querySelectorAll('.scroll-reveal');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            elements.forEach(function(el) {
+                observer.observe(el);
+            });
+        }
+
+        /* Desktop smooth custom hover progress line tracking element engine */
+        window.addEventListener('scroll', function() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("top-scroll-progress").style.width = scrolled + "%";
+        });
+
+        /* Pointer hover trajectory locator capture track function */
+        window.addEventListener('mousemove', function(e) {
+            var cursor = document.getElementById('custom-halo-cursor');
+            if(cursor) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
+
         function switchServiceLayout(serviceType) {
             var solarBlock = document.getElementById('solar-calc-block');
             var carwashBlock = document.getElementById('carwash-calc-block');
@@ -947,18 +1248,15 @@
                 document.getElementById('label-main-tab-solar').innerText = "⚡ Solar Active";
                 document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
             }
-            // Auto close dropdown panels
             document.getElementById('panel-main-tab-carwash').style.display = 'none';
             document.getElementById('panel-main-tab-solar').style.display = 'none';
             
-            // Recalculate slider sizing if visible
             setTimeout(function() {
                 var sliderInput = document.getElementById("image-split-slider");
                 if(sliderInput) moveSlider(sliderInput.value);
             }, 50);
         }
 
-        /* Car Wash Calculation Engine */
         function changeCarWashQty(amount) {
             var qtyInput = document.getElementById("carwash-qty");
             var currentVal = parseInt(qtyInput.value) || 1;
@@ -1002,7 +1300,6 @@
             window.open(url, '_blank');
         }
 
-        /* Multi-Dropdown Custom Engine Controls */
         function openCustomDropdown(id) {
             var targetPanel = document.getElementById('panel-' + id);
             if (!targetPanel) return;
@@ -1249,9 +1546,19 @@
         };
 
         window.onload = function() {
+            // Restore dark theme preference configuration if saved earlier
+            if(localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark');
+                document.documentElement.classList.add('dark');
+                var tIcon = document.getElementById('theme-toggle-icon');
+                if(tIcon) tIcon.className = "fas fa-sun";
+            }
+            
             calculateBill();
             calculateCarWashBill();
-            // Added safe check loop for proper width loading on high latency screens
+            runAnimatedCounters();
+            initScrollAnimations();
+
             var initSlider = setInterval(function(){
                 var shell = document.getElementById("slider-box-shell");
                 if (shell && shell.offsetWidth > 0) {
