@@ -1,2 +1,2 @@
-MS Solar Cleaning 
-Panel 
+MS Solar panel Cleaning 
+& Car Wash
