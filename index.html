@@ -126,7 +126,6 @@
         }
 
         .custom-dropdown-panel {
-            display: none;
             position: absolute;
             top: 104%;
             left: 0;
@@ -283,14 +282,6 @@
             border: 2px solid #eab308;
         }
 
-        .calculator-block {
-            display: none;
-        }
-        .calculator-block.active-block {
-            display: block;
-        }
-
-        /* Top Progress scroll line track */
         #top-scroll-progress {
             position: fixed;
             top: 0;
@@ -302,7 +293,6 @@
             transition: width 0.1s linear;
         }
 
-        /* Custom Halo cursor setup layer */
         #custom-halo-cursor {
             width: 24px;
             height: 24px;
@@ -320,7 +310,6 @@
             #custom-halo-cursor { display: block; }
         }
 
-        /* Scroll driven entries styles setup */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -337,7 +326,6 @@
 <body class="font-sans text-slate-800 antialiased dark:text-slate-200">
 
     <div id="top-scroll-progress"></div>
-    
     <div id="custom-halo-cursor"></div>
 
     <header class="sticky top-0 z-50 bg-white/50 backdrop-blur-2xl border-b border-white/60 shadow-sm dark:bg-slate-900/60 dark:border-slate-800/60">
@@ -682,7 +670,7 @@
                         <span id="label-main-tab-carwash" class="text-blue-600">Open Car Wash</span>
                         <i class="fas fa-chevron-down text-xs opacity-60 text-blue-600"></i>
                     </div>
-                    <div id="panel-main-tab-carwash" class="custom-dropdown-panel shadow-2xl">
+                    <div id="panel-main-tab-carwash" class="custom-dropdown-panel hidden shadow-2xl">
                         <div onclick="switchServiceLayout('carwash')">🧽 Activate Car Wash Calculator</div>
                     </div>
                 </div>
@@ -693,13 +681,13 @@
                         <span id="label-main-tab-solar" class="text-amber-600">Open Solar Setup</span>
                         <i class="fas fa-chevron-down text-xs opacity-60 text-amber-600"></i>
                     </div>
-                    <div id="panel-main-tab-solar" class="custom-dropdown-panel shadow-2xl">
+                    <div id="panel-main-tab-solar" class="custom-dropdown-panel hidden shadow-2xl">
                         <div onclick="switchServiceLayout('solar')">⚡ Activate Solar System Calculator</div>
                     </div>
                 </div>
             </div>
 
-            <div id="solar-calc-block" class="calculator-block active-block">
+            <div id="solar-calc-block" class="hidden">
                 <div class="text-center mb-10">
                     <span class="text-green-700 font-black text-xs tracking-widest uppercase bg-green-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block dark:bg-green-900/40 dark:text-green-300">Instant Solar Quote</span>
                     <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3" data-en="Solar Panel Cost Estimation" data-ur="سولر پینل سروس بل کیلکولیٹر">Solar Panel Cost Estimation</h2>
@@ -748,7 +736,7 @@
                                 <i class="fas fa-chevron-down text-xs opacity-60 text-blue-900 dark:text-blue-400"></i>
                             </div>
                             <input type="hidden" id="service-package" value="One-Time">
-                            <div id="panel-service-package" class="custom-dropdown-panel shadow-2xl">
+                            <div id="panel-service-package" class="custom-dropdown-panel hidden shadow-2xl">
                                 <div onclick="selectCustomOption('service-package', 'One-Time', 'One-Time Standard Service (Regular Rate)')">One-Time Standard Service (Regular Rate)</div>
                                 <div onclick="selectCustomOption('service-package', 'Monthly', 'Monthly Subscribed Plan (10% Flat Discount On Total)')">Monthly Subscribed Plan (10% Flat Discount On Total)</div>
                             </div>
@@ -786,7 +774,7 @@
                                     <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
                                 </div>
                                 <input type="hidden" id="booking-time" value="05:00 PM - 12:00 AM">
-                                <div id="panel-booking-time" class="custom-dropdown-panel shadow-2xl">
+                                <div id="panel-booking-time" class="custom-dropdown-panel hidden shadow-2xl">
                                     <div onclick="selectCustomOption('booking-time', '05:00 PM - 12:00 AM', '05:00 PM - 12:00 AM')">05:00 PM - 12:00 AM</div>
                                     <div onclick="selectCustomOption('booking-time', '09:00 AM - 01:00 PM', '09:00 AM - 01:00 PM')">09:00 AM - 01:00 PM</div>
                                     <div onclick="selectCustomOption('booking-time', '01:00 PM - 05:00 PM', '01:00 PM - 05:00 PM')">01:00 PM - 05:00 PM</div>
@@ -801,7 +789,7 @@
                                 <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
                             </div>
                             <input type="hidden" id="panel-brand" value="Canadian Solar">
-                            <div id="panel-panel-brand" class="custom-dropdown-panel shadow-2xl">
+                            <div id="panel-panel-brand" class="custom-dropdown-panel hidden shadow-2xl">
                                 <div onclick="selectCustomOption('panel-brand', 'Canadian Solar', 'Canadian Solar (High Efficiency)')">Canadian Solar (High Efficiency)</div>
                                 <div onclick="selectCustomOption('panel-brand', 'Longi Solar', 'Longi Solar')">Longi Solar</div>
                                 <div onclick="selectCustomOption('panel-brand', 'Jinko Solar', 'Jinko Solar')">Jinko Solar</div>
@@ -819,7 +807,7 @@
                                     <i class="fas fa-chevron-down text-xs opacity-60 text-blue-900"></i>
                                 </div>
                                 <input type="hidden" id="inv-brand" value="Solis">
-                                <div id="panel-inv-brand" class="custom-dropdown-panel shadow-2xl">
+                                <div id="panel-inv-brand" class="custom-dropdown-panel hidden shadow-2xl">
                                     <div onclick="selectCustomOption('inv-brand', 'Solis', 'Solis')">Solis</div>
                                     <div onclick="selectCustomOption('inv-brand', 'Knox', 'Knox')">Knox</div>
                                     <div onclick="selectCustomOption('inv-brand', 'MaxPower', 'MaxPower')">MaxPower</div>
@@ -842,7 +830,7 @@
                                     <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
                                 </div>
                                 <input type="hidden" id="inv-size" value="3 KW">
-                                <div id="panel-inv-size" class="custom-dropdown-panel shadow-2xl">
+                                <div id="panel-inv-size" class="custom-dropdown-panel hidden shadow-2xl">
                                     <div onclick="selectCustomOption('inv-size', '3 KW', '3 KW')">3 KW</div>
                                     <div onclick="selectCustomOption('inv-size', '5 KW', '5 KW')">5 KW</div>
                                     <div onclick="selectCustomOption('inv-size', '6 KW', '6 KW')">6 KW</div>
@@ -911,7 +899,7 @@
                 </div>
             </div>
 
-            <div id="carwash-calc-block" class="calculator-block">
+            <div id="carwash-calc-block" class="hidden">
                 <div class="text-center mb-10">
                     <span class="text-blue-700 font-black text-xs tracking-widest uppercase bg-blue-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block dark:bg-blue-900/40 dark:text-blue-300">Instant Car Wash Quote</span>
                     <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3" data-en="Professional Car Wash Calculator" data-ur="کار واش قیمت کیلکولیٹر">Professional Car Wash Calculator</h2>
@@ -923,11 +911,11 @@
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Select Vehicle Type</label>
                             <div class="grid grid-cols-3 gap-2 mb-3 text-center">
-                                <div onclick="setVehicleTypeViaBadge(300)" class="cursor-pointer border-2 border-blue-500 bg-blue-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-blue-100 transition"><i class="fas fa-motorcycle text-base text-blue-600 mb-1 block"></i>Bike<br>Rs.300</div>
-                                <div onclick="setVehicleTypeViaBadge(800)" class="cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition"><i class="fas fa-car text-base text-emerald-600 mb-1 block"></i>Sedan<br>Rs.800</div>
-                                <div onclick="setVehicleTypeViaBadge(1200)" class="cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition"><i class="fas fa-truck-pickup text-base text-purple-600 mb-1 block"></i>SUV/Jeep<br>Rs.1200</div>
+                                <div onclick="setVehicleTypeViaBadge(300)" id="badge-car-300" class="vehicle-badge cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-blue-100 transition"><i class="fas fa-motorcycle text-base text-blue-600 mb-1 block"></i>Bike<br>Rs.300</div>
+                                <div onclick="setVehicleTypeViaBadge(800)" id="badge-car-800" class="vehicle-badge cursor-pointer border-2 border-blue-500 bg-blue-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition"><i class="fas fa-car text-base text-emerald-600 mb-1 block"></i>Sedan<br>Rs.800</div>
+                                <div onclick="setVehicleTypeViaBadge(1200)" id="badge-car-1200" class="vehicle-badge cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition"><i class="fas fa-truck-pickup text-base text-purple-600 mb-1 block"></i>SUV/Jeep<br>Rs.1200</div>
                             </div>
-                            <select id="carwash-type" onchange="calculateCarWashBill()" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-bold shadow-sm bg-white/90 text-slate-800">
+                            <select id="carwash-type" onchange="syncVehicleBadge(this.value)" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-bold shadow-sm bg-white/90 text-slate-800">
                                 <option value="300">Bike — Rs. 300</option>
                                 <option value="800" selected>Sedan Car — Rs. 800</option>
                                 <option value="1200">Haval / SUV / Jeep — Rs. 1200</option>
@@ -1111,7 +1099,6 @@
     </a>
 
     <script>
-        /* Light Dark mode system toggle switch configuration */
         function toggleDarkMode() {
             var body = document.body;
             var themeIcon = document.getElementById('theme-toggle-icon');
@@ -1128,7 +1115,6 @@
             }
         }
 
-        /* Fluid multi language dynamic translation mapping */
         var currentLang = 'en';
         function toggleLanguage() {
             var elements = document.querySelectorAll('[data-en]');
@@ -1149,7 +1135,6 @@
             }
         }
 
-        /* High fidelity structural localized printable pdf invoicing engine */
         function downloadBillPDF(type) {
             var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
             var element = document.getElementById(elementId);
@@ -1163,14 +1148,26 @@
             html2pdf().set(opt).from(element).save();
         }
 
-        /* Badge Driven quick vehicle selection engine toggler matrix */
         function setVehicleTypeViaBadge(val) {
             var selectObj = document.getElementById('carwash-type');
             selectObj.value = val;
+            syncVehicleBadge(val);
+        }
+
+        function syncVehicleBadge(val) {
+            var badges = document.querySelectorAll('.vehicle-badge');
+            badges.forEach(function(b) {
+                b.classList.remove('border-blue-500', 'bg-blue-50');
+                b.classList.add('border-transparent', 'bg-slate-50');
+            });
+            var activeBadge = document.getElementById('badge-car-' + val);
+            if(activeBadge) {
+                activeBadge.classList.remove('border-transparent', 'bg-slate-50');
+                activeBadge.classList.add('border-blue-500', 'bg-blue-50');
+            }
             calculateCarWashBill();
         }
 
-        /* Stats smooth counting animation loop interval logic */
         function runAnimatedCounters() {
             var targetYears = 5;
             var targetCust = 1000;
@@ -1200,7 +1197,6 @@
             }, 30);
         }
 
-        /* Scroll driven content transition observer setup */
         function initScrollAnimations() {
             var elements = document.querySelectorAll('.scroll-reveal');
             var observer = new IntersectionObserver(function(entries) {
@@ -1216,15 +1212,13 @@
             });
         }
 
-        /* Desktop smooth custom hover progress line tracking element engine */
         window.addEventListener('scroll', function() {
             var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            var scrolled = (winScroll / height) * 100;
+            var scrolled = height > 0 ? (winScroll / height) * 100 : 0;
             document.getElementById("top-scroll-progress").style.width = scrolled + "%";
         });
 
-        /* Pointer hover trajectory locator capture track function */
         window.addEventListener('mousemove', function(e) {
             var cursor = document.getElementById('custom-halo-cursor');
             if(cursor) {
@@ -1238,18 +1232,18 @@
             var carwashBlock = document.getElementById('carwash-calc-block');
             
             if (serviceType === 'carwash') {
-                solarBlock.classList.remove('active-block');
-                carwashBlock.classList.add('active-block');
+                solarBlock.classList.add('hidden');
+                carwashBlock.classList.remove('hidden');
                 document.getElementById('label-main-tab-carwash').innerText = "🧽 Car Wash Active";
                 document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
             } else {
-                carwashBlock.classList.remove('active-block');
-                solarBlock.classList.add('active-block');
+                carwashBlock.classList.add('hidden');
+                solarBlock.classList.remove('hidden');
                 document.getElementById('label-main-tab-solar').innerText = "⚡ Solar Active";
                 document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
             }
-            document.getElementById('panel-main-tab-carwash').style.display = 'none';
-            document.getElementById('panel-main-tab-solar').style.display = 'none';
+            document.getElementById('panel-main-tab-carwash').classList.add('hidden');
+            document.getElementById('panel-main-tab-solar').classList.add('hidden');
             
             setTimeout(function() {
                 var sliderInput = document.getElementById("image-split-slider");
@@ -1304,22 +1298,22 @@
             var targetPanel = document.getElementById('panel-' + id);
             if (!targetPanel) return;
             
+            var isHidden = targetPanel.classList.contains('hidden');
+            
             var activePanels = document.querySelectorAll('.custom-dropdown-panel');
             activePanels.forEach(function(p) {
-                if(p.id !== 'panel-' + id) p.style.display = 'none';
+                p.classList.add('hidden');
             });
 
-            if (targetPanel.style.display === 'block') {
-                targetPanel.style.display = 'none';
-            } else {
-                targetPanel.style.display = 'block';
+            if (isHidden) {
+                targetPanel.classList.remove('hidden');
             }
         }
 
         function selectCustomOption(id, actualValue, textLabel) {
             document.getElementById(id).value = actualValue;
             document.getElementById('label-' + id).innerText = textLabel;
-            document.getElementById('panel-' + id).style.display = 'none';
+            document.getElementById('panel-' + id).classList.add('hidden');
             
             if (id === 'inv-size') {
                 autoSuggestPanels(actualValue);
@@ -1331,7 +1325,7 @@
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.relative')) {
                 var panels = document.querySelectorAll('.custom-dropdown-panel');
-                panels.forEach(function(p) { p.style.display = 'none'; });
+                panels.forEach(function(p) { p.classList.add('hidden'); });
             }
         });
 
@@ -1425,7 +1419,10 @@
         }
 
         function calculateBill() {
-            var panels = parseInt(document.getElementById("panel-qty").value) || 0;
+            var panelsInput = document.getElementById("panel-qty").value;
+            var panels = parseInt(panelsInput);
+            if (isNaN(panels) || panels < 0) panels = 0;
+            
             var invertersCount = parseInt(document.getElementById("inverter-qty").value) || 1;
             var servicePlan = document.getElementById("service-package").value;
             var phone = document.getElementById("cust-phone").value.trim();
@@ -1491,7 +1488,10 @@
             var size = document.getElementById("inv-size").value;
             var invertersCount = document.getElementById("inverter-qty").value;
             var historyLog = document.getElementById("cleaning-history").value;
-            var qty = parseInt(document.getElementById("panel-qty").value) || 0;
+            
+            var panelsInput = document.getElementById("panel-qty").value;
+            var qty = parseInt(panelsInput);
+            if (isNaN(qty) || qty < 0) qty = 0;
             
             var finalBill = document.getElementById("total-price").innerText;
             var blowerActive = document.getElementById("blower-check").checked ? "Yes (" + invertersCount + " Inverters)" : "No";
@@ -1546,7 +1546,6 @@
         };
 
         window.onload = function() {
-            // Restore dark theme preference configuration if saved earlier
             if(localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark');
                 document.documentElement.classList.add('dark');
@@ -1554,6 +1553,7 @@
                 if(tIcon) tIcon.className = "fas fa-sun";
             }
             
+            switchServiceLayout('solar');
             calculateBill();
             calculateCarWashBill();
             runAnimatedCounters();
