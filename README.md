@@ -1,2 +1,2 @@
 MS Solar Cleaning 
-Cleaning Solar Panel 
+Solar Panel 
