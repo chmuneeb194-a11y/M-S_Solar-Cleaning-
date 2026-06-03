@@ -321,6 +321,34 @@
             transform: translateY(0);
             filter: blur(0);
         }
+
+        /* WhatsApp Section Styling Integrated */
+        .whatsapp-container {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #25D366;
+            border-radius: 10px;
+            max-width: 250px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .wa-icon {
+            width: 30px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        .whatsapp-header h3 {
+            display: inline-block;
+            font-size: 16px;
+            color: #25D366;
+            margin: 0;
+        }
+        .qr-code {
+            margin-top: 15px;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
     </style>
 </head>
 <body class="font-sans text-slate-800 antialiased dark:text-slate-200">
@@ -978,13 +1006,14 @@
                 </div>
             </div>
 
+            <!-- WhatsApp Badge Widget with QR Code Layout Built-in -->
             <div class="mt-14 max-w-xs mx-auto ios-glass p-5 rounded-2xl text-center shadow-md scroll-reveal">
-                <div class="flex items-center justify-center space-x-2 mb-3">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
+                <div class="whatsapp-header flex items-center justify-center space-x-2 mb-3">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="wa-icon w-7 h-7 object-contain">
                     <h3 class="text-base font-bold text-green-600 tracking-tight">Scan to Chat with Us</h3>
                 </div>
                 <div class="bg-white/90 backdrop-blur-md p-3 rounded-xl border border-white inline-block shadow-inner">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/923084462121" alt="WhatsApp QR Code" class="w-36 h-36">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/923084462121" alt="WhatsApp QR Code" class="qr-code w-36 h-36">
                 </div>
                 <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-3 leading-relaxed">
                     Direct mobile se scanning karke rabta ya monthly package active karne ke liye scan karein.
