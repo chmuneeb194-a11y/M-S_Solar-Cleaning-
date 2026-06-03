@@ -496,6 +496,7 @@
                     <p class="text-xs text-slate-600 dark:text-slate-400 text-center leading-relaxed" data-en="High displacement clean pressure blowing tool sets engineered to evacuate fine structural inverter heat sinks dust." data-ur="سمارٹ انورٹرز کے کولنگ فینز اور internal ایئر فلٹرز کو صاف کرنے کے لیے بہترین بلوئر سروس۔">Smart inverters ke cooling fans aur unke internal air filters ko mukammal saaf karne ke liye taake cooling performance up-to-date rahe.</p>
                 </div>
             </div>
+
             <div class="max-w-2xl mx-auto ios-glass p-6 rounded-3xl shadow-xl scroll-reveal">
                 <h3 class="text-xl font-black text-slate-900 dark:text-white text-center mb-3"><i class="fas fa-sparkles text-yellow-500"></i> Results (Before vs After)</h3>
                 
@@ -528,7 +529,7 @@
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Certified Safety Standards</h4>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight"></p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Zero structural damage or scratching risks during process</p>
                 </div>
                 <div class="flex flex-col items-center border-y sm:border-y-0 sm:border-x border-white/60 dark:border-slate-700 py-4 sm:py-0">
                     <div class="w-12 h-12 bg-white/80 text-green-600 dark:bg-slate-800 dark:text-green-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
@@ -541,8 +542,8 @@
                     <div class="w-12 h-12 bg-white/80 text-yellow-600 dark:bg-slate-800 dark:text-yellow-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
                         <i class="fas fa-handshake-angle"></i>
                     </div>
-                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1"></h4>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Wellcome</p>
+                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Damage Insurance Cover</h4>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Full baseline security assurance for supreme peace of mind</p>
                 </div>
             </div>
         </div>
@@ -844,12 +845,12 @@
                             <div class="relative">
                                 <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">System Size (KW)</label>
                                 <div id="trigger-inv-size" onclick="openCustomDropdown('inv-size')" class="ios-input-glass px-4 py-3 rounded-xl font-medium text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
-                                    <span id="label-inv-size" class="text-slate-700">4 KW</span>
+                                    <span id="label-inv-size" class="text-slate-700">3 KW</span>
                                     <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
                                 </div>
                                 <input type="hidden" id="inv-size" value="3 KW">
                                 <div id="panel-inv-size" class="custom-dropdown-panel hidden shadow-2xl">
-                                    <div onclick="selectCustomOption('inv-size', '4 KW', '4 KW')">4 KW</div>
+                                    <div onclick="selectCustomOption('inv-size', '3 KW', '3 KW')">3 KW</div>
                                     <div onclick="selectCustomOption('inv-size', '5 KW', '5 KW')">5 KW</div>
                                     <div onclick="selectCustomOption('inv-size', '6 KW', '6 KW')">6 KW</div>
                                     <div onclick="selectCustomOption('inv-size', '8 KW', '8 KW')">8 KW</div>
@@ -902,62 +903,6 @@
                             <div class="text-4xl font-black my-1">Rs. <span id="total-price">640</span></div>
                             <p class="text-[10px] text-slate-300" id="rate-calc-note">*Standard washing rate calculated at Rs. 80 per panel</p>
                         </div>
-                        
-<div class="mt-4 text-center">
-    <button type="button" id="apply-offer-btn" onclick="toggleOfferRate()" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transform hover:scale-105 transition duration-200">
-        Apply Offer Rate ✨
-    </button>
-    
-    <p id="offer-msg" class="text-green-400 text-sm font-semibold mt-2 hidden animate-pulse">
-        Special Offer Rate Applied Successfully! 🎉
-    </p>
-</div>
-
-<script>
-    // Global variable jo check rakhega ke offer active hai ya nahi
-    if (typeof isOfferApplied === 'undefined') {
-        var isOfferApplied = false;
-    }
-
-    // Button click hone par chalne wala function
-    function toggleOfferRate() {
-        const btn = document.getElementById('apply-offer-btn');
-        const msg = document.getElementById('offer-msg');
-        const noteEl = document.getElementById('rate-calc-note');
-        
-        // State badlein (true se false, false se true)
-        isOfferApplied = !isOfferApplied; 
-        
-        if (isOfferApplied) {
-            // Agar offer apply ho gayi hai
-            btn.innerText = "Remove Offer";
-            btn.classList.remove('from-green-500', 'to-emerald-600', 'hover:from-green-600', 'hover:to-emerald-700');
-            btn.classList.add('from-red-500', 'to-rose-600', 'hover:from-red-600', 'hover:to-rose-700');
-            msg.classList.remove('hidden');
-            if (noteEl) noteEl.innerText = "Special offer rate calculated at Rs. 65 per panel";
-        } else {
-            // Agar offer remove kar di hai
-            btn.innerText = "Apply Offer Rate ✨";
-            btn.classList.remove('from-red-500', 'to-rose-600', 'hover:from-red-600', 'hover:to-rose-700');
-            btn.classList.add('from-green-500', 'to-emerald-600', 'hover:from-green-600', 'hover:to-emerald-700');
-            msg.classList.add('hidden');
-            if (noteEl) noteEl.innerText = "Standard washing rate calculated at Rs. 80 per panel";
-        }
-        
-        // Puraani values ko naye rate ke sath recalculate karne ke liye aapka calculateBill function call karein
-        if (typeof calculateBill === 'function') {
-            calculateBill();
-        }
-    }
-
-    // Aapke main calculateBill function ke andar use hone wala hook
-    // (Aapke script block mein jahan 'var total = panels * 80' jaisa logic hai, 
-    // wahan rate fix karne ke liye yeh naya rule follow hoga)
-    function getCurrentPanelRate() {
-        return isOfferApplied ? 70 : 80; // Offer par 70Rs, normal par 80Rs
-    }
-</script>
-
 
                         <button type="button" onclick="downloadBillPDF('solar')" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
                             <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
@@ -1051,6 +996,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="mt-14 max-w-xs mx-auto ios-glass p-5 rounded-2xl text-center shadow-md scroll-reveal">
                 <div class="flex items-center justify-center space-x-2 mb-3">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
@@ -1071,7 +1017,7 @@
             <h3 class="text-xl font-black text-slate-900 dark:text-white text-center mb-6 flex items-center justify-center gap-2 scroll-reveal">
                 <i class="fas fa-images text-blue-600"></i> Our Professional Car Wash Gallery
             </h3>
-                <section id="gallery-section" class="py-16 px-4 border-t border-slate-200 dark:border-slate-800">
+    <section id="gallery-section" class="py-16 px-4 border-t border-slate-200 dark:border-slate-800">
         <div class="container mx-auto max-w-4xl">
             <h3 class="text-xl font-black text-slate-900 dark:text-white text-center mb-6 flex items-center justify-center gap-2 scroll-reveal">
                 <i class="fas fa-images text-blue-600"></i> Our Professional Car Wash Gallery
@@ -1079,16 +1025,16 @@
             
             <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
                 <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
-                    <img src="haval-foam.jpg" alt="Haval Foam Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300" onerror="this.src='https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=500'">
+                    <img src="haval-foam.jpg" alt="Haval Foam Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
                 </div>
                 <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
-                    <img src="honda-civic-wash.jpg" alt="Honda Civic Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300" onerror="this.src='https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=500'">
+                    <img src="honda-civic-wash.jpg" alt="Honda Civic Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
                 </div>
                 <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
-                    <img src="suzuki-alto.jpg" alt="Suzuki Alto Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300" onerror="this.src='https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500'">
+                    <img src="suzuki-alto.jpg" alt="Suzuki Alto Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
                 </div>
                 <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
-                    <img src="corolla-wash.jpg" alt="Toyota Corolla Shine" class="w-full h-full object-cover hover:scale-105 transition duration-300" onerror="this.src='https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=500'">
+                    <img src="corolla-wash.jpg" alt="Toyota Corolla Shine" class="w-full h-full object-cover hover:scale-105 transition duration-300">
                 </div>
             </div>
         </div>
@@ -1116,7 +1062,7 @@
                         <i id="faq-icon-2" class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
                     </button>
                     <div id="faq-ans-2" class="hidden p-4 pt-0 text-xs text-slate-500 dark:text-slate-400 leading-relaxed border-t border-white/20 bg-white/30">
-                        Agar hamari safai ke baad agle 3 din ke andar Sahiwal mein achanak mitti ka tufan, aandhi, ya barish aa jaye jis se panels dobara gande ho jayen, to aapko agli wash par special flat 20% discount diya jayega taake aapka nuksaan na ho.
+                        Agar hamari safai ke baad agle 3 din ke andar Sahiwal mein achanak mitti ka tufan, aandhi, ya barish aa jaye jis se panels dobara gande ho jayen, to aapko agri wash par special flat 20% discount diya jayega taake aapka nuksaan na ho.
                     </div>
                 </div>
 
@@ -1157,12 +1103,14 @@
         <p class="text-xs text-slate-500">© 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
     </footer>
 
-    <!-- Point 2 Fixed: Book Now Button Completely Removed From Mobile Dock -->
-    <div class="fixed bottom-0 inset-x-0 bg-white/80 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 px-4 py-4 flex items-center justify-between z-40 lg:hidden shadow-lg">
-        <div class="flex flex-col mx-auto text-center">
-            <span class="text-[10px] font-black uppercase text-slate-400" data-en="Sahiwal Maintenance" data-ur="ساہیwal مینٹیننس">Sahiwal Service Desk</span>
-            <span class="text-xs font-bold text-slate-800 dark:text-white" data-en="Instant Calculation Active" data-ur="لائیو بکنگ مینو">Fast Operations Desk Active</span>
+    <div class="fixed bottom-0 inset-x-0 bg-white/80 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center justify-between z-40 lg:hidden shadow-lg">
+        <div class="flex flex-col">
+            <span class="text-[10px] font-black uppercase text-slate-400" data-en="Sahiwal Maintenance" data-ur="ساہیوال مینٹیننس">Sahiwal Service Desk</span>
+            <span class="text-xs font-bold text-slate-800 dark:text-white" data-en="Instant Calculation Active" data-ur="لائیو بکنگ مینو">Fast Operations Desk</span>
         </div>
+        <a href="#calculator-section" class="bg-blue-600 text-white font-black text-xs px-4 py-2 rounded-xl shadow-md transform active:scale-95 transition" data-en="Quick Book Now" data-ur="فوری بکنگ کریں">
+            Book Now
+        </a>
     </div>
 
     <a href="https://wa.me/923084462121?text=Hi%20MS%20Solar%20Cleaning,%20I%20want%20to%20know%20more%20about%20your%20services." 
@@ -1212,25 +1160,22 @@
             }
         }
 
-        // Point 4 Fixed: Blank PDF rendering fix by clamping elements correctly
         function downloadBillPDF(type) {
             var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
             var element = document.getElementById(elementId);
-            if(!element) return;
-            
             var opt = {
-                margin:       [10, 10, 10, 10],
+                margin:       10,
                 filename:     'MS_Maintenance_Bill_Statement.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, logging: false, letterRendering: true },
+                html2canvas:  { scale: 2, useCORS: true },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
-            html2pdf().from(element).set(opt).save();
+            html2pdf().set(opt).from(element).save();
         }
 
         function setVehicleTypeViaBadge(val) {
             var selectObj = document.getElementById('carwash-type');
-            if(selectObj) selectObj.value = val;
+            selectObj.value = val;
             syncVehicleBadge(val);
         }
 
@@ -1258,7 +1203,6 @@
             var cElem = document.getElementById('counter-customers');
             
             var intervalY = setInterval(function() {
-                if(!yElem) { clearInterval(intervalY); return; }
                 if(currYears >= targetYears) {
                     clearInterval(intervalY);
                 } else {
@@ -1268,7 +1212,6 @@
             }, 100);
 
             var intervalC = setInterval(function() {
-                if(!cElem) { clearInterval(intervalC); return; }
                 if(currCust >= targetCust) {
                     clearInterval(intervalC);
                     cElem.innerText = targetCust + "+";
@@ -1302,6 +1245,14 @@
             if(progBar) progBar.style.width = scrolled + "%";
         });
 
+        window.addEventListener('mousemove', function(e) {
+            var cursor = document.getElementById('custom-halo-cursor');
+            if(cursor) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
+
         function switchServiceLayout(serviceType) {
             var solarBlock = document.getElementById('solar-calc-block');
             var carwashBlock = document.getElementById('carwash-calc-block');
@@ -1309,23 +1260,16 @@
             if (serviceType === 'carwash') {
                 if(solarBlock) solarBlock.classList.add('hidden');
                 if(carwashBlock) carwashBlock.classList.remove('hidden');
-                var tabCw = document.getElementById('label-main-tab-carwash');
-                var tabSl = document.getElementById('label-main-tab-solar');
-                if(tabCw) tabCw.innerText = "🧽 Car Wash Active";
-                if(tabSl) tabSl.innerText = "Open Solar Setup";
+                document.getElementById('label-main-tab-carwash').innerText = "🧽 Car Wash Active";
+                document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
             } else {
                 if(carwashBlock) carwashBlock.classList.add('hidden');
                 if(solarBlock) solarBlock.classList.remove('hidden');
-                var tabSlActive = document.getElementById('label-main-tab-solar');
-                var tabCwActive = document.getElementById('label-main-tab-carwash');
-                if(tabSlActive) tabSlActive.innerText = "⚡ Solar Active";
-                if(tabCwActive) tabCwActive.innerText = "Open Car Wash";
+                document.getElementById('label-main-tab-solar').innerText = "⚡ Solar Active";
+                document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
             }
-            
-            var pnlCw = document.getElementById('panel-main-tab-carwash');
-            var pnlSl = document.getElementById('panel-main-tab-solar');
-            if(pnlCw) pnlCw.classList.add('hidden');
-            if(pnlSl) pnlSl.classList.add('hidden');
+            document.getElementById('panel-main-tab-carwash').classList.add('hidden');
+            document.getElementById('panel-main-tab-solar').classList.add('hidden');
             
             setTimeout(function() {
                 var sliderInput = document.getElementById("image-split-slider");
@@ -1335,7 +1279,6 @@
 
         function changeCarWashQty(amount) {
             var qtyInput = document.getElementById("carwash-qty");
-            if(!qtyInput) return;
             var currentVal = parseInt(qtyInput.value) || 1;
             var newVal = currentVal + amount;
             if (newVal < 1) newVal = 1;
@@ -1344,15 +1287,10 @@
         }
 
         function calculateCarWashBill() {
-            var typeEl = document.getElementById("carwash-type");
-            var qtyEl = document.getElementById("carwash-qty");
-            var totalEl = document.getElementById("carwash-total-price");
-            if(!typeEl || !qtyEl || !totalEl) return;
-            
-            var vehicleRate = parseInt(typeEl.value) || 800;
-            var qty = parseInt(qtyEl.value) || 1;
+            var vehicleRate = parseInt(document.getElementById("carwash-type").value) || 800;
+            var qty = parseInt(document.getElementById("carwash-qty").value) || 1;
             var total = vehicleRate * qty;
-            totalEl.innerText = total;
+            document.getElementById("carwash-total-price").innerText = total;
         }
 
         function sendCarWashBooking() {
@@ -1365,7 +1303,7 @@
             var qty = document.getElementById("carwash-qty").value;
             
             var selectElem = document.getElementById("carwash-type");
-            var vehicleLabel = selectElem ? selectElem.options[selectElem.selectedIndex].text.split("—")[0].trim() : "Vehicle";
+            var vehicleLabel = selectElem.options[selectElem.selectedIndex].text.split("—")[0].trim();
             var finalBill = document.getElementById("carwash-total-price").innerText;
 
             var rawMessageText = "🚀 *M S CAR WASH - NEW CLEANING SERVICE BOOKING* 🚀\n\n" + 
@@ -1385,31 +1323,38 @@
         function openCustomDropdown(id) {
             var targetPanel = document.getElementById('panel-' + id);
             if (!targetPanel) return;
+            
             var isHidden = targetPanel.classList.contains('hidden');
-            document.querySelectorAll('.custom-dropdown-panel').forEach(function(p) { p.classList.add('hidden'); });
-            if (isHidden) targetPanel.classList.remove('hidden');
+            
+            var activePanels = document.querySelectorAll('.custom-dropdown-panel');
+            activePanels.forEach(function(p) {
+                p.classList.add('hidden');
+            });
+
+            if (isHidden) {
+                targetPanel.classList.remove('hidden');
+            }
         }
 
         function selectCustomOption(id, actualValue, textLabel) {
-            var inputEl = document.getElementById(id);
-            var lblEl = document.getElementById('label-' + id);
-            var pnlEl = document.getElementById('panel-' + id);
+            document.getElementById(id).value = actualValue;
+            document.getElementById('label-' + id).innerText = textLabel;
+            document.getElementById('panel-' + id).classList.add('hidden');
             
-            if(inputEl) inputEl.value = actualValue;
-            if(lblEl) lblEl.innerText = textLabel;
-            if(pnlEl) pnlEl.classList.add('hidden');
+            if (id === 'inv-size') {
+                autoSuggestPanels(actualValue);
+            }
             
-            if (id === 'inv-size') autoSuggestPanels(actualValue);
             calculateBill();
         }
 
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.relative')) {
-                document.querySelectorAll('.custom-dropdown-panel').forEach(function(p) { p.classList.add('hidden'); });
+                var panels = document.querySelectorAll('.custom-dropdown-panel');
+                panels.forEach(function(p) { p.classList.add('hidden'); });
             }
         });
 
-        // Point 3 Fixed: Fallback scaling system for responsive slider frame protection
         function moveSlider(value) {
             var sliderLine = document.getElementById("slider-line");
             var sliderBtn = document.getElementById("slider-btn");
@@ -1417,7 +1362,7 @@
             var leftPane = document.getElementById("left-clip-pane");
             var shell = document.getElementById("slider-box-shell");
             if (!shell) return;
-            var containerWidth = shell.offsetWidth || 400;
+            var containerWidth = shell.offsetWidth;
             
             if(sliderInput) sliderInput.value = value;
             if(leftPane) leftPane.style.width = value + "%";
@@ -1426,31 +1371,36 @@
             
             var imgDirty = document.getElementById("img-dirty-src");
             var imgClean = document.getElementById("img-clean-src");
+            
             if(imgDirty) imgDirty.style.width = containerWidth + "px";
             if(imgClean) imgClean.style.width = containerWidth + "px";
         }
 
         function togglePanelState(state) {
-            moveSlider(state === 'dirty' ? 100 : 0);
+            if (state === 'dirty') {
+                moveSlider(100); 
+            } else if (state === 'clean') {
+                moveSlider(0); 
+            }
         }
 
         function shareWithFriend() {
             var websiteUrl = window.location.href;
             var shareText = "☀️ *MS Solar Cleaning Services Sahiwal* ☀️\n\nGande solar panels ki wajah se kafi ziada bijli zaya hoti hai. Live cost calculator check karne aur professional machinery wash book karne ke liye niche link par click karein:\n\n🔗 " + websiteUrl;
-            window.open("https://wa.me/?text=" + encodeURIComponent(shareText), '_blank');
+            var whatsappUrl = "https://wa.me/?text=" + encodeURIComponent(shareText);
+            window.open(whatsappUrl, '_blank');
         }
 
         function autoSuggestPanels(systemSize) {
             var qtyInput = document.getElementById("panel-qty");
-            if(!qtyInput) return;
             var sizeNum = parseInt(systemSize) || 3;
-            qtyInput.value = Math.ceil((sizeNum * 1000) / 585);
+            var calculatedPanels = Math.ceil((sizeNum * 1000) / 585);
+            qtyInput.value = calculatedPanels;
             calculateBill();
         }
 
         function changePanels(amount) {
             var qtyInput = document.getElementById("panel-qty");
-            if(!qtyInput) return;
             var currentVal = parseInt(qtyInput.value) || 0;
             var newVal = currentVal + amount;
             if (newVal < 1) newVal = 1;
@@ -1459,85 +1409,189 @@
         }
 
         function checkCustomerHistory() {
-            var phoneEl = document.getElementById("cust-phone");
+            var phone = document.getElementById("cust-phone").value.trim();
             var statusBox = document.getElementById("history-status-box");
             var countBadge = document.getElementById("history-count-badge");
             var rewardMsg = document.getElementById("history-reward-msg");
-            if(!phoneEl || !statusBox || !countBadge || !rewardMsg) return;
             
-            var phone = phoneEl.value.trim();
-            if (!phone) { alert("Meherbani karke pehle Mobile Number darj karein!"); statusBox.classList.add("hidden"); return; }
+            if (!phone) {
+                alert("Meherbani karke pehle Mobile Number darj karein!");
+                statusBox.classList.add("hidden");
+                return;
+            }
             
             var currentMonth = new Date().getMonth(); 
             var dataKey = "ms_solar_user_" + phone;
             var userData = JSON.parse(localStorage.getItem(dataKey)) || { month: currentMonth, count: 0 };
             
-            if (userData.month !== currentMonth) { userData.month = currentMonth; userData.count = 0; localStorage.setItem(dataKey, JSON.stringify(userData)); }
+            if (userData.month !== currentMonth) {
+                userData.month = currentMonth;
+                userData.count = 0;
+                localStorage.setItem(dataKey, JSON.stringify(userData));
+            }
             
             statusBox.classList.remove("hidden");
             countBadge.innerText = userData.count;
             
             if (userData.count === 3) {
                 rewardMsg.innerHTML = "<span class='text-green-600 animate-pulse'>🎉 Mubarak Ho! 3 Services Mukammal. Yeh Wash FREE Hai!</span>";
+            } else if (userData.count >= 4) {
+                rewardMsg.innerHTML = "<span class='text-blue-600'>Loyalty Cycle Restarted (Next Reward after 3 washes)</span>";
             } else {
-                rewardMsg.innerHTML = "<span class='text-amber-600'>Agli " + (3 - userData.count) + " services ke baad 1 FREE wash milegi!</span>";
+                var remaining = 3 - userData.count;
+                rewardMsg.innerHTML = "<span class='text-amber-600'>Agli " + remaining + " services ke baad 1 FREE wash milegi!</span>";
             }
             calculateBill();
         }
 
         function calculateBill() {
-            var qtyEl = document.getElementById("panel-qty");
-            var priceEl = document.getElementById("total-price");
-            if(!qtyEl || !priceEl) return;
+            var panelsInput = document.getElementById("panel-qty").value;
+            var panels = parseInt(panelsInput);
+            if (isNaN(panels) || panels < 0) panels = 0;
             
-            var panels = parseInt(qtyEl.value) || 0;
             var invertersCount = parseInt(document.getElementById("inverter-qty").value) || 1;
             var servicePlan = document.getElementById("service-package").value;
             var phone = document.getElementById("cust-phone").value.trim();
             
-            var total = panels * getCurrentPanelRate() + (document.getElementById("blower-check").checked ? (500 * invertersCount) : 0);
+            var ratePerPanel = 80; 
+            var blowerCost = document.getElementById("blower-check").checked ? (500 * invertersCount) : 0; 
+            
+            var total = (panels * ratePerPanel) + blowerCost;
+            var isFreeReward = false;
             
             if (phone) {
-                var userData = JSON.parse(localStorage.getItem("ms_solar_user_" + phone));
-                if (userData && userData.count === 3) total = 0;
+                var currentMonth = new Date().getMonth();
+                var userData = JSON.parse(localStorage.getItem("ms_solar_user_" + phone)) || { month: currentMonth, count: 0 };
+                if (userData.month === currentMonth && userData.count === 3) {
+                    isFreeReward = true;
+                }
             }
             
-            priceEl.innerText = total;
-            var units = (panels * 0.4).toFixed(1);
-            document.getElementById("alert-units").innerText = units;
-            document.getElementById("alert-money").innerText = Math.round(units * 45 * 30).toLocaleString();
+            if (isFreeReward) {
+                total = 0; 
+                document.getElementById("rate-calc-note").innerHTML = "<span class='text-green-400 font-bold'>🎁 3+1 Loyalty Offer Applied: This Service is 100% FREE!</span>";
+            } else if (servicePlan === "Monthly") {
+                total = Math.round(total * 0.90); 
+                document.getElementById("rate-calc-note").innerText = "*Monthly Subscription package configuration active: Flat 10% Off Applied!";
+            } else {
+                document.getElementById("rate-calc-note").innerText = "*Standard washing rate calculated at Rs. 80 per panel";
+            }
+            
+            document.getElementById("total-price").innerText = total;
+
+            var powerLossUnits = (panels * 0.4).toFixed(1); 
+            var moneyLossValue = Math.round(powerLossUnits * 45 * 30); 
+            
+            document.getElementById("alert-units").innerText = powerLossUnits;
+            document.getElementById("alert-money").innerText = moneyLossValue.toLocaleString();
         }
 
         function toggleFaq(id) {
             var ans = document.getElementById("faq-ans-" + id);
             var icon = document.getElementById("faq-icon-" + id);
-            if(!ans || !icon) return;
-            var isHidden = ans.classList.contains("hidden");
-            if(isHidden) { ans.classList.remove("hidden"); icon.style.transform = "rotate(180deg)"; }
-            else { ans.classList.add("hidden"); icon.style.transform = "rotate(0deg)"; }
+            if (ans.classList.contains("hidden")) {
+                ans.classList.remove("hidden");
+                icon.style.transform = "rotate(180deg)";
+            } else {
+                ans.classList.add("hidden");
+                icon.style.transform = "rotate(0deg)";
+            }
         }
 
         function sendBooking() {
+            var phoneNumber = "923084462121"; 
             var name = document.getElementById("cust-name").value || "Valued Customer";
             var custPhone = document.getElementById("cust-phone").value.trim() || "Not Provided";
-            var address = document.getElementById("cust-address").value || "Not Provided";
-            var finalBill = document.getElementById("total-price").innerText;
             
-            var rawMessageText = "🚀 *M S SOLAR CLEANING - NEW ADVANCED BOOKING* 🚀\n\n*Customer:* " + name + "\n📞 *Phone:* " + custPhone + "\n📍 *Address:* " + address + "\n💰 *Bill:* Rs. " + finalBill;
-            window.open("https://wa.me/923084462121?text=" + encodeURIComponent(rawMessageText), '_blank');
+            var address = document.getElementById("cust-address").value || "Not Provided (Sahiwal Region)";
+            var mapUrlStr = document.getElementById("maps-url").value || "No Live Pin Attached";
+            var date = document.getElementById("booking-date").value || "As soon as possible";
+            var time = document.getElementById("booking-time").value;
+            
+            var planType = document.getElementById("service-package").value;
+            var pBrand = document.getElementById("panel-brand").value;
+            var brand = document.getElementById("inv-brand").value;
+            var size = document.getElementById("inv-size").value;
+            var invertersCount = document.getElementById("inverter-qty").value;
+            var historyLog = document.getElementById("cleaning-history").value;
+            
+            var panelsInput = document.getElementById("panel-qty").value;
+            var qty = parseInt(panelsInput);
+            if (isNaN(qty) || qty < 0) qty = 0;
+            
+            var finalBill = document.getElementById("total-price").innerText;
+            var blowerActive = document.getElementById("blower-check").checked ? "Yes (" + invertersCount + " Inverters)" : "No";
+            
+            var loyaltyStatusText = "Regular Client Campaign";
+            if (custPhone !== "Not Provided") {
+                var currentMonth = new Date().getMonth();
+                var dataKey = "ms_solar_user_" + custPhone;
+                var userData = JSON.parse(localStorage.getItem(dataKey)) || { month: currentMonth, count: 0 };
+                
+                if (userData.count === 3) {
+                    loyaltyStatusText = "🎁 *3+1 FREE LOYALTY WASH APPLIED!*";
+                    userData.count = 4; 
+                } else {
+                    if(userData.count >= 4) {
+                        userData.count = 1; 
+                    } else {
+                        userData.count += 1; 
+                    }
+                    loyaltyStatusText = "Active Service Count: " + userData.count + " This Month";
+                }
+                localStorage.setItem(dataKey, JSON.stringify(userData));
+            }
+            
+            var rawMessageText = "🚀 *M S SOLAR CLEANING - NEW ADVANCED BOOKING* 🚀\n\n" + 
+                                 "*Customer Name:* " + name + "\n" +
+                                 "📞 *Customer Phone:* " + custPhone + "\n" +
+                                 "🏆 *Loyalty Reward Status:* " + loyaltyStatusText + "\n" +
+                                 "📍 *Sahiwal Address:* " + address + "\n" +
+                                 "🗺️ *Google Maps Pin:* " + mapUrlStr + "\n" +
+                                 "📅 *Scheduled Date:* " + date + "\n" +
+                                 "⏰ *Time Slot:* " + time + "\n" +
+                                 "📦 *Package Selected:* " + planType + " Plan\n\n" +
+                                 "*Solar Panels Qty:* " + qty + " Panels\n" +
+                                 "🏷️ *Panels Brand:* " + pBrand + "\n" +
+                                 "⚡ *Inverter Setup:* " + brand + " (" + size + ") x" + invertersCount + " Unit(s)\n" +
+                                 "⏳ *Last Cleaned Status:* " + historyLog + "\n" +
+                                 "💨 *Inverter Blower Service:* " + blowerActive + "\n" +
+                                 "💰 *Final Estimated Bill:* Rs. " + finalBill;
+            
+            var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
+            window.open(url, '_blank');
+            
+            if (custPhone !== "Not Provided") {
+                checkCustomerHistory();
+            }
         }
+        
+        window.onresize = function() {
+            var sliderInput = document.getElementById("image-split-slider");
+            if(sliderInput) moveSlider(sliderInput.value);
+        };
 
         window.onload = function() {
             if(localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark');
                 document.documentElement.classList.add('dark');
+                var tIcon = document.getElementById('theme-toggle-icon');
+                if(tIcon) tIcon.className = "fas fa-sun";
             }
+            
             switchServiceLayout('solar');
             calculateBill();
             calculateCarWashBill();
             runAnimatedCounters();
             initScrollAnimations();
-            setTimeout(function() { moveSlider(50); }, 200);
+
+            var initSlider = setInterval(function(){
+                var shell = document.getElementById("slider-box-shell");
+                if (shell && shell.offsetWidth > 0) {
+                    moveSlider(50);
+                    clearInterval(initSlider);
+                }
+            }, 100);
         };
     </script>
 </body>
