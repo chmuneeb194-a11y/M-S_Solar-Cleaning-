@@ -902,6 +902,62 @@
                             <div class="text-4xl font-black my-1">Rs. <span id="total-price">640</span></div>
                             <p class="text-[10px] text-slate-300" id="rate-calc-note">*Standard washing rate calculated at Rs. 80 per panel</p>
                         </div>
+                        
+<div class="mt-4 text-center">
+    <button type="button" id="apply-offer-btn" onclick="toggleOfferRate()" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transform hover:scale-105 transition duration-200">
+        Apply Offer Rate ✨
+    </button>
+    
+    <p id="offer-msg" class="text-green-400 text-sm font-semibold mt-2 hidden animate-pulse">
+        Special Offer Rate Applied Successfully! 🎉
+    </p>
+</div>
+
+<script>
+    // Global variable jo check rakhega ke offer active hai ya nahi
+    if (typeof isOfferApplied === 'undefined') {
+        var isOfferApplied = false;
+    }
+
+    // Button click hone par chalne wala function
+    function toggleOfferRate() {
+        const btn = document.getElementById('apply-offer-btn');
+        const msg = document.getElementById('offer-msg');
+        const noteEl = document.getElementById('rate-calc-note');
+        
+        // State badlein (true se false, false se true)
+        isOfferApplied = !isOfferApplied; 
+        
+        if (isOfferApplied) {
+            // Agar offer apply ho gayi hai
+            btn.innerText = "Remove Offer";
+            btn.classList.remove('from-green-500', 'to-emerald-600', 'hover:from-green-600', 'hover:to-emerald-700');
+            btn.classList.add('from-red-500', 'to-rose-600', 'hover:from-red-600', 'hover:to-rose-700');
+            msg.classList.remove('hidden');
+            if (noteEl) noteEl.innerText = "Special offer rate calculated at Rs. 65 per panel";
+        } else {
+            // Agar offer remove kar di hai
+            btn.innerText = "Apply Offer Rate ✨";
+            btn.classList.remove('from-red-500', 'to-rose-600', 'hover:from-red-600', 'hover:to-rose-700');
+            btn.classList.add('from-green-500', 'to-emerald-600', 'hover:from-green-600', 'hover:to-emerald-700');
+            msg.classList.add('hidden');
+            if (noteEl) noteEl.innerText = "Standard washing rate calculated at Rs. 80 per panel";
+        }
+        
+        // Puraani values ko naye rate ke sath recalculate karne ke liye aapka calculateBill function call karein
+        if (typeof calculateBill === 'function') {
+            calculateBill();
+        }
+    }
+
+    // Aapke main calculateBill function ke andar use hone wala hook
+    // (Aapke script block mein jahan 'var total = panels * 80' jaisa logic hai, 
+    // wahan rate fix karne ke liye yeh naya rule follow hoga)
+    function getCurrentPanelRate() {
+        return isOfferApplied ? 65 : 80; // Offer par 65Rs, normal par 80Rs
+    }
+</script>
+
 
                         <button type="button" onclick="downloadBillPDF('solar')" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
                             <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
@@ -1439,7 +1495,7 @@
             var servicePlan = document.getElementById("service-package").value;
             var phone = document.getElementById("cust-phone").value.trim();
             
-            var total = (panels * 80) + (document.getElementById("blower-check").checked ? (500 * invertersCount) : 0);
+            var total = panels * getCurrentPanelRate() + (document.getElementById("blower-check").checked ? (500 * invertersCount) : 0);
             
             if (phone) {
                 var userData = JSON.parse(localStorage.getItem("ms_solar_user_" + phone));
