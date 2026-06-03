@@ -3,1158 +3,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS Solar Cleaning & Car Wash | Sahiwal Professional Maintenance</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>MS Solar Cleaning & Car Wash Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        darkBg: '#0f172a',
-                        darkCard: 'rgba(30, 41, 59, 0.7)',
-                        glassBorder: 'rgba(255, 255, 255, 0.4)'
-                    }
-                }
-            }
-        }
-    </script>
     
     <style>
-        @keyframes pulse-soft {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.95; transform: scale(1.005); }
+        :root {
+            --primary-color: #0f4c81;
+            --secondary-color: #fb8c00;
+            --accent-color: #1877F2;
+            --whatsapp-color: #25D366;
+            --dark-color: #1e1e24;
+            --light-color: #f8f9fa;
         }
-        
-        .tech-animate { 
-            animation: pulse-soft 4s infinite ease-in-out; 
-        }
-        
-        html { 
-            scroll-behavior: smooth; 
-        }
-        
-        img {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: radial-gradient(circle at 10% 20%, rgba(2, 132, 199, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 90% 80%, rgba(22, 163, 74, 0.12) 0%, transparent 50%),
-                        linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
-            background-attachment: fixed;
-            transition: background 0.3s ease, color 0.3s ease;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
         }
 
-        body.dark {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1e38 50%, #090d16 100%) !important;
-            color: #f1f5f9;
-        }
-
-        .ios-glass {
-            background: rgba(255, 255, 255, 0.68) !important;
-            backdrop-filter: blur(45px) saturate(350%) !important;
-            -webkit-backdrop-filter: blur(45px) saturate(350%) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
-            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08),
-                        0 1px 3px rgba(0, 0, 0, 0.02),
-                        inset 0 4px 16px 0 rgba(255, 255, 255, 0.85) !important;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        body.dark .ios-glass {
-            background: rgba(30, 41, 59, 0.65) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5),
-                        inset 0 4px 16px 0 rgba(255, 255, 255, 0.05) !important;
-            color: #f1f5f9;
-        }
-        
-        .ios-glass:hover {
-            background: rgba(255, 255, 255, 0.78) !important;
-            border-color: rgba(255, 255, 255, 1) !important;
-            box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.15), 
-                        inset 0 6px 20px 0 rgba(255, 255, 255, 0.95) !important;
-            transform: translateY(-4px);
-        }
-
-        body.dark .ios-glass:hover {
-            background: rgba(30, 41, 59, 0.8) !important;
-            border-color: rgba(255, 255, 255, 0.2) !important;
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6) !important;
-        }
-
-        .ios-glass-dark {
-            background: rgba(15, 23, 42, 0.85) !important;
-            backdrop-filter: blur(40px) saturate(200%) !important;
-            -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
-            box-shadow: 0 25px 55px -10px rgba(0, 0, 0, 0.45), 
-                        inset 0 2px 4px 0 rgba(255, 255, 255, 0.35) !important;
-        }
-
-        .ios-input-glass {
-            background: rgba(255, 255, 255, 0.8) !important;
-            backdrop-filter: blur(25px) saturate(250%) !important;
-            -webkit-backdrop-filter: blur(25px) saturate(250%) !important;
-            border: 1.5px solid rgba(0, 0, 0, 0.1) !important;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(255,255,255,0.6) !important;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        body.dark .ios-input-glass {
-            background: rgba(15, 23, 42, 0.6) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+        /* Hero Section Styling */
+        .hero-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 60px 10%;
+            background: linear-gradient(135deg, #0f4c81 0%, #1d2671 100%);
             color: white;
-            box-shadow: none !important;
-        }
-        
-        .ios-input-glass:focus {
-            background: rgba(255, 255, 255, 0.98) !important;
-            border-color: #2563eb !important;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25), inset 0 1.5px 3px rgba(0, 0, 0, 0.02) !important;
+            min-height: 80vh;
+            flex-wrap: wrap;
+            gap: 30px;
         }
 
-        body.dark .ios-input-glass:focus {
-            background: rgba(15, 23, 42, 0.9) !important;
-            border-color: #3b82f6 !important;
+        .hero-left {
+            flex: 1;
+            min-width: 300px;
         }
 
-        .custom-dropdown-panel {
-            position: absolute;
-            top: 104%;
-            left: 0;
-            right: 0;
-            z-index: 150;
-            max-height: 260px;
-            overflow-y: auto;
-            background: rgba(255, 255, 255, 0.82) !important;
-            backdrop-filter: blur(45px) saturate(380%) !important;
-            -webkit-backdrop-filter: blur(45px) saturate(380%) !important;
-            border: 1.8px solid rgba(255, 255, 255, 0.95) !important;
-            border-radius: 1.25rem;
-            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.18),
-                        inset 0 4px 15px 0 rgba(255, 255, 255, 0.8) !important;
+        .hero-left h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffffff;
         }
 
-        body.dark .custom-dropdown-panel {
-            background: rgba(30, 41, 59, 0.95) !important;
-            border: 1.8px solid rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+        .hero-left p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #e0e0e0;
         }
 
-        .custom-dropdown-panel div {
-            padding: 11px 16px;
-            font-weight: 700;
-            color: #1e293b;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-            transition: all 0.2s ease;
+        /* Point 1: Facebook Button Layout */
+        .fb-hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.4);
         }
 
-        body.dark .custom-dropdown-panel div {
-            color: #f1f5f9;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .fb-hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(24, 119, 242, 0.6);
         }
 
-        .custom-dropdown-panel div:hover {
-            background: rgba(37, 99, 235, 0.12);
-            color: #1d4ed8;
-            padding-left: 20px;
+        /* Point 1: Right Side Video Gallery Card */
+        .hero-right {
+            flex: 1;
+            min-width: 350px;
+            display: flex;
+            justify-content: center;
         }
 
-        body.dark .custom-dropdown-panel div:hover {
-            background: rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
-        }
-
-        .slider-container {
-            position: relative;
+        .video-gallery-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
             width: 100%;
-            height: 380px;
-            overflow: hidden;
-            border-radius: 1.5rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-            border: 1.5px solid rgba(255, 255, 255, 0.8);
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .slider-side {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .slider-side img {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            max-width: none;
-            object-fit: cover;
-        }
-
-        .side-left {
-            left: 0;
-            width: 50%;
-            z-index: 20;
-        }
-
-        .side-right {
-            right: 0;
-            z-index: 10;
-        }
-
-        .side-left img {
-            left: 0;
-        }
-
-        .side-right img {
-            right: 0;
-        }
-
-        .dirty-overlay::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(120, 85, 35, 0.28);
-            mix-blend-mode: multiply;
-            pointer-events: none;
-            backdrop-filter: contrast(85%) brightness(88%);
-            -webkit-backdrop-filter: contrast(85%) brightness(88%);
-        }
-
-        .slider-input {
-            position: absolute;
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            z-index: 30;
-            outline: none;
-            margin: 0;
-            cursor: ew-resize;
-        }
-        .slider-input::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 4px;
-            height: 380px;
-            background: #eab308;
-            cursor: ew-resize;
-        }
-        .slider-line {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 4px;
-            background: #eab308;
-            z-index: 25;
-            pointer-events: none;
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
-        }
-        .slider-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            color: #1e3a8a;
-            border-radius: 50%;
+        .video-gallery-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 26;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            font-size: 14px;
-            border: 2px solid #eab308;
+            gap: 10px;
         }
 
-        #top-scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: linear-gradient(to right, #eab308, #22c55e);
-            width: 0%;
-            z-index: 100;
-            transition: width 0.1s linear;
+        .video-placeholder {
+            width: 100%;
+            height: 250px;
+            background-color: #000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #aaa;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px dashed #555;
         }
 
-        #custom-halo-cursor {
-            width: 24px;
-            height: 24px;
-            border: 2px solid #3b82f6;
-            border-radius: 50%;
-            position: fixed;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.08s ease-out, background-color 0.2s ease;
-            display: none;
+        .video-placeholder i {
+            font-size: 3.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
         }
 
-        @media (min-width: 1024px) {
-            #custom-halo-cursor { display: block; }
+        /* Safety Section Layout */
+        .safety-section {
+            padding: 60px 10%;
+            text-align: center;
+            background-color: #ffffff;
         }
 
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            filter: blur(5px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out;
+        .safety-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
         }
-        .scroll-reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0);
+
+        /* Point 2: Safety Grid Updated (3rd card permanently deleted) */
+        .safety-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
         }
-    </style>
-</head>
-<body class="font-sans text-slate-800 antialiased dark:text-slate-200">
 
-    <div id="top-scroll-progress"></div>
-    <div id="custom-halo-cursor"></div>
+        .safety-card {
+            background: var(--light-color);
+            padding: 30px;
+            border-radius: 15px;
+            border-top: 5px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
 
-    <header class="sticky top-0 z-50 bg-white/50 backdrop-blur-2xl border-b border-white/60 shadow-sm dark:bg-slate-900/60 dark:border-slate-800/60">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center max-w-6xl">
-            <a href="#home" class="flex items-center space-x-2 group min-w-0">
-                <svg class="h-11 w-11 sm:h-14 sm:w-14 transform group-hover:scale-105 transition duration-300 flex-shrink-0" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="68" cy="46" r="18" fill="#eab308" />
-                    <path d="M68 22 L68 12 M84 28 L92 20 M96 42 L106 42 M92 58 L100 66 M80 66 L86 76 M52 32 L44 26 M50 50 L40 46" stroke="#eab308" stroke-width="3.5" stroke-linecap="round"/>
-                    <path d="M28 42 L62 42 L62 66 L28 72 Z" fill="#0284c7" />
-                    <path d="M31 45 L40 45 L39 52 L31 54 Z" fill="#ffffff"/>
-                    <path d="M43 45 L51 45 L50 52 L42 52 Z" fill="#ffffff"/>
-                    <path d="M54 45 L60 45 L59 52 L53 52 Z" fill="#ffffff"/>
-                    <path d="M31 57 L40 55 L39 65 L31 67 Z" fill="#ffffff"/>
-                    <path d="M43 55 L51 55 L50 64 L42 64 Z" fill="#ffffff"/>
-                    <path d="M54 55 L60 55 L59 63 L53 63 Z" fill="#ffffff"/>
-                    <path d="M22 74 C 24 64, 42 62, 46 68 C 50 58, 76 56, 82 66 C 88 58, 98 62, 94 76 C 96 84, 82 86, 78 84" stroke="#0284c7" stroke-width="3" stroke-linecap="round" fill="none"/>
-                    <path d="M42 68 C 48 64, 62 63, 68 70 C 72 65, 82 66, 84 72" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                </svg>
-                <div class="flex flex-col m-0 p-0 min-w-0">
-                    <div class="text-xl sm:text-2xl font-black text-blue-950 tracking-tighter leading-none flex items-center truncate dark:text-white">
-                        <span>MS</span><span class="text-blue-500 mx-0.5">_</span><span>SOLAR</span>
-                    </div>
-                    <span data-en="Cleaning Services & Car Wash" data-ur="کلیننگ سروسز اور کار واش" class="lang-text text-[9px] sm:text-[10px] font-black text-green-700 uppercase tracking-wider sm:tracking-widest mt-1 leading-none flex items-center gap-1 truncate dark:text-green-400">
-                        <i class="fas fa-check-double text-[7px] sm:text-[8px]"></i> Cleaning Services & Car Wash
-                    </span>
-                </div>
-            </a>
-            
-            <nav class="hidden lg:flex space-x-6 font-semibold text-sm items-center">
-                <a href="#home" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Home" data-ur="ہوم">Home</a>
-                <a href="#tools" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Our Machinery" data-ur="ہماری مشینری">Our Machinery</a>
-                <a href="#technical" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Inverter Diagnostic" data-ur="انورٹر معائنہ">Inverter Diagnostic</a>
-                <a href="#subscription" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Subscription" data-ur="سبسکرپشن">Subscription</a>
-                <a href="#calculator-section" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Live Calculator" data-ur="لائیو کیلکولیٹر">Live Calculator</a>
-                <a href="#gallery-section" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Car Gallery" data-ur="کار گیلری">Car Gallery</a>
-            </nav>
-            
-            <div class="flex items-center space-x-3">
-                <button onclick="toggleLanguage()" class="ios-glass text-xs font-bold px-2.5 py-1.5 rounded-xl border hover:bg-slate-100 transition shadow-sm flex items-center gap-1">
-                    <i class="fas fa-language text-base text-blue-600"></i>
-                    <span id="lang-btn-label">اردو</span>
-                </button>
+        .safety-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
 
-                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-yellow-400 border border-slate-200 dark:border-slate-700 hover:scale-105 transition shadow-sm">
-                    <i id="theme-toggle-icon" class="fas fa-moon"></i>
-                </button>
+        .safety-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
 
-                <a href="#calculator-section" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:scale-105 hover:shadow-lg text-white px-4 py-2 rounded-full font-bold flex items-center space-x-1.5 transition shadow-md text-xs sm:text-sm flex-shrink-0">
-                    <i class="fab fa-whatsapp text-sm sm:text-lg"></i>
-                    <span data-en="Calculate & Book" data-ur="حساب کریں اور بکنگ">Calculate & Book</span>
-                </a>
-            </div>
-        </div>
-    </header>
+        /* Car Wash Grid Layout */
+        .carwash-section {
+            padding: 60px 10%;
+            background-color: #f4f7f6;
+            text-align: center;
+        }
 
-    <section id="home" class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 overflow-hidden">
-        <div class="absolute inset-0 z-0 opacity-15">
-            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1920&q=80" alt="Solar Panels Grid" class="w-full h-full object-cover">
-        </div>
-        
-        <div class="container mx-auto max-w-6xl relative z-10 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-            <div class="md:col-span-7 text-center md:text-left scroll-reveal">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/20 backdrop-blur-xl border border-blue-400/40 text-yellow-400 text-xs font-black uppercase tracking-wider mb-6 shadow-md animate-pulse">
-                    <a href="https://www.facebook.com/share/18hG6hxZtx/" target="_blank" class="flex items-center gap-2 hover:text-blue-400 transition duration-300">
-                        <i class="fab fa-facebook text-base text-blue-500 bg-white rounded-full p-0.5"></i>
-                        <span data-en="Follow Us on Facebook" data-ur="فیس بک پر ہمیں فالو کریں">Follow Us on Facebook</span>
-                    </a>
-                </div>
+        .carwash-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+        }
 
-                <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight tracking-tight">
-                    <span data-en="Dirty Solar Panels?" data-ur="گندے سولر پینلز؟">Dirty Solar Panels?</span><br>
-                    <span data-en="Up to 25% Electricity Loss!" data-ur="25% تک بجلی کا نقصان!" class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">25% Tak Bijli Ka Nuqsaan!</span>
-                </h1>
-                <p data-en="Dust and mud completely block solar cell generation capacity. We deliver premium Ingco washer pressure systems with safe harness deployment structures in Sahiwal." data-ur="مٹی اور دھول پینلز کی جنریشن بلاک کرتے ہیں۔ ہم ساہیوال میں انگکو پریشر واشرز اور مکمل حفاظتی اقدامات کے ساتھ سروس فراہم کرتے ہیں۔" class="lang-text text-base text-slate-300 mb-8 max-w-xl leading-relaxed">
-                    Mitti aur dhool panels ki generation block karte hain. Hum Sahiwal mein Ingco pressure washers aur complete safety measures ke sath complete wash service dete hain.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#calculator-section" class="bg-gradient-to-r from-yellow-400 to-amber-500 hover:scale-105 hover:shadow-xl text-slate-950 font-extrabold px-6 py-3.5 rounded-xl text-center transition shadow-lg" data-en="Open Live Calculator" data-ur="لائیو کیلکولیٹر کھولیں">
-                        Open Live Calculator
-                    </a>
-                    <a href="#tools" class="bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 text-white font-bold px-6 py-3.5 rounded-xl text-center transition" data-en="Check Machinery" data-ur="مشینری چیک کریں">
-                        Check Machinery
-                    </a>
+        .carwash-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .carwash-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        /* Point 4: Car Wash Images Style */
+        .carwash-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .carwash-info {
+            padding: 20px;
+            text-align: left;
+        }
+        <div class="carwash-card">
+                <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&q=80&w=600" alt="Premium Exterior Foam Wash">
+                <div class="carwash-info">
+                    <h3>Eco Foam Premium Exterior Wash</h3>
+                    <p>High quality active snow foam spray wash along with detailed tire dressings and underbody clearance check.</p>
+                    <a href="https://wa.me/923084462121" target="_blank" class="wp-global-btn"><i class="fab fa-whatsapp"></i> Book Wash</a>
                 </div>
             </div>
-            
-            <div class="md:col-span-5 flex justify-center scroll-reveal">
-                <div class="relative p-2 bg-white/20 backdrop-blur-2xl rounded-3xl shadow-2xl max-w-[340px] w-full border border-white/40">
-                    <div class="bg-slate-800 rounded-2xl overflow-hidden h-[460px] w-full relative flex flex-col justify-between p-4">
-                        <div class="text-center pt-2">
-                            <h3 class="text-white text-sm font-black uppercase tracking-widest bg-blue-600/60 py-1.5 px-3 rounded-xl inline-block" data-en="Professional Work Gallery" data-ur="پروفیشنل ورک گیلری">Professional Work Gallery</h3>
-                        </div>
-                        <div class="flex-1 my-4 bg-slate-950 rounded-xl overflow-hidden relative shadow-inner flex items-center justify-center border border-white/10">
-                            <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10 bg-gradient-to-b from-slate-900/40 to-slate-950/80">
-                                <i class="fas fa-play-circle text-5xl text-yellow-400 cursor-pointer hover:scale-110 transition mb-2 drop-shadow-md"></i>
-                                <p class="text-xs font-bold text-white tracking-wide" data-en="Click To Watch Maintenance Clips" data-ur="کام کی ویڈیوز دیکھنے کے لیے کلک کریں">Live Site Maintenance Video</p>
-                                <p class="text-[10px] text-slate-400" data-en="MS Solar Sahiwal Operations" data-ur="ایم ایس سولر ساہیوال">Sahiwal Field Activity</p>
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=400&q=80" alt="Video Cover Frame" class="w-full h-full object-cover filter blur-[1px] opacity-40">
-                        </div>
-                        <div class="bg-slate-900/90 rounded-xl p-3 text-center border border-white/5">
-                            <p class="text-xs font-bold text-white tracking-wide">MS Solar Cleaning Experts</p>
-                            <p class="text-[10px] text-yellow-400 uppercase font-black tracking-widest mt-0.5">Sahiwal Hub Operations</p>
-                        </div>
-                    </div>
-                    <span class="absolute -top-3 -right-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 border border-white/30">
-                        <i class="fas fa-video"></i> Live Work
-                    </span>
+
+            <div class="carwash-card">
+                <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=600" alt="Full Interior Deep Clean">
+                <div class="carwash-info">
+                    <h3>Interior Deep Detailing & Vacuum</h3>
+                    <p>Complete dashboard restore dressing along with internal premium dry carpet vacuuming treatments and scent infusion.</p>
+                    <a href="https://wa.me/923084462121" target="_blank" class="wp-global-btn"><i class="fab fa-whatsapp"></i> Book Wash</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-6 bg-slate-100 dark:bg-slate-800/50 border-y border-slate-200 dark:border-slate-700/60">
-        <div class="container mx-auto max-w-4xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center space-x-3">
-                <div class="text-3xl text-amber-500 animate-spin" style="animation-duration: 20s;"><i class="fas fa-sun"></i></div>
-                <div>
-                    <h4 class="text-xs font-black text-slate-500 uppercase tracking-wider" data-en="Sahiwal Weather Context Alerts" data-ur="ساہیوال موسم الرٹ">Sahiwal Local Weather Alert</h4>
-                    <p class="text-xs text-slate-700 dark:text-slate-300 font-bold" data-en="High solar irradiation index active. Keep setups clean to prevent cell degradation risks." data-ur="دھول اور زیادہ درجہ حرارت ریکارڈ۔ پینلز صاف رکھیں تاکہ کارکردگی بہتر رہے۔">Optimal generation weather conditions. Keep panels washed to avoid thermal dust burning losses.</p>
-                </div>
+    <section style="padding: 60px 10%; background-color: white; text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 40px; color: var(--primary-color);">Calculate Your Cleaning Bill Estimation</h2>
+        <div class="calc-container">
+            <div class="calc-group">
+                <label for="service-type">Select Service Category</label>
+                <select id="service-type">
+                    <option value="solar">Solar Panel Array Cleaning</option>
+                    <option value="car">Premium Vehicle Detailing Wash</option>
+                </select>
             </div>
-            <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white dark:border-slate-700 px-4 py-2 rounded-2xl text-center shadow-sm min-w-[120px]">
-                <span class="block text-xl font-black text-blue-600 dark:text-blue-400">38°C</span>
-                <span class="text-[9px] uppercase tracking-widest font-bold text-slate-400" data-en="Sahiwal Region" data-ur="ساہیوال ریجن">Sahiwal Region</span>
+            <div class="calc-group">
+                <label id="qty-label" for="service-qty">Total Number of Solar Plates</label>
+                <input type="number" id="service-qty" min="1" value="8">
             </div>
-        </div>
-    </section>
+            <button class="calc-btn" onclick="calculateBillEstimationSlip()">Generate Invoice Estimation Slip</button>
 
-    <section id="tools" class="py-24 px-4">
-        <div class="container mx-auto max-w-6xl">
-            <div class="text-center mb-16 scroll-reveal">
-                <span class="text-blue-700 font-black text-xs tracking-widest uppercase bg-blue-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block dark:bg-blue-900/40 dark:text-blue-300" data-en="Machinery Profile" data-ur="مشینری پروفائل">Machinery Profile</span>
-                <h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mt-3" data-en="Our Professional Tools & Equipment" data-ur="ہمارے پروفیشنل ٹولز اور مشینری">Hamare Professional Tools & Equipment</h2>
-                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2 max-w-xl mx-auto" data-en="We deploy heavy specialized industrial infrastructure to maintain inverter protection compliance curves perfectly." data-ur="ہم پینلز اور انورٹر کی طویل کارکردگی بحال کرنے کے لیے پیشہ ورانہ مشینری کا استعمال کرتے ہیں۔">Hum panels aur inverter ki long-life performance bahal karne ke liye professional machinery ka istemal karte hain.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                <div class="ios-glass p-6 rounded-3xl hover:shadow-xl transition duration-300 scroll-reveal">
-                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative bg-white/70 flex items-center justify-center p-2 shadow-inner border border-white/50">
-                        <img src="ingo.jpg" alt="Ingco Pressure Washer" class="w-full h-full object-contain">
-                        <span class="absolute bottom-2 right-2 bg-slate-900 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">INGCO 1800W</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 text-center" data-en="Ingco Pressure Washer" data-ur="انگکو پریشر واشر">Ingco Pressure Washer</h3>
-                    <p class="text-xs text-slate-600 dark:text-slate-400 text-center leading-relaxed" data-en="High-pressure controlled flow structures engineered to strip hardened mud scales without fracturing glasses." data-ur="ہائی پریشر کنٹرولڈ فلو جو بغیر سکریچ بنائے جمی ہوئی سخت مٹی کو مکمل اتار دیتا ہے۔">High-pressure controlled flow aur special water hose jo bina scratch banaye jami hui sakht mitti ko mukammal utar deta hai.</p>
+            <div id="invoiceSlipDisplay" class="bill-slip">
+                <div class="slip-header">
+                    <h3>MS SOLAR CLEANING SERVICES</h3>
+                    <p style="font-size:0.85rem; color:#666;">Official Maintenance Statement Receipt</p>
                 </div>
-                <div class="ios-glass p-6 rounded-3xl hover:shadow-xl transition duration-300 scroll-reveal">
-                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative shadow-inner border border-white/50">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=500&q=80" alt="Solar Telescopic Brush" class="w-full h-full object-cover">
-                        <span class="absolute bottom-2 right-2 bg-yellow-500 text-slate-950 text-[10px] px-2 py-0.5 rounded font-bold uppercase">Soft Micro-Bristles</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 text-center" data-en="Soft Bristle Telescopic Brush" data-ur="ٹیلی سکوپک سوفٹ برش">Soft Bristle Telescopic Brush</h3>
-                    <p class="text-xs text-slate-600 dark:text-slate-400 text-center leading-relaxed" data-en="Specially engineered non-abrasive scratch-proof extension poles to process anti-reflective coats carefully." data-ur="سولر پروٹیکٹو لیئر اور کوٹنگ کے تحفظ کے لیے خاص سوفٹ مائیکرو ریشے والا ٹیلی سکوپک برش۔">Solar protective layer aur anti-reflective glass coating ke liye special extended soft brush setup jo bina nuksaan pounchaye chamka deta hai.</p>
+                <div class="slip-row">
+                    <span>Selected Service:</span>
+                    <span id="slipServiceVal" style="font-weight:bold;">Solar Cleaning</span>
                 </div>
-                <div class="ios-glass p-6 rounded-3xl hover:shadow-xl transition duration-300 scroll-reveal">
-                    <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative bg-white/70 flex items-center justify-center p-2 shadow-inner border border-white/50">
-                        <img src="hyundai-blower.jpg" alt="Hyundai Electric Blower" class="w-full h-full object-contain">
-                        <span class="absolute bottom-2 right-2 bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">HYUNDAI 700W</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 text-center" data-en="High-Velocity Air Blower" data-ur="ہائپر ویلوسٹی ایئر بلوئر">High-Velocity Air Blower</h3>
-                    <p class="text-xs text-slate-600 dark:text-slate-400 text-center leading-relaxed" data-en="High displacement clean pressure blowing tool sets engineered to evacuate fine structural inverter heat sinks dust." data-ur="سمارٹ انورٹرز کے کولنگ فینز اور انٹرنل ایئر فلٹرز کو صاف کرنے کے لیے بہترین بلوئر سروس۔">Smart inverters ke cooling fans aur unke internal air filters ko mukammal saaf karne ke liye taake cooling performance up-to-date rahe.</p>
+                <div class="slip-row">
+                    <span>Quantity Units:</span>
+                    <span id="slipQtyVal" style="font-weight:bold;">8 Plates</span>
                 </div>
-            </div>
-
-            <div class="max-w-2xl mx-auto ios-glass p-6 rounded-3xl shadow-xl scroll-reveal">
-                <h3 class="text-xl font-black text-slate-900 dark:text-white text-center mb-3"><i class="fas fa-sparkles text-yellow-500"></i> Results (Before vs After)</h3>
+                <div class="slip-row">
+                    <span>Base Rate Setup:</span>
+                    <span id="slipRateVal" style="font-weight:bold;">Rs. 250 per Unit</span>
+                </div>
+                <div class="slip-row slip-total">
+                    <span>Total Net Estimate:</span>
+                    <span id="slipTotalVal">Rs. 2,000</span>
+                </div>
                 
-                <div class="flex justify-center gap-3 mb-5">
-                    <button type="button" onclick="togglePanelState('dirty')" class="bg-amber-500 hover:scale-105 hover:bg-amber-600 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-md">
-                        🏜️ Mitti Wala Panel
-                    </button>
-                    <button type="button" onclick="togglePanelState('clean')" class="bg-emerald-600 hover:scale-105 hover:bg-emerald-700 text-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow-md">
-                        ✨ Saaf Shaffaf Panel
-                    </button>
-                </div>
-
-                <div class="slider-container" id="slider-box-shell">
-                    <div class="slider-side side-right">
-                        <img id="img-clean-src" src="befor-and-after-wash.png" alt="Clean Solar Panel Stack" class="w-full h-full">
-                    </div>
-                    <div class="slider-side side-left dirty-overlay" id="left-clip-pane">
-                        <img id="img-dirty-src" src="befor-and-after-wash.png" alt="Dirty Solar Panel Stack" class="w-full h-full">
-                    </div>
-                    <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input" oninput="moveSlider(this.value)">
-                    <div id="slider-line" class="slider-line"></div>
-                    <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
-                </div>
-                <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium" data-en="Drag the slider layout handle to view live performance difference comparisons instantly." data-ur="ہینڈل ko left ya right drag karke live safai ka jadui farq dekhein.">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
-            </div>
-
-            <div class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 text-center scroll-reveal">
-                <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 bg-white/80 text-blue-600 dark:bg-slate-800 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Certified Safety Standards</h4>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Zero structural damage or scratching risks during process</p>
-                </div>
-                <div class="flex flex-col items-center border-t sm:border-t-0 sm:border-l border-white/60 dark:border-slate-700 pt-4 sm:pt-0 sm:pl-6">
-                    <div class="w-12 h-12 bg-white/80 text-green-600 dark:bg-slate-800 dark:text-green-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
-                        <i class="fas fa-user-check"></i>
-                    </div>
-                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Trained Staff Team</h4>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Equipped with anti-slip shoes and lifelines harness safety</p>
-                </div>
+                <button class="pdf-download-btn" onclick="triggerDigitalPdfDownloadProcess()">
+                    <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
+                </button>
             </div>
         </div>
     </section>
 
-    <section id="technical" class="py-20 px-4 bg-white/20 dark:bg-slate-900/20">
-        <div class="container mx-auto max-w-5xl">
-            <div class="max-w-md mx-auto ios-glass rounded-2xl p-6 mb-12 flex items-center justify-around text-center shadow-lg border border-white scroll-reveal">
-                <div class="flex-1">
-                    <span id="counter-years" class="block text-3xl sm:text-4xl font-black text-emerald-600 tracking-tight">0</span>
-                    <span class="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider" data-en="Field Experience" data-ur="فیلڈ تجربہ">Field Experience</span>
-                </div>
-                <div class="w-[1.5px] bg-slate-300/80 h-10 self-center"></div>
-                <div class="flex-1">
-                    <span id="counter-customers" class="block text-3xl sm:text-4xl font-black text-emerald-600 tracking-tight">0</span>
-                    <span class="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider" data-en="Happy Customers" data-ur="خوشگوار گاہک">Happy Customers</span>
-                </div>
-            </div>
-            
-            <div class="text-center mb-14 scroll-reveal">
-                <span class="text-yellow-800 font-black text-xs tracking-widest uppercase bg-yellow-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block dark:bg-yellow-900/40 dark:text-yellow-300">Inverter Diagnostic</span>
-                <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3" data-en="Supported Smart Inverters & Telemetry" data-ur="سپورٹڈ اسمارٹ انورٹرز برانڈز">Supported Smart Inverters & Telemetry</h2>
-                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2" data-en="We audit real-time technical parameters post-cleaning to prove generation recovery." data-ur="ہم صرف دھوتے نہیں ہیں، بلکہ انورٹرز پر جنریشن چیک کر کے لائیو فرق دکھاتے ہیں۔">Hum sirf dhote nahi hain, balkay inverters par generation check kar ke farq dikhate hain.</p>
-            </div>
-            
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-12 text-center scroll-reveal">
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-solar-panel text-blue-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">SOLIS</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-charging-station text-orange-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">KNOX PV</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-bolt text-yellow-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">MAXPOWER</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-microchip text-red-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">NITROX</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-network-wired text-green-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">HUAWEI</span></div>
-                <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-industry text-purple-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">GROWATT</span></div>
-            </div>
-
-            <div class="ios-glass p-6 rounded-3xl max-w-2xl mx-auto border border-white/60 shadow-lg scroll-reveal">
-                <div class="flex items-center space-x-3 mb-4">
-                    <div class="p-2.5 rounded-xl bg-amber-500 text-slate-950 text-lg"><i class="fas fa-sliders-h"></i></div>
-                    <div>
-                        <h4 class="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider">Inverter Control Matrix Parameters</h4>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400">Strict baseline software index configurations mapped for Sahiwal site audits</p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    <div class="p-3 bg-white/40 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 rounded-xl">
-                        <span class="font-bold text-blue-600 dark:text-blue-400 block mb-1"><i class="fas fa-clock mr-1"></i> Knox PV5600 Time Menu</span>
-                        Program 89: Year Setup Line<br>
-                        Program 88: Month Setup Line<br>
-                        Program 87: Day Calendar Setup
-                    </div>
-                    <div class="p-3 bg-white/40 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 rounded-xl">
-                        <span class="font-bold text-orange-600 dark:text-orange-400 block mb-1"><i class="fas fa-ban mr-1"></i> MaxPower PVTech Limit</span>
-                        Program Range Stops Exactly At <strong>61</strong>.<br>No configuration parameters or logic tracks exist beyond index 61.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="subscription" class="py-24 px-4 bg-slate-900 text-white relative overflow-hidden">
-        <div class="container mx-auto max-w-5xl relative z-10">
-            <div class="text-center mb-16 scroll-reveal">
-                <span class="text-yellow-400 font-bold text-xs tracking-widest uppercase bg-yellow-400/10 px-3 py-1.5 rounded-full border border-yellow-400/20 inline-block">Sahiwal Packages</span>
-                <h2 class="text-3xl font-black mt-3" data-en="Subscription & Maintenance Packages" data-ur="ماہانہ سبسکرپشن پیکجز">Subscription & Maintenance Packages</h2>
-                <p class="text-slate-400 text-sm mt-2" data-en="Choose a structured timeline to lock down long-term tracking protection warranties easily." data-ur="اپنے بجٹ کے مطابق بہترین پیکج منتخب کریں اور سارا سال پینلز مٹی سے پاک رکھیں۔">Apne budget ke mutabiq behtareen package select karein aur tension-free ho jayein.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-slate-800/60 border border-slate-700/60 p-6 rounded-3xl relative flex flex-col justify-between hover:scale-105 transition duration-300 shadow-xl scroll-reveal">
-                    <div>
-                        <span class="absolute top-4 right-4 bg-blue-500 text-white text-[9px] font-black tracking-widest uppercase px-2 py-0.5 rounded-md">Trial Plan</span>
-                        <h3 class="text-xl font-black mb-1">Single Wash</h3>
-                        <div class="text-3xl font-black text-yellow-400 mb-4">Rs. 80 <span class="text-xs text-slate-400 font-medium">/ Plate</span></div>
-                        <p class="text-xs text-slate-300 leading-relaxed border-b border-slate-700 pb-4 mb-4">Perfect on-demand structure to clean dense dirt layers or perform seasonal checks immediately.</p>
-                        <ul class="text-xs space-y-2.5 text-slate-300 mb-6">
-                            <li><i class="fas fa-check text-green-400 mr-2"></i> Industrial Ingco Wash System</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i> Soft-Bristle Polish Sweep</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i> Air Blower Filter De-Dusting</li>
-                            <li class="opacity-50"><i class="fas fa-times text-red-400 mr-2"></i> Continuous Priority Tracking</li>
-                        </ul>
-                    </div>
-                    <a href="#calculator-section" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white text-xs font-black py-3 rounded-xl transition">Select Single Wash</a>
-                </div>
-
-                <div class="bg-gradient-to-b from-blue-950 to-slate-900 border-2 border-yellow-500 p-6 rounded-3xl relative flex flex-col justify-between hover:scale-105 transition duration-300 shadow-2xl scroll-reveal">
-                    <div class="absolute -top-3.5 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-950 text-[10px] font-black tracking-widest uppercase px-4 py-1 rounded-full shadow-md border border-white/20">🔥 Most Popular</div>
-                    <div>
-                        <h3 class="text-xl font-black mb-1">Bi-Monthly Package</h3>
-                        <div class="text-3xl font-black text-yellow-400 mb-4">Premium <span class="text-xs text-slate-400 font-medium">/ 2 Cleanings</span></div>
-                        <p class="text-xs text-slate-300 leading-relaxed border-b border-slate-700 pb-4 mb-4">Two comprehensive washing operations per month scheduled around dust storm loops automatically.</p>
-                        <ul class="text-xs space-y-2.5 text-slate-300 mb-6">
-                            <li><i class="fas fa-check text-green-400 mr-2"></i> 2 Full Pressure Operations</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i> Complete Inverter Telemetry Audit</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i> Structural Frame Tightening Check</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i> Priority WhatsApp Service Desk</li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/923000000000?text=I%20want%20to%20subscribe%20to%20the%20Bi-Monthly%20Package" target="_blank" class="block w-full text-center bg-gradient-to-r from-yellow-400 to-amber-500 hover:shadow-lg text-slate-950 text-xs font-black py-3 rounded-xl transition">Subscribe Package</a>
-                </div>
-
-                <div class="bg-slate-800/60 border border-slate-700/60 p-6 rounded-3xl relative flex flex-col justify-between hover:scale-105 transition duration-300 shadow-xl scroll-reveal">
-                    <div>
-                        <span class="absolute top-4 right-4 bg-emerald-500 text-white text-[9px] font-black tracking-widest uppercase px-2 py-0.5 rounded-md">Best Value</span>
-                        <h3 class="text-xl font-black mb-1">Monthly Contract</h3>
-                        <div class="text-3xl font-black text-yellow-400 mb-4">Custom <span class="text-xs text-slate-400 font-medium">/ Commercial</span></div>
-                        <p class="text-xs text-slate-300 leading-relaxed border-b border-slate-700 pb-4 mb-4">Dedicated enterprise-level framework optimized for high-capacity industrial plants and mills setups.</p>
-                        <ul class="text-xs space-y-2.5 text-slate-300 mb-6">
-                            <li><i class="fas fa-check text-green-400 mr-2"></i> Tailored Cleaning Cycles Mapped</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i> Chemical Scale Protection Sweeps</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i> Thermal Drone Scanning Overlays</li>
-                            <li><i class="fas fa-check text-green-400 mr-2"></i> Fully Documented System Reports</li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/923000000000?text=I%20need%20a%20Custom%20Commercial%20Contract%20details" target="_blank" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white text-xs font-black py-3 rounded-xl transition">Contact Sales Desk</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="calculator-section" class="py-24 px-4 bg-slate-50 dark:bg-slate-900/40">
-        <div class="container mx-auto max-w-6xl">
-            <div class="text-center mb-16 scroll-reveal">
-                <span class="text-emerald-700 font-black text-xs tracking-widest uppercase bg-green-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block dark:bg-green-900/40 dark:text-green-300">Smart Billing Engine</span>
-                <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3" data-en="Live Instant Estimator Calculator" data-ur="لائیو بل کیلکولیٹر">Live Instant Estimator Calculator</h2>
-                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2" data-en="Calculate exact costs across distinct categories with precision formulas transparently." data-ur="بغیر کسی پوشیدہ چارجز کے اپنے سولر سیٹ اپ یا گاڑی کی سروس کا لائیو بل بنائیں۔">Bgher kisi hidden charges ke apne system ya car wash ka live bil banayein.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                <div class="lg:col-span-7 bg-white/70 dark:bg-slate-800/40 backdrop-blur-2xl p-6 sm:p-8 rounded-3xl border border-white dark:border-slate-700 shadow-xl scroll-reveal">
-                    
-                    <div class="flex p-1.5 bg-slate-200/60 dark:bg-slate-900/60 rounded-2xl mb-8 border border-slate-300/40 dark:border-slate-800">
-                        <button type="button" onclick="switchServiceLayout('solar')" id="tab-btn-solar" class="flex-1 py-3 text-center rounded-xl font-black text-xs sm:text-sm tracking-wide transition duration-200 bg-white text-blue-600 shadow-md dark:bg-slate-800 dark:text-white">
-                            <i class="fas fa-solar-panel mr-1.5 text-base text-amber-500"></i> Solar System
-                        </button>
-                        <button type="button" onclick="switchServiceLayout('car')" id="tab-btn-car" class="flex-1 py-3 text-center rounded-xl font-black text-xs sm:text-sm tracking-wide transition duration-200 text-slate-600 dark:text-slate-400 hover:text-blue-500">
-                            <i class="fas fa-car mr-1.5 text-base text-blue-500"></i> Car Wash Desk
-                        </button>
-                    </div>
-
-                    <div id="service-form-shell">
-                        </div>
-                </div>
-
-                <div class="lg:col-span-5 bg-gradient-to-b from-blue-950 via-slate-900 to-blue-950 text-white rounded-3xl p-6 shadow-2xl relative border border-slate-800 scroll-reveal sticky top-24" id="digital-bill-statement-print-box">
-                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(234,179,8,0.06),transparent_45%)] pointer-events-none"></div>
-                    
-                    <div class="border-b border-slate-800 pb-5 mb-5 flex justify-between items-start">
-                        <div>
-                            <h3 class="text-lg font-black tracking-tight flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
-                                MS_SOLAR MAINTENANCE SLIP
-                            </h3>
-                            <p class="text-[10px] text-slate-400 tracking-wider font-bold mt-1 uppercase"><i class="fas fa-map-marker-alt text-red-400"></i> Sahiwal Regional Branch Office</p>
-                        </div>
-                        <i class="fas fa-receipt text-3xl text-slate-700"></i>
-                    </div>
-
-                    <div class="space-y-4 text-xs">
-                        <div class="flex justify-between border-b border-slate-800/60 pb-2">
-                            <span class="text-slate-400">Customer Client Name:</span>
-                            <span class="font-bold text-slate-200" id="statement-lbl-name">-</span>
-                        </div>
-                        <div class="flex justify-between border-b border-slate-800/60 pb-2">
-                            <span class="text-slate-400">Contact Telephone No:</span>
-                            <span class="font-bold text-slate-200" id="statement-lbl-phone">-</span>
-                        </div>
-                        <div class="flex justify-between border-b border-slate-800/60 pb-2">
-                            <span class="text-slate-400">Assigned Operational Unit:</span>
-                            <span class="font-bold text-yellow-400 font-medium" id="statement-lbl-unit-type">-</span>
-                        </div>
-                        <div class="flex justify-between border-b border-slate-800/60 pb-2">
-                            <span class="text-slate-400">Capacity Load Count Metrics:</span>
-                            <span class="font-bold text-slate-200" id="statement-lbl-metrics">-</span>
-                        </div>
-                        <div class="flex justify-between border-b border-slate-800/60 pb-2">
-                            <span class="text-slate-400">System Base Price Rate:</span>
-                            <span class="font-bold text-slate-200" id="statement-lbl-rate">-</span>
-                        </div>
-                        <div class="flex justify-between border-b border-slate-800/60 pb-2 hidden" id="statement-row-offer">
-                            <span class="text-slate-400">Client Offered Custom Rate:</span>
-                            <span class="font-bold text-orange-400" id="statement-lbl-offer-rate">-</span>
-                        </div>
-                        <div class="flex justify-between border-b border-slate-800/60 pb-2">
-                            <span class="text-slate-400">Service Area Distance Surcharge:</span>
-                            <span class="font-bold text-slate-200" id="statement-lbl-distance">-</span>
-                        </div>
-                        
-                        <div class="pt-4 mt-2 flex justify-between items-center bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                            <span class="text-sm font-black uppercase text-slate-300">Final Net Bill Amount:</span>
-                            <span class="text-2xl font-black text-green-400 tracking-tight" id="statement-lbl-final-total">Rs. 0</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 pt-2 space-y-3">
-                        <button type="button" onclick="sendWhatsAppMessageOrder()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:scale-[1.02] hover:shadow-xl text-white font-black text-sm py-3.5 rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg">
-                            <i class="fab fa-whatsapp text-lg"></i>
-                            <span data-en="Transmit Order via WhatsApp" data-ur="واٹس ایپ پر آرڈر بھیجیں">Transmit Order via WhatsApp</span>
-                        </button>
-                        
-                        <button type="button" onclick="generatePdfStatementReport()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center space-x-1 border border-slate-700">
-                            <i class="fas fa-file-pdf text-red-400"></i>
-                            <span data-en="Download Bill Statement as PDF" data-ur="بل پی ڈی ایف ڈاؤن لوڈ کریں">Download Bill Statement as PDF</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery-section" class="py-24 px-4 bg-white/40 dark:bg-transparent">
-        <div class="container mx-auto max-w-6xl">
-            <div class="text-center mb-16 scroll-reveal">
-                <span class="text-blue-700 font-black text-xs tracking-widest uppercase bg-blue-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block dark:bg-blue-900/40 dark:text-blue-300">Visual Portfolio</span>
-                <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3" data-en="Premium Car Wash & Detailing Gallery" data-ur="کار واش اور ڈیٹیلنگ گیلری">Premium Car Wash & Detailing Gallery</h2>
-                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2" data-en="Examine high-resolution real-world detailing deliverables completed on location in Sahiwal." data-ur="ساہیوال میں ہمارے ہاتھوں چمکائی گئی گاڑیوں کا لائیو احوال دیکھیں۔">Sahiwal mein hamare hathon chamkayi gayi gariyon ka live ahwal dekhein.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="ios-glass p-3 rounded-2xl hover:shadow-xl transition duration-300 scroll-reveal">
-                    <div class="h-48 rounded-xl overflow-hidden mb-3 border border-slate-200/60 dark:border-slate-800">
-                        <img src="https://images.unsplash.com/photo-1601362840469-51e4d8d59085?auto=format&fit=crop&w=500&q=80" alt="Honda Civic Full Wash" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-0.5 text-center">Honda Civic Glow</h3>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 text-center">Premium foam shampoo layout sweep</p>
-                </div>
-                <div class="ios-glass p-3 rounded-2xl hover:shadow-xl transition duration-300 scroll-reveal">
-                    <div class="h-48 rounded-xl overflow-hidden mb-3 border border-slate-200/60 dark:border-slate-800">
-                        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=500&q=80" alt="Suzuki Wagon R Detailing" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-0.5 text-center">Suzuki WagonR Wash</h3>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 text-center">Deep structural mud rim spray washing</p>
-                </div>
-                <div class="ios-glass p-3 rounded-2xl hover:shadow-xl transition duration-300 scroll-reveal">
-                    <div class="h-48 rounded-xl overflow-hidden mb-3 border border-slate-200/60 dark:border-slate-800">
-                        <img src="https://images.unsplash.com/photo-1520340356584-f9917d1eed69?auto=format&fit=crop&w=500&q=80" alt="Suzuki Alto Wash" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-0.5 text-center">Suzuki Alto Wash</h3>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 text-center">Exterior high pressure sparkle wash completed</p>
-                </div>
-                <div class="ios-glass p-3 rounded-2xl hover:shadow-xl transition duration-300 scroll-reveal">
-                    <div class="h-48 rounded-xl overflow-hidden mb-3 border border-slate-200/60 dark:border-slate-800">
-                        <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=500&q=80" alt="Toyota Corolla Shine" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-0.5 text-center">Toyota Corolla Shine</h3>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 text-center">Full dynamic wax and mud extraction shine</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-slate-950 text-slate-400 text-xs py-12 border-t border-slate-900 px-4">
-        <div class="container mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-                <span class="text-base font-black text-white tracking-tight block mb-3">MS_SOLAR CLEANING HUB</span>
-                <p class="leading-relaxed text-slate-400 max-w-xs">Premium specialized engineering cleaning maintenance frameworks deployed safely across Sahiwal division operations.</p>
-            </div>
-            <div>
-                <span class="text-xs font-black uppercase text-slate-200 tracking-wider block mb-3">Sahiwal Operations Area</span>
-                <p class="leading-relaxed text-slate-400"><i class="fas fa-map-marker-alt text-amber-500 mr-1.5"></i> Sahiwal, Punjab, Pakistan<br>Full service loops active across main city, housing grids, and peripheral mills sectors.</p>
-            </div>
-            <div>
-                <span class="text-xs font-black uppercase text-slate-200 tracking-wider block mb-3">Customer Support Desk</span>
-                <p class="leading-relaxed text-slate-300 font-bold mb-1"><i class="fab fa-whatsapp text-green-400 mr-1.5 text-sm"></i> +92 300 0000000</p>
-                <p class="text-[11px] text-slate-500">Available 8:00 AM to 6:00 PM PKT daily for on-site layout deployments.</p>
-            </div>
-        </div>
-        <div class="container mx-auto max-w-6xl pt-6 border-t border-slate-900 flex flex-col sm:flex-row justify-between items-center text-slate-600 text-[11px]">
-            <p>&copy; 2026 MS Solar Cleaning & Car Wash. All rights reserved across Pakistan engineering frameworks.</p>
-            <div class="flex space-x-4 mt-4 sm:mt-0">
-                <a href="https://www.facebook.com/share/18hG6hxZtx/" target="_blank" class="hover:text-blue-500 text-slate-400 text-base"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="hover:text-blue-400"><i class="fab fa-whatsapp text-base text-slate-400"></i></a>
-            </div>
-        </div>
+    <footer>
+        <p>&copy; 2026 MS Solar Cleaning Services. All Rights Reserved.</p>
+        <p style="margin-top:10px; font-size:0.95rem; color:#aaa;">
+            Contact Support Via Official WhatsApp: 
+            <a href="https://wa.me/923084462121" target="_blank" style="color:var(--whatsapp-color); text-decoration:none; font-weight:bold;">
+                +92 308 4462121
+            </a>
+        </p>
     </footer>
 
     <script>
-        var currentLang = 'en';
-        var currentService = 'solar';
-
-        function toggleLanguage() {
-            currentLang = (currentLang === 'en') ? 'ur' : 'en';
-            var btnLabel = document.getElementById('lang-btn-label');
-            if (btnLabel) btnLabel.innerText = (currentLang === 'en') ? 'اردو' : 'English';
-
-            var txtElements = document.querySelectorAll('[data-en]');
-            txtElements.forEach(function(el) {
-                var targetText = el.getAttribute('data-' + currentLang);
-                if (targetText) {
-                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        el.placeholder = targetText;
-                    } else {
-                        var innerIcon = el.querySelector('i');
-                        if (innerIcon) {
-                            el.innerHTML = '';
-                            el.appendChild(innerIcon);
-                            el.appendChild(document.createTextNode(' ' + targetText));
-                        } else {
-                            el.innerText = targetText;
-                        }
-                    }
-                }
-            });
-            calculateBill();
-            calculateCarWashBill();
-        }
-
-        function toggleDarkMode() {
-            var body = document.body;
-            var html = document.documentElement;
-            var icon = document.getElementById('theme-toggle-icon');
-            
-            if (body.classList.contains('dark')) {
-                body.classList.remove('dark');
-                html.classList.remove('dark');
-                if (icon) icon.className = "fas fa-moon";
-                localStorage.setItem('theme', 'light');
+        document.getElementById('service-type').addEventListener('change', function() {
+            const label = document.getElementById('qty-label');
+            if(this.value === 'solar') {
+                label.innerText = "Total Number of Solar Plates";
+                document.getElementById('service-qty').value = "8";
             } else {
-                body.classList.add('dark');
-                html.classList.add('dark');
-                if (icon) icon.className = "fas fa-sun";
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
-        function moveSlider(val) {
-            var clipPane = document.getElementById("left-clip-pane");
-            var line = document.getElementById("slider-line");
-            var btn = document.getElementById("slider-btn");
-            
-            if(clipPane && line && btn) {
-                clipPane.style.width = val + "%";
-                line.style.left = val + "%";
-                btn.style.left = val + "%";
-            }
-        }
-
-        function togglePanelState(state) {
-            var sliderInput = document.getElementById("image-split-slider");
-            if (sliderInput) {
-                if (state === 'dirty') {
-                    sliderInput.value = 100;
-                    moveSlider(100);
-                } else {
-                    sliderInput.value = 0;
-                    moveSlider(0);
-                }
-            }
-        }
-
-        function switchServiceLayout(type) {
-            currentService = type;
-            var formShell = document.getElementById('service-form-shell');
-            
-            var tSolar = document.getElementById('tab-btn-solar');
-            var tCar = document.getElementById('tab-btn-car');
-            
-            if (type === 'solar') {
-                if(tSolar) tSolar.className = "flex-1 py-3 text-center rounded-xl font-black text-xs sm:text-sm tracking-wide transition duration-200 bg-white text-blue-600 shadow-md dark:bg-slate-800 dark:text-white";
-                if(tCar) tCar.className = "flex-1 py-3 text-center rounded-xl font-black text-xs sm:text-sm tracking-wide transition duration-200 text-slate-600 dark:text-slate-400 hover:text-blue-500";
-                
-                formShell.innerHTML = `
-                    <div class="space-y-5 animate-fadeIn">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Customer Full Name</label>
-                                <input type="text" id="cust-name" oninput="calculateBill()" class="w-full px-4 py-3 rounded-xl ios-input-glass text-sm outline-none font-bold" placeholder="e.g. Ali Khan">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">WhatsApp Mobile No</label>
-                                <input type="tel" id="cust-phone" oninput="calculateBill()" class="w-full px-4 py-3 rounded-xl ios-input-glass text-sm outline-none font-bold" placeholder="e.g. 03001234567">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Solar Plates Installed Count</label>
-                            <input type="number" id="plate-count" value="12" oninput="calculateBill()" class="w-full px-4 py-3 rounded-xl ios-input-glass text-sm outline-none font-black" placeholder="Number of solar plates">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Your Offered Custom Rate Per Plate (Optional)</label>
-                            <input type="number" id="offer-rate" oninput="calculateBill()" class="w-full px-4 py-3 rounded-xl ios-input-glass text-sm outline-none font-bold placeholder-orange-400 text-orange-500 border-dashed border-orange-300" placeholder="e.g. 75 (Leave empty for default Rs. 80)">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Service Area Location (Sahiwal Radius)</label>
-                            <div class="relative">
-                                <select id="location-select" onchange="calculateBill()" class="w-full px-4 py-3 rounded-xl ios-input-glass text-sm outline-none font-bold appearance-none cursor-pointer">
-                                    <option value="0">Main Sahiwal City Hub (Rs. 0 Surcharge)</option>
-                                    <option value="300">Within 10 KM Suburbs (Rs. 300 Surcharge)</option>
-                                    <option value="600">Within 20 KM Suburbs (Rs. 600 Surcharge)</option>
-                                    <option value="1200">Outstation Commercial Grids (Rs. 1200 Surcharge)</option>
-                                </select>
-                                <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400"><i class="fas fa-chevron-down"></i></div>
-                            </div>
-                        </div>
-                    </div>`;
-                calculateBill();
-            } else {
-                if(tCar) tCar.className = "flex-1 py-3 text-center rounded-xl font-black text-xs sm:text-sm tracking-wide transition duration-200 bg-white text-blue-600 shadow-md dark:bg-slate-800 dark:text-white";
-                if(tSolar) tSolar.className = "flex-1 py-3 text-center rounded-xl font-black text-xs sm:text-sm tracking-wide transition duration-200 text-slate-600 dark:text-slate-400 hover:text-blue-500";
-                
-                formShell.innerHTML = `
-                    <div class="space-y-5 animate-fadeIn">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Customer Full Name</label>
-                                <input type="text" id="car-cust-name" oninput="calculateCarWashBill()" class="w-full px-4 py-3 rounded-xl ios-input-glass text-sm outline-none font-bold" placeholder="e.g. Asif Raza">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">WhatsApp Mobile No</label>
-                                <input type="tel" id="car-cust-phone" oninput="calculateCarWashBill()" class="w-full px-4 py-3 rounded-xl ios-input-glass text-sm outline-none font-bold" placeholder="e.g. 03007654321">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Vehicle Category Model Class</label>
-                            <div class="relative">
-                                <select id="car-type-select" onchange="calculateCarWashBill()" class="w-full px-4 py-3 rounded-xl ios-input-glass text-sm outline-none font-black appearance-none cursor-pointer">
-                                    <option value="400">70cc / 125cc Motorbike Wash (Rs. 400)</option>
-                                    <option value="600">150cc / Heavy Bike Polish Wash (Rs. 600)</option>
-                                    <option value="1200">Suzuki Alto / WagonR Compact (Rs. 1200)</option>
-                                    <option value="1800">Toyota Corolla / Honda Civic Sedan (Rs. 1800)</option>
-                                    <option value="2500">SUV Prado / Fortuner Large (Rs. 2500)</option>
-                                </select>
-                                <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400"><i class="fas fa-chevron-down"></i></div>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Service Type Selection</label>
-                            <div class="relative">
-                                <select id="car-service-select" onchange="calculateCarWashBill()" class="w-full px-4 py-3 rounded-xl ios-input-glass text-sm outline-none font-bold appearance-none cursor-pointer">
-                                    <option value="0">Standard Foam Pressure Wash (No Surcharge)</option>
-                                    <option value="500">Premium High Gloss Wax Polish (+Rs. 500)</option>
-                                    <option value="1200">Complete Interior Deep Underwash Detailed (+Rs. 1200)</option>
-                                </select>
-                                <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400"><i class="fas fa-chevron-down"></i></div>
-                            </div>
-                        </div>
-                    </div>`;
-                calculateCarWashBill();
-            }
-        }
-
-        function calculateBill() {
-            if (currentService !== 'solar') return;
-            
-            var cName = document.getElementById("cust-name") ? document.getElementById("cust-name").value.trim() : "";
-            var cPhone = document.getElementById("cust-phone") ? document.getElementById("cust-phone").value.trim() : "";
-            var pCount = document.getElementById("plate-count") ? parseInt(document.getElementById("plate-count").value) : 0;
-            var offerRateInput = document.getElementById("offer-rate") ? document.getElementById("offer-rate").value.trim() : "";
-            var locSurcharge = document.getElementById("location-select") ? parseInt(document.getElementById("location-select").value) : 0;
-            
-            if (isNaN(pCount) || pCount < 0) pCount = 0;
-            
-            var baseRate = 80; // Updated rate per instructions
-            var isCustomOfferActive = false;
-            
-            if (offerRateInput !== "") {
-                var customRate = parseFloat(offerRateInput);
-                if (!isNaN(customRate) && customRate > 0) {
-                    baseRate = customRate;
-                    isCustomOfferActive = true;
-                }
-            }
-
-            var baseTotal = pCount * baseRate;
-            var finalBill = baseTotal + locSurcharge;
-
-            document.getElementById("statement-lbl-name").innerText = cName !== "" ? cName : "Guest Client";
-            document.getElementById("statement-lbl-phone").innerText = cPhone !== "" ? cPhone : "Not Provided";
-            document.getElementById("statement-lbl-unit-type").innerText = "Solar Array Matrix";
-            document.getElementById("statement-lbl-metrics").innerText = pCount + " Plates Processed";
-            document.getElementById("statement-lbl-rate").innerText = "Rs. 80 Per Plate";
-            
-            var rowOffer = document.getElementById("statement-row-offer");
-            if (isCustomOfferActive) {
-                rowOffer.classList.remove("hidden");
-                document.getElementById("statement-lbl-offer-rate").innerText = "Rs. " + baseRate + " / Plate";
-            } else {
-                rowOffer.classList.add("hidden");
-            }
-            
-            document.getElementById("statement-lbl-distance").innerText = "Rs. " + locSurcharge;
-            document.getElementById("statement-lbl-final-total").innerText = "Rs. " + finalBill;
-        }
-
-        function calculateCarWashBill() {
-            if (currentService !== 'car') return;
-            
-            var cName = document.getElementById("car-cust-name") ? document.getElementById("car-cust-name").value.trim() : "";
-            var cPhone = document.getElementById("car-cust-phone") ? document.getElementById("car-cust-phone").value.trim() : "";
-            var carBasePrice = document.getElementById("car-type-select") ? parseInt(document.getElementById("car-type-select").value) : 0;
-            var carServiceSurcharge = document.getElementById("car-service-select") ? parseInt(document.getElementById("car-service-select").value) : 0;
-            
-            var finalBill = carBasePrice + carServiceSurcharge;
-
-            document.getElementById("statement-lbl-name").innerText = cName !== "" ? cName : "Guest Client";
-            document.getElementById("statement-lbl-phone").innerText = cPhone !== "" ? cPhone : "Not Provided";
-            document.getElementById("statement-lbl-unit-type").innerText = "Vehicle Detailing Bays";
-            
-            var carSelectEl = document.getElementById("car-type-select");
-            var selectedCarName = carSelectEl ? carSelectEl.options[carSelectEl.selectedIndex].text.split("(")[0].trim() : "Vehicle Class";
-            
-            document.getElementById("statement-lbl-metrics").innerText = selectedCarName;
-            document.getElementById("statement-lbl-rate").innerText = "Rs. " + carBasePrice + " Class Base";
-            document.getElementById("statement-row-offer").classList.add("hidden");
-            document.getElementById("statement-lbl-distance").innerText = "Rs. " + carServiceSurcharge + " (Addons)";
-            document.getElementById("statement-lbl-final-total").innerText = "Rs. " + finalBill;
-        }
-
-        function sendWhatsAppMessageOrder() {
-            var phoneNumber = "923000000000"; 
-            var cName = document.getElementById("statement-lbl-name").innerText;
-            var cPhone = document.getElementById("statement-lbl-phone").innerText;
-            var serviceType = document.getElementById("statement-lbl-unit-type").innerText;
-            var metrics = document.getElementById("statement-lbl-metrics").innerText;
-            var finalBill = document.getElementById("statement-lbl-final-total").innerText;
-            
-            var textBody = "☀️ *NEW MS_SOLAR ORDER BOOKING* ☀️\n\n" +
-                           "👤 *Client Name:* " + cName + "\n" +
-                           "📞 *Phone No:* " + cPhone + "\n" +
-                           "🛠️ *Service Unit:* " + serviceType + "\n" +
-                           "📊 *Metrics Capacity:* " + metrics + "\n" +
-                           "💰 *Final Estimated Bill Amount:* " + finalBill + "\n\n" +
-                           "Please confirm our time slot assignment tracking context overlay.";
-                           
-            window.open("https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(textBody), '_blank');
-        }
-
-        function generatePdfStatementReport() {
-            var element = document.getElementById('digital-bill-statement-print-box');
-            if(!element) return;
-            
-            // Configuration optimized securely to map layouts flawlessly avoiding broken sizing canvas bounds
-            var opt = {
-                margin:       10,
-                filename:     'MS_Solar_Maintenance_Slip.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, letterRendering: true, backgroundColor: '#0b0f19' },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            
-            html2pdf().set(opt).from(element).save();
-        }
-
-        function runAnimatedCounters() {
-            var targetYears = 5;
-            var targetCust = 350;
-            
-            var currYears = 0;
-            var currCust = 0;
-            
-            var speedYears = Math.ceil(targetYears / 50);
-            var speedCust = Math.ceil(targetCust / 50);
-            
-            var timer = setInterval(function() {
-                currYears += speedYears;
-                currCust += speedCust;
-                
-                if(currYears >= targetYears) currYears = targetYears;
-                if(currCust >= targetCust) currCust = targetCust;
-                
-                var elY = document.getElementById("counter-years");
-                var elC = document.getElementById("counter-customers");
-                
-                if(elY) elY.innerText = currYears + "+";
-                if(elC) elC.innerText = currCust + "+";
-                
-                if(currYears === targetYears && currCust === targetCust) {
-                    clearInterval(timer);
-                }
-            }, 30);
-        }
-
-        function initScrollAnimations() {
-            var elements = document.querySelectorAll('.scroll-reveal');
-            
-            function scanElements() {
-                elements.forEach(function(el) {
-                    var rect = el.getBoundingClientRect();
-                    if(rect.top < window.innerHeight - 50) {
-                        el.classList.add('visible');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', function() {
-                scanElements();
-                var scrollProgress = document.getElementById("top-scroll-progress");
-                if (scrollProgress) {
-                    var totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-                    if (totalScroll > 0) {
-                        var percentage = (window.scrollY / totalScroll) * 100;
-                        scrollProgress.style.width = percentage + "%";
-                    }
-                }
-            });
-            
-            scanElements();
-        }
-
-        // Custom pointer track logic framework mapped
-        document.addEventListener('mousemove', function(e) {
-            var cursor = document.getElementById('custom-halo-cursor');
-            if(cursor) {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
+                label.innerText = "Total Number of Cars";
+                document.getElementById('service-qty').value = "1";
             }
         });
 
-        window.onload = function() {
-            if(localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark');
-                document.documentElement.classList.add('dark');
-                var tIcon = document.getElementById('theme-toggle-icon');
-                if(tIcon) tIcon.className = "fas fa-sun";
-            }
-            
-            switchServiceLayout('solar');
-            runAnimatedCounters();
-            initScrollAnimations();
+        function calculateBillEstimationSlip() {
+            const type = document.getElementById('service-type').value;
+            const qty = parseInt(document.getElementById('service-qty').value) || 0;
+            let rate = (type === 'solar') ? 250 : 1200;
+            let total = qty * rate;
 
-            var initSlider = setInterval(function(){
-                var shell = document.getElementById("slider-box-shell");
-                if (shell && shell.offsetWidth > 0) {
-                    moveSlider(50);
-                    clearInterval(initSlider);
-                }
-            }, 100);
-        };
+            if(qty <= 0) {
+                alert('Please provide a valid quantity value.');
+                return;
+            }
+
+            document.getElementById('slipServiceVal').innerText = (type === 'solar') ? "Solar Panel Arrays Deep Washing" : "Premium Vehicle Foam Detailing";
+            document.getElementById('slipQtyVal').innerText = qty + (type === 'solar' ? " Plates" : " Car(s)");
+            document.getElementById('slipRateVal').innerText = "Rs. " + rate + " per Unit";
+            document.getElementById('slipTotalVal').innerText = "Rs. " + total.toLocaleString();
+            document.getElementById('invoiceSlipDisplay').style.display = "block";
+        }
+
+        // Point 3 Fix: PDF Slip Generator Engine
+        function triggerDigitalPdfDownloadProcess() {
+            const serviceText = document.getElementById('slipServiceVal').innerText;
+            const qtyText = document.getElementById('slipQtyVal').innerText;
+            const rateText = document.getElementById('slipRateVal').innerText;
+            const totalText = document.getElementById('slipTotalVal').innerText;
+
+            const printWindow = window.open('', '_blank', 'width=700,height=600');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>MS_Solar_Cleaning_Statement_Slip</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 40px; color: #333; line-height: 1.5; }
+                        .bill-box { border: 2px solid #333; padding: 30px; border-radius: 8px; max-width: 500px; margin: 0 auto; }
+                        .header { text-align: center; border-bottom: 2px dashed #333; padding-bottom: 15px; margin-bottom: 20px; }
+                        .row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; }
+                        .total-row { border-top: 2px solid #333; padding-top: 12px; margin-top: 15px; font-weight: bold; font-size: 18px; color: #0f4c81; }
+                        .footer { margin-top: 30px; text-align: center; font-size: 11px; color: #777; border-top: 1px solid #eee; padding-top: 10px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="bill-box">
+                        <div class="header">
+                            <h2>MS SOLAR CLEANING SERVICES</h2>
+                            <p style="margin:5px 0 0 0;">Official Digital Estimation Slip</p>
+                            <p style="font-size:11px; color:#555; margin:5px 0 0 0;">Date Generation: \${new Date().toLocaleDateString()}</p>
+                        </div>
+                        <div class="row"><strong>Service Ordered:</strong> <span>\${serviceText}</span></div>
+                        <div class="row"><strong>Asset Volume:</strong> <span>\${qtyText}</span></div>
+                        <div class="row"><strong>Base Rate Matrix:</strong> <span>\${rateText}</span></div>
+                        <div class="row total-row"><strong>Net Estimated Due:</strong> <span>\${totalText}</span></div>
+                        <div class="footer">
+                            <p>Thank you for choosing MS Solar Cleaning Services!</p>
+                            <p>For operations deployment support dial: +92 308 4462121</p>
+                        </div>
+                    </div>
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                            setTimeout(function() { window.close(); }, 500);
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        }
     </script>
 </body>
 </html>
