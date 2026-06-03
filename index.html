@@ -18,121 +18,113 @@
                         darkBg: '#0f172a',
                         darkCard: 'rgba(30, 41, 59, 0.7)',
                         glassBorder: 'rgba(255, 255, 255, 0.4)'
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        @keyframes pulse-soft {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.95; transform: scale(1.005); }
-        }
-        
-        .tech-animate { 
-            animation: pulse-soft 4s infinite ease-in-out; 
-        }
-        
-        html { 
-            scroll-behavior: smooth; 
-        }
-        
-        img {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-        }
+    <!-- MAIN HEADER & NAVIGATION HUB -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur dark:bg-slate-900/95 border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo Frame -->
+            <div class="flex items-center gap-3">
+                <div class="bg-amber-500 text-white p-2.5 rounded-xl shadow-md shadow-amber-500/20">
+                    <i class="fa-solid fa-solar-panel text-2xl animate-pulse"></i>
+                </div>
+                <div>
+                    <span class="font-extrabold text-xl tracking-tight block text-slate-800 dark:text-white">MS SOLAR</span>
+                    <span class="text-xs text-amber-500 font-semibold tracking-wider block -mt-1">CLEANING & CAR WASH</span>
+                </div>
+            </div>
 
-        body {
-            background: radial-gradient(circle at 10% 20%, rgba(2, 132, 199, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 90% 80%, rgba(22, 163, 74, 0.12) 0%, transparent 50%),
-                        linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
-            background-attachment: fixed;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
+            <!-- Main Desktop Navigation -->
+            <nav class="hidden lg:flex items-center gap-8 font-semibold text-sm tracking-wide text-slate-600 dark:text-slate-300">
+                <a href="#video-section" class="hover:text-amber-500 transition flex items-center gap-1.5"><i class="fa-solid fa-play-circle"></i> Project Video</a>
+                <a href="#calculator-section" class="hover:text-amber-500 transition flex items-center gap-1.5"><i class="fa-solid fa-calculator"></i> Price Calculator</a>
+                <a href="#services-section" class="hover:text-amber-500 transition flex items-center gap-1.5"><i class="fa-solid fa-hand-holding-heart"></i> Our Services</a>
+                <a href="#records-section" class="hover:text-amber-500 transition flex items-center gap-1.5"><i class="fa-solid fa-database"></i> History Log</a>
+            </nav>
 
-        body.dark {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1e38 50%, #090d16 100%) !important;
-            color: #f1f5f9;
-        }
+            <!-- Right Action Controls (With Bada Facebook Icon, Booking Icon, Dark Mode) -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                
+                <!-- BADA FACEBOOK ICON (Upar Right Side Par Clickable) -->
+                <a href="https://www.facebook.com/share/18hG6hxZtx/" target="_blank" rel="noopener noreferrer" 
+                   class="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center text-2xl hover:scale-110 active:scale-95 transition-all duration-200 shadow-md shadow-blue-600/30" 
+                   title="Visit Our Facebook Page">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
 
-        .ios-glass {
-            background: rgba(255, 255, 255, 0.68) !important;
-            backdrop-filter: blur(45px) saturate(350%) !important;
-            -webkit-backdrop-filter: blur(45px) saturate(350%) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
-            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.08),
-                        0 1px 3px rgba(0, 0, 0, 0.02),
-                        inset 0 4px 16px 0 rgba(255, 255, 255, 0.85) !important;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        body.dark .ios-glass {
-            background: rgba(30, 41, 59, 0.65) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5),
-                        inset 0 4px 16px 0 rgba(255, 255, 255, 0.05) !important;
-            color: #f1f5f9;
-        }
-        
-        .ios-glass:hover {
-            background: rgba(255, 255, 255, 0.78) !important;
-            border-color: rgba(255, 255, 255, 1) !important;
-            box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.15), 
-                        inset 0 6px 20px 0 rgba(255, 255, 255, 0.95) !important;
-            transform: translateY(-4px);
-        }
+                <!-- SHIFTED BOOKING QUICK ICON -->
+                <a href="#calculator-section" 
+                   class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xl hover:bg-amber-600 hover:scale-105 active:scale-95 transition-all shadow-md shadow-amber-500/20" 
+                   title="Calculate & Book Appointment">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </a>
 
-        body.dark .ios-glass:hover {
-            background: rgba(30, 41, 59, 0.8) !important;
-            border-color: rgba(255, 255, 255, 0.2) !important;
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6) !important;
-        }
+                <!-- Theme Toggle Button -->
+                <button id="theme-btn" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-amber-400 flex items-center justify-center hover:scale-105 active:scale-95 transition" title="Toggle Theme">
+                    <i class="fa-solid fa-moon dark:hidden text-lg"></i>
+                    <i class="fa-sun hidden dark:block text-lg"></i>
+                </button>
 
-        .ios-glass-dark {
-            background: rgba(15, 23, 42, 0.85) !important;
-            backdrop-filter: blur(40px) saturate(200%) !important;
-            -webkit-backdrop-filter: blur(40px) saturate(200%) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
-            box-shadow: 0 25px 55px -10px rgba(0, 0, 0, 0.45), 
-                        inset 0 2px 4px 0 rgba(255, 255, 255, 0.35) !important;
-        }
+                <!-- Language Toggle Button -->
+                <button id="lang-btn" class="px-3 py-2 text-xs font-bold uppercase tracking-wider rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+                    اردو
+                </button>
+    <!-- NEW LIVE PROJECT VIDEO SECTION (UPAR WALE HISSE MEIN) -->
+    <section id="video-section" class="py-12 bg-gradient-to-b from-slate-100 to-white dark:from-slate-900 dark:to-slate-950 border-b border-slate-200 dark:border-slate-900">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-6">
+                <span class="text-amber-500 text-xs font-bold uppercase tracking-widest bg-amber-500/10 px-3 py-1 rounded-full inline-block mb-2" data-en="Work Portfolio" data-ur="ہمارا کام">Work Portfolio</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800 dark:text-white" data-en="Watch Our Live Operational Video" data-ur="ہمارے کام کی لائیو ویڈیو دیکھیں">Watch Our Live Operational Video</h2>
+            </div>
+            
+            <!-- Video Container Box -->
+            <div class="relative aspect-video w-full rounded-2xl overflow-hidden shadow-xl border-4 border-white dark:border-slate-800 bg-black">
+                <iframe class="absolute top-0 left-0 w-full h-full" 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="MS Solar Project Video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
 
-        .ios-input-glass {
-            background: rgba(255, 255, 255, 0.8) !important;
-            backdrop-filter: blur(25px) saturate(250%) !important;
-            -webkit-backdrop-filter: blur(25px) saturate(250%) !important;
-            border: 1.5px solid rgba(0, 0, 0, 0.1) !important;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(255,255,255,0.6) !important;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+    <!-- FIXED HERO GALLERY & SPLIT IMAGE COMPARISON SLIDER -->
+    <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <!-- Split Slide Screen Container -->
+        <div class="space-y-3">
+            <h3 class="text-xl font-bold flex items-center gap-2 text-slate-800 dark:text-white">
+                <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i>
+                <span data-en="Cleaning Before / After Result" data-ur="صفائی سے پہلے اور بعد کا رزلٹ">Cleaning Before / After Result</span>
+            </h3>
+            <div id="split-slider-frame" class="relative w-full h-[360px] rounded-2xl overflow-hidden shadow-md select-none border border-slate-200 dark:border-slate-800">
+                <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1200&q=80" alt="Before Cleaning Solar" class="absolute inset-0 w-full h-full object-cover">
+                <div id="split-after-wrapper" class="absolute inset-y-0 left-0 right-0 overflow-hidden w-1/2">
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1200&q=80" alt="After Cleaning Solar" class="absolute inset-0 w-full h-full object-cover max-w-none">
+                </div>
+                <div id="split-drag-bar" class="absolute inset-y-0 left-1/2 w-1 bg-white cursor-ew-resize flex items-center justify-center shadow-lg">
+                    <div class="w-9 h-9 bg-amber-500 rounded-full text-white flex items-center justify-center shadow border-2 border-white text-xs">
+                        <i class="fa-solid fa-arrows-left-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        body.dark .ios-input-glass {
-            background: rgba(15, 23, 42, 0.6) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
-            color: white;
-            box-shadow: none !important;
-        }
-        
-        .ios-input-glass:focus {
-            background: rgba(255, 255, 255, 0.98) !important;
-            border-color: #2563eb !important;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25), inset 0 1.5px 3px rgba(0, 0, 0, 0.02) !important;
-        }
+        <!-- Car Fleet Grid Layout (Fixed Broken Images) -->
+        <div class="space-y-3">
+            <h3 class="text-xl font-bold flex items-center gap-2 text-slate-800 dark:text-white">
+                <i class="fa-solid fa-car-clean text-blue-500"></i>
+                <span data-en="Professional Car Wash Layout Station" data-ur="پیشہ ورانہ کار واش اسٹیشن">Professional Car Wash Layout Station</span>
+            </h3>
+            <div class="relative w-full h-[360px] rounded-2xl overflow-hidden shadow-md border border-slate-200 dark:border-slate-800 bg-slate-900">
+                <img src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=1200&q=80" alt="Car Washing Bay" class="w-full h-full object-cover object-center">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end text-white">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-blue-600 px-2.5 py-1 rounded-md mb-2 w-max shadow">Sahiwal Service Bay</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        body.dark .ios-input-glass:focus {
-            background: rgba(15, 23, 42, 0.9) !important;
-            border-color: #3b82f6 !important;
-        }
-
-        .custom-dropdown-panel {
-            position: absolute;
-            top: 104%;
-            left: 0;
-            right: 0;
-            z-index: 150;
-            max-height: 260px;
-            overflow-y: auto;
             background: rgba(255, 255, 255, 0.82) !important;
             backdrop-filter: blur(45px) saturate(380%) !important;
             -webkit-backdrop-filter: blur(45px) saturate(380%) !important;
@@ -245,57 +237,38 @@
             -webkit-appearance: none;
             appearance: none;
             width: 4px;
-            height: 380px;
-            background: #eab308;
-            cursor: ew-resize;
-        }
-        .slider-line {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 4px;
-            background: #eab308;
-            z-index: 25;
-            pointer-events: none;
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
-        }
-        .slider-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            color: #1e3a8a;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 26;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            font-size: 14px;
-            border: 2px solid #eab308;
-        }
+                <!-- Live Dynamic Input Parameter Controls -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    
+                    <!-- INPUT 1: Solar Plate Quantity Box (With Default 80 Rs Badge) -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold flex justify-between items-center text-sm text-slate-700 dark:text-slate-300">
+                            <span data-en="Number of Solar Plates" data-ur="سولر پلیٹوں کی تعداد">Number of Solar Plates</span>
+                            <span class="text-xs bg-amber-100 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 px-2.5 py-1 rounded-lg font-bold border border-amber-200 dark:border-amber-900/50 shadow-xs">
+                                <i class="fa-solid fa-tags mr-1"></i>Default Rate: Rs. 80 / Plate
+                            </span>
+                        </label>
+                        <div class="relative rounded-xl shadow-xs">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                            <input type="number" id="plate-qty" value="10" min="1" class="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none font-medium transition">
+                        </div>
+                    </div>
 
-        #top-scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: linear-gradient(to right, #eab308, #22c55e);
-            width: 0%;
-            z-index: 100;
-            transition: width 0.1s linear;
-        }
+                    <!-- INPUT 2: Customer Custom Offer Rate Input Override Box -->
+                    <div class="space-y-2">
+                        <label class="block font-semibold flex justify-between items-center text-sm text-slate-700 dark:text-slate-300">
+                            <span data-en="Your Offer Rate (Per Plate)" data-ur="آپ کی آفر کی قیمت (فی پلیٹ)">Your Offer Rate (Per Plate)</span>
+                            <span class="text-xs text-emerald-600 dark:text-emerald-400 font-medium italic">Optional Override</span>
+                        </label>
+                        <div class="relative rounded-xl shadow-xs">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-emerald-500 font-bold">₨</div>
+                            <input type="number" id="customer-offer-rate" placeholder="Leave blank to use default (80)" min="1" class="w-full pl-10 pr-4 py-3 bg-emerald-50/20 dark:bg-emerald-950/10 border border-emerald-300/50 dark:border-emerald-800/40 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none font-medium text-emerald-600 dark:text-emerald-400 transition">
+                        </div>
+                    </div>
+                </div>
 
-        #custom-halo-cursor {
-            width: 24px;
-            height: 24px;
             border: 2px solid #3b82f6;
             border-radius: 50%;
             position: fixed;
@@ -1444,77 +1417,40 @@
                 var remaining = 3 - userData.count;
                 rewardMsg.innerHTML = "<span class='text-amber-600'>Agli " + remaining + " services ke baad 1 FREE wash milegi!</span>";
             }
-            calculateBill();
+                    function calculateBill() {
+            const qtyInput = document.getElementById('plate-qty');
+            const offerInput = document.getElementById('customer-offer-rate');
+            
+            const appliedRateDisplay = document.getElementById('applied-rate-display');
+            const baseCostDisplay = document.getElementById('base-cost-display');
+            const taxDisplay = document.getElementById('tax-display');
+            const totalBillDisplay = document.getElementById('total-bill-display');
+
+            if (!qtyInput) return;
+
+            let qty = parseInt(qtyInput.value) || 0;
+            if (qty < 0) qty = 0;
+
+            let defaultRate = 80;
+            let finalRateApplied = defaultRate;
+
+            // Agar customer ne apni offer likhi hai to default rate 80 override ho jaye
+            if (offerInput && offerInput.value && parseFloat(offerInput.value) > 0) {
+                finalRateApplied = parseFloat(offerInput.value);
+            }
+
+            let baseCost = qty * finalRateApplied;
+            let serviceChargesAndTax = Math.round(baseCost * 0.05); 
+            let totalNetBill = baseCost + serviceChargesAndTax;
+
+            if (appliedRateDisplay) appliedRateDisplay.innerText = "Rs. " + finalRateApplied;
+            if (baseCostDisplay) baseCostDisplay.innerText = "Rs. " + baseCost.toLocaleString();
+            if (taxDisplay) taxDisplay.innerText = "Rs. " + serviceChargesAndTax.toLocaleString();
+            if (totalBillDisplay) totalBillDisplay.innerText = "Rs. " + totalNetBill.toLocaleString();
         }
 
-        function calculateBill() {
-            var panelsInput = document.getElementById("panel-qty").value;
-            var panels = parseInt(panelsInput);
-            if (isNaN(panels) || panels < 0) panels = 0;
-            
-            var invertersCount = parseInt(document.getElementById("inverter-qty").value) || 1;
-            var servicePlan = document.getElementById("service-package").value;
-            var phone = document.getElementById("cust-phone").value.trim();
-            
-            var ratePerPanel = 80; 
-            var blowerCost = document.getElementById("blower-check").checked ? (500 * invertersCount) : 0; 
-            
-            var total = (panels * ratePerPanel) + blowerCost;
-            var isFreeReward = false;
-            
-            if (phone) {
-                var currentMonth = new Date().getMonth();
-                var userData = JSON.parse(localStorage.getItem("ms_solar_user_" + phone)) || { month: currentMonth, count: 0 };
-                if (userData.month === currentMonth && userData.count === 3) {
-                    isFreeReward = true;
-                }
-            }
-            
-            if (isFreeReward) {
-                total = 0; 
-                document.getElementById("rate-calc-note").innerHTML = "<span class='text-green-400 font-bold'>🎁 3+1 Loyalty Offer Applied: This Service is 100% FREE!</span>";
-            } else if (servicePlan === "Monthly") {
-                total = Math.round(total * 0.90); 
-                document.getElementById("rate-calc-note").innerText = "*Monthly Subscription package configuration active: Flat 10% Off Applied!";
-            } else {
-                document.getElementById("rate-calc-note").innerText = "*Standard washing rate calculated at Rs. 80 per panel";
-            }
-            
-            document.getElementById("total-price").innerText = total;
-
-            var powerLossUnits = (panels * 0.4).toFixed(1); 
-            var moneyLossValue = Math.round(powerLossUnits * 45 * 30); 
-            
-            document.getElementById("alert-units").innerText = powerLossUnits;
-            document.getElementById("alert-money").innerText = moneyLossValue.toLocaleString();
         }
 
-        function toggleFaq(id) {
-            var ans = document.getElementById("faq-ans-" + id);
-            var icon = document.getElementById("faq-icon-" + id);
-            if (ans.classList.contains("hidden")) {
-                ans.classList.remove("hidden");
-                icon.style.transform = "rotate(180deg)";
-            } else {
-                ans.classList.add("hidden");
-                icon.style.transform = "rotate(0deg)";
-            }
-        }
-
-        function sendBooking() {
-            var phoneNumber = "923084462121"; 
-            var name = document.getElementById("cust-name").value || "Valued Customer";
-            var custPhone = document.getElementById("cust-phone").value.trim() || "Not Provided";
-            
-            var address = document.getElementById("cust-address").value || "Not Provided (Sahiwal Region)";
-            var mapUrlStr = document.getElementById("maps-url").value || "No Live Pin Attached";
-            var date = document.getElementById("booking-date").value || "As soon as possible";
-            var time = document.getElementById("booking-time").value;
-            
-            var planType = document.getElementById("service-package").value;
-            var pBrand = document.getElementById("panel-brand").value;
-            var brand = document.getElementById("inv-brand").value;
-            var size = document.getElementById("inv-size").value;
             var invertersCount = document.getElementById("inverter-qty").value;
             var historyLog = document.getElementById("cleaning-history").value;
             
