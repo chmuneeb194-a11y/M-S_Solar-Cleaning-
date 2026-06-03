@@ -474,9 +474,9 @@
                 <div class="ios-glass p-6 rounded-3xl hover:shadow-xl transition duration-300 scroll-reveal">
                     <div class="w-full h-56 rounded-2xl mb-4 overflow-hidden relative bg-white/70 flex items-center justify-center p-2 shadow-inner border border-white/50">
                         <img src="ingo.jpg" alt="Ingco Pressure Washer" class="w-full h-full object-contain">
-                        <span class="absolute bottom-2 right-2 bg-slate-900 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">INGCO 1800W</span>
+                        <span class="absolute bottom-2 right-2 bg-slate-900 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">Pressure Washer</span>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 text-center" data-en="Ingco Pressure Washer" data-ur="انگکو پریشر واشر">Ingco Pressure Washer</h3>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 text-center" data-en="Ingco Pressure Washer" data-ur="انگکو پریشر واشر">Pressure Washer</h3>
                     <p class="text-xs text-slate-600 dark:text-slate-400 text-center leading-relaxed" data-en="High-pressure controlled flow structures engineered to strip hardened mud scales without fracturing glasses." data-ur="ہائی پریشر کنٹرولڈ فلو جو بغیر سکریچ بنائے جمی ہوئی سخت مٹی کو مکمل اتار دیتا ہے۔">High-pressure controlled flow aur special water hose jo bina scratch banaye jami hui sakht mitti ko mukammal utar deta hai.</p>
                 </div>
                 <div class="ios-glass p-6 rounded-3xl hover:shadow-xl transition duration-300 scroll-reveal">
@@ -529,7 +529,7 @@
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Certified Safety Standards</h4>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Zero structural damage or scratching risks during process</p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight"></p>
                 </div>
                 <div class="flex flex-col items-center border-y sm:border-y-0 sm:border-x border-white/60 dark:border-slate-700 py-4 sm:py-0">
                     <div class="w-12 h-12 bg-white/80 text-green-600 dark:bg-slate-800 dark:text-green-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
@@ -542,8 +542,8 @@
                     <div class="w-12 h-12 bg-white/80 text-yellow-600 dark:bg-slate-800 dark:text-yellow-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
                         <i class="fas fa-handshake-angle"></i>
                     </div>
-                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Damage Insurance Cover</h4>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Full baseline security assurance for supreme peace of mind</p>
+                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1"></h4>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Welcome</p>
                 </div>
             </div>
         </div>
@@ -845,13 +845,13 @@
                             <div class="relative">
                                 <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">System Size (KW)</label>
                                 <div id="trigger-inv-size" onclick="openCustomDropdown('inv-size')" class="ios-input-glass px-4 py-3 rounded-xl font-medium text-slate-800 flex justify-between items-center cursor-pointer select-none shadow-sm bg-white/90">
-                                    <span id="label-inv-size" class="text-slate-700">3 KW</span>
+                                    <span id="label-inv-size" class="text-slate-700">4 KW</span>
                                     <i class="fas fa-chevron-down text-xs opacity-60 text-slate-600"></i>
                                 </div>
                                 <input type="hidden" id="inv-size" value="3 KW">
                                 <div id="panel-inv-size" class="custom-dropdown-panel hidden shadow-2xl">
                                     <div onclick="selectCustomOption('inv-size', '3 KW', '3 KW')">3 KW</div>
-                                    <div onclick="selectCustomOption('inv-size', '5 KW', '5 KW')">5 KW</div>
+                                    <div onclick="selectCustomOption('inv-size', '4 KW', '4 KW')">4 KW</div>
                                     <div onclick="selectCustomOption('inv-size', '6 KW', '6 KW')">6 KW</div>
                                     <div onclick="selectCustomOption('inv-size', '8 KW', '8 KW')">8 KW</div>
                                     <div onclick="selectCustomOption('inv-size', '10 KW', '10 KW')">10 KW</div>
@@ -902,12 +902,92 @@
                             <span class="text-[10px] uppercase tracking-widest text-yellow-400 font-bold">Estimated Service Cost</span>
                             <div class="text-4xl font-black my-1">Rs. <span id="total-price">640</span></div>
                             <p class="text-[10px] text-slate-300" id="rate-calc-note">*Standard washing rate calculated at Rs. 80 per panel</p>
-                        </div>
+                         <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-2xl text-center shadow-2xl relative overflow-hidden">
+    <span class="text-[10px] uppercase tracking-widest text-yellow-400 font-bold">Estimated Service Cost</span>
+    <div class="text-4xl font-black my-1">Rs. <span id="total-price">640</span></div>
+    <p class="text-[10px] text-slate-300" id="rate-calc-note">Standard washing rate calculated at Rs. 80 per panel</p>
+    
+    <div class="mt-4 text-center">
+        <button type="button" id="apply-offer-btn" onclick="toggleOfferRate()" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transform hover:scale-105 transition duration-200">
+            Apply Offer Rate ✨
+        </button>
+        <p id="offer-msg" class="text-green-400 text-sm font-semibold mt-2 hidden animate-pulse">
+            Special Offer Rate Applied Successfully! 🎉
+        </p>
+    </div>
+</div>
 
-                        <button type="button" onclick="downloadBillPDF('solar')" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
-                            <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
-                        </button>
+<button type="button" onclick="downloadBillPDF('solar')" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl shadow-md mt-4 transition duration-200">
+    <i class="fas fa-file-pdf mr-2"></i> Download Bill Statement as PDF
+</button>
 
+<script>
+    if (typeof isOfferApplied === 'undefined') {
+        var isOfferApplied = false;
+    }
+
+    function toggleOfferRate() {
+        const btn = document.getElementById('apply-offer-btn');
+        const msg = document.getElementById('offer-msg');
+        const noteEl = document.getElementById('rate-calc-note');
+        
+        isOfferApplied = !isOfferApplied; 
+        
+        if (isOfferApplied) {
+            btn.innerText = "Remove Offer";
+            btn.classList.remove('from-green-500', 'to-emerald-600', 'hover:from-green-600', 'hover:to-emerald-700');
+            btn.classList.add('from-red-500', 'to-rose-600', 'hover:from-red-600', 'hover:to-rose-700');
+            msg.classList.remove('hidden');
+            if (noteEl) noteEl.innerText = "Special offer rate calculated at Rs. 65 per panel";
+        } else {
+            btn.innerText = "Apply Offer Rate ✨";
+            btn.classList.remove('from-red-500', 'to-rose-600', 'hover:from-red-600', 'hover:to-rose-700');
+            btn.classList.add('from-green-500', 'to-emerald-600', 'hover:from-green-600', 'hover:to-emerald-700');
+            msg.classList.add('hidden');
+            if (noteEl) noteEl.innerText = "Standard washing rate calculated at Rs. 80 per panel";
+        }
+        
+        if (typeof calculateBill === 'function') {
+            calculateBill();
+        }
+    }
+
+    function getCurrentPanelRate() {
+        return isOfferApplied ? 65 : 80;
+    }
+
+    // PDF KA BLANK HONA THEEK KARNE WALA FUNCTION
+    function downloadBillPDF(type) {
+        // Puraani blank PDF ki problem ko hal karne ke liye timeout aur custom background set kiya hai
+        const element = document.getElementById(type === 'solar' ? 'solar-calc-container' : 'car-calc-container') || document.body;
+
+        const options = {
+            margin:       [10, 10, 10, 10],
+            filename:     `MS_Solar_Cleaning_${type}_Bill.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { 
+                scale: 2, 
+                useCORS: true,
+                letterRendering: true,
+                backgroundColor: '#0f172a', 
+                scrollY: 0
+            },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        const originalButtons = element.querySelectorAll('button');
+        originalButtons.forEach(btn => btn.style.display = 'none');
+
+        setTimeout(() => {
+            html2pdf().set(options).from(element).save().then(() => {
+                originalButtons.forEach(btn => btn.style.display = 'block');
+            }).catch(err => {
+                console.error("PDF Error: ", err);
+                originalButtons.forEach(btn => btn.style.display = 'block');
+            });
+        }, 500);
+    }
+</script>
                         <button onclick="sendBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
                             <i class="fab fa-whatsapp text-xl"></i> Complete Booking via WhatsApp
                         </button>
@@ -1058,11 +1138,10 @@
 
                 <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm scroll-reveal">
                     <button type="button" onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-4 font-bold text-xs sm:text-sm text-slate-800 dark:text-white text-left hover:bg-white/20">
-                        <span>What is covered under your 3-day after cleaning protection warranty?</span>
+                        <span></span>
                         <i id="faq-icon-2" class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
                     </button>
                     <div id="faq-ans-2" class="hidden p-4 pt-0 text-xs text-slate-500 dark:text-slate-400 leading-relaxed border-t border-white/20 bg-white/30">
-                        Agar hamari safai ke baad agle 3 din ke andar Sahiwal mein achanak mitti ka tufan, aandhi, ya barish aa jaye jis se panels dobara gande ho jayen, to aapko agri wash par special flat 20% discount diya jayega taake aapka nuksaan na ho.
                     </div>
                 </div>
 
