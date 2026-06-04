@@ -932,7 +932,7 @@
                 </div>
             </div>
 
-            <div id="carwash-calc-block" class="hidden">
+           <div id="carwash-calc-block" class="hidden">
   <div class="text-center mb-10">
     <span class="text-blue-700 font-black text-xs tracking-widest uppercase bg-blue-100/80 px-3 py-1.5 rounded-full">🚗 Car Wash Services</span>
     <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3">Professional Car Wash Calculator</h2>
@@ -944,10 +944,10 @@
       <div>
         <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Select Vehicle Type</label>
         <div class="grid grid-cols-3 gap-2 mb-3 text-center">
-        <div onclick="setVehicleTypeViaBadge(1000)" id="badge-car-1000" class="vehicle-badge cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition">
-  <i class="fas fa-motorcycle text-blue-600 block text-lg mb-1"></i>
-  <span>under1000cc<br>Rs.1000</span>
-</div>
+          <div onclick="setVehicleTypeViaBadge(1000)" id="badge-car-1000" class="vehicle-badge cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition">
+            <i class="fas fa-car-side text-blue-600 block text-lg mb-1"></i>
+            <span>under1000cc<br>Rs.1000</span>
+          </div>
           <div onclick="setVehicleTypeViaBadge(1200)" id="badge-car-1200" class="vehicle-badge cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition">
             <i class="fas fa-car text-green-600 block text-lg mb-1"></i>
             <span>Sedan<br>Rs.1200</span>
@@ -970,6 +970,16 @@
         <input type="text" id="carwash-cust-name" placeholder="e.g. Asif" class="w-full ios-input-glass">
       </div>
 
+      <div>
+        <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">WhatsApp / Mobile Number</label>
+        <input type="text" id="carwash-cust-phone" placeholder="e.g. 03001234567" class="w-full ios-input-glass">
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Sahiwal Area Address / Location</label>
+        <input type="text" id="carwash-cust-address" placeholder="e.g. Farid Town, Sahiwal" class="w-full ios-input-glass">
+      </div>
+ 
       <div>
         <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">WhatsApp / Mobile Number</label>
         <input type="text" id="carwash-cust-phone" placeholder="e.g. 03001234567" class="w-full ios-input-glass">
