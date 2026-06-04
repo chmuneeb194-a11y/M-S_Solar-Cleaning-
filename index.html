@@ -1171,6 +1171,61 @@
     </a>
 
     <script>
+       // ==========================================
+// HAMBURGER MENU SYSTEM FUNCTIONS
+// ==========================================
+function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+        menu.classList.toggle('hidden');
+        setTimeout(() => {
+            menu.classList.toggle('menu-active');
+        }, 10);
+    }
+}
+
+function scrollToSection(id) {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+        menu.classList.remove('menu-active');
+        menu.classList.add('hidden');
+    }
+    
+    const targetElement = document.getElementById(id);
+    if (targetElement) {
+        setTimeout(() => {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
+    }
+}
+
+// ==========================================
+// AUTOMATIC SYSTEM THEME ENGINE
+// ==========================================
+function applyAutomaticSystemTheme() {
+    if (!localStorage.getItem('theme')) {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const body = document.body;
+        const themeIcon = document.getElementById('theme-toggle-icon');
+        
+        if (prefersDark) {
+            body.classList.add('dark');
+            document.documentElement.classList.add('dark');
+            if (themeIcon) { themeIcon.className = 'fas fa-sun text-yellow-400 text-xs'; }
+        } else {
+            body.classList.remove('dark');
+            document.documentElement.classList.remove('dark');
+            if (themeIcon) { themeIcon.className = 'fas fa-moon text-slate-400 text-xs'; }
+        }
+    }
+}
+
+if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        applyAutomaticSystemTheme();
+    });
+}
+ 
         function toggleDarkMode() {
             var body = document.body;
             var themeIcon = document.getElementById('theme-toggle-icon');
@@ -1625,7 +1680,9 @@
                 var tIcon = document.getElementById('theme-toggle-icon');
                 if(tIcon) tIcon.className = "fas fa-sun";
             }
-            
+                    // Automatic system color scheme layout engine activator
+        applyAutomaticSystemTheme();
+
             switchServiceLayout('solar');
             calculateBill();
             calculateCarWashBill();
