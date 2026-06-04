@@ -1609,7 +1609,12 @@
     };
 
     </script>
-     <script>
+            <script>
+  let deferredPrompt;
+  const installBanner = document.getElementById('pwa-install-banner');
+  const installBtn = document.getElementById('pwa-install-btn');
+
+  // Service Worker Registration
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/M-S_Solar-Cleaning-/sw.js')
@@ -1617,7 +1622,41 @@
         .catch(err => console.log('Service Worker Log Error:', err));
     });
   }
+
+  // Browser se install ka signal pakadna
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBanner) {
+      installBanner.style.display = 'flex';
+    }
+  });
+
+  // Jab customer "Install" button par click kare
+  if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        deferredPrompt = null;
+        if (installBanner) {
+          installBanner.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  // Agar app pehle se installed ho to banner nahi dikhega
+  window.addEventListener('appinstalled', () => {
+    if (installBanner) {
+      installBanner.style.display = 'none';
+    }
+    deferredPrompt = null;
+    console.log('PWA was installed');
+  });
 </script>
+
        
 </body>
 </html>
