@@ -98,6 +98,15 @@
             box-shadow: 0 25px 55px -10px rgba(0, 0, 0, 0.45), 
                         inset 0 2px 4px 0 rgba(255, 255, 255, 0.35) !important;
         }
+        /* Mobile Sidebar Custom Slide Animation */
+#mobile-menu {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateX(100%);
+}
+#mobile-menu.menu-active {
+    transform: translateX(0);
+}
+
 
         .ios-input-glass {
             background: rgba(255, 255, 255, 0.8) !important;
