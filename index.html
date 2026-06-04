@@ -944,9 +944,9 @@
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Select Vehicle Type</label>
                             <div class="grid grid-cols-3 gap-2 mb-3 text-center">
-                                <div onclick="setVehicleTypeViaBadge(300)" id="badge-car-300" class="vehicle-badge cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-blue-100 transition"><i class="fas fa-motorcycle text-base text-blue-600 mb-1 block"></i>Bike<br>Rs.300</div>
+                                <div onclick="setVehicleTypeViaBadge(600)" id="badge-car-600" class="vehicle-badge cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-blue-100 transition"><i class="fas fa-motorcycle text-base text-blue-600 mb-1 block"></i>under1000cc<br>Rs.600</div>
                                 <div onclick="setVehicleTypeViaBadge(800)" id="badge-car-800" class="vehicle-badge cursor-pointer border-2 border-blue-500 bg-blue-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition"><i class="fas fa-car text-base text-emerald-600 mb-1 block"></i>Sedan<br>Rs.800</div>
-                                <div onclick="setVehicleTypeViaBadge(1200)" id="badge-car-1200" class="vehicle-badge cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition"><i class="fas fa-truck-pickup text-base text-purple-600 mb-1 block"></i>SUV/Jeep<br>Rs.1200</div>
+                                <div onclick="setVehicleTypeViaBadge(1200)" id="badge-car-1\u003Ch2 class=\"text-3xl font-black text-slate-900 dark:text-white mt-3\" data-en=\"Professional Car Wash Calculator\" data-ur=\"کار واش قیمت کیلکولیٹر\">Professional Car Wash Calculator\u003C/h2>200" class="vehicle-badge cursor-pointer border-2 border-transparent bg-slate-50 dark:bg-slate-800 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 transition"><i class="fas fa-truck-pickup text-base text-purple-600 mb-1 block"></i>SUV/Jeep<br>Rs.1200</div>
                             </div>
                             <select id="carwash-type" onchange="syncVehicleBadge(this.value)" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none font-bold shadow-sm bg-white/90 text-slate-800">
                                 <option value="600">Under 1000cc Car — Rs. 600</option>
@@ -997,7 +997,7 @@
                         <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-2xl text-center shadow-2xl relative overflow-hidden border border-white/10">
                             <span class="text-[10px] uppercase tracking-widest text-yellow-400 font-bold">Estimated Car Wash Cost</span>
                             <div class="text-4xl font-black my-1">Rs. <span id="carwash-total-price">800</span></div>
-                            <p class="text-[10px] text-slate-300">*Premium high-pressure washer cleaning with deep glossy finishing</p>
+                            <p class="text-[10px] text-slate-600">*Premium high-pressure washer cleaning with deep glossy finishing</p>
                         </div>
 
                         <button type="button" onclick="downloadBillPDF('carwash')" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
@@ -1036,21 +1036,21 @@
             <h3 class="text-xl font-black text-slate-900 dark:text-white text-center mb-6 flex items-center justify-center gap-2 scroll-reveal">
                 <i class="fas fa-images text-blue-600"></i> Our Professional Car Wash Gallery
             </h3>
-            
-            <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
-                <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
-                    <img src="haval-foam.jpg" alt="Haval Foam Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
-                </div>
-                <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
-                    <img src="honda-civic-wash.jpg" alt="Honda Civic Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
-                </div>
-                <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
-                    <img src="​suzuki-alto-wash.jpg" alt="Suzuki Alto Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
-                </div>
-                <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52 scroll-reveal">
-                    <img src=​"​toyota-corolla-shine.jpg" alt="Toyota Corolla Shine" class="w-full h-full object-cover hover:scale-105 transition duration-300">
-                </div>
-            </div>
+           <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
+  <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52">
+    <img src="haval-foam.jpg" alt="Haval Foam Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+  </div>
+  <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52">
+    <img src="honda-civic-wash.jpg" alt="Honda Civic Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+  </div>
+  <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52">
+    <img src="suzuki-alto-wash.jpg" alt="Suzuki Alto Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+  </div>
+  <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52">
+    <img src="toyota-corolla-shine.jpg" alt="Toyota Corolla Shine" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+  </div>
+</div>
+ 
         </div>
     </section>
 
