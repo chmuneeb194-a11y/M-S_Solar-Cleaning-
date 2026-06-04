@@ -350,59 +350,63 @@
 
     <div id="top-scroll-progress"></div>
     <div id="custom-halo-cursor"></div>
-
-    <header class="sticky top-0 z-50 bg-white/50 backdrop-blur-2xl border-b border-white/60 shadow-sm dark:bg-slate-900/60 dark:border-slate-800/60">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center max-w-6xl">
-            <a href="#home" class="flex items-center space-x-2 group min-w-0">
-                <svg class="h-11 w-11 sm:h-14 sm:w-14 transform group-hover:scale-105 transition duration-300 flex-shrink-0" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="68" cy="46" r="18" fill="#eab308" />
-                    <path d="M68 22 L68 12 M84 28 L92 20 M96 42 L106 42 M92 58 L100 66 M80 66 L86 76 M52 32 L44 26 M50 50 L40 46" stroke="#eab308" stroke-width="3.5" stroke-linecap="round"/>
-                    <path d="M28 42 L62 42 L62 66 L28 72 Z" fill="#0284c7" />
-                    <path d="M31 45 L40 45 L39 52 L31 54 Z" fill="#ffffff"/>
-                    <path d="M43 45 L51 45 L50 52 L42 52 Z" fill="#ffffff"/>
-                    <path d="M54 45 L60 45 L59 52 L53 52 Z" fill="#ffffff"/>
-                    <path d="M31 57 L40 55 L39 65 L31 67 Z" fill="#ffffff"/>
-                    <path d="M43 55 L51 55 L50 64 L42 64 Z" fill="#ffffff"/>
-                    <path d="M54 55 L60 55 L59 63 L53 63 Z" fill="#ffffff"/>
-                    <path d="M22 74 C 24 64, 42 62, 46 68 C 50 58, 76 56, 82 66 C 88 58, 98 62, 94 76 C 96 84, 82 86, 78 84" stroke="#0284c7" stroke-width="3" stroke-linecap="round" fill="none"/>
-                    <path d="M42 68 C 48 64, 62 63, 68 70 C 72 65, 82 66, 84 72" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                </svg>
-                <div class="flex flex-col m-0 p-0 min-w-0">
-                    <div class="text-xl sm:text-2xl font-black text-blue-950 tracking-tighter leading-none flex items-center truncate dark:text-white">
-                        <span>MS</span><span class="text-blue-500 mx-0.5">_</span><span>SOLAR</span>
-                    </div>
-                    <span data-en="Cleaning Services & Car Wash" data-ur="کلیننگ سروسز اور کار واش" class="lang-text text-[9px] sm:text-[10px] font-black text-green-700 uppercase tracking-wider sm:tracking-widest mt-1 leading-none flex items-center gap-1 truncate dark:text-green-400">
-                        <i class="fas fa-check-double text-[7px] sm:text-[8px]"></i> Cleaning Services & Car Wash
-                    </span>
+    
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between max-w-6xl">
+            <a href="#home" class="flex flex-col m-0 p-0 select-none">
+                <div class="text-xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
+                    <span>M S</span> <span class="text-blue-600">SOLAR</span>
                 </div>
+                <span class="text-[9px] font-bold text-slate-400 mt-0.5 tracking-wider uppercase">Cleaning & Maintenance</span>
             </a>
             
-            <nav class="hidden lg:flex space-x-6 font-semibold text-sm items-center">
-                <a href="#home" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Home" data-ur="ہوم">Home</a>
-                <a href="#tools" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Our Machinery" data-ur="ہماری مشینری">Our Machinery</a>
-                <a href="#technical" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Inverter Diagnostic" data-ur="انورٹر معائنہ">Inverter Diagnostic</a>
-                <a href="#subscription" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Subscription" data-ur="سبسکرپشن">Subscription</a>
-                <a href="#calculator-section" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Live Calculator" data-ur="لائیو کیلکولیٹر">Live Calculator</a>
-                <a href="#gallery-section" class="text-slate-700 dark:text-slate-300 hover:text-blue-600 transition" data-en="Car Gallery" data-ur="کار گیلری">Car Gallery</a>
-            </nav>
-            
-            <div class="flex items-center space-x-3">
-                <button onclick="toggleLanguage()" class="ios-glass text-xs font-bold px-2.5 py-1.5 rounded-xl border hover:bg-slate-100 transition shadow-sm flex items-center gap-1">
-                    <i class="fas fa-language text-base text-blue-600"></i>
-                    <span id="lang-btn-label">اردو</span>
-                </button>
-
-                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-yellow-400 border border-slate-200 dark:border-slate-700 hover:scale-105 transition shadow-sm">
-                    <i id="theme-toggle-icon" class="fas fa-moon"></i>
-                </button>
-
-                <a href="#calculator-section" class="bg-gradient-to-r from-green-500 to-emerald-600 hover:scale-105 hover:shadow-lg text-white px-4 py-2 rounded-full font-bold flex items-center space-x-1.5 transition shadow-md text-xs sm:text-sm flex-shrink-0">
-                    <i class="fab fa-whatsapp text-sm sm:text-lg"></i>
-                    <span data-en="Calculate & Book" data-ur="حساب کریں اور بکنگ">Calculate & Book</span>
-                </a>
-            </div>
+            <button type="button" onclick="toggleMenu()" class="text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-500 w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition active:scale-95" aria-label="Open Navigation Menu">
+                <i class="fas fa-bars text-lg"></i>
+            </button>
         </div>
     </header>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-950/40 backdrop-blur-md z-50 hidden transition-all duration-300 flex justify-end">
+        <div class="absolute inset-0" onclick="toggleMenu()"></div>
+        
+        <div class="relative w-72 max-w-[85vw] h-full bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-100 dark:border-slate-800 p-6 flex flex-col justify-between overflow-y-auto z-10">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800 mb-8">
+                    <span class="text-xs font-black uppercase tracking-widest text-slate-400">Navigation Menu</span>
+                    <button type="button" onclick="toggleMenu()" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-50 dark:bg-slate-800/50 transition">
+                        <i class="fas fa-times text-sm"></i>
+                    </button>
+                </div>
+                
+                <nav class="space-y-3">
+                    <button type="button" onclick="scrollToSection('solar-calc-block')" class="w-full flex items-center space-x-3 p-3 rounded-xl font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 text-left transition">
+                        <span class="text-blue-500 text-base"><i class="fas fa-bolt"></i></span>
+                        <span class="text-xs sm:text-sm">⚡ Solar Solutions Setup</span>
+                    </button>
+                    <button type="button" onclick="scrollToSection('carwash-calc-block')" class="w-full flex items-center space-x-3 p-3 rounded-xl font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 text-left transition">
+                        <span class="text-emerald-500 text-base"><i class="fas fa-soap"></i></span>
+                        <span class="text-xs sm:text-sm">🧽 Car Wash Service Setup</span>
+                    </button>
+                </nav>
+            </div>
+            
+            <div class="border-t border-slate-100 dark:border-slate-800 pt-6 mt-auto space-y-4">
+                <span class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-2">Preferences Configuration</span>
+                
+                <button type="button" onclick="toggleDarkMode()" class="w-full flex items-center justify-between p-3 rounded-xl font-medium text-xs text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition">
+                    <span class="flex items-center gap-2"><i class="fas fa-adjust text-slate-400"></i> Interface Theme Mode</span>
+                    <i id="theme-toggle-icon" class="fas fa-moon text-slate-400 text-xs"></i>
+                </button>
+                
+                <button type="button" onclick="toggleLanguage()" class="w-full flex items-center justify-between p-3 rounded-xl font-medium text-xs text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition">
+                    <span class="flex items-center gap-2"><i class="fas fa-language text-slate-400 text-sm"></i> Switch Localization</span>
+                    <span id="lang-btn-label" class="font-bold text-blue-600 dark:text-blue-400 text-xs">اردو</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
 
     <section id="home" class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-15">
