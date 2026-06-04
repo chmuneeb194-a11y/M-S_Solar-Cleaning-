@@ -325,6 +325,19 @@
     </style>
 </head>
 <body class="font-sans text-slate-800 antialiased dark:text-slate-200">
+<!-- Automatic Install App Notification Bar -->
+<div id="pwa-install-banner" class="ios-glass" style="display: none; position: fixed; top: 10px; left: 10px; right: 10px; z-index: 9999; padding: 15px; border-radius: 12px; align-items: center; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <img src="logo.png" alt="Logo" style="width: 40px; height: 40px; border-radius: 8px;">
+    <div>
+      <h4 style="margin: 0; font-size: 14px; font-weight: bold;">M-S Solar App</h4>
+      <p style="margin: 0; font-size: 11px; opacity: 0.8;">Behtar experience ke liye app install karein</p>
+    </div>
+  </div>
+  <button id="pwa-install-btn" style="background: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer;">
+    Install
+  </button>
+</div>
 
     <div id="top-scroll-progress"></div>
     <div id="custom-halo-cursor"></div>
