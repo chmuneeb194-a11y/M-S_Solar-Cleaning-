@@ -423,6 +423,15 @@
         <i class="fas fa-chevron-right text-xs text-slate-400"></i>
     </a>
 </div>
+<div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mb-4">
+    <button type="button" id="nav-install-btn" class="w-full flex items-center justify-between p-4 bg-blue-800/20 border border-blue-500/30 rounded-xl text-left">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-download text-blue-400 text-xl"></i>
+            <span class="text-sm font-bold text-slate-800 dark:text-white">Install Application</span>
+        </div>
+        <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+    </button>
+</div>
 
 
                 </nav>
@@ -1776,7 +1785,22 @@ function scrollToSection(sectionId) {
     }
   });
 
-  // Jab customer "Install" button par click kare
+ const navInstallBtn = document.getElementById('nav-install-btn');
+if (navInstallBtn) {
+    navInstallBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+            deferredPrompt = null;
+            if (installBanner) {
+                installBanner.style.display = 'none';
+            }
+        }
+    });
+}
+
+ // Jab customer "Install" button par click kare
   if (installBtn) {
     installBtn.addEventListener('click', async () => {
       if (deferredPrompt) {
