@@ -12,7 +12,8 @@
 <meta name="theme-color" content="#007bff">
   <script>
         tailwind.config = {
-            darkMode: 'class',
+            darkMode: 'media',
+
             theme: {
                 extend: {
                     colors: {
@@ -353,12 +354,16 @@
     
     <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between max-w-6xl">
-            <a href="#home" class="flex flex-col m-0 p-0 select-none">
-                <div class="text-xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
-                    <span>M S</span> <span class="text-blue-600">SOLAR</span>
-                </div>
-                <span class="text-[9px] font-bold text-slate-400 mt-0.5 tracking-wider uppercase">Cleaning & Maintenance</span>
-            </a>
+            <a href="#home" class="flex items-center gap-2 m-0 p-0 select-none">
+    <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain rounded-md">
+    <div class="flex flex-col">
+        <div class="text-xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
+            <span>M-S </span><span class="text-blue-600">SOLAR</span>
+        </div>
+        <span class="text-[9px] font-bold text-slate-400 mt-0.5 tracking-wider uppercase">Cleaning & Maintenance</span>
+    </div>
+</a>
+
             
             <button type="button" onclick="toggleMenu()" class="text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-500 w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition active:scale-95" aria-label="Open Navigation Menu">
                 <i class="fas fa-bars text-lg"></i>
@@ -387,6 +392,30 @@
                         <span class="text-emerald-500 text-base"><i class="fas fa-soap"></i></span>
                         <span class="text-xs sm:text-sm">🧽 Car Wash Service Setup</span>
                     </button>
+                            <button type="button" onclick="scrollToSection('safety-compliance-block')" class="w-full flex items-center justify-between p-3 rounded-xl transition-all text-left bg-slate-100/50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 group">
+            <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-base shadow-sm"><i class="fas fa-shield-alt"></i></span>
+                <span class="text-xs sm:text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400">🛡️ Safety Compliance</span>
+            </div>
+            <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+        </button>
+                            <button type="button" onclick="scrollToSection('reviews-grid-block')" class="w-full flex items-center justify-between p-3 rounded-xl transition-all text-left bg-slate-100/50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 group">
+            <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-base shadow-sm"><i class="fas fa-star"></i></span>
+                <span class="text-xs sm:text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400">⭐ Customer Reviews</span>
+            </div>
+            <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+        </button>
+
+        <button type="button" onclick="scrollToSection('certified-standards-block')" class="w-full flex items-center justify-between p-3 rounded-xl transition-all text-left bg-slate-100/50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 group">
+            <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-base shadow-sm"><i class="fas fa-certificate"></i></span>
+                <span class="text-xs sm:text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400">🏅 Certified Standards</span>
+            </div>
+            <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+        </button>
+
+
                 </nav>
             </div>
             
@@ -549,30 +578,30 @@
                 </div>
                 <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium" data-en="Drag the slider layout handle to view live performance difference comparisons instantly." data-ur="ہینڈل کو لیفٹ یا رائٹ ڈریگ کر کے لائیو صفائی کا واضح فرق دیکھیں۔">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
             </div>
+<div id="certified-standards-block" class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center scroll-reveal hidden">
+    <div class="flex flex-col items-center">
+        <div class="w-12 h-12 bg-white/80 text-blue-600 dark:bg-slate-800 dark:text-blue-400 rounded-2xl flex items-center justify-center">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+        <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Certified Safety Standards</h4>
+        <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Zero structural damage or scratching risks</p>
+    </div>
+    <div class="flex flex-col items-center border-y sm:border-y-0 sm:border-x border-white/60 dark:border-slate-700 py-4 sm:py-0">
+        <div class="w-12 h-12 bg-white/80 text-green-600 dark:bg-slate-800 dark:text-green-400 rounded-2xl flex items-center justify-center">
+            <i class="fas fa-user-check"></i>
+        </div>
+        <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Trained Staff Team</h4>
+        <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Equipped with anti-slip shoes and lifeline</p>
+    </div>
+    <div class="flex flex-col items-center">
+        <div class="w-12 h-12 bg-white/80 text-yellow-600 dark:bg-slate-800 dark:text-yellow-400 rounded-2xl flex items-center justify-center">
+            <i class="fas fa-handshake-angle"></i>
+        </div>
+        <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Welcome</h4>
+        <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Welcome</p>
+    </div>
+</div>
 
-            <div class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center scroll-reveal">
-                <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 bg-white/80 text-blue-600 dark:bg-slate-800 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Certified Safety Standards</h4>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Zero structural damage or scratching risks during process</p>
-                </div>
-                <div class="flex flex-col items-center border-y sm:border-y-0 sm:border-x border-white/60 dark:border-slate-700 py-4 sm:py-0">
-                    <div class="w-12 h-12 bg-white/80 text-green-600 dark:bg-slate-800 dark:text-green-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
-                        <i class="fas fa-user-check"></i>
-                    </div>
-                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1">Trained Staff Team</h4>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Equipped with anti-slip shoes and lifelines harness safety</p>
-                </div>
-                <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 bg-white/80 text-yellow-600 dark:bg-slate-800 dark:text-yellow-400 rounded-2xl flex items-center justify-center mb-3 text-xl shadow-sm border border-white dark:border-slate-700">
-                        <i class="fas fa-handshake-angle"></i>
-                    </div>
-                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-1"></h4>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Welcome</p>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -610,16 +639,16 @@
                 <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-sun text-amber-500 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">GOODWE</span></div>
                 <div class="ios-glass p-4 rounded-2xl flex flex-col items-center justify-center hover:scale-105 transition"><i class="fas fa-plug text-lime-600 text-2xl mb-1.5"></i><span class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">GROWATT</span></div>
             </div>
-
-            <div class="grid grid-cols-1 gap-8 items-center scroll-reveal">
-                <div class="ios-glass-dark text-white p-6 rounded-2xl relative overflow-hidden tech-animate">
-                    <h3 class="text-lg font-bold text-yellow-400 mb-3 flex items-center gap-2">
-                        <i class="fas fa-user-shield text-green-400"></i> Safety Harness Compliance
-                    </h3>
-                    <p class="text-xs text-slate-300 mb-3 leading-relaxed" data-en="We strictly enforce anchor configurations, lifelines, and helmets when engineering roof operations." data-ur="ہم ہائی روف پر کام کرتے وقت لائف لائن باڈی بیلٹس، اینٹی سلپ جوتے، اور ہیلمٹ کا لازمی استعمال کرتے ہیں۔">Hum high structural roofs par kaam karte waqt lifeline body safety belts, anti-slip shoes, aur safety helmets ka 100% istemal lazmi karte hain.</p>
-                </div>
-            </div>
+    <div id="safety-compliance-block" class="grid grid-cols-1 gap-8 items-center scroll-reveal hidden">
+        <div class="ios-glass-dark text-white p-6 rounded-2xl relative overflow-hidden tech-animate">
+            <h3 class="text-lg font-bold text-yellow-400 mb-3 flex items-center gap-2">
+                <i class="fas fa-user-shield text-green-400"></i> Safety Harness Compliance
+            </h3>
+            <p class="text-xs text-slate-300 mb-3 leading-relaxed">Hum high structural roofs par kaam karte waqt lifeline body safety belts, anti-slip shoes, aur safety helmets ka 100% istemal lazmi karte hain.</p>
         </div>
+    </div>
+</div>
+
     </section>
 
     <section id="subscription" class="py-24 px-4">
@@ -679,8 +708,8 @@
             </div>
         </div>
     </section>
+<section id="reviews-grid-block" class="py-20 px-4 bg-slate-50 dark:bg-slate-900/40 hidden">
 
-    <section class="py-20 px-4 bg-slate-50 dark:bg-slate-900/40">
         <div class="container mx-auto max-w-5xl">
             <div class="text-center mb-12 scroll-reveal">
                 <span class="text-xs font-black uppercase tracking-widest text-emerald-600 bg-emerald-100 dark:bg-emerald-900/40 dark:text-emerald-400 px-3 py-1.5 rounded-full">Testimonials</span>
