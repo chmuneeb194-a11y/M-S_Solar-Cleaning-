@@ -1227,20 +1227,22 @@ if (window.matchMedia) {
 }
  
         function toggleDarkMode() {
-            var body = document.body;
-            var themeIcon = document.getElementById('theme-toggle-icon');
-            if (body.classList.contains('dark')) {
-                body.classList.remove('dark');
-                document.documentElement.classList.remove('dark');
-                themeIcon.className = "fas fa-moon";
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.add('dark');
-                document.documentElement.classList.add('dark');
-                themeIcon.className = "fas fa-sun";
-                localStorage.setItem('theme', 'dark');
-            }
-        }
+    var body = document.body;
+    var themeIcon = document.getElementById('theme-toggle-icon');
+    
+    if (body.classList.contains('dark')) {
+        body.classList.remove('dark');
+        document.documentElement.classList.remove('dark');
+        if(themeIcon) themeIcon.className = "fas fa-moon text-slate-400 text-xs";
+        localStorage.setItem('theme', 'light'); // Ab website light mode yaad rakhegi
+    } else {
+        body.classList.add('dark');
+        document.documentElement.classList.add('dark');
+        if(themeIcon) themeIcon.className = "fas fa-sun text-yellow-400 text-xs";
+        localStorage.setItem('theme', 'dark'); // Ab website dark mode yaad rakhegi
+    }
+}
+
 
         var currentLang = 'en';
         function toggleLanguage() {
@@ -1674,14 +1676,24 @@ if (window.matchMedia) {
         };
 
         window.onload = function() {
-            if(localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark');
-                document.documentElement.classList.add('dark');
-                var tIcon = document.getElementById('theme-toggle-icon');
-                if(tIcon) tIcon.className = "fas fa-sun";
-            }
-                    // Automatic system color scheme layout engine activator
+    // Agar user ne manually koi theme select KI hui hai to wahi chalao
+    if (localStorage.getItem('theme')) {
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+            document.documentElement.classList.add('dark');
+            var tIcon = document.getElementById('theme-toggle-icon');
+            if(tIcon) tIcon.className = "fas fa-sun text-yellow-400 text-xs";
+        } else {
+            document.body.classList.remove('dark');
+            document.documentElement.classList.remove('dark');
+            var tIcon = document.getElementById('theme-toggle-icon');
+            if(tIcon) tIcon.className = "fas fa-moon text-slate-400 text-xs";
+        }
+    } else {
+        // Agar pehle se kuch save nahi hai (clear cache), to mobile system theme lagao
         applyAutomaticSystemTheme();
+    }
+
 
             switchServiceLayout('solar');
             calculateBill();
