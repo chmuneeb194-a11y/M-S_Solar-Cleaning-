@@ -1031,7 +1031,8 @@
       </div>
 
       <div>
-        <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">WhatsApp / Mobile Number</label>
+          <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">WhatsApp / Mobile Number</label>
+
         <input type="text" id="carwash-cust-phone" placeholder="e.g. 03001234567" class="w-full ios-input-glass">
       </div>
 
@@ -1609,12 +1610,9 @@ function downloadBillPDF(type) {
     var customRateInput = document.getElementById("custom-solar-rate");
     var hasCustomRate = customRateInput && customRateInput.value.trim() !== "";
 
-    var total = 0;
-    if (hasCustomRate) {
-        total = parseInt(customRateInput.value) || 0;
-    } else {
-        total = (panels * ratePerPanel) + blowerCost;
-    }
+var currentRate = hasCustomRate ? (parseInt(customRateInput.value) || 80) : 80;
+var total = (panels * currentRate) + blowerCost;
+
 
     var isFreeReward = false;
     if (phone) {
@@ -1634,7 +1632,8 @@ function downloadBillPDF(type) {
     } else {
         if (calcNoteEl) {
             calcNoteEl.innerText = hasCustomRate 
-                ? "*Bill updated successfully with your custom offer price!" 
+                 ? "*Washing rate calculated at Rs. " + currentRate + " per panel"
+
                 : "*Standard washing rate calculated at Rs. 80 per panel";
         }
     }
