@@ -377,39 +377,17 @@
                         <i class="fas fa-times text-sm"></i>
                     </button>
                 </div>
-<nav class="space-y-3">
-    <button type="button" onclick="scrollToSection('solar-calc-block')" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/10 text-slate-300">
-        <span class="text-blue-500 text-base"><i class="fas fa-bolt"></i></span>
-        <span class="text-xs sm:text-sm">⚡ Solar Solutions Setup</span>
-    </button>
-    <button type="button" onclick="scrollToSection('carwash-calc-block')" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/10 text-slate-300">
-        <span class="text-emerald-500 text-base"><i class="fas fa-soap"></i></span>
-        <span class="text-xs sm:text-sm">🧽 Car Wash Service Setup</span>
-    </button>
-    
-    <button type="button" onclick="toggleModal('safetyModal')" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/10 text-slate-300">
-        <span class="text-yellow-500 text-base"><i class="fas fa-user-shield"></i></span>
-        <span class="text-xs sm:text-sm">🛡️ Safety Compliance</span>
-    </button>
-    
-    <button type="button" onclick="toggleModal('standardsModal')" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/10 text-slate-300">
-        <span class="text-cyan-500 text-base"><i class="fas fa-users-cog"></i></span>
-        <span class="text-xs sm:text-sm">👨‍🔧 Standards & Team</span>
-    </button>
-    
-    <button type="button" onclick="toggleModal('reviewsModal')" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/10 text-slate-300">
-        <span class="text-pink-500 text-base"><i class="fas fa-star"></i></span>
-        <span class="text-xs sm:text-sm">⭐ Customer Reviews</span>
-    </button>
-            <!-- Button 4: Operations Desk -->
-        <button type="button" onclick="toggleModal('operationsModal')" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/10 text-slate-300">
-            <span class="text-indigo-400 text-base"><i class="fas fa-headset"></i></span>
-            <span class="text-xs sm:text-xs font-medium">📞 Operations Desk</span>
-        </button>
-
-    
-</nav>
-
+                
+                <nav class="space-y-3">
+                    <button type="button" onclick="scrollToSection('solar-calc-block')" class="w-full flex items-center space-x-3 p-3 rounded-xl font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 text-left transition">
+                        <span class="text-blue-500 text-base"><i class="fas fa-bolt"></i></span>
+                        <span class="text-xs sm:text-sm">⚡ Solar Solutions Setup</span>
+                    </button>
+                    <button type="button" onclick="scrollToSection('carwash-calc-block')" class="w-full flex items-center space-x-3 p-3 rounded-xl font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 text-left transition">
+                        <span class="text-emerald-500 text-base"><i class="fas fa-soap"></i></span>
+                        <span class="text-xs sm:text-sm">🧽 Car Wash Service Setup</span>
+                    </button>
+                </nav>
             </div>
             
             <div class="border-t border-slate-100 dark:border-slate-800 pt-6 mt-auto space-y-4">
@@ -465,6 +443,20 @@
                 </div>
             </div>
             
+            <!-- POINT 6: Project Video & Team Image Container -->
+            <div class="md:col-span-5 flex flex-col items-center gap-6 scroll-reveal">
+                <div class="relative p-2 bg-white/20 backdrop-blur-2xl rounded-3xl shadow-2xl max-w-[340px] w-full border border-white/40">
+                    <div class="bg-slate-800 rounded-2xl overflow-hidden h-[460px] w-full relative">
+                        <img src="team-solar-service.jpg" alt="M S Solar Team Action" class="w-full h-full object-cover object-center">
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent p-5 text-center">
+                            <p class="text-base font-bold text-white tracking-wide">MS Solar Experts</p>
+                            <p class="text-xs text-yellow-400 uppercase font-bold tracking-widest mt-1">Sahiwal Field Lead</p>
+                        </div>
+                    </div>
+                    <span class="absolute -top-3 -right-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 border border-white/30">
+                        <i class="fas fa-check-circle"></i> On-Site Action
+                    </span>
+                </div>
 
                 <!-- Project Video Block (Embedded YouTube Frame) -->
                 <div class="w-full max-w-[340px] p-4 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-xl">
@@ -684,6 +676,32 @@
                 <a href="#calculator-section" class="block w-full text-center bg-gradient-to-r from-blue-900 to-slate-900 hover:scale-[1.02] text-white font-extrabold py-4 rounded-xl shadow-lg mt-6 transition">
                     Lock Monthly Plan Discount
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-slate-50 dark:bg-slate-900/40">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center mb-12 scroll-reveal">
+                <span class="text-xs font-black uppercase tracking-widest text-emerald-600 bg-emerald-100 dark:bg-emerald-900/40 dark:text-emerald-400 px-3 py-1.5 rounded-full">Testimonials</span>
+                <h3 class="text-2xl font-black mt-2 text-slate-900 dark:text-white" data-en="What Sahiwal Solar Owners Say" data-ur="ساہیوال کے کسٹمرز کی رائے">Customer Live Reviews Grid</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="ios-glass p-6 rounded-2xl shadow-sm scroll-reveal">
+                    <div class="flex items-center space-x-1 text-amber-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-xs italic text-slate-600 dark:text-slate-400">"Excellent service in Farid Town. My solar generation increased by 4kW immediately after the high pressure wash!"</p>
+                    <span class="block text-xs font-bold mt-4 text-slate-900 dark:text-white">— Kamran M. (Farid Town)</span>
+                </div>
+                <div class="ios-glass p-6 rounded-2xl shadow-sm scroll-reveal">
+                    <div class="flex items-center space-x-1 text-amber-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-xs italic text-slate-600 dark:text-slate-400">"The monthly subscription is highly recommended. Safe harness belts usage and professional staff behavior."</p>
+                    <span class="block text-xs font-bold mt-4 text-slate-900 dark:text-white">— Dr. Asif (Scheme No. 2)</span>
+                </div>
+                <div class="ios-glass p-6 rounded-2xl shadow-sm scroll-reveal">
+                    <div class="flex items-center space-x-1 text-amber-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-xs italic text-slate-600 dark:text-slate-400">"They cleaned both my 10kW system and my Honda Civic using specialized washers. Best multi-maintenance crew!"</p>
+                    <span class="block text-xs font-bold mt-4 text-slate-900 dark:text-white">— M. Tariq (Tariq Road)</span>
+                </div>
             </div>
         </div>
     </section>
@@ -1132,6 +1150,16 @@
         <p class="text-xs text-slate-500">© 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
     </footer>
 
+    <div class="fixed bottom-0 inset-x-0 bg-white/80 dark:bg-slate-900/90 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center justify-between z-40 lg:hidden shadow-lg">
+        <div class="flex flex-col">
+            <span class="text-[10px] font-black uppercase text-slate-400" data-en="Sahiwal Maintenance" data-ur="ساہیوال مینٹیننس">Sahiwal Service Desk</span>
+            <span class="text-xs font-bold text-slate-800 dark:text-white" data-en="Instant Calculation Active" data-ur="لائیو بکنگ مینو">Fast Operations Desk</span>
+        </div>
+        <a href="#calculator-section" class="bg-blue-600 text-white font-black text-xs px-4 py-2 rounded-xl shadow-md transform active:scale-95 transition" data-en="Quick Book Now" data-ur="فوری بکنگ کریں">
+            Book Now
+        </a>
+    </div>
+
     <a href="https://wa.me/923084462121?text=Hi%20MS%20Solar%20Cleaning,%20I%20want%20to%20know%20more%20about%20your%20services." 
        target="_blank" 
        class="fixed bottom-20 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl z-50 transition duration-300 transform hover:scale-110 group border border-white/20" 
@@ -1141,8 +1169,8 @@
             Chat With Us
         </span>
     </a>
-<script>
 
+    <script>
        // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
 // ==========================================
@@ -1199,22 +1227,20 @@ if (window.matchMedia) {
 }
  
         function toggleDarkMode() {
-    var body = document.body;
-    var themeIcon = document.getElementById('theme-toggle-icon');
-    
-    if (body.classList.contains('dark')) {
-        body.classList.remove('dark');
-        document.documentElement.classList.remove('dark');
-        if(themeIcon) themeIcon.className = "fas fa-moon text-slate-400 text-xs";
-        localStorage.setItem('theme', 'light'); // Ab website light mode yaad rakhegi
-    } else {
-        body.classList.add('dark');
-        document.documentElement.classList.add('dark');
-        if(themeIcon) themeIcon.className = "fas fa-sun text-yellow-400 text-xs";
-        localStorage.setItem('theme', 'dark'); // Ab website dark mode yaad rakhegi
-    }
-}
-
+            var body = document.body;
+            var themeIcon = document.getElementById('theme-toggle-icon');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                document.documentElement.classList.remove('dark');
+                themeIcon.className = "fas fa-moon";
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                document.documentElement.classList.add('dark');
+                themeIcon.className = "fas fa-sun";
+                localStorage.setItem('theme', 'dark');
+            }
+        }
 
         var currentLang = 'en';
         function toggleLanguage() {
@@ -1648,42 +1674,28 @@ if (window.matchMedia) {
         };
 
         window.onload = function() {
-        // Cache Breaker: Purani ghalti wali settings ko remove karo
-        if (localStorage.getItem('theme') === 'thene') { localStorage.removeItem('theme'); }
-
-        // 1. Theme Logic
-        if (localStorage.getItem('theme')) {
-            if (localStorage.getItem('theme') === 'dark') {
+            if(localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark');
                 document.documentElement.classList.add('dark');
                 var tIcon = document.getElementById('theme-toggle-icon');
-                if(tIcon) tIcon.className = "fas fa-sun text-yellow-400 text-xs";
-            } else {
-                document.body.classList.remove('dark');
-                document.documentElement.classList.remove('dark');
-                var tIcon = document.getElementById('theme-toggle-icon');
-                if(tIcon) tIcon.className = "fas fa-moon text-slate-400 text-xs";
+                if(tIcon) tIcon.className = "fas fa-sun";
             }
-        } else {
-            // Agar koi valid setting nahi, to system theme auto-detect karo
-            applyAutomaticSystemTheme();
-        }
+                    // Automatic system color scheme layout engine activator
+        applyAutomaticSystemTheme();
 
-        // 2. Initializers
-        switchServiceLayout('solar');
-        calculateBill();
-        calculateCarWashBill();
-        runAnimatedCounters();
-        initScrollAnimations();
+            switchServiceLayout('solar');
+            calculateBill();
+            calculateCarWashBill();
+            runAnimatedCounters();
+            initScrollAnimations();
 
-        // 3. Slider Logic
-        var initSlider = setInterval(function(){
-            var shell = document.getElementById("slider-box-shell");
-            if (shell && shell.offsetWidth > 0) {
-                moveSlider(50);
-                clearInterval(initSlider);
-            }
-        }, 100);
+            var initSlider = setInterval(function(){
+                var shell = document.getElementById("slider-box-shell");
+                if (shell && shell.offsetWidth > 0) {
+                    moveSlider(50);
+                    clearInterval(initSlider);
+                }
+            }, 100);
     };
 
     </script>
@@ -1735,85 +1747,6 @@ if (window.matchMedia) {
   });
 </script>
 
- <!-- ================= MODALS (POPUPS) SECTION ================= -->
-
-<!-- 1. SAFETY COMPLIANCE MODAL -->
-<div id="safetyModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[200] hidden flex items-center justify-center p-4">
-    <div class="bg-[#0f172a] border border-slate-700 rounded-2xl max-w-md w-full p-6 relative">
-        <button onclick="toggleModal('safetyModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
-        <div class="flex items-center gap-3 mb-4">
-            <span class="text-green-400 text-2xl">👤🛡️</span>
-            <h3 class="text-xl font-bold text-[#eab308]">Safety Harness Compliance</h3>
-        </div>
-        <p class="text-gray-300 leading-relaxed text-sm">Hum high structural roofs par kaam karte waqt lifeline body safety belts, anti-slip shoes, aur safety helmets ka 100% istemal lazmi karte hain.</p>
-    </div>
-</div>
-
-<!-- 2. SAFETY STANDARDS & TEAM MODAL -->
-<div id="standardsModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[200] hidden flex items-center justify-center p-4">
-    <div class="bg-[#0f172a] border border-slate-700 rounded-2xl max-w-md w-full p-6 relative max-h-[85vh] overflow-y-auto">
-        <button onclick="toggleModal('standardsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
-        <h3 class="text-xl font-bold text-white mb-6 text-center border-b border-slate-800 pb-2">Our Safety Standards</h3>
-        
-        <div class="mb-4 text-center">
-            <span class="text-blue-400 text-3xl block mb-2">🛡️</span>
-            <h4 class="font-bold text-white text-base">Certified Safety Standards</h4>
-            <p class="text-gray-400 text-xs mt-1">Zero structural damage or scratching risks during process</p>
-        </div>
-        <hr class="border-slate-800 my-4">
-        <div class="mb-4 text-center">
-            <span class="text-green-400 text-3xl block mb-2">👨‍🔧</span>
-            <h4 class="font-bold text-white text-base">Trained Staff Team</h4>
-            <p class="text-gray-400 text-xs mt-1">Equipped with anti-slip shoes and lifelines harness safety</p>
-        </div>
-        <hr class="border-slate-800 my-4">
-        <div class="text-center">
-            <span class="text-yellow-400 text-3xl block mb-2">🤝</span>
-            <h4 class="font-bold text-white text-base">Welcome</h4>
-        </div>
-    </div>
-</div>
-
-<!-- 3. CUSTOMER REVIEWS MODAL -->
-<div id="reviewsModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[200] hidden flex items-center justify-center p-4">
-    <div class="bg-[#0f172a] border border-slate-700 rounded-2xl max-w-lg w-full p-6 relative max-h-[85vh] overflow-y-auto">
-        <button onclick="toggleModal('reviewsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
-        <h3 class="text-xl font-bold text-white mb-6 text-center">Customer Live Reviews</h3>
-        
-        <div class="space-y-4">
-            <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                <div class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</div>
-                <p class="text-gray-300 text-xs italic">"Excellent service in Farid Town. My solar generation increased by 4kW immediately after the high pressure wash!"</p>
-                <span class="text-blue-400 text-xs font-bold block mt-2">— Kamran M. (Farid Town)</span>
-            </div>
-            <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                <div class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</div>
-                <p class="text-gray-300 text-xs italic">"The monthly subscription is highly recommended. Safe harness belts usage and professional staff behavior."</p>
-                <span class="text-blue-400 text-xs font-bold block mt-2">— Dr. Asif (Scheme No. 2)</span>
-            </div>
-            <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                <div class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</div>
-                <p class="text-gray-300 text-xs italic">"They cleaned both my 10kW system and my Honda Civic using specialized washers. Best multi-maintenance crew!"</p>
-                <span class="text-blue-400 text-xs font-bold block mt-2">— M. Tariq (Tariq Road)</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Functional Script To Open/Close Popups -->
-<script>
-function toggleModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        if (modal.classList.contains('hidden')) {
-            modal.classList.remove('hidden');
-            document.getElementById('mobile-menu')?.classList.add('hidden');
-        } else {
-            modal.classList.add('hidden');
-        }
-    }
-}
-</script>
-      
+       
 </body>
 </html>
