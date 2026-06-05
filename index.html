@@ -377,17 +377,32 @@
                         <i class="fas fa-times text-sm"></i>
                     </button>
                 </div>
-                
-                <nav class="space-y-3">
-                    <button type="button" onclick="scrollToSection('solar-calc-block')" class="w-full flex items-center space-x-3 p-3 rounded-xl font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 text-left transition">
-                        <span class="text-blue-500 text-base"><i class="fas fa-bolt"></i></span>
-                        <span class="text-xs sm:text-sm">⚡ Solar Solutions Setup</span>
-                    </button>
-                    <button type="button" onclick="scrollToSection('carwash-calc-block')" class="w-full flex items-center space-x-3 p-3 rounded-xl font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 text-left transition">
-                        <span class="text-emerald-500 text-base"><i class="fas fa-soap"></i></span>
-                        <span class="text-xs sm:text-sm">🧽 Car Wash Service Setup</span>
-                    </button>
-                </nav>
+<nav class="space-y-3">
+    <button type="button" onclick="scrollToSection('solar-calc-block')" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/10 text-slate-300">
+        <span class="text-blue-500 text-base"><i class="fas fa-bolt"></i></span>
+        <span class="text-xs sm:text-sm">⚡ Solar Solutions Setup</span>
+    </button>
+    <button type="button" onclick="scrollToSection('carwash-calc-block')" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/10 text-slate-300">
+        <span class="text-emerald-500 text-base"><i class="fas fa-soap"></i></span>
+        <span class="text-xs sm:text-sm">🧽 Car Wash Service Setup</span>
+    </button>
+    
+    <button type="button" onclick="toggleModal('safetyModal')" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/10 text-slate-300">
+        <span class="text-yellow-500 text-base"><i class="fas fa-user-shield"></i></span>
+        <span class="text-xs sm:text-sm">🛡️ Safety Compliance</span>
+    </button>
+    
+    <button type="button" onclick="toggleModal('standardsModal')" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/10 text-slate-300">
+        <span class="text-cyan-500 text-base"><i class="fas fa-users-cog"></i></span>
+        <span class="text-xs sm:text-sm">👨‍🔧 Standards & Team</span>
+    </button>
+    
+    <button type="button" onclick="toggleModal('reviewsModal')" class="w-full flex items-center justify-between p-2 rounded-lg hover:bg-white/10 text-slate-300">
+        <span class="text-pink-500 text-base"><i class="fas fa-star"></i></span>
+        <span class="text-xs sm:text-sm">⭐ Customer Reviews</span>
+    </button>
+</nav>
+
             </div>
             
             <div class="border-t border-slate-100 dark:border-slate-800 pt-6 mt-auto space-y-4">
@@ -676,32 +691,6 @@
                 <a href="#calculator-section" class="block w-full text-center bg-gradient-to-r from-blue-900 to-slate-900 hover:scale-[1.02] text-white font-extrabold py-4 rounded-xl shadow-lg mt-6 transition">
                     Lock Monthly Plan Discount
                 </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-20 px-4 bg-slate-50 dark:bg-slate-900/40">
-        <div class="container mx-auto max-w-5xl">
-            <div class="text-center mb-12 scroll-reveal">
-                <span class="text-xs font-black uppercase tracking-widest text-emerald-600 bg-emerald-100 dark:bg-emerald-900/40 dark:text-emerald-400 px-3 py-1.5 rounded-full">Testimonials</span>
-                <h3 class="text-2xl font-black mt-2 text-slate-900 dark:text-white" data-en="What Sahiwal Solar Owners Say" data-ur="ساہیوال کے کسٹمرز کی رائے">Customer Live Reviews Grid</h3>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="ios-glass p-6 rounded-2xl shadow-sm scroll-reveal">
-                    <div class="flex items-center space-x-1 text-amber-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-xs italic text-slate-600 dark:text-slate-400">"Excellent service in Farid Town. My solar generation increased by 4kW immediately after the high pressure wash!"</p>
-                    <span class="block text-xs font-bold mt-4 text-slate-900 dark:text-white">— Kamran M. (Farid Town)</span>
-                </div>
-                <div class="ios-glass p-6 rounded-2xl shadow-sm scroll-reveal">
-                    <div class="flex items-center space-x-1 text-amber-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-xs italic text-slate-600 dark:text-slate-400">"The monthly subscription is highly recommended. Safe harness belts usage and professional staff behavior."</p>
-                    <span class="block text-xs font-bold mt-4 text-slate-900 dark:text-white">— Dr. Asif (Scheme No. 2)</span>
-                </div>
-                <div class="ios-glass p-6 rounded-2xl shadow-sm scroll-reveal">
-                    <div class="flex items-center space-x-1 text-amber-500 mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-xs italic text-slate-600 dark:text-slate-400">"They cleaned both my 10kW system and my Honda Civic using specialized washers. Best multi-maintenance crew!"</p>
-                    <span class="block text-xs font-bold mt-4 text-slate-900 dark:text-white">— M. Tariq (Tariq Road)</span>
-                </div>
             </div>
         </div>
     </section>
