@@ -1675,40 +1675,41 @@ if (window.matchMedia) {
             if(sliderInput) moveSlider(sliderInput.value);
         };
 
-        window.onload = function() {
-    // Agar user ne manually koi theme select KI hui hai to wahi chalao
-    if (localStorage.getItem('theme')) {
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark');
-            document.documentElement.classList.add('dark');
-            var tIcon = document.getElementById('theme-toggle-icon');
-            if(tIcon) tIcon.className = "fas fa-sun text-yellow-400 text-xs";
+    window.onload = function() {
+        // 1. Theme Logic
+        if (localStorage.getItem('theme')) {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark');
+                document.documentElement.classList.add('dark');
+                var tIcon = document.getElementById('theme-toggle-icon');
+                if(tIcon) tIcon.className = "fas fa-sun text-yellow-400 text-xs";
+            } else {
+                document.body.classList.remove('dark');
+                document.documentElement.classList.remove('dark');
+                var tIcon = document.getElementById('theme-toggle-icon');
+                if(tIcon) tIcon.className = "fas fa-moon text-slate-400 text-xs";
+            }
         } else {
-            document.body.classList.remove('dark');
-            document.documentElement.classList.remove('dark');
-            var tIcon = document.getElementById('theme-toggle-icon');
-            if(tIcon) tIcon.className = "fas fa-moon text-slate-400 text-xs";
+            applyAutomaticSystemTheme();
         }
-    } else {
-        // Agar pehle se kuch save nahi hai (clear cache), to mobile system theme lagao
-        applyAutomaticSystemTheme();
-    }
 
+        // 2. Initializers
+        switchServiceLayout('solar');
+        calculateBill();
+        calculateCarWashBill();
+        runAnimatedCounters();
+        initScrollAnimations();
 
-            switchServiceLayout('solar');
-            calculateBill();
-            calculateCarWashBill();
-            runAnimatedCounters();
-            initScrollAnimations();
-
-            var initSlider = setInterval(function(){
-                var shell = document.getElementById("slider-box-shell");
-                if (shell && shell.offsetWidth > 0) {
-                    moveSlider(50);
-                    clearInterval(initSlider);
-                }
-            }, 100);
+        // 3. Slider Logic
+        var initSlider = setInterval(function(){
+            var shell = document.getElementById("slider-box-shell");
+            if (shell && shell.offsetWidth > 0) {
+                moveSlider(50);
+                clearInterval(initSlider);
+            }
+        }, 100);
     };
+
 
     </script>
             <script>
