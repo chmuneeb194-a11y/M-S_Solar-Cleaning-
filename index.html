@@ -1675,7 +1675,10 @@ if (window.matchMedia) {
             if(sliderInput) moveSlider(sliderInput.value);
         };
 
-    window.onload = function() {
+        window.onload = function() {
+        // Cache Breaker: Purani ghalti wali settings ko remove karo
+        if (localStorage.getItem('theme') === 'thene') { localStorage.removeItem('theme'); }
+
         // 1. Theme Logic
         if (localStorage.getItem('theme')) {
             if (localStorage.getItem('theme') === 'dark') {
@@ -1690,6 +1693,7 @@ if (window.matchMedia) {
                 if(tIcon) tIcon.className = "fas fa-moon text-slate-400 text-xs";
             }
         } else {
+            // Agar koi valid setting nahi, to system theme auto-detect karo
             applyAutomaticSystemTheme();
         }
 
@@ -1709,7 +1713,6 @@ if (window.matchMedia) {
             }
         }, 100);
     };
-
 
     </script>
             <script>
