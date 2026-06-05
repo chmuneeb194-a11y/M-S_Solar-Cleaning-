@@ -1726,6 +1726,40 @@ if (window.matchMedia) {
                 }
             }, 100);
     };
+// 1. Dark Mode Automatic System Fix (Poori Website Ke Liye)
+function applyAutomaticSystemTheme() {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (isDark) {
+        document.documentElement.classList.add('dark');
+        document.body.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+        document.body.classList.remove('dark');
+    }
+}
+// System level change ko track karne ke liye event listener
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyAutomaticSystemTheme);
+
+// 2. Custom Scroll & Unhide Function (Teeno Buttons Aur Fast Desk Ke Liye)
+function scrollToSection(sectionId) {
+    // Agar menu open hai to use close karein
+    if (typeof toggleMenu === 'function') {
+        toggleMenu();
+    }
+    
+    const targetBlock = document.getElementById(sectionId);
+    if (targetBlock) {
+        // Agar target hidden hai (Jese safety compliance, reviews, certified standards, ya fast desk)
+        if (targetBlock.classList.contains('hidden')) {
+            targetBlock.classList.remove('hidden');
+        }
+        
+        // Smooth scroll implementation
+        setTimeout(() => {
+            targetBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+    }
+}
 
     </script>
             <script>
