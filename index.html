@@ -1752,6 +1752,85 @@ if (window.matchMedia) {
   });
 </script>
 
-       
+ <!-- ================= MODALS (POPUPS) SECTION ================= -->
+
+<!-- 1. SAFETY COMPLIANCE MODAL -->
+<div id="safetyModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[200] hidden flex items-center justify-center p-4">
+    <div class="bg-[#0f172a] border border-slate-700 rounded-2xl max-w-md w-full p-6 relative">
+        <button onclick="toggleModal('safetyModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
+        <div class="flex items-center gap-3 mb-4">
+            <span class="text-green-400 text-2xl">👤🛡️</span>
+            <h3 class="text-xl font-bold text-[#eab308]">Safety Harness Compliance</h3>
+        </div>
+        <p class="text-gray-300 leading-relaxed text-sm">Hum high structural roofs par kaam karte waqt lifeline body safety belts, anti-slip shoes, aur safety helmets ka 100% istemal lazmi karte hain.</p>
+    </div>
+</div>
+
+<!-- 2. SAFETY STANDARDS & TEAM MODAL -->
+<div id="standardsModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[200] hidden flex items-center justify-center p-4">
+    <div class="bg-[#0f172a] border border-slate-700 rounded-2xl max-w-md w-full p-6 relative max-h-[85vh] overflow-y-auto">
+        <button onclick="toggleModal('standardsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
+        <h3 class="text-xl font-bold text-white mb-6 text-center border-b border-slate-800 pb-2">Our Safety Standards</h3>
+        
+        <div class="mb-4 text-center">
+            <span class="text-blue-400 text-3xl block mb-2">🛡️</span>
+            <h4 class="font-bold text-white text-base">Certified Safety Standards</h4>
+            <p class="text-gray-400 text-xs mt-1">Zero structural damage or scratching risks during process</p>
+        </div>
+        <hr class="border-slate-800 my-4">
+        <div class="mb-4 text-center">
+            <span class="text-green-400 text-3xl block mb-2">👨‍🔧</span>
+            <h4 class="font-bold text-white text-base">Trained Staff Team</h4>
+            <p class="text-gray-400 text-xs mt-1">Equipped with anti-slip shoes and lifelines harness safety</p>
+        </div>
+        <hr class="border-slate-800 my-4">
+        <div class="text-center">
+            <span class="text-yellow-400 text-3xl block mb-2">🤝</span>
+            <h4 class="font-bold text-white text-base">Welcome</h4>
+        </div>
+    </div>
+</div>
+
+<!-- 3. CUSTOMER REVIEWS MODAL -->
+<div id="reviewsModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[200] hidden flex items-center justify-center p-4">
+    <div class="bg-[#0f172a] border border-slate-700 rounded-2xl max-w-lg w-full p-6 relative max-h-[85vh] overflow-y-auto">
+        <button onclick="toggleModal('reviewsModal')" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
+        <h3 class="text-xl font-bold text-white mb-6 text-center">Customer Live Reviews</h3>
+        
+        <div class="space-y-4">
+            <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                <div class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</div>
+                <p class="text-gray-300 text-xs italic">"Excellent service in Farid Town. My solar generation increased by 4kW immediately after the high pressure wash!"</p>
+                <span class="text-blue-400 text-xs font-bold block mt-2">— Kamran M. (Farid Town)</span>
+            </div>
+            <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                <div class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</div>
+                <p class="text-gray-300 text-xs italic">"The monthly subscription is highly recommended. Safe harness belts usage and professional staff behavior."</p>
+                <span class="text-blue-400 text-xs font-bold block mt-2">— Dr. Asif (Scheme No. 2)</span>
+            </div>
+            <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                <div class="text-yellow-400 mb-1">⭐⭐⭐⭐⭐</div>
+                <p class="text-gray-300 text-xs italic">"They cleaned both my 10kW system and my Honda Civic using specialized washers. Best multi-maintenance crew!"</p>
+                <span class="text-blue-400 text-xs font-bold block mt-2">— M. Tariq (Tariq Road)</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Functional Script To Open/Close Popups -->
+<script>
+function toggleModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+            document.getElementById('mobile-menu')?.classList.add('hidden');
+        } else {
+            modal.classList.add('hidden');
+        }
+    }
+}
+</script>
+      
 </body>
 </html>
