@@ -1311,7 +1311,8 @@ if (window.matchMedia) {
                 });
             }
         }
-    // 1. Live form se data collect karna
+        
+function downloadBillPDF(type) {
     var name = document.getElementById(type === 'solar' ? 'cust-name' : 'carwash-cust-name')?.value || 'Valued Customer';
     var phone = document.getElementById(type === 'solar' ? 'cust-phone' : 'carwash-cust-phone')?.value || 'Not Provided';
     var address = document.getElementById(type === 'solar' ? 'cust-address' : 'carwash-cust-address')?.value || 'Not Provided';
@@ -1319,9 +1320,8 @@ if (window.matchMedia) {
     var date = document.getElementById(type === 'solar' ? 'booking-date' : 'carwash-booking-date')?.value || 'ASAP';
     var time = document.getElementById(type === 'solar' ? 'booking-time' : 'carwash-booking-time')?.value || 'Standard Slot';
 
-    // 2. Specific Service details dynamic banana
     var title = type === 'solar' ? '⚡ M S SOLAR CLEANING SERVICES' : '🚗 M S CAR WASH SERVICES';
-    var detailsHtml = '';
+    var detailsHtml = "";
 
     if (type === 'solar') {
         var qty = document.getElementById('panel-qty')?.value || '0';
@@ -1329,24 +1329,19 @@ if (window.matchMedia) {
         var inverter = document.getElementById('inverter-qty')?.value || '1';
         var blower = document.getElementById('blower-check')?.checked ? 'Yes' : 'No';
         
-        detailsHtml = `
-            <div style="margin-bottom: 8px;"><strong>Solar Panels Qty:</strong> ${qty} Panels</div>
-            <div style="margin-bottom: 8px;"><strong>Panels Brand:</strong> ${brand}</div>
-            <div style="margin-bottom: 8px;"><strong>Inverter Setup:</strong> ${inverter} Unit(s)</div>
-            <div style="margin-bottom: 8px;"><strong>Blower Service:</strong> ${blower}</div>
-        `;
+        detailsHtml = "<div style='margin-bottom: 8px;'><strong>Solar Panels Qty:</strong> " + qty + " Panels</div>" +
+                      "<div style='margin-bottom: 8px;'><strong>Panels Brand:</strong> " + brand + "</div>" +
+                      "<div style='margin-bottom: 8px;'><strong>Inverter Setup:</strong> " + inverter + " Unit(s)</div>" +
+                      "<div style='margin-bottom: 8px;'><strong>Blower Service:</strong> " + blower + "</div>";
     } else {
         var vehicleSelect = document.getElementById('carwash-type');
         var vehicleLabel = vehicleSelect ? vehicleSelect.options[vehicleSelect.selectedIndex].text.split('-')[0].trim() : 'Standard';
         var qty = document.getElementById('carwash-qty')?.value || '1';
         
-        detailsHtml = `
-            <div style="margin-bottom: 8px;"><strong>Vehicle Type:</strong> ${vehicleLabel}</div>
-            <div style="margin-bottom: 8px;"><strong>Vehicle Quantity:</strong> ${qty} Car(s)</div>
-        `;
+        detailsHtml = "<div style='margin-bottom: 8px;'><strong>Vehicle Type:</strong> " + vehicleLabel + "</div>" +
+                      "<div style='margin-bottom: 8px;'><strong>Vehicle Quantity:</strong> " + qty + " Car(s)</div>";
     }
 
-    // 3. Background mein ek virtual neat & clean white corporate frame banana
     var invoiceElement = document.createElement('div');
     invoiceElement.style.padding = '40px';
     invoiceElement.style.backgroundColor = '#ffffff';
@@ -1354,44 +1349,38 @@ if (window.matchMedia) {
     invoiceElement.style.fontFamily = '"Helvetica Neue", Helvetica, Arial, sans-serif';
     invoiceElement.style.width = '100%';
 
-    invoiceElement.innerHTML = `
-        <div style="border-bottom: 3px solid #0284c7; padding-bottom: 20px; margin-bottom: 30px; text-align: center;">
-            <h1 style="color: #0284c7; margin: 0; font-size: 26px; letter-spacing: 1px;">${title}</h1>
-            <p style="font-size: 13px; color: #64748b; margin: 6px 0 0 0; text-transform: uppercase;">Official Digital Bill Statement</p>
-        </div>
-        
-        <div style="display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 14px; line-height: 1.7; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px;">
-            <div style="flex: 1;">
-                <h3 style="color: #0f172a; margin: 0 0 10px 0; font-size: 16px; border-left: 4px solid #0284c7; padding-left: 8px;">Customer Details</h3>
-                <div><strong>Name:</strong> ${name}</div>
-                <div><strong>Phone:</strong> ${phone}</div>
-                <div><strong>Address:</strong> ${address}, Sahiwal</div>
-            </div>
-            <div style="flex: 1; text-align: right;">
-                <h3 style="color: #0f172a; margin: 0 0 10px 0; font-size: 16px; padding-right: 8px;">Booking Meta</h3>
-                <div><strong>Date:</strong> ${date}</div>
-                <div><strong>Time Slot:</strong> ${time}</div>
-                <div><strong>Status:</strong> Pending Confirmation</div>
-            </div>
-        </div>
+    invoiceElement.innerHTML = 
+        "<div style='border-bottom: 3px solid #0284c7; padding-bottom: 20px; margin-bottom: 30px; text-align: center;'>" +
+            "<h1 style='color: #0284c7; margin: 0; font-size: 26px; letter-spacing: 1px;'>" + title + "</h1>" +
+            "<p style='font-size: 13px; color: #64748b; margin: 6px 0 0 0; text-transform: uppercase;'>Official Digital Bill Statement</p>" +
+        "</div>" +
+        "<div style='display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 14px; line-height: 1.7; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px;'>" +
+            "<div style='flex: 1;'>" +
+                "<h3 style='color: #0f172a; margin: 0 0 10px 0; font-size: 16px; border-left: 4px solid #0284c7; padding-left: 8px;'>Customer Details</h3>" +
+                "<div><strong>Name:</strong> " + name + "</div>" +
+                "<div><strong>Phone:</strong> " + phone + "</div>" +
+                "<div><strong>Address:</strong> " + address + ", Sahiwal</div>" +
+            "</div>" +
+            "<div style='flex: 1; text-align: right;'>" +
+                "<h3 style='color: #0f172a; margin: 0 0 10px 0; font-size: 16px; padding-right: 8px;'>Booking Meta</h3>" +
+                "<div><strong>Date:</strong> " + date + "</div>" +
+                "<div><strong>Time Slot:</strong> " + time + "</div>" +
+                "<div><strong>Status:</strong> Pending Confirmation</div>" +
+            "</div>" +
+        "</div>" +
+        "<div style='margin-bottom: 30px; font-size: 14px; line-height: 1.7; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;'>" +
+            "<h3 style='color: #0f172a; margin: 0 0 15px 0; font-size: 16px; text-transform: uppercase; font-weight: bold; border-bottom: 1px solid #cbd5e1; padding-bottom: 5px;'>Order Specifications</h3>" +
+            detailsHtml +
+        "</div>" +
+        "<div style='background: linear-gradient(135deg, #0f172a, #1e293b); color: #ffffff; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: 40px;'>" +
+            "<span style='font-size: 16px; font-weight: 500; text-transform: uppercase;'>Total Estimated Amount</span>" +
+            "<span style='font-size: 24px; font-weight: bold; color: #38bdf8;'>Rs. " + finalBill + " /-</span>" +
+        "</div>" +
+        "<div style='margin-top: 60px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px dashed #cbd5e1; padding-top: 20px;'>" +
+            "<p style='margin: 0 0 5px 0; font-weight: 600;'>Thank you for choosing M S Services!</p>" +
+            "<p style='margin: 0;'>This is a system-generated professional summary document valid for billing verification.</p>" +
+        "</div>";
 
-        <div style="margin-bottom: 30px; font-size: 14px; line-height: 1.7; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
-            <h3 style="color: #0f172a; margin: 0 0 15px 0; font-size: 16px; text-transform: uppercase; font-weight: bold; border-bottom: 1px solid #cbd5e1; padding-bottom: 5px;">Order Specifications</h3>
-            ${detailsHtml}
-        </div>
-
-        <div style="background: linear-gradient(135deg, #0f172a, #1e293b); color: #ffffff; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: 40px;">
-            <span style="font-size: 16px; font-weight: 500; text-transform: uppercase;">Total Estimated Amount</span>
-            <span style="font-size: 24px; font-weight: bold; color: #38bdf8;">Rs. ${finalBill} /-</span>
-        </div>
-
-        <div style="margin-top: 60px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px dashed #cbd5e1; padding-top: 20px;">
-            <p style="margin: 0 0 5px 0; font-weight: 600;">Thank you for choosing M S Services!</p>
-            <p style="margin: 0;">This is a system-generated professional summary document valid for billing verification.</p>
-        </div>
-    `;
-
-    // 4. html2pdf settings configuration
     var opt = {
         margin:       [10, 10, 10, 10],
         filename:     type === 'solar' ? 'MS_Solar_Bill_Statement.pdf' : 'MS_CarWash_Bill_Statement.pdf',
@@ -1400,12 +1389,8 @@ if (window.matchMedia) {
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // 5. Render directly to file save without injecting layout clutter into window
     html2pdf().set(opt).from(invoiceElement).save();
 }
-
-
-
 
         function setVehicleTypeViaBadge(val) {
             var selectObj = document.getElementById('carwash-type');
