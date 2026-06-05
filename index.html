@@ -977,6 +977,20 @@
                             <div class="text-4xl font-black my-1">Rs. <span id="total-price">640</span></div>
                             <p class="text-[10px] text-slate-300" id="rate-calc-note">*Standard washing rate calculated at Rs. 80 per panel</p>
                         </div>
+<!-- NEW INDEPENDENT APPLY & EDIT SECTION -->
+<div class="my-4 p-4 bg-slate-900/80 border border-slate-700/60 rounded-2xl text-center">
+    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2.5">📋 Confirm Your Booking Details</p>
+    <div class="flex items-center justify-center gap-3">
+        <!-- Apply Button -->
+        <button type="button" onclick="sendBooking()" class="flex-1 max-w-[150px] bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white text-xs font-bold py-2 px-3 rounded-xl shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition-all">
+            <span>✅ Apply</span>
+        </button>
+        <!-- Edit Button -->
+        <button type="button" onclick="document.getElementById('panel-qty').scrollIntoView({behavior: 'smooth'})" class="flex-1 max-w-[100px] bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-300 text-xs font-medium py-2 px-3 rounded-xl flex items-center justify-center gap-1 active:scale-95 transition-all">
+            <span>✏️ Edit</span>
+        </button>
+    </div>
+</div>
 
                         <button type="button" onclick="downloadBillPDF('solar')" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
                             <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
@@ -1070,6 +1084,20 @@
                             <div class="text-4xl font-black my-1">Rs. <span id="carwash-total-price">800</span></div>
                             <p class="text-[10px] text-slate-600">*Premium high-pressure washer cleaning with deep glossy finishing</p>
                         </div>
+<!-- NEW INDEPENDENT CARWASH APPLY & EDIT SECTION -->
+<div class="my-4 p-4 bg-slate-900/80 border border-slate-700/60 rounded-2xl text-center">
+    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2.5">📋 Confirm Your Car Wash Details</p>
+    <div class="flex items-center justify-center gap-3">
+        <!-- Apply Button -->
+        <button type="button" onclick="sendCarWashBooking()" class="flex-1 max-w-[150px] bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white text-xs font-bold py-2 px-3 rounded-xl shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition-all">
+            <span>✅ Apply</span>
+        </button>
+        <!-- Edit Button -->
+        <button type="button" onclick="document.getElementById('carwash-cust-name').scrollIntoView({behavior: 'smooth'})" class="flex-1 max-w-[100px] bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-300 text-xs font-medium py-2 px-3 rounded-xl flex items-center justify-center gap-1 active:scale-95 transition-all">
+            <span>✏️ Edit</span>
+        </button>
+    </div>
+</div>
 
                         <button type="button" onclick="downloadBillPDF('carwash')" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
                             <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
@@ -1285,17 +1313,21 @@ function downloadBillPDF(type) {
     var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
     var element = document.getElementById(elementId);
     if (!element) return;
-    
+
+    // Mobile screen par background bilkul sahi rakhne ke liye temporary class settings
     var opt = {
         margin:       [10, 10, 10, 10],
-        filename:     'MS_Maintenance_Bill_Statement.pdf',
+        filename:     type === 'solar' ? 'MS_Solar_Bill_Statement.pdf' : 'MS_CarWash_Bill_Statement.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false, letterRendering: true },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0, scrollX: 0 },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pdfCallback: function(pdf) {}
     };
-    
-    html2pdf().from(element).set(opt).toPdf().get('pdf').save();
+
+    // Background mein download process trigger karne ka sabse behtareen tarika
+    html2pdf().set(opt).from(element).save();
 }
+
 
 
         function setVehicleTypeViaBadge(val) {
