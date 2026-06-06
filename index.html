@@ -1297,18 +1297,26 @@ if (window.matchMedia) {
             }
         }
 
-        function downloadBillPDF(type) {
-            var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
-            var element = document.getElementById(elementId);
-            var opt = {
-                margin:       10,
-                filename:     'MS_Maintenance_Bill_Statement.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
-        }
+function downloadBillPDF(type) {
+    var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
+    var element = document.getElementById(elementId);
+    
+    if (!element) {
+        alert("Error: Bill section not found!");
+        return;
+    }
+
+    var opt = {
+        margin:       [10, 10, 10, 10],
+        filename:     type === 'solar' ? 'MS_Solar_Bill_Statement.pdf' : 'MS_CarWash_Bill_Statement.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().from(element).set(opt).save();
+}
+
 function applySolarOffer() {
     var applyBtn = document.getElementById('solar-apply-btn');
     var applyIcon = document.getElementById('solar-apply-icon');
