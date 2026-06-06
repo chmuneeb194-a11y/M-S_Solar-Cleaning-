@@ -1507,7 +1507,28 @@ function editSolarOffer() {
         function openCustomDropdown(id) {
             var targetPanel = document.getElementById('panel-' + id);
             if (!targetPanel) return;
-            
+        }
+        
+            function downloadBillPDF(type) {
+    var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
+    var element = document.getElementById(elementId);
+    
+    if (!element) {
+        alert("Bill section not found!");
+        return;
+    }
+
+    var opt = {
+        margin:       10,
+        filename:     type === 'solar' ? 'MS_Solar_Bill.pdf' : 'MS_CarWash_Bill.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().from(element).set(opt).save();
+}
+
             var isHidden = targetPanel.classList.contains('hidden');
             
             var activePanels = document.querySelectorAll('.custom-dropdown-panel');
