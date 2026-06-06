@@ -1720,22 +1720,25 @@ var ratePerPanel = rateInput ? (parseFloat(rateInput.value) || 80) : 80;
                 }
                 localStorage.setItem(dataKey, JSON.stringify(userData));
             }
-            
-            var rawMessageText = "🚀 *M S SOLAR CLEANING - NEW ADVANCED BOOKING* 🚀\n\n" + 
-                                 "*Customer Name:* " + name + "\n" +
-                                 "📞 *Customer Phone:* " + custPhone + "\n" +
-                                 "🏆 *Loyalty Reward Status:* " + loyaltyStatusText + "\n" +
-                                 "📍 *Sahiwal Address:* " + address + "\n" +
-                                 "🗺️ *Google Maps Pin:* " + mapUrlStr + "\n" +
-                                 "📅 *Scheduled Date:* " + date + "\n" +
-                                 "⏰ *Time Slot:* " + time + "\n" +
-                                 "📦 *Package Selected:* " + planType + " Plan\n\n" +
-                                 "*Solar Panels Qty:* " + qty + " Panels\n" +
-                                 "🏷️ *Panels Brand:* " + pBrand + "\n" +
-                                 "⚡ *Inverter Setup:* " + brand + " (" + size + ") x" + invertersCount + " Unit(s)\n" +
-                                 "⏳ *Last Cleaned Status:* " + historyLog + "\n" +
-                                 "💨 *Inverter Blower Service:* " + blowerActive + "\n" +
-                                 "💰 *Final Estimated Bill:* Rs. " + finalBill;
+                var rateInput = document.getElementById("custom-panel-rate");
+    var appliedRate = rateInput && rateInput.value ? rateInput.value : "80";
+    var rawMessageText = "🧼 *M S SOLAR CLEANING - NEW ADVANCED BOOKING* 🧼\n\n" +
+        "*Customer Name:* " + name + "\n" +
+        "📞 *Customer Phone:* " + custPhone + "\n" +
+        "🏆 *Loyalty Reward Status:* " + loyaltyStatusText + "\n" +
+        "📍 *Sahiwal Address:* " + address + "\n" +
+        "🗺️ *Google Maps Pin:* " + mapUrlStr + "\n" +
+        "📅 *Scheduled Date:* " + date + "\n" +
+        "⏰ *Time Slot:* " + time + "\n" +
+        "📦 *Package Selected:* " + planType + " Plan\n\n" +
+        "☀️ *Solar Panels Qty:* " + qty + " Panels\n" +
+        "💰 *Customer Offer Rate:* Rs. " + appliedRate + " per panel\n" +
+        "🏷️ *Panels Brand:* " + pBrand + "\n" +
+        "⚡ *Inverter Setup:* " + brand + " (" + size + " kw) x " + invertersCount + "\n" +
+        "⏳ *Last Cleaned Status:* " + historyLog + "\n" +
+        "💨 *Inverter Blower Service:* " + blowerActive + "\n" +
+        "💰 *Final Estimated Bill:* Rs. " + finalBill;
+
             
             var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
             window.open(url, '_blank');
