@@ -1727,9 +1727,110 @@ var ratePerPanel = rateInput ? (parseFloat(rateInput.value) || 80) : 80;
                 }
                 localStorage.setItem(dataKey, JSON.stringify(userData));
             }
-                var rateInput = document.getElementById("custom-panel-rate");
+function calculateBill() {
+    var panelsInput = document.getElementById("panel-qty").value;
+    var panels = parseInt(panelsInput);
+    if (isNaN(panels) || panels < 0) panels = 0;
+
+    var invertersCount = parseInt(document.getElementById("inverter-qty").value) || 1;
+    var servicePlan = document.getElementById("service-package").value;
+    var phone = document.getElementById("cust-phone").value.trim();
+
+    var rateInput = document.getElementById("custom-panel-rate");
+    var ratePerPanel = rateInput ? (parseFloat(rateInput.value) || 80) : 80;
+
+    var blowerCost = document.getElementById("blower-check").checked ? (500 * invertersCount) : 0;
+
+    var total = (panels * ratePerPanel) + blowerCost;
+    var isFreeReward = false;
+
+    if (phone) {
+        var currentMonth = new Date().getMonth();
+        var userData = JSON.parse(localStorage.getItem("ms_solar_user_" + phone)) || { month: currentMonth, count: 0 };
+        if (userData.month === currentMonth && userData.count === 3) {
+            isFreeReward = true;
+        }
+    }
+
+    if (isFreeReward) {
+        total = 0;
+        document.getElementById("rate-calc-note").innerHTML = "<span class='text-green-400 font-bold'>🎁 3+1 Loyalty Offer Applied! Free Wash</span>";
+    } else if (servicePlan === "Monthly") {
+        total = Math.round(total * 0.90);
+        document.getElementById("rate-calc-note").innerText = "Monthly Subscription package configuration active (10% Discount Applied)";
+    } else {
+        document.getElementById("rate-calc-note").innerText = "*Standard washing rate calculated at Rs. " + ratePerPanel + " per panel";
+    }
+
+    document.getElementById("total-price").innerText = total;
+
+    var powerLossUnits = (panels * 0.4).toFixed(1);
+    var moneyLossValue = Math.round(powerLossUnits * 45 * 30);
+
+    document.getElementById("alert-units").innerText = powerLossUnits;
+    document.getElementById("alert-money").innerText = moneyLossValue.toLocaleString();
+}
+
+function toggleFaq(id) {
+    var ans = document.getElementById("faq-ans-" + id);
+    var icon = document.getElementById("faq-icon-" + id);
+    if (ans.classList.contains("hidden")) {
+        ans.classList.remove("hidden");
+        icon.style.transform = "rotate(180deg)";
+    } else {
+        ans.classList.add("hidden");
+        icon.style.transform = "rotate(0deg)";
+    }
+}
+
+function sendBooking() {
+    var phoneNumber = "923084462121";
+    var name = document.getElementById("cust-name").value || "Valued Customer";
+    var custPhone = document.getElementById("cust-phone").value.trim() || "Not Provided";
+
+    var address = document.getElementById("cust-address").value || "Not Provided (Sahiwal Region)";
+    var mapUrlStr = document.getElementById("maps-url").value || "No Live Pin Attached";
+    var date = document.getElementById("booking-date").value || "As soon as possible";
+    var time = document.getElementById("booking-time").value;
+
+    var planType = document.getElementById("service-package").value;
+    var pBrand = document.getElementById("panel-brand").value;
+    var brand = document.getElementById("inv-brand").value;
+    var size = document.getElementById("inv-size").value;
+    var invertersCount = document.getElementById("inverter-qty").value;
+    var historylog = document.getElementById("cleaning-history").value;
+
+    var panelsInput = document.getElementById("panel-qty").value;
+    var qty = parseInt(panelsInput);
+    if (isNaN(qty) || qty < 0) qty = 0;
+
+    var finalBill = document.getElementById("total-price").innerText;
+    var blowerActive = document.getElementById("blower-check").checked ? "Yes (" + invertersCount + " Inverters)" : "No";
+
+    var loyaltyStatusText = "Regular Client Campaign";
+    if (custPhone !== "Not Provided") {
+        var currentMonth = new Date().getMonth();
+        var dataKey = "ms_solar_user_" + custPhone;
+        var userData = JSON.parse(localStorage.getItem(dataKey)) || { month: currentMonth, count: 0 };
+
+        if (userData.count === 3) {
+            loyaltyStatusText = "🎁 *3+1 FREE LOYALTY WASH APPLIED!*";
+            userData.count = 4;
+        } else {
+            if (userData.count >= 4) {
+                userData.count = 1;
+            } else {
+                userData.count += 1;
+            }
+            loyaltyStatusText = "Active Service Count: " + userData.count + " This Month";
+        }
+        localStorage.setItem(dataKey, JSON.stringify(userData));
+    }
+
+    var rateInput = document.getElementById("custom-panel-rate");
     var appliedRate = rateInput && rateInput.value ? rateInput.value : "80";
-    var rawMessageText = "🧼 *M S SOLAR CLEANING - NEW ADVANCED BOOKING* 🧼\n\n" +
+
+    var rawMessageText = " *M S SOLAR CLEANING - NEW ADVANCED BOOKING* \n\n" +
         "*Customer Name:* " + name + "\n" +
         "📞 *Customer Phone:* " + custPhone + "\n" +
         "🏆 *Loyalty Reward Status:* " + loyaltyStatusText + "\n" +
@@ -1740,119 +1841,19 @@ var ratePerPanel = rateInput ? (parseFloat(rateInput.value) || 80) : 80;
         "📦 *Package Selected:* " + planType + " Plan\n\n" +
         "☀️ *Solar Panels Qty:* " + qty + " Panels\n" +
         "💰 *Customer Offer Rate:* Rs. " + appliedRate + " per panel\n" +
-        "🏷️ *Panels Brand:* " + pBrand + "\n" +
-        "⚡ *Inverter Setup:* " + brand + " (" + size + " kw) x " + invertersCount + "\n" +
-        "⏳ *Last Cleaned Status:* " + historyLog + "\n" +
+        "🧬 *Panels Brand:* " + pBrand + "\n" +
+        "🔌 *Inverter Setup:* " + brand + " (" + size + " kw) x " + invertersCount + "\n" +
+        "🧼 *Last Cleaned Status:* " + historylog + "\n" +
         "💨 *Inverter Blower Service:* " + blowerActive + "\n" +
-        "💰 *Final Estimated Bill:* Rs. " + finalBill;
+        "💵 *Final Estimated Bill:* Rs. " + finalBill;
 
-            
-            var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
-            window.open(url, '_blank');
-            
-            if (custPhone !== "Not Provided") {
-                checkCustomerHistory();
-            }
-        }
-        
-        window.onresize = function() {
-            var sliderInput = document.getElementById("image-split-slider");
-            if(sliderInput) moveSlider(sliderInput.value);
-        };
+    var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
+    window.open(url, '_blank');
 
-        window.onload = function() {
-            if(localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark');
-                document.documentElement.classList.add('dark');
-                var tIcon = document.getElementById('theme-toggle-icon');
-                if(tIcon) tIcon.className = "fas fa-sun";
-            }
-                    // Automatic system color scheme layout engine activator
-        applyAutomaticSystemTheme();
-
-            switchServiceLayout('solar');
-            calculateBill();
-            calculateCarWashBill();
-            runAnimatedCounters();
-            initScrollAnimations();
-
-            var initSlider = setInterval(function(){
-                var shell = document.getElementById("slider-box-shell");
-                if (shell && shell.offsetWidth > 0) {
-                    moveSlider(50);
-                    clearInterval(initSlider);
-                }
-            }, 100);
-    };
-// 1. Dark Mode Automatic System Fix (Poori Website Ke Liye)
-function applyAutomaticSystemTheme() {
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (isDark) {
-        document.documentElement.classList.add('dark');
-        document.body.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-        document.body.classList.remove('dark');
+    if (custPhone !== "Not Provided") {
+        checkCustomerHistory();
     }
 }
-// System level change ko track karne ke liye event listener
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyAutomaticSystemTheme);
-
-// 2. Custom Scroll & Unhide Function (Teeno Buttons Aur Fast Desk Ke Liye)
-function scrollToSection(sectionId) {
-    // Agar menu open hai to use close karein
-    if (typeof toggleMenu === 'function') {
-        toggleMenu();
-    }
-    
-    const targetBlock = document.getElementById(sectionId);
-    if (targetBlock) {
-        // Agar target hidden hai (Jese safety compliance, reviews, certified standards, ya fast desk)
-        if (targetBlock.classList.contains('hidden')) {
-            targetBlock.classList.remove('hidden');
-        }
-        
-        // Smooth scroll implementation
-        setTimeout(() => {
-            targetBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 150);
-    }
-}
-
-    </script>
-            <script>
-  let deferredPrompt;
-  const installBanner = document.getElementById('pwa-install-banner');
-  const installBtn = document.getElementById('pwa-install-btn');
-
-  // Service Worker Registration
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/M-S_Solar-Cleaning-/sw.js')
-        .then(reg => console.log('Service Worker Registered!', reg))
-        .catch(err => console.log('Service Worker Log Error:', err));
-    });
-  }
-
-  // Browser se install ka signal pakadna
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBanner) {
-      installBanner.style.display = 'flex';
-    }
-  });
-
- const navInstallBtn = document.getElementById('nav-install-btn');
-if (navInstallBtn) {
-    navInstallBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to the install prompt: ${outcome}`);
-            deferredPrompt = null;
-            if (installBanner) {
-                installBanner.style.display = 'none';
             }
         }
     });
