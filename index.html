@@ -1296,7 +1296,6 @@ if (window.matchMedia) {
                 });
             }
         }
-
 function downloadBillPDF(type) {
     var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
     var element = document.getElementById(elementId);
@@ -1317,22 +1316,21 @@ function downloadBillPDF(type) {
     html2pdf().from(element).set(opt).save();
 }
 
-
 function applySolarOffer() {
     var applyBtn = document.getElementById('solar-apply-btn');
     var applyIcon = document.getElementById('solar-apply-icon');
     var applyText = document.getElementById('solar-apply-text');
     var rateInput = document.getElementById('custom-panel-rate');
-    
+
     if(applyBtn && rateInput) {
         applyBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
         applyBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
-        
+
         if(applyIcon) {
             applyIcon.classList.remove('opacity-0', 'max-w-0');
             applyIcon.classList.add('opacity-100', 'mr-1');
         }
-        
+
         if(applyText) applyText.innerText = "Offer Applied";
         rateInput.disabled = true;
     }
@@ -1343,16 +1341,16 @@ function editSolarOffer() {
     var applyIcon = document.getElementById('solar-apply-icon');
     var applyText = document.getElementById('solar-apply-text');
     var rateInput = document.getElementById('custom-panel-rate');
-    
+
     if(applyBtn && rateInput) {
         applyBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
         applyBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
-        
+
         if(applyIcon) {
             applyIcon.classList.remove('opacity-100', 'mr-1');
             applyIcon.classList.add('opacity-0', 'max-w-0');
         }
-        
+
         if(applyText) applyText.innerText = "Apply Offer";
         rateInput.disabled = false;
         rateInput.focus();
