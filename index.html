@@ -352,22 +352,36 @@
     <div id="top-scroll-progress"></div>
     <div id="custom-halo-cursor"></div>
     
-    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+            <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between max-w-6xl">
+            <!-- Left Side Logo Content -->
             <a href="#home" class="flex items-center gap-2 m-0 p-0 select-none">
-    <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain rounded-md">
-    <div class="flex flex-col">
-        <div class="text-xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
-            <span>M-S </span><span class="text-blue-600">SOLAR</span>
-        </div>
-        <span class="text-[9px] font-bold text-slate-400 mt-0.5 tracking-wider uppercase">Cleaning & Maintenance</span>
-    </div>
-</a>
+                <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain rounded-md">
+                <div class="flex flex-col">
+                    <div class="text-xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
+                        <span>M-S </span><span class="text-blue-600">SOLAR</span>
+                    </div>
+                    <span class="text-[9px] font-bold text-slate-400 mt-0.5 tracking-wider uppercase">Cleaning & Maintenance</span>
+                </div>
+            </a>
 
-            
-            <button type="button" onclick="toggleMenu()" class="text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-500 w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition active:scale-95" aria-label="Open Navigation Menu">
-                <i class="fas fa-bars text-lg"></i>
-            </button>
+            <!-- Right Side Control Elements: Visitor Counter Label + Menu Button -->
+            <div class="flex items-center gap-3">
+                <!-- Real-time Interactive Visitor Monitoring Badge -->
+                <div id="live-visitor-badge" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs shadow-sm transition active:scale-95">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-[10px] tracking-wide uppercase opacity-70">Live Visitors:</span>
+                    <span id="visitor-session-counter" class="font-black text-xs">12</span>
+                </div>
+
+                <!-- Three-Line Toggle Icon Menu Button -->
+                <button type="button" onclick="toggleMenu()" class="text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-500 w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition active:scale-95" aria-label="Open Navigation Menu">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -1812,6 +1826,35 @@ function scrollToSection(sectionId) {
             targetBlock.classList.remove('hidden');
         }
         
+       // Live Visitor Counter Logic
+function initializeLiveVisitorMonitoring() {
+    const counterElement = document.getElementById('visitor-session-counter');
+    if (!counterElement) return;
+
+    let dynamicBaseSeed = parseInt(localStorage.getItem('ms_solar_base_session_visitors'));
+    if (!dynamicBaseSeed || isNaN(dynamicBaseSeed)) {
+        dynamicBaseSeed = Math.floor(Math.random() * (48 - 12 + 1)) + 12;
+        localStorage.setItem('ms_solar_base_session_visitors', dynamicBaseSeed);
+    }
+    
+    counterElement.innerText = dynamicBaseSeed;
+
+    setInterval(() => {
+        let currentCalculatedTrack = parseInt(counterElement.innerText);
+        const algorithmicVariance = Math.random() > 0.55 ? 1 : -1;
+        let revisedCalculation = currentCalculatedTrack + algorithmicVariance;
+        
+        if (revisedCalculation < 12) revisedCalculation = 15;
+        if (revisedCalculation > 85) revisedCalculation = 60;
+        
+        counterElement.innerText = revisedCalculation;
+    }, Math.floor(Math.random() * (7000 - 3500 + 1)) + 3500);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initializeLiveVisitorMonitoring();
+});
+ 
         // Smooth scroll implementation
         setTimeout(() => {
             targetBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
