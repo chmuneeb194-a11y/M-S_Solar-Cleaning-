@@ -1700,30 +1700,69 @@ function switchServiceLayout(serviceType) {
                                  "📞 *Customer Phone:* " + phone + "\n" +
                                  "📍 *Sahiwal Address:* " + address + "\n" +
                                  "📅 *Scheduled Date:* " + date + "\n" +
-                                 "⏰ *Time Slot:* " + time + "\n" +
-                                 "*Vehicle Type:* " + vehicleLabel + "\n" +
-                                 "*Quantity:* " + qty + " Vehicle(s)\n" +
-                                 "💰 *Final Estimated Bill:* Rs. " + finalBill;
 
-            var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
-            window.open(url, '_blank');
+                function switchServiceLayout(serviceType) {
+    var solarBlock = document.getElementById('solar-calc-block');
+    var carwashBlock = document.getElementById('carwash-calc-block');
+    var tankiBlock = document.getElementById('tanki-calc-block');
+
+    // Aapka pehle wala hide karne ka logic (Bina code chota kiye)
+    if (solarBlock) solarBlock.classList.add('hidden');
+    if (carwashBlock) carwashBlock.classList.add('hidden');
+    if (tankiBlock) tankiBlock.classList.add('hidden');
+
+    // Labels aur Active status text update karne ka logic
+    if (serviceType === 'carwash') {
+        if (carwashBlock) carwashBlock.classList.remove('hidden');
+        document.getElementById('label-main-tab-carwash').innerText = "🚗 Car Wash Active";
+        document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
+        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "Open Tanki Wash";
+    } else if (serviceType === 'solar') {
+        if (solarBlock) solarBlock.classList.remove('hidden');
+        document.getElementById('label-main-tab-solar').innerText = "✨ Solar Active";
+        document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
+        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "Open Tanki Wash";
+    } else if (serviceType === 'tanki') {
+        if (tankiBlock) tankiBlock.classList.remove('hidden');
+        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "🪣 Tanki Wash Active";
+        document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
+        document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
+        if (typeof window.calculateTankiBill === 'function') window.calculateTankiBill();
+    }
+
+    // Dropdown panels ko automatically close karo selection ke baad
+    if (document.getElementById('panel-main-tab-carwash')) document.getElementById('panel-main-tab-carwash').classList.add('hidden');
+    if (document.getElementById('panel-main-tab-solar')) document.getElementById('panel-main-tab-solar').classList.add('hidden');
+    if (document.getElementById('panel-main-tab-tanki')) document.getElementById('panel-main-tab-tanki').classList.add('hidden');
+
+    // Aapka original Before/After Image Slider refresh logic (Bilkul mehfooz)
+    setTimeout(function() {
+        var sliderInput = document.getElementById("image-split-slider");
+        if (sliderInput && typeof moveSlider === 'function') {
+            moveSlider(sliderInput.value);
         }
+    }, 50);
+}
 
-        function openCustomDropdown(id) {
-            var targetPanel = document.getElementById('panel-' + id);
-            if (!targetPanel) return;
-            
-            var isHidden = targetPanel.classList.contains('hidden');
-            
-            var activePanels = document.querySelectorAll('.custom-dropdown-panel');
-            activePanels.forEach(function(p) {
-                p.classList.add('hidden');
-            });
+function openCustomDropdown(id) {
+    // Agar click HTML se poori id ('panel-main-tab-tanki') bhej raha ha ya adhoori, dono ko handle karega
+    var targetId = id.startsWith('panel-') ? id : 'panel-' + id;
+    var targetPanel = document.getElementById(targetId);
+    if (!targetPanel) return;
 
-            if (isHidden) {
-                targetPanel.classList.remove('hidden');
-            }
+    // Baqi saare dropdown panels ko dhoond kar band karo
+var panels = document.querySelectorAll('#panel-main-tab-carwash, #panel-main-tab-solar, #panel-main-tab-tanki');
+
+    panels.forEach(function(p) {
+        if (p.id !== targetId) {
+            p.classList.add('hidden');
         }
+    });
+
+    // Sirf is panel ko open ya close (toggle) karo
+    targetPanel.classList.toggle('hidden');
+}
+
 
         function selectCustomOption(id, actualValue, textLabel) {
             document.getElementById(id).value = actualValue;
