@@ -331,121 +331,6 @@
             opacity: 1;
             transform: translateY(0);
             filter: blur(0);
-                  /* Water Tanki Image Slider Styles */
-        .slider-container {
-            position: relative;
-            width: 100%;
-            height: 380px;
-            overflow: hidden;
-            border-radius: 1.5rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-            border: 1.5px solid rgba(255, 255, 255, 0.8);
-        }
-        .slider-side {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            overflow: hidden;
-            width: 100%;
-        }
-        .slider-side img {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            max-width: none;
-            object-fit: cover;
-        }
-        .side-left { left: 0; width: 50%; z-index: 20; }
-        .side-right { right: 0; z-index: 10; }
-        .side-left img { left: 0; }
-        .side-right img { right: 0; }
-        .slider-input {
-            position: absolute;
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            z-index: 30;
-            outline: none;
-            margin: 0;
-            cursor: ew-resize;
-        }
-        .slider-input::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 4px;
-            height: 380px;
-            background: #eab308;
-            cursor: ew-resize;
-        }
-        .slider-line {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 4px;
-            background: #eab308;
-            z-index: 25;
-            pointer-events: none;
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
-        }
-        .slider-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            color: #1e3a8a;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 26;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            font-size: 14px;
-            border: 2px solid #eab308;
-        }
-        .custom-dropdown-panel {
-            position: absolute;
-            top: 104%;
-            left: 0;
-            right: 0;
-            z-index: 150;
-            max-height: 260px;
-            overflow-y: auto;
-            background: rgba(255, 255, 255, 0.82) !important;
-            backdrop-filter: blur(45px) saturate(380%) !important;
-            border: 1.8px solid rgba(255, 255, 255, 0.95) !important;
-            border-radius: 1.25rem;
-        }
-        body.dark .custom-dropdown-panel {
-            background: rgba(30, 41, 59, 0.95) !important;
-            border: 1.8px solid rgba(255, 255, 255, 0.1) !important;
-        }
-        .custom-dropdown-panel div {
-            padding: 11px 16px;
-            font-weight: 700;
-            color: #1e293b;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-            transition: all 0.2s ease;
-        }
-        body.dark .custom-dropdown-panel div {
-            color: #f1f5f9;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .custom-dropdown-panel div:hover {
-            background: rgba(37, 99, 235, 0.12);
-            color: #1d4ed8;
-            padding-left: 20px;
-        }
-  
         }
     </style>
 </head>
@@ -467,36 +352,22 @@
     <div id="top-scroll-progress"></div>
     <div id="custom-halo-cursor"></div>
     
-            <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between max-w-6xl">
-            <!-- Left Side Logo Content -->
             <a href="#home" class="flex items-center gap-2 m-0 p-0 select-none">
-                <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain rounded-md">
-                <div class="flex flex-col">
-                    <div class="text-xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
-                        <span>M-S </span><span class="text-blue-600">SOLAR</span>
-                    </div>
-                    <span class="text-[9px] font-bold text-slate-400 mt-0.5 tracking-wider uppercase">Cleaning & Maintenance</span>
-                </div>
-            </a>
+    <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain rounded-md">
+    <div class="flex flex-col">
+        <div class="text-xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
+            <span>M-S </span><span class="text-blue-600">SOLAR</span>
+        </div>
+        <span class="text-[9px] font-bold text-slate-400 mt-0.5 tracking-wider uppercase">Cleaning & Maintenance</span>
+    </div>
+</a>
 
-            <!-- Right Side Control Elements: Visitor Counter Label + Menu Button -->
-            <div class="flex items-center gap-3">
-                <!-- Real-time Interactive Visitor Monitoring Badge -->
-                <div id="live-visitor-badge" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs shadow-sm transition active:scale-95">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </span>
-                    <span class="text-[10px] tracking-wide uppercase opacity-70">Live Visitors:</span>
-                    <span id="visitor-session-counter" class="font-black text-xs">12</span>
-                </div>
-
-                <!-- Three-Line Toggle Icon Menu Button -->
-                <button type="button" onclick="toggleMenu()" class="text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-500 w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition active:scale-95" aria-label="Open Navigation Menu">
-                    <i class="fas fa-bars text-lg"></i>
-                </button>
-            </div>
+            
+            <button type="button" onclick="toggleMenu()" class="text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-500 w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition active:scale-95" aria-label="Open Navigation Menu">
+                <i class="fas fa-bars text-lg"></i>
+            </button>
         </div>
     </header>
 
@@ -906,62 +777,6 @@
                     <div id="panel-main-tab-solar" class="custom-dropdown-panel hidden shadow-2xl">
                         <div onclick="switchServiceLayout('solar')">⚡ Activate Solar System Calculator</div>
                     </div>
-                                    <!-- Water Tanki Option Box -->
-                <div class="relative">
-                    <label class="block text-[11px] font-black uppercase text-slate-600 dark:text-slate-400 mb-1">🪣 Water Tanki Services</label>
-                    <div id="trigger-main-tab-tanki" onclick="window.openCustomDropdown('main-tab-tanki')" class="ios-input-glass px-4 py-3 rounded-xl font-bold flex justify-between items-center cursor-pointer select-none shadow-sm bg-white dark:bg-slate-900">
-                        <span id="label-main-tab-tanki" class="text-slate-700 dark:text-slate-200">Open Tanki Wash</span>
-                        <i class="fas fa-chevron-down text-xs opacity-60 text-slate-700 dark:text-slate-200"></i>
-                    </div>
-                    <div id="panel-main-tab-tanki" class="custom-dropdown-panel hidden shadow-2xl">
-                        <div onclick="window.switchServiceLayout('tanki')">🪣 Activate Water Tanki Calculator</div>
-                    </div>
-                </div>
-
-                </div>
-            </div>
-               <!-- WATER TANKI WASH BLOCK STRUCTURE -->
-            <div id="tanki-calc-block" class="hidden mt-8">
-                <div class="text-center mb-10">
-                    <span class="text-cyan-700 font-black text-xs tracking-widest uppercase bg-cyan-100/80 px-3 py-1.5 rounded-full dark:bg-cyan-900/40 dark:text-cyan-300">🪣 Water Tanki Cleaning</span>
-                    <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3">Water Tanki Wash Calculator</h2>
-                    <p class="text-slate-500 text-sm mt-2">Apni Tanki ka size select karein aur chemical treatment pricing check karein.</p>
-                </div>
-
-                <div id="pdf-tanki-target" class="ios-glass p-6 rounded-3xl shadow-2xl max-w-xl mx-auto relative">
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Customer Name</label>
-                            <input type="text" id="tanki-cust-name" placeholder="e.g. Zain" class="w-full ios-input-glass px-4 py-3 rounded-xl focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Select Tanki Capacity / Type</label>
-                            <select id="tanki-type" onchange="window.calculateTankiBill()" class="w-full ios-input-glass p-3 rounded-xl font-medium bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100">
-                                <option value="1500" selected>Standard Plastic Tanki (Up to 500 Gallons) – Rs. 1500</option>
-                                <option value="2500">Large Plastic Tanki (500 - 1000 Gallons) – Rs. 2500</option>
-                                <option value="4000">Underground Cement Tanki / Diggi (Standard) – Rs. 4000</option>
-                                <option value="6000">Underground Cement Tanki / Diggi (Large) – Rs. 6000</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-2">Tankiyon Ki Tadad (Quantity)</label>
-                            <div class="flex items-center space-x-3">
-                                <button type="button" onclick="window.changeTankiQty(-1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl flex items-center justify-center shadow">-</button>
-                                <input type="number" id="tanki-qty" value="1" min="1" oninput="window.calculateTankiBill()" class="w-16 text-center ios-input-glass h-12 rounded-xl font-bold text-xl">
-                                <button type="button" onclick="window.changeTankiQty(1)" class="bg-blue-900 text-white font-extrabold w-12 h-12 rounded-xl text-xl flex items-center justify-center shadow">+</button>
-                            </div>
-                        </div>
-
-                        <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-2xl text-center shadow-2xl">
-                            <span class="text-[10px] uppercase tracking-widest text-cyan-400 font-bold">Estimated Tanki Wash Cost</span>
-                            <div class="text-4xl font-black my-1">Rs. <span id="tanki-total-price">1500</span></div>
-                            <p class="text-[10px] text-slate-300">*Deep scrubbing with anti-bacterial chemical washing treatment included</p>
-                        </div>
-
-                        <button onclick="window.sendTankiBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white text-center font-bold py-4 rounded-xl shadow-lg text-lg flex items-center justify-center gap-2">
-                            <i class="fab fa-whatsapp text-xl"></i> Book Tanki Wash via WhatsApp
-                        </button>
-                    </div>
                 </div>
             </div>
 
@@ -1294,21 +1109,20 @@
                     Direct mobile se scanning karke rabta ya monthly package active karne ke liye scan karein.
                 </p>
             </div>
+        </div>
+    </section>
 
-    </div>
-</section>
-<section id="gallery-section" class="py-16 px-4 border-t border-slate-200 dark:border-slate-800">
-    <div class="container mx-auto max-w-4xl">
-        <h3 class="text-xl font-black text-slate-500 dark:text-white text-center mb-6 flex items-center justify-center gap-2">
-            <i class="fas fa-images text-blue-600"></i> Our Professional Car Wash Gallery
-        </h3>
-    </div>
-</section>
-
-<section class="py-16 px-4">
-    <div class="container mx-auto max-w-4xl">
-        <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
-            
+    <section id="gallery-section" class="py-16 px-4 border-t border-slate-200 dark:border-slate-800">
+        <div class="container mx-auto max-w-4xl">
+            <h3 class="text-xl font-black text-slate-900 dark:text-white text-center mb-6 flex items-center justify-center gap-2 scroll-reveal">
+                <i class="fas fa-images text-blue-600"></i> Our Professional Car Wash Gallery
+            </h3>
+    <section id="gallery-section" class="py-16 px-4 border-t border-slate-200 dark:border-slate-800">
+        <div class="container mx-auto max-w-4xl">
+            <h3 class="text-xl font-black text-slate-900 dark:text-white text-center mb-6 flex items-center justify-center gap-2 scroll-reveal">
+                <i class="fas fa-images text-blue-600"></i> Our Professional Car Wash Gallery
+            </h3>
+           <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
   <div class="overflow-hidden rounded-2xl border border-white dark:border-slate-700 shadow-md bg-slate-200 h-44 sm:h-52">
     <img src="haval-foam.jpg" alt="Haval Foam Wash" class="w-full h-full object-cover hover:scale-105 transition duration-300">
   </div>
@@ -1622,50 +1436,30 @@ function editSolarOffer() {
                 cursor.style.top = e.clientY + 'px';
             }
         });
-function switchServiceLayout(serviceType) {
-    var solarBlock = document.getElementById('solar-calc-block');
-    var carwashBlock = document.getElementById('carwash-calc-block');
-    var tankiBlock = document.getElementById('tanki-calc-block');
 
-    // Pehle teeno major blocks ko hide kar do
-    if (solarBlock) solarBlock.classList.add('hidden');
-    if (carwashBlock) carwashBlock.classList.add('hidden');
-    if (tankiBlock) tankiBlock.classList.add('hidden');
-
-    // Labels aur Active status text update karne ka logic
-    if (serviceType === 'carwash') {
-        if (carwashBlock) carwashBlock.classList.remove('hidden');
-        document.getElementById('label-main-tab-carwash').innerText = "🚗 Car Wash Active";
-        document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
-        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "Open Tanki Wash";
-    } else if (serviceType === 'solar') {
-        if (solarBlock) solarBlock.classList.remove('hidden');
-        document.getElementById('label-main-tab-solar').innerText = "✨ Solar Active";
-        document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
-        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "Open Tanki Wash";
-    } else if (serviceType === 'tanki') {
-        if (tankiBlock) tankiBlock.classList.remove('hidden');
-        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "🪣 Tanki Wash Active";
-        document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
-        document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
-        if (typeof window.calculateTankiBill === 'function') window.calculateTankiBill();
-    }
-
-    // Dropdown panels ko automatically close karo selection ke baad
-    if (document.getElementById('panel-main-tab-carwash')) document.getElementById('panel-main-tab-carwash').classList.add('hidden');
-    if (document.getElementById('panel-main-tab-solar')) document.getElementById('panel-main-tab-solar').classList.add('hidden');
-    if (document.getElementById('panel-main-tab-tanki')) document.getElementById('panel-main-tab-tanki').classList.add('hidden');
-
-    // Before/After Image Slider ko hamesha force-refresh karo taake layout na tute
-    setTimeout(function() {
-        var sliderInput = document.getElementById("image-split-slider");
-        if (sliderInput && typeof moveSlider === 'function') {
-            moveSlider(sliderInput.value);
+        function switchServiceLayout(serviceType) {
+            var solarBlock = document.getElementById('solar-calc-block');
+            var carwashBlock = document.getElementById('carwash-calc-block');
+            
+            if (serviceType === 'carwash') {
+                if(solarBlock) solarBlock.classList.add('hidden');
+                if(carwashBlock) carwashBlock.classList.remove('hidden');
+                document.getElementById('label-main-tab-carwash').innerText = "🧽 Car Wash Active";
+                document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
+            } else {
+                if(carwashBlock) carwashBlock.classList.add('hidden');
+                if(solarBlock) solarBlock.classList.remove('hidden');
+                document.getElementById('label-main-tab-solar').innerText = "⚡ Solar Active";
+                document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
+            }
+            document.getElementById('panel-main-tab-carwash').classList.add('hidden');
+            document.getElementById('panel-main-tab-solar').classList.add('hidden');
+            
+            setTimeout(function() {
+                var sliderInput = document.getElementById("image-split-slider");
+                if(sliderInput) moveSlider(sliderInput.value);
+            }, 50);
         }
-    }, 50);
-}
-
-
 
         function changeCarWashQty(amount) {
             var qtyInput = document.getElementById("carwash-qty");
@@ -1701,69 +1495,30 @@ function switchServiceLayout(serviceType) {
                                  "📞 *Customer Phone:* " + phone + "\n" +
                                  "📍 *Sahiwal Address:* " + address + "\n" +
                                  "📅 *Scheduled Date:* " + date + "\n" +
+                                 "⏰ *Time Slot:* " + time + "\n" +
+                                 "*Vehicle Type:* " + vehicleLabel + "\n" +
+                                 "*Quantity:* " + qty + " Vehicle(s)\n" +
+                                 "💰 *Final Estimated Bill:* Rs. " + finalBill;
 
-                function switchServiceLayout(serviceType) {
-    var solarBlock = document.getElementById('solar-calc-block');
-    var carwashBlock = document.getElementById('carwash-calc-block');
-    var tankiBlock = document.getElementById('tanki-calc-block');
-
-    // Aapka pehle wala hide karne ka logic (Bina code chota kiye)
-    if (solarBlock) solarBlock.classList.add('hidden');
-    if (carwashBlock) carwashBlock.classList.add('hidden');
-    if (tankiBlock) tankiBlock.classList.add('hidden');
-
-    // Labels aur Active status text update karne ka logic
-    if (serviceType === 'carwash') {
-        if (carwashBlock) carwashBlock.classList.remove('hidden');
-        document.getElementById('label-main-tab-carwash').innerText = "🚗 Car Wash Active";
-        document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
-        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "Open Tanki Wash";
-    } else if (serviceType === 'solar') {
-        if (solarBlock) solarBlock.classList.remove('hidden');
-        document.getElementById('label-main-tab-solar').innerText = "✨ Solar Active";
-        document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
-        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "Open Tanki Wash";
-    } else if (serviceType === 'tanki') {
-        if (tankiBlock) tankiBlock.classList.remove('hidden');
-        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "🪣 Tanki Wash Active";
-        document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
-        document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
-        if (typeof window.calculateTankiBill === 'function') window.calculateTankiBill();
-    }
-
-    // Dropdown panels ko automatically close karo selection ke baad
-    if (document.getElementById('panel-main-tab-carwash')) document.getElementById('panel-main-tab-carwash').classList.add('hidden');
-    if (document.getElementById('panel-main-tab-solar')) document.getElementById('panel-main-tab-solar').classList.add('hidden');
-    if (document.getElementById('panel-main-tab-tanki')) document.getElementById('panel-main-tab-tanki').classList.add('hidden');
-
-    // Aapka original Before/After Image Slider refresh logic (Bilkul mehfooz)
-    setTimeout(function() {
-        var sliderInput = document.getElementById("image-split-slider");
-        if (sliderInput && typeof moveSlider === 'function') {
-            moveSlider(sliderInput.value);
+            var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
+            window.open(url, '_blank');
         }
-    }, 50);
-}
 
-function openCustomDropdown(id) {
-    // Agar click HTML se poori id ('panel-main-tab-tanki') bhej raha ha ya adhoori, dono ko handle karega
-    var targetId = id.startsWith('panel-') ? id : 'panel-' + id;
-    var targetPanel = document.getElementById(targetId);
-    if (!targetPanel) return;
+        function openCustomDropdown(id) {
+            var targetPanel = document.getElementById('panel-' + id);
+            if (!targetPanel) return;
+            
+            var isHidden = targetPanel.classList.contains('hidden');
+            
+            var activePanels = document.querySelectorAll('.custom-dropdown-panel');
+            activePanels.forEach(function(p) {
+                p.classList.add('hidden');
+            });
 
-    // Baqi saare dropdown panels ko dhoond kar band karo
-var panels = document.querySelectorAll('#panel-main-tab-carwash, #panel-main-tab-solar, #panel-main-tab-tanki');
-
-    panels.forEach(function(p) {
-        if (p.id !== targetId) {
-            p.classList.add('hidden');
+            if (isHidden) {
+                targetPanel.classList.remove('hidden');
+            }
         }
-    });
-
-    // Sirf is panel ko open ya close (toggle) karo
-    targetPanel.classList.toggle('hidden');
-}
-
 
         function selectCustomOption(id, actualValue, textLabel) {
             document.getElementById(id).value = actualValue;
@@ -2057,94 +1812,12 @@ function scrollToSection(sectionId) {
             targetBlock.classList.remove('hidden');
         }
         
-       // Live Visitor Counter Logic
-function initializeLiveVisitorMonitoring() {
-    const counterElement = document.getElementById('visitor-session-counter');
-    if (!counterElement) return;
-
-    let dynamicBaseSeed = parseInt(localStorage.getItem('ms_solar_base_session_visitors'));
-    if (!dynamicBaseSeed || isNaN(dynamicBaseSeed)) {
-        dynamicBaseSeed = Math.floor(Math.random() * (48 - 12 + 1)) + 12;
-        localStorage.setItem('ms_solar_base_session_visitors', dynamicBaseSeed);
-    }
-    
-    counterElement.innerText = dynamicBaseSeed;
-
-    setInterval(() => {
-        let currentCalculatedTrack = parseInt(counterElement.innerText);
-        const algorithmicVariance = Math.random() > 0.55 ? 1 : -1;
-        let revisedCalculation = currentCalculatedTrack + algorithmicVariance;
-        
-        if (revisedCalculation < 12) revisedCalculation = 15;
-        if (revisedCalculation > 85) revisedCalculation = 60;
-        
-        counterElement.innerText = revisedCalculation;
-    }, Math.floor(Math.random() * (7000 - 3500 + 1)) + 3500);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    initializeLiveVisitorMonitoring();
-});
- 
         // Smooth scroll implementation
         setTimeout(() => {
             targetBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 150);
     }
 }
-// ==========================================
-// WATER TANKI WASH CALCULATOR LOGIC
-// ==========================================
-
-window.calculateTankiBill = function() {
-    const typeSelect = document.getElementById('tanki-type');
-    const qtyInput = document.getElementById('tanki-qty');
-    const totalPriceSpan = document.getElementById('tanki-total-price');
-
-    if (!typeSelect || !qtyInput || !totalPriceSpan) return;
-
-    let baseRate = parseInt(typeSelect.value) || 0;
-    let quantity = parseInt(qtyInput.value) || 1;
-    if (quantity < 1) quantity = 1;
-
-    let totalBill = baseRate * quantity;
-    totalPriceSpan.innerText = totalBill;
-};
-
-window.changeTankiQty = function(amount) {
-    const qtyInput = document.getElementById('tanki-qty');
-    if (!qtyInput) return;
-
-    let currentQty = parseInt(qtyInput.value) || 1;
-    let newQty = currentQty + amount;
-    if (newQty < 1) newQty = 1;
-
-    qtyInput.value = newQty;
-    window.calculateTankiBill();
-};
-
-window.sendTankiBooking = function() {
-    const nameInput = document.getElementById('tanki-cust-name');
-    const typeSelect = document.getElementById('tanki-type');
-    const qtyInput = document.getElementById('tanki-qty');
-    const totalPriceSpan = document.getElementById('tanki-total-price');
-
-    let customerName = nameInput && nameInput.value.trim() ? nameInput.value.trim() : "Customer";
-    let selectedText = typeSelect ? typeSelect.options[typeSelect.selectedIndex].text : "Water Tanki Service";
-    let quantity = qtyInput ? qtyInput.value : "1";
-    let finalPrice = totalPriceSpan ? totalPriceSpan.innerText : "1500";
-
-    let message = `Assalam-o-Alaikum M-S Solar Cleaning & Car Wash! 🪣\n\n`;
-    message += `Main Water Tanki Wash ki booking karwana chahta hoon:\n\n`;
-    message += `👤 *Name:* ${customerName}\n`;
-    message += `📦 *Service:* ${selectedText}\n`;
-    message += `🔢 *Quantity:* ${quantity} Tanki\n`;
-    message += `💰 *Total Estimated Bill:* Rs. ${finalPrice}\n\n`;
-    message += `Kindly confirmation ke liye rabta karein. Shukriya!`;
-
-    let whatsappUrl = `https://wa.me/923044621215?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-};
 
     </script>
             <script>
