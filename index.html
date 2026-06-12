@@ -1621,30 +1621,50 @@ function editSolarOffer() {
                 cursor.style.top = e.clientY + 'px';
             }
         });
+function switchServiceLayout(serviceType) {
+    var solarBlock = document.getElementById('solar-calc-block');
+    var carwashBlock = document.getElementById('carwash-calc-block');
+    var tankiBlock = document.getElementById('tanki-calc-block');
 
-        function switchServiceLayout(serviceType) {
-            var solarBlock = document.getElementById('solar-calc-block');
-            var carwashBlock = document.getElementById('carwash-calc-block');
-            
-            if (serviceType === 'carwash') {
-                if(solarBlock) solarBlock.classList.add('hidden');
-                if(carwashBlock) carwashBlock.classList.remove('hidden');
-                document.getElementById('label-main-tab-carwash').innerText = "🧽 Car Wash Active";
-                document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
-            } else {
-                if(carwashBlock) carwashBlock.classList.add('hidden');
-                if(solarBlock) solarBlock.classList.remove('hidden');
-                document.getElementById('label-main-tab-solar').innerText = "⚡ Solar Active";
-                document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
-            }
-            document.getElementById('panel-main-tab-carwash').classList.add('hidden');
-            document.getElementById('panel-main-tab-solar').classList.add('hidden');
-            
-            setTimeout(function() {
-                var sliderInput = document.getElementById("image-split-slider");
-                if(sliderInput) moveSlider(sliderInput.value);
-            }, 50);
+    // Pehle teeno major blocks ko hide kar do
+    if (solarBlock) solarBlock.classList.add('hidden');
+    if (carwashBlock) carwashBlock.classList.add('hidden');
+    if (tankiBlock) tankiBlock.classList.add('hidden');
+
+    // Labels aur Active status text update karne ka logic
+    if (serviceType === 'carwash') {
+        if (carwashBlock) carwashBlock.classList.remove('hidden');
+        document.getElementById('label-main-tab-carwash').innerText = "🚗 Car Wash Active";
+        document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
+        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "Open Tanki Wash";
+    } else if (serviceType === 'solar') {
+        if (solarBlock) solarBlock.classList.remove('hidden');
+        document.getElementById('label-main-tab-solar').innerText = "✨ Solar Active";
+        document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
+        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "Open Tanki Wash";
+    } else if (serviceType === 'tanki') {
+        if (tankiBlock) tankiBlock.classList.remove('hidden');
+        if (document.getElementById('label-main-tab-tanki')) document.getElementById('label-main-tab-tanki').innerText = "🪣 Tanki Wash Active";
+        document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
+        document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
+        if (typeof window.calculateTankiBill === 'function') window.calculateTankiBill();
+    }
+
+    // Dropdown panels ko automatically close karo selection ke baad
+    if (document.getElementById('panel-main-tab-carwash')) document.getElementById('panel-main-tab-carwash').classList.add('hidden');
+    if (document.getElementById('panel-main-tab-solar')) document.getElementById('panel-main-tab-solar').classList.add('hidden');
+    if (document.getElementById('panel-main-tab-tanki')) document.getElementById('panel-main-tab-tanki').classList.add('hidden');
+
+    // Before/After Image Slider ko hamesha force-refresh karo taake layout na tute
+    setTimeout(function() {
+        var sliderInput = document.getElementById("image-split-slider");
+        if (sliderInput && typeof moveSlider === 'function') {
+            moveSlider(sliderInput.value);
         }
+    }, 50);
+}
+
+
 
         function changeCarWashQty(amount) {
             var qtyInput = document.getElementById("carwash-qty");
