@@ -1275,6 +1275,63 @@
         <p class="text-xs text-slate-500">© 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
     </footer>
     <script>
+                // ================= WATER TANKI LOGIC =================
+        function changeTankiGallons(amount) {
+            var qtyInput = document.getElementById("tanki-gallons");
+            var currentVal = parseInt(qtyInput.value) || 500;
+            var newVal = currentVal + amount;
+            if (newVal < 100) newVal = 100;
+            qtyInput.value = newVal;
+            calculateTankiBill();
+        }
+
+        function calculateTankiBill() {
+            var gallons = parseInt(document.getElementById("tanki-gallons").value) || 500;
+            var basePrice = 1500;
+            var extraPrice = 0;
+            
+            // 500 se opar har gallon ka 2 Rs hisab
+            if (gallons > 500) {
+                extraPrice = (gallons - 500) * 2; 
+            }
+            
+            var total = basePrice + extraPrice;
+            document.getElementById("tanki-total-price").innerText = total;
+        }
+
+        function moveTankiSlider(value) {
+            var sliderLine = document.getElementById("tanki-slider-line");
+            var sliderBtn = document.getElementById("tanki-slider-btn");
+            var sliderInput = document.getElementById("tanki-split-slider");
+            var leftPane = document.getElementById("tanki-left-pane");
+            
+            if(sliderInput) sliderInput.value = value;
+            if(leftPane) leftPane.style.width = value + "%";
+            if(sliderLine) sliderLine.style.left = value + "%";
+            if(sliderBtn) sliderBtn.style.left = value + "%";
+        }
+
+        function sendTankiBooking() {
+            var phoneNumber = "923084462121"; // Aapka WhatsApp number
+            var name = document.getElementById("tanki-cust-name").value || "Valued Customer";
+            var phone = document.getElementById("tanki-cust-phone").value || "Not Provided";
+            var date = document.getElementById("tanki-booking-date").value || "ASAP";
+            var time = document.getElementById("tanki-booking-time").value;
+            var gallons = document.getElementById("tanki-gallons").value;
+            var finalBill = document.getElementById("tanki-total-price").innerText;
+
+            var rawMessageText = "💧 *M S WATER TANKI WASH - NEW BOOKING* 💧\n\n" + 
+                                 "*Customer Name:* " + name + "\n" +
+                                 "📞 *Customer Phone:* " + phone + "\n" +
+                                 "📅 *Scheduled Date:* " + date + "\n" +
+                                 "⏰ *Time Slot:* " + time + "\n" +
+                                 "🛢️ *Tanki Capacity:* " + gallons + " Gallons\n" +
+                                 "💰 *Final Estimated Bill:* Rs. " + finalBill;
+
+            var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
+            window.open(url, '_blank');
+        }
+
        // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
 // ==========================================
@@ -1904,62 +1961,6 @@ function scrollToSection(sectionId) {
         }, 150);
     }
 }
-        // ================= WATER TANKI LOGIC =================
-        function changeTankiGallons(amount) {
-            var qtyInput = document.getElementById("tanki-gallons");
-            var currentVal = parseInt(qtyInput.value) || 500;
-            var newVal = currentVal + amount;
-            if (newVal < 100) newVal = 100;
-            qtyInput.value = newVal;
-            calculateTankiBill();
-        }
-
-        function calculateTankiBill() {
-            var gallons = parseInt(document.getElementById("tanki-gallons").value) || 500;
-            var basePrice = 1500;
-            var extraPrice = 0;
-            
-            // 500 se opar har gallon ka 2 Rs hisab
-            if (gallons > 500) {
-                extraPrice = (gallons - 500) * 2; 
-            }
-            
-            var total = basePrice + extraPrice;
-            document.getElementById("tanki-total-price").innerText = total;
-        }
-
-        function moveTankiSlider(value) {
-            var sliderLine = document.getElementById("tanki-slider-line");
-            var sliderBtn = document.getElementById("tanki-slider-btn");
-            var sliderInput = document.getElementById("tanki-split-slider");
-            var leftPane = document.getElementById("tanki-left-pane");
-            
-            if(sliderInput) sliderInput.value = value;
-            if(leftPane) leftPane.style.width = value + "%";
-            if(sliderLine) sliderLine.style.left = value + "%";
-            if(sliderBtn) sliderBtn.style.left = value + "%";
-        }
-
-        function sendTankiBooking() {
-            var phoneNumber = "923084462121"; // Aapka WhatsApp number
-            var name = document.getElementById("tanki-cust-name").value || "Valued Customer";
-            var phone = document.getElementById("tanki-cust-phone").value || "Not Provided";
-            var date = document.getElementById("tanki-booking-date").value || "ASAP";
-            var time = document.getElementById("tanki-booking-time").value;
-            var gallons = document.getElementById("tanki-gallons").value;
-            var finalBill = document.getElementById("tanki-total-price").innerText;
-
-            var rawMessageText = "💧 *M S WATER TANKI WASH - NEW BOOKING* 💧\n\n" + 
-                                 "*Customer Name:* " + name + "\n" +
-                                 "📞 *Customer Phone:* " + phone + "\n" +
-                                 "📅 *Scheduled Date:* " + date + "\n" +
-                                 "⏰ *Time Slot:* " + time + "\n" +
-                                 "🛢️ *Tanki Capacity:* " + gallons + " Gallons\n" +
-                                 "💰 *Final Estimated Bill:* Rs. " + finalBill;
-
-            var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
-            window.open(url, '_blank');
-        }
 
     </script>
             <script>
