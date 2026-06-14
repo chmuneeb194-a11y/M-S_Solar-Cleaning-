@@ -378,9 +378,10 @@
                 </div>
 
                 <!-- Three-Line Toggle Icon Menu Button -->
-                <button type="button" onclick="toggleMenu()" class="text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-500 w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition active:scale-95" aria-label="Open Navigation Menu">
-                    <i class="fas fa-bars text-lg"></i>
-                </button>
+                <button type="button" onclick="toggleMenu()" class="text-slate-700 dark:text-slate-200 hover:text-blue-600 flex items-center gap-1.5 font-semibold text-sm">
+    <i class="fas fa-bars text-lg"></i>
+    <span>Menu</span>
+</button>
             </div>
         </div>
     </header>
@@ -406,6 +407,16 @@
                         <span class="text-emerald-500 text-base"><i class="fas fa-soap"></i></span>
                         <span class="text-xs sm:text-sm">🧽 Car Wash Service Setup</span>
                     </button>
+                                    <button type="button" onclick="scrollToSection('tank-calc-block')" class="w-full flex items-center justify-between p-3 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 group">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-base">
+                            <i class="fas fa-water"></i>
+                        </span>
+                        <span class="text-xs sm:text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-200 group-hover:text-blue-600 transition-colors">🪣 Water Tanki Wash Setup</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-transform"></i>
+                </button>
+
                             <button type="button" onclick="scrollToSection('safety-compliance-block')" class="w-full flex items-center justify-between p-3 rounded-xl transition-all text-left bg-slate-100/50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 group">
             <div class="flex items-center gap-3">
                 <span class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-base shadow-sm"><i class="fas fa-shield-alt"></i></span>
@@ -610,6 +621,38 @@
                 </div>
                 <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium" data-en="Drag the slider layout handle to view live performance difference comparisons instantly." data-ur="ہینڈل کو لیفٹ یا رائٹ ڈریگ کر کے لائیو صفائی کا واضح فرق دیکھیں۔">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
             </div>
+                    <!-- Water Tank Before/After Slider Section -->
+        <div class="slider-container" id="tank-slider-box-shell" style="margin-top: 25px;">
+            <div class="flex justify-center gap-3 mb-5">
+                <button type="button" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-1 x-4 rounded-lg text-xs transition-colors">
+                    🌵 Gandi Tanki
+                </button>
+                <button type="button" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1 px-4 rounded-lg text-xs transition-colors">
+                    ✨ Saaf Shaffaf Tanki
+                </button>
+            </div>
+
+            <div class="slider-side-right" style="position: relative; overflow: hidden; border-radius: 12px;">
+                <!-- After Image (Base) -->
+                <img src="saaf tanki.png" alt="Saaf Tanki Status" style="width: 100%; display: block;">
+                
+                <!-- Before Image (Overlay Wrapper) -->
+                <div id="tank-left-clip-pane" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden; border-right: 2px solid #fff;">
+                    <img src="Gandi tanki.png" alt="Gandi Tanki Status" style="width: 100%; max-width: none; height: 100%; object-fit: cover;">
+                </div>
+                
+                <!-- Range Input Control -->
+                <input type="range" min="0" max="100" value="50" id="tank-image-split-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0;">
+                
+                <!-- Visible Handle Bar -->
+                <div id="tank-slider-line" style="position: absolute; top: 0; left: 50%; width: 2px; height: 100%; bg-color: #fff; transform: translateX(-50%); pointer-events: none;"></div>
+                <div id="tank-slider-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.3); pointer-events: none;">
+                    <i class="fas fa-arrows-alt-h" style="color: #4b5563; font-size: 12px;"></i>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live tanki ki safai ka farq dekhein.</p>
+        </div>
+
 <div id="certified-standards-block" class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center scroll-reveal hidden">
     <div class="flex flex-col items-center">
         <div class="w-12 h-12 bg-white/80 text-blue-600 dark:bg-slate-800 dark:text-blue-400 rounded-2xl flex items-center justify-center">
@@ -1110,6 +1153,80 @@
                     </div>
                 </div>
             </div>
+<div id="tank-calc-block" class="hidden">
+    <div class="text-center mb-10">
+        <span class="text-green-700 font-black text-xs tracking-widest uppercase bg-green-100/80 px-3 py-1.5 rounded-full">🪣 Professional Cleaning</span>
+        <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3">Water Tanki Wash Calculator</h2>
+        <p class="text-slate-500 text-sm mt-2">Apni tanki ki capacity select karein aur automatic real-time bill check karein.</p>
+    </div>
+
+    <div id="pdf-tank-target" class="ios-glass p-6 rounded-3xl shadow-2xl max-w-xl mx-auto relative">
+        <div class="space-y-6">
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Select Tanki Capacity (Gallons)</label>
+                <select id="tank-gallon-type" onchange="calculateTankBill()" class="w-full ios-input-glass">
+                    <option value="500">Up to 500 Gallons — Rs. 1,500</option>
+                    <option value="1000">1000 Gallons — Rs. 3,000</option>
+                    <option value="1500">1500 Gallons — Rs. 4,500</option>
+                    <option value="2000">2000 Gallons — Rs. 6,000</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Customer Name</label>
+                <input type="text" id="tank-cust-name" placeholder="e.g. Muneeb" class="w-full ios-input-glass">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">WhatsApp / Mobile Number</label>
+                <input type="text" id="tank-cust-phone" oninput="calculateTankBill()" placeholder="e.g. 03001234567" class="w-full ios-input-glass">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Sahiwal Area Address</label>
+                <input type="text" id="tank-cust-address" placeholder="e.g. Farid Town, Sahiwal" class="w-full ios-input-glass">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Booking Date</label>
+                    <input type="date" id="tank-booking-date" class="w-full ios-input-glass px-4 py-3 rounded-xl">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Preferred Time Slot</label>
+                    <select id="tank-booking-time" class="w-full ios-input-glass">
+                        <option value="09:00 AM - 12:00 PM">09:00 AM - 12:00 PM</option>
+                        <option value="12:00 PM - 03:00 PM">12:00 PM - 03:00 PM</option>
+                        <option value="03:00 PM - 06:00 PM">03:00 PM - 06:00 PM</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Total Tankis to Wash</label>
+                <div class="flex items-center space-x-3">
+                    <button type="button" onclick="changeTankQty(-1)" class="bg-blue-600 text-white font-bold w-10 h-10 rounded-xl flex items-center justify-center hover:bg-blue-700 transition-colors">-</button>
+                    <input type="number" id="tank-qty" value="1" min="1" oninput="calculateTankBill()" class="w-20 text-center ios-input-glass font-bold py-2">
+                    <button type="button" onclick="changeTankQty(1)" class="bg-blue-600 text-white font-bold w-10 h-10 rounded-xl flex items-center justify-center hover:bg-blue-700 transition-colors">+</button>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-2xl shadow-lg">
+                <span class="text-[10px] uppercase tracking-widest text-blue-400 font-bold">Estimated Net Total</span>
+                <div class="text-4xl font-black my-1">Rs. <span id="tank-total-price">1500</span></div>
+                <p class="text-[10px] text-slate-400">*Premium chemical wash & multi-stage disinfection included.</p>
+            </div>
+
+            <button type="button" onclick="downloadTankPDF()" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors">
+                <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
+            </button>
+
+            <button type="button" onclick="sendTankBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md shadow-emerald-500/20 transition-all">
+                <i class="fab fa-whatsapp text-xl"></i> Book Tanki Wash via WhatsApp
+            </button>
+        </div>
+    </div>
+</div>
 
             <div class="mt-14 max-w-xs mx-auto ios-glass p-5 rounded-2xl text-center shadow-md scroll-reveal">
                 <div class="flex items-center justify-center space-x-2 mb-3">
@@ -1512,6 +1629,86 @@ function editSolarOffer() {
             var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
             window.open(url, '_blank');
         }
+        function calculateTankBill() {
+    var gallonType = document.getElementById("tank-gallon-type").value;
+    var baseRate = parseInt(gallonType) || 1500;
+    
+    // Agar 500 gallon select ho to rate 1500 hi rahega
+    if (gallonType === "500") {
+        baseRate = 1500;
+    } else if (gallonType === "1000") {
+        baseRate = 3000;
+    } else if (gallonType === "1500") {
+        baseRate = 4500;
+    } else if (gallonType === "2000") {
+        baseRate = 6000;
+    }
+
+    var qty = parseInt(document.getElementById("tank-qty").value) || 1;
+    var total = baseRate * qty;
+    document.getElementById("tank-total-price").innerText = total;
+}
+
+function changeTankQty(amount) {
+    var qtyInput = document.getElementById("tank-qty");
+    var currentVal = parseInt(qtyInput.value) || 1;
+    var newVal = currentVal + amount;
+    if (newVal < 1) newVal = 1;
+    qtyInput.value = newVal;
+    calculateTankBill();
+}
+
+function sendTankBooking() {
+    var phoneNumber = "923084462121";
+    var name = document.getElementById("tank-cust-name").value || "Valued Customer";
+    var phone = document.getElementById("tank-cust-phone").value || "Not Provided";
+    var address = document.getElementById("tank-cust-address").value || "Not Provided";
+    var date = document.getElementById("tank-booking-date").value || "ASAP";
+    var time = document.getElementById("tank-booking-time").value;
+    var qty = document.getElementById("tank-qty").value;
+
+    var selectElem = document.getElementById("tank-gallon-type");
+    var gallonLabel = selectElem.options[selectElem.selectedIndex].text.split("—")[0].trim();
+    var finalBill = document.getElementById("tank-total-price").innerText;
+
+    var rawMessageText = "🪣 *MS SOLAR SERVICES - WATER TANKI WASH BOOKING* 🪣\n\n" +
+        "👤 *Customer Name:* " + name + "\n" +
+        "📞 *Customer Phone:* " + phone + "\n" +
+        "📍 *Sahiwal Address:* " + address + "\n" +
+        "📅 *Scheduled Date:* " + date + "\n" +
+        "🕒 *Time Slot:* " + time + "\n" +
+        "🪣 *Tanki Capacity:* " + gallonLabel + "\n" +
+        "🔢 *Quantity:* " + qty + " Tanki(s)\n\n" +
+        "💰 *Final Estimated Bill:* Rs. " + finalBill;
+
+    var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
+    window.open(url, '_blank');
+}
+function downloadTankPDF() {
+    const element = document.getElementById('pdf-tank-target');
+    if (!element) return;
+    
+    const opt = {
+        margin:       10,
+        filename:     'MS_Solar_Water_Tank_Invoice.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    
+    html2canvas(element, opt.html2canvas).then((canvas) => {
+        const imgData = canvas.toDataURL('image/jpeg');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF(opt.jsPDF);
+        const imgWidth = 190;
+        const pageHeight = 295;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
+        pdf.save(opt.filename);
+    }).catch(err => console.log("PDF Generation Error:", err));
+}
+
 
         function openCustomDropdown(id) {
             var targetPanel = document.getElementById('panel-' + id);
@@ -1576,6 +1773,21 @@ function editSolarOffer() {
                 moveSlider(0); 
             }
         }
+        // Water Tank Slider Control Logic
+const tankSliderInput = document.getElementById('tank-image-split-slider');
+if (tankSliderInput) {
+    tankSliderInput.addEventListener('input', function(e) {
+        var value = e.target.value;
+        var tankLeftPane = document.getElementById('tank-left-clip-pane');
+        var tankSliderLine = document.getElementById('tank-slider-line');
+        var tankSliderBtn = document.getElementById('tank-slider-btn');
+        
+        if (tankLeftPane) tankLeftPane.style.width = value + '%';
+        if (tankSliderLine) tankSliderLine.style.left = value + '%';
+        if (tankSliderBtn) tankSliderBtn.style.left = value + '%';
+    });
+}
+
 
         function shareWithFriend() {
             var websiteUrl = window.location.href;
