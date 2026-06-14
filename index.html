@@ -1437,12 +1437,12 @@ if (window.matchMedia) {
                 });
             }
         }
+
 function downloadBillPDF(type) {
     var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
     var element = document.getElementById(elementId);
     if (!element) return;
 
-    // Blank PDF se bachne ke liye block ka hidden status temporary check karein
     var parentBlock = document.getElementById(type === 'solar' ? 'solar-calc-block' : 'carwash-calc-block');
     var wasHidden = parentBlock && parentBlock.classList.contains('hidden');
     if (wasHidden) parentBlock.classList.remove('hidden');
@@ -1461,7 +1461,6 @@ function downloadBillPDF(type) {
         pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
         pdf.save('MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Wash_Invoice.pdf');
 
-        // Download ke baad wapas hidden kar dein
         if (wasHidden) parentBlock.classList.add('hidden');
     }).catch(function(err) {
         console.log("PDF Error:", err);
