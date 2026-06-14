@@ -813,7 +813,7 @@
     <section id="calculator-section" class="py-16 px-4">
         <div class="container mx-auto max-w-4xl">
             
-           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto mb-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-10">
                 <div class="relative">
                     <label class="block text-[11px] font-black uppercase text-slate-600 dark:text-slate-400 mb-1">🚗 Car Wash Services</label>
                     <div id="trigger-main-tab-carwash" onclick="openCustomDropdown('main-tab-carwash')" class="ios-input-glass px-4 py-3 rounded-xl font-bold flex justify-between items-center cursor-pointer select-none shadow-sm bg-white">
@@ -836,21 +836,6 @@
                     </div>
                 </div>
             </div>
-                    <div class="relative">
-                        <label class="block text-[11px] font-black uppercase text-slate-600 dark:text-slate-400 mb-1">🪣 TANK SERVICES</label>
-                        <div id="trigger-main-tab-tank" onclick="openCustomDropdown('main-tab-tank')" class="ios-input-glass cursor-pointer flex items-center justify-between p-3 rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md transition-all">
-                            <span id="label-main-tab-tank" class="text-blue-500 font-bold text-xs flex items-center gap-1.5">
-                                <i class="fas fa-water"></i> Open Tank Setup
-                            </span>
-                            <i class="fas fa-chevron-down text-[10px] opacity-60 text-blue-500"></i>
-                        </div>
-                        
-                        <div id="panel-main-tab-tank" class="custom-dropdown-panel hidden shadow-2xl absolute z-50 left-0 right-0 mt-2 rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 p-2 space-y-1">
-                            <div onclick="switchServiceLayout('tank')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-950/40 text-slate-700 dark:text-slate-200 hover:text-blue-600 font-bold text-xs cursor-pointer transition-all">
-                                💧 Activate Tank Calculator
-                            </div>
-                        </div>
-                    </div>
 
             <div id="solar-calc-block" class="hidden">
                 <div class="text-center mb-10">
@@ -1437,35 +1422,24 @@ if (window.matchMedia) {
                 });
             }
         }
-
 function downloadBillPDF(type) {
     var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
     var element = document.getElementById(elementId);
-    if (!element) return;
-
-    var parentBlock = document.getElementById(type === 'solar' ? 'solar-calc-block' : 'carwash-calc-block');
-    var wasHidden = parentBlock && parentBlock.classList.contains('hidden');
-    if (wasHidden) parentBlock.classList.remove('hidden');
+    
+    if (!element) {
+        alert("Bill section not found!");
+        return;
+    }
 
     var opt = {
-        scale: 2,
-        useCORS: true
+        margin:       10,
+        filename:     type === 'solar' ? 'MS_Solar_Bill.pdf' : 'MS_CarWash_Bill.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    html2canvas(element, opt).then(function(canvas) {
-        var imgData = canvas.toDataURL('image/jpeg');
-        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-        var imgWidth = 190;
-        var imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-        pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
-        pdf.save('MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Wash_Invoice.pdf');
-
-        if (wasHidden) parentBlock.classList.add('hidden');
-    }).catch(function(err) {
-        console.log("PDF Error:", err);
-        if (wasHidden) parentBlock.classList.add('hidden');
-    });
+    html2pdf().from(element).set(opt).save();
 }
 
 function applySolarOffer() {
@@ -1589,44 +1563,29 @@ function editSolarOffer() {
             }
         });
 
-function switchServiceLayout(serviceType) {
-    var solarBlock = document.getElementById('solar-calc-block');
-    var carwashBlock = document.getElementById('carwash-calc-block');
-    var tankBlock = document.getElementById('tank-calc-block');
-
-    if (serviceType === 'carwash') {
-        if(solarBlock) solarBlock.classList.add('hidden');
-        if(tankBlock) tankBlock.classList.add('hidden');
-        if(carwashBlock) carwashBlock.classList.remove('hidden');
-        document.getElementById('label-main-tab-carwash').innerText = "🧼 Car Wash Active";
-        document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
-        document.getElementById('label-main-tab-tank').innerText = "Open Tank Setup";
-    } else if (serviceType === 'solar') {
-        if(carwashBlock) carwashBlock.classList.add('hidden');
-        if(tankBlock) tankBlock.classList.add('hidden');
-        if(solarBlock) solarBlock.classList.remove('hidden');
-        document.getElementById('label-main-tab-solar').innerText = "⚡ Solar Active";
-        document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
-        document.getElementById('label-main-tab-tank').innerText = "Open Tank Setup";
-    } else if (serviceType === 'tank') {
-        if(carwashBlock) carwashBlock.classList.add('hidden');
-        if(solarBlock) solarBlock.classList.add('hidden');
-        if(tankBlock) tankBlock.classList.remove('hidden');
-        document.getElementById('label-main-tab-tank').innerText = "🪣 Tank Active";
-        document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
-        document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
-        calculateTankBill();
-    }
-    
-    if(document.getElementById('panel-main-tab-carwash')) document.getElementById('panel-main-tab-carwash').classList.add('hidden');
-    if(document.getElementById('panel-main-tab-solar')) document.getElementById('panel-main-tab-solar').classList.add('hidden');
-    if(document.getElementById('panel-main-tab-tank')) document.getElementById('panel-main-tab-tank').classList.add('hidden');
-
-    setTimeout(function() {
-        var sliderInput = document.getElementById("image-split-slider");
-        if(sliderInput) moveSlider(sliderInput.value);
-    }, 50);
-}
+        function switchServiceLayout(serviceType) {
+            var solarBlock = document.getElementById('solar-calc-block');
+            var carwashBlock = document.getElementById('carwash-calc-block');
+            
+            if (serviceType === 'carwash') {
+                if(solarBlock) solarBlock.classList.add('hidden');
+                if(carwashBlock) carwashBlock.classList.remove('hidden');
+                document.getElementById('label-main-tab-carwash').innerText = "🧽 Car Wash Active";
+                document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
+            } else {
+                if(carwashBlock) carwashBlock.classList.add('hidden');
+                if(solarBlock) solarBlock.classList.remove('hidden');
+                document.getElementById('label-main-tab-solar').innerText = "⚡ Solar Active";
+                document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
+            }
+            document.getElementById('panel-main-tab-carwash').classList.add('hidden');
+            document.getElementById('panel-main-tab-solar').classList.add('hidden');
+            
+            setTimeout(function() {
+                var sliderInput = document.getElementById("image-split-slider");
+                if(sliderInput) moveSlider(sliderInput.value);
+            }, 50);
+        }
 
         function changeCarWashQty(amount) {
             var qtyInput = document.getElementById("carwash-qty");
@@ -1724,27 +1683,32 @@ function sendTankBooking() {
 
     var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
     window.open(url, '_blank');
+}
 function downloadTankPDF() {
-    var element = document.getElementById('tank-calc-block');
+    const element = document.getElementById('pdf-tank-target');
     if (!element) return;
     
-    var opt = {
-        scale: 2,
-        useCORS: true
+    const opt = {
+        margin:       10,
+        filename:     'MS_Solar_Water_Tank_Invoice.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
     
-    html2canvas(element, opt).then(function(canvas) {
-        var imgData = canvas.toDataURL('image/jpeg');
-        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-        var imgWidth = 190;
-        var imgHeight = (canvas.height * imgWidth) / canvas.width;
+    html2canvas(element, opt.html2canvas).then((canvas) => {
+        const imgData = canvas.toDataURL('image/jpeg');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF(opt.jsPDF);
+        const imgWidth = 190;
+        const pageHeight = 295;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
         
         pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
-        pdf.save('MS_Solar_Water_Tank_Invoice.pdf');
-    }).catch(function(err) {
-        console.log("Tank PDF Error:", err);
-    });
+        pdf.save(opt.filename);
+    }).catch(err => console.log("PDF Generation Error:", err));
 }
+
 
         function openCustomDropdown(id) {
             var targetPanel = document.getElementById('panel-' + id);
