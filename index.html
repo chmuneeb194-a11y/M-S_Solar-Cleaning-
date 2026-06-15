@@ -2088,6 +2088,59 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 150);
     }
 }
+// 1. Solar aur Car Wash ka PDF Download function
+function downloadBillPDF(type) {
+    var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
+    var element = document.getElementById(elementId);
+    if (!element) return;
+
+    var parentBlock = document.getElementById(type === 'solar' ? 'solar-calc-block' : 'carwash-calc-block');
+    var wasHidden = parentBlock && parentBlock.classList.contains('hidden');
+    if (wasHidden) parentBlock.classList.remove('hidden');
+
+    var opt = {
+        scale: 2,
+        useCORS: true
+    };
+
+    html2canvas(element, opt).then(function(canvas) {
+        var imgData = canvas.toDataURL('image/jpeg');
+        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+        var imgWidth = 190;
+        var imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
+        pdf.save('MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Wash_Invoice.pdf');
+
+        if (wasHidden) parentBlock.classList.add('hidden');
+    }).catch(function(err) {
+        console.log("PDF Error:", err);
+        if (wasHidden) parentBlock.classList.add('hidden');
+    });
+}
+
+// 2. Water Tanki ka PDF Download function
+function downloadTankPDF() {
+    var element = document.getElementById('tank-calc-block');
+    if (!element) return;
+    
+    var opt = {
+        scale: 2,
+        useCORS: true
+    };
+    
+    html2canvas(element, opt).then(function(canvas) {
+        var imgData = canvas.toDataURL('image/jpeg');
+        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+        var imgWidth = 190;
+        var imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
+        pdf.save('MS_Solar_Water_Tank_Invoice.pdf');
+    }).catch(function(err) {
+        console.log("Tank PDF Error:", err);
+    });
+}
 
     </script>
             <script>
