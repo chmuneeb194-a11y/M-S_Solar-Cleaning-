@@ -2144,24 +2144,25 @@ function downloadBillPDF(type) {
 function downloadTankPDF() {
     var element = document.getElementById('tank-calc-block');
     if (!element) return;
-    
+
     var opt = {
         scale: 2,
         useCORS: true
     };
-    
+
     html2canvas(element, opt).then(function(canvas) {
         var imgData = canvas.toDataURL('image/jpeg');
         var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
         var imgWidth = 190;
         var imgHeight = (canvas.height * imgWidth) / canvas.width;
-        
+
         pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
         pdf.save('MS_Solar_Water_Tank_Invoice.pdf');
     }).catch(function(err) {
         console.log("Tank PDF Error:", err);
     });
 }
+
 // Water Tank Custom Offer Management
 function applyTankOffer() {
     var customRateInput = document.getElementById('tank-custom-rate');
