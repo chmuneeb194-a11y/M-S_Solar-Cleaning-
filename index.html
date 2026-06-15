@@ -1161,7 +1161,7 @@
             </div>
 <div id="tank-calc-block" class="hidden">
     <div class="text-center mb-10">
-        <span class="text-green-700 font-black text-xs tracking-widest uppercase bg-green-100/80 px-3 py-1.5 rounded-full">🪣 Professional Cleaning</span>
+        <span class="text-green-700 font-black text-xs tracking-widest uppercase bg-green-100/80 px-3 py-1.5 rounded-full">🚰 Premium Service</span>
         <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3">Water Tanki Wash Calculator</h2>
         <p class="text-slate-500 text-sm mt-2">Apni tanki ki capacity select karein aur automatic real-time bill check karein.</p>
     </div>
@@ -1169,12 +1169,12 @@
     <div id="pdf-tank-target" class="ios-glass p-6 rounded-3xl shadow-2xl max-w-xl mx-auto relative">
         <div class="space-y-6">
             <div>
-                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Select Tanki Capacity (Gallons)</label>
+                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Select Tanki Capacity</label>
                 <select id="tank-gallon-type" onchange="calculateTankBill()" class="w-full ios-input-glass">
-                    <option value="500">Up to 500 Gallons — Rs. 1,500</option>
-                    <option value="1000">1000 Gallons — Rs. 3,000</option>
-                    <option value="1500">1500 Gallons — Rs. 4,500</option>
-                    <option value="2000">2000 Gallons — Rs. 6,000</option>
+                    <option value="500">Up to 500 Gallons - Rs. 1,500</option>
+                    <option value="1000">1000 Gallons - Rs. 3,000</option>
+                    <option value="1500">1500 Gallons - Rs. 4,500</option>
+                    <option value="2000">2000 Gallons - Rs. 6,000</option>
                 </select>
             </div>
 
@@ -1211,9 +1211,9 @@
             <div>
                 <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Total Tankis to Wash</label>
                 <div class="flex items-center space-x-3">
-                    <button type="button" onclick="changeTankQty(-1)" class="bg-blue-600 text-white font-bold w-10 h-10 rounded-xl flex items-center justify-center hover:bg-blue-700 transition-colors">-</button>
-                    <input type="number" id="tank-qty" value="1" min="1" oninput="calculateTankBill()" class="w-20 text-center ios-input-glass font-bold py-2">
-                    <button type="button" onclick="changeTankQty(1)" class="bg-blue-600 text-white font-bold w-10 h-10 rounded-xl flex items-center justify-center hover:bg-blue-700 transition-colors">+</button>
+                    <button type="button" onclick="changeTankQty(-1)" class="bg-blue-600 text-white font-bold w-10 h-10 rounded-xl">-</button>
+                    <input type="number" id="tank-qty" value="1" min="1" oninput="calculateTankBill()" class="w-20 text-center ios-input-glass">
+                    <button type="button" onclick="changeTankQty(1)" class="bg-blue-600 text-white font-bold w-10 h-10 rounded-xl">+</button>
                 </div>
             </div>
 
@@ -1221,27 +1221,34 @@
                 <span class="text-[10px] uppercase tracking-widest text-blue-400 font-bold">Estimated Net Total</span>
                 <div class="text-4xl font-black my-1">Rs. <span id="tank-total-price">1500</span></div>
                 <p class="text-[10px] text-slate-400">*Premium chemical wash & multi-stage disinfection included.</p>
-                <!-- Water Tank Custom Offer Input and Action Buttons -->
-<div class="mt-5 text-center">
-    <label class="block text-xs font-bold uppercase text-slate-400 mb-1.5">Customer Offer Rate (RS.)</label>
-    <div class="flex justify-center mb-4">
-        <input type="number" id="tank-custom-rate" placeholder="Enter Custom Total Price" class="w-1/2 text-center ios-input-glass" style="padding: 8px; border-radius: 8px;">
-    </div>
-    <div class="flex justify-center gap-3">
-        <button type="button" onclick="applyTankOffer()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all duration-300">
-            APPLY OFFER
-        </button>
-        <button type="button" onclick="editTankOffer()" class="bg-slate-700 hover:bg-slate-800 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-1.5">
-            <i class="fas fa-edit"></i> EDIT
-        </button>
-    </div>
-    <button type="button" onclick="downloadTankPDF()" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold text-sm py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 mb-3 mt-4">
-        <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
-    </button>
+                
+                <!-- Custom Offer Integration -->
+                <div class="mt-5 pt-4 border-t border-slate-800 text-center">
+                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1.5">Customer Offer Rate (RS.)</label>
+                    <div class="flex justify-center mb-4">
+                        <input type="number" id="tank-custom-rate" placeholder="Enter Custom Total Price" class="w-2/3 text-center bg-slate-900/50 text-white border border-slate-700" style="padding: 8px; border-radius: 8px;">
+                    </div>
+                    <div class="flex justify-center gap-3">
+                        <button type="button" onclick="applyTankOffer()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all duration-300">
+                            APPLY OFFER
+                        </button>
+                        <button type="button" onclick="editTankOffer()" class="bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all duration-300 flex items-center gap-1.5">
+                            <i class="fas fa-edit"></i> EDIT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <button type="button" onclick="sendTankBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold text-sm py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 mb-3">
-        <i class="fab fa-whatsapp text-xl"></i> Book Tanki Wash via WhatsApp
-    </button>
+        <button type="button" onclick="downloadTankPDF()" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold text-sm py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 mb-3 mt-5">
+            <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
+        </button>
+
+        <button type="button" onclick="sendTankBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold text-sm py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 mb-3">
+            <i class="fab fa-whatsapp text-xl"></i> Book Tanki Wash via WhatsApp
+        </button>
+    </div>
+</div>
 
             <div class="mt-14 max-w-xs mx-auto ios-glass p-5 rounded-2xl text-center shadow-md scroll-reveal">
                 <div class="flex items-center justify-center space-x-2 mb-3">
