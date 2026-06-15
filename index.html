@@ -1221,6 +1221,22 @@
                 <span class="text-[10px] uppercase tracking-widest text-blue-400 font-bold">Estimated Net Total</span>
                 <div class="text-4xl font-black my-1">Rs. <span id="tank-total-price">1500</span></div>
                 <p class="text-[10px] text-slate-400">*Premium chemical wash & multi-stage disinfection included.</p>
+                <!-- Water Tank Custom Offer Input and Action Buttons -->
+<div class="mt-5 text-center">
+    <label class="block text-xs font-bold uppercase text-slate-400 mb-1.5">Customer Offer Rate (RS.)</label>
+    <div class="flex justify-center mb-4">
+        <input type="number" id="tank-custom-rate" placeholder="Enter Custom Total Price" class="w-1/2 text-center ios-input-glass" style="padding: 8px; border-radius: 8px;">
+    </div>
+    <div class="flex justify-center gap-3">
+        <button type="button" onclick="applyTankOffer()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all duration-300">
+            APPLY OFFER
+        </button>
+        <button type="button" onclick="editTankOffer()" class="bg-slate-700 hover:bg-slate-800 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-all duration-300 flex items-center gap-1.5">
+            <i class="fas fa-edit"></i> EDIT
+        </button>
+    </div>
+</div>
+
             </div>
 
             <button type="button" onclick="downloadTankPDF()" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors">
@@ -2145,6 +2161,23 @@ function downloadTankPDF() {
     }).catch(function(err) {
         console.log("Tank PDF Error:", err);
     });
+}
+// Water Tank Custom Offer Management
+function applyTankOffer() {
+    var customRateInput = document.getElementById('tank-custom-rate');
+    var totalDisplay = document.getElementById('tank-total-price');
+    if (customRateInput && customRateInput.value && totalDisplay) {
+        totalDisplay.innerText = customRateInput.value;
+        customRateInput.disabled = true;
+    }
+}
+
+function editTankOffer() {
+    var customRateInput = document.getElementById('tank-custom-rate');
+    if (customRateInput) {
+        customRateInput.disabled = false;
+        customRateInput.focus();
+    }
 }
 
     </script>
