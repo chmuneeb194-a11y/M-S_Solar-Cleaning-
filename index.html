@@ -1357,534 +1357,860 @@
 
 
     <script>
+       // ==========================================
+// HAMBURGER MENU SYSTEM FUNCTIONS
 // ==========================================
-// COMPLETE INTERACTIVE JAVASCRIPT ENGINE
-// ==========================================
-
-// Global state controller metrics tracking
-let currentSelectedLanguage = 'en';
-let activeLayoutTheme = 'light';
-let isSidebarNavOpen = false;
-
-// Real-time visitor counts configuration simulator
-function initializeRealtimeVisitorBadgeCounter() {
-  const badgeElement = document.getElementById('visitor-session-counter');
-  if (badgeElement) {
-    let baseVisitors = Math.floor(Math.random() * (16 - 8 + 1)) + 8;
-    badgeElement.innerText = baseVisitors;
-    
-    setInterval(() => {
-      let variantFactor = Math.random() > 0.5 ? 1 : -1;
-      if (Math.random() > 0.7) {
-        baseVisitors += variantFactor;
-        if (baseVisitors < 4) baseVisitors = 5;
-        if (baseVisitors > 28) baseVisitors = 24;
-        badgeElement.innerText = baseVisitors;
-      }
-    }, 4500);
-  }
-}
-
-// Mobile Slide out Navigation Drawer Management System
 function toggleMenu() {
-  const sidebarContainer = document.getElementById('mobile-menu');
-  if (!sidebarContainer) return;
-  
-  if (sidebarContainer.classList.contains('hidden')) {
-    sidebarContainer.classList.remove('hidden');
-    setTimeout(() => {
-      sidebarContainer.classList.add('menu-active');
-    }, 10);
-    isSidebarNavOpen = true;
-  } else {
-    sidebarContainer.classList.remove('menu-active');
-    setTimeout(() => {
-      sidebarContainer.classList.add('hidden');
-    }, 300);
-    isSidebarNavOpen = false;
-  }
-}
-
-function scrollToSection(sectionIdToken) {
-  if (isSidebarNavOpen) {
-    toggleMenu();
-  }
-  
-  const targetDomNode = document.getElementById(sectionIdToken);
-  if (targetDomNode) {
-    setTimeout(() => {
-      targetDomNode.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 200);
-  }
-}
-
-// Interactive Screen Cursor Halo Visual Component Setup
-function initializeAdvancedHaloCursorSystem() {
-  const cursorNode = document.getElementById('custom-halo-cursor');
-  if (!cursorNode) return;
-  
-  document.addEventListener('mousemove', (coordinatesEvent) => {
-    cursorNode.style.left = coordinatesEvent.clientX + 'px';
-    cursorNode.style.top = coordinatesEvent.clientY + 'px';
-  });
-  
-  document.querySelectorAll('button, a, input, [role="button"]').forEach((clickableElement) => {
-    clickableElement.addEventListener('mouseenter', () => {
-      cursorNode.style.transform = 'translate(-50%, -50%) scale(1.8)';
-      cursorNode.style.backgroundColor = 'rgba(59, 130, 246, 0.15)';
-    });
-    clickableElement.addEventListener('mouseleave', () => {
-      cursorNode.style.transform = 'translate(-50%, -50%) scale(1)';
-      cursorNode.style.backgroundColor = 'transparent';
-    });
-  });
-}
-
-// Window Screen Scroll Top Border Progress Indicator Bar Tracker
-function configureScrollProgressIndicatorBar() {
-  const progressBarNode = document.getElementById('top-scroll-progress');
-  if (!progressBarNode) return;
-  
-  window.addEventListener('scroll', () => {
-    const currentScrollTop = window.scrollY;
-    const documentTotalHeightHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (documentTotalHeightHeight > 0) {
-      const activePercentage = (currentScrollTop / documentTotalHeightHeight) * 100;
-      progressBarNode.style.width = activePercentage + '%';
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+        menu.classList.toggle('hidden');
+        setTimeout(() => {
+            menu.classList.toggle('menu-active');
+        }, 10);
     }
-  });
 }
 
-// Scroll Intersection Smooth Animations System Engine
-function setupScrollRevealIntersectionObserver() {
-  const targetElements = document.querySelectorAll('.scroll-reveal');
-  if (targetElements.length === 0) return;
-  
-  const disclosureConfigurationOptions = {
-    threshold: 0.08,
-    rootMargin: '0px 0px -20px 0px'
-  };
-  
-  const appearanceObserver = new IntersectionObserver((observedEntries, internalObserver) => {
-    observedEntries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        internalObserver.unobserve(entry.target);
-      }
-    });
-  }, disclosureConfigurationOptions);
-  
-  targetElements.forEach(element => appearanceObserver.observe(element));
-}
-
-// Dark Mode Toggle System
-function toggleDarkMode() {
-  const targetBody = document.body;
-  const themeVisualIcon = document.getElementById('theme-toggle-icon');
-  
-  if (targetBody.classList.contains('dark')) {
-    targetBody.classList.remove('dark');
-    localStorage.setItem('ms-solar-theme-state', 'light');
-    activeLayoutTheme = 'light';
-    if (themeVisualIcon) {
-      themeVisualIcon.className = 'fas fa-moon text-slate-400 text-xs';
+function scrollToSection(id) {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+        menu.classList.remove('menu-active');
+        menu.classList.add('hidden');
     }
-  } else {
-    targetBody.classList.add('dark');
-    localStorage.setItem('ms-solar-theme-state', 'dark');
-    activeLayoutTheme = 'dark';
-    if (themeVisualIcon) {
-      themeVisualIcon.className = 'fas fa-sun text-yellow-400 text-xs';
-    }
-  }
-}
-
-function restoreUserSavedThemeState() {
-  const savedStateToken = localStorage.getItem('ms-solar-theme-state');
-  const targetBody = document.body;
-  const themeVisualIcon = document.getElementById('theme-toggle-icon');
-  
-  if (savedStateToken === 'dark') {
-    targetBody.classList.add('dark');
-    activeLayoutTheme = 'dark';
-    if (themeVisualIcon) {
-      themeVisualIcon.className = 'fas fa-sun text-yellow-400 text-xs';
-    }
-  } else {
-    targetBody.classList.remove('dark');
-    activeLayoutTheme = 'light';
-    if (themeVisualIcon) {
-      themeVisualIcon.className = 'fas fa-moon text-slate-400 text-xs';
-    }
-  }
-}
-
-// Multilingual Translation Engine Localization System
-function toggleLanguage() {
-  const sourceLabelNode = document.getElementById('lang-btn-label');
-  const translationTargets = document.querySelectorAll('[data-en][data-ur]');
-  
-  if (currentSelectedLanguage === 'en') {
-    currentSelectedLanguage = 'ur';
-    if (sourceLabelNode) sourceLabelNode.innerText = 'English';
-    document.documentElement.dir = 'rtl';
     
-    translationTargets.forEach(element => {
-      element.innerText = element.getAttribute('data-ur');
+    const targetElement = document.getElementById(id);
+    if (targetElement) {
+        setTimeout(() => {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
+    }
+}
+
+// ==========================================
+// AUTOMATIC SYSTEM THEME ENGINE
+// ==========================================
+function applyAutomaticSystemTheme() {
+    if (!localStorage.getItem('theme')) {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const body = document.body;
+        const themeIcon = document.getElementById('theme-toggle-icon');
+        
+        if (prefersDark) {
+            body.classList.add('dark');
+            document.documentElement.classList.add('dark');
+            if (themeIcon) { themeIcon.className = 'fas fa-sun text-yellow-400 text-xs'; }
+        } else {
+            body.classList.remove('dark');
+            document.documentElement.classList.remove('dark');
+            if (themeIcon) { themeIcon.className = 'fas fa-moon text-slate-400 text-xs'; }
+        }
+    }
+}
+
+if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        applyAutomaticSystemTheme();
     });
-  } else {
-    currentSelectedLanguage = 'en';
-    if (sourceLabelNode) sourceLabelNode.innerText = 'اردو';
-    document.documentElement.dir = 'ltr';
+}
+ 
+        function toggleDarkMode() {
+            var body = document.body;
+            var themeIcon = document.getElementById('theme-toggle-icon');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                document.documentElement.classList.remove('dark');
+                themeIcon.className = "fas fa-moon";
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                document.documentElement.classList.add('dark');
+                themeIcon.className = "fas fa-sun";
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        var currentLang = 'en';
+        function toggleLanguage() {
+            var elements = document.querySelectorAll('[data-en]');
+            var btnLabel = document.getElementById('lang-btn-label');
+            
+            if (currentLang === 'en') {
+                currentLang = 'ur';
+                btnLabel.innerText = "English";
+                elements.forEach(function(el) {
+                    el.innerText = el.getAttribute('data-ur');
+                });
+            } else {
+                currentLang = 'en';
+                btnLabel.innerText = "اردو";
+                elements.forEach(function(el) {
+                    el.innerText = el.getAttribute('data-en');
+                });
+            }
+        }
+function downloadBillPDF(type) {
+    var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
+    var element = document.getElementById(elementId);
     
-    translationTargets.forEach(element => {
-      element.innerText = element.getAttribute('data-en');
-    });
-  }
-}
-
-// Slider Controls for Before/After Panel Verification
-function moveSlider(sliderPercentValue) {
-  const leftClipPane = document.getElementById('left-clip-pane');
-  const middleLineIndicator = document.getElementById('slider-line');
-  const centralCircularButton = document.getElementById('slider-btn');
-  
-  if (leftClipPane) leftClipPane.style.width = sliderPercentValue + '%';
-  if (middleLineIndicator) middleLineIndicator.style.left = sliderPercentValue + '%';
-  if (centralCircularButton) centralCircularButton.style.left = sliderPercentValue + '%';
-}
-
-function togglePanelState(stateModeString) {
-  const coreSliderControl = document.getElementById('image-split-slider');
-  if (!coreSliderControl) return;
-  
-  if (stateModeString === 'dirty') {
-    coreSliderControl.value = 85;
-    moveSlider(85);
-  } else if (stateModeString === 'clean') {
-    coreSliderControl.value = 15;
-    moveSlider(15);
-  }
-}
-
-// Automated Input Dropdown Select Option Emulators
-function toggleCustomDropdownVisibility(wrapperContainerId) {
-  const container = document.getElementById(wrapperContainerId);
-  if (!container) return;
-  const targetDropdownPanel = container.querySelector('.custom-dropdown-panel');
-  if (targetDropdownPanel) {
-    targetDropdownPanel.classList.toggle('hidden');
-  }
-}
-
-function selectCustomDropdownOptionValue(wrapperContainerId, stringDisplayLabel, numericalValuePayload) {
-  const container = document.getElementById(wrapperContainerId);
-  if (!container) return;
-  
-  const displayLabelNode = container.querySelector('.dropdown-display-label');
-  if (displayLabelNode) displayLabelNode.innerText = stringDisplayLabel;
-  
-  container.setAttribute('data-selected-value', numericalValuePayload);
-  
-  const targetDropdownPanel = container.querySelector('.custom-dropdown-panel');
-  if (targetDropdownPanel) {
-    targetDropdownPanel.classList.add('hidden');
-  }
-  
-  // Instantly re-trigger core calculators computations to reflect configuration updates
-  if (wrapperContainerId.includes('solar')) {
-    evaluateComprehensiveSolarCostCalculations();
-  } else if (wrapperContainerId.includes('carwash') || wrapperContainerId.includes('tank')) {
-    evaluateCarWashOperationalQuotations();
-  }
-}
-
-// Global Document Out-of-bounds Clicks Dropdown Dismissal Monitors
-document.addEventListener('click', (pointerClickEvent) => {
-  document.querySelectorAll('.relative').forEach(dropdownWrapperShell => {
-    const panelsBox = dropdownWrapperShell.querySelector('.custom-dropdown-panel');
-    if (panelsBox && !panelsBox.classList.contains('hidden')) {
-      if (!dropdownWrapperShell.contains(pointerClickEvent.target)) {
-        panelsBox.classList.add('hidden');
-      }
+    if (!element) {
+        alert("Bill section not found!");
+        return;
     }
-  });
-});
 
-// Commercial Scale Pricing Matrix Reference Tables
-const SOLAR_PLATE_UNIT_RATE = 21000; 
-const INGCO_WASH_SYSTEM_COST = 32000;
-const HYUNDAI_BLOWER_EQUIP_COST = 8500;
-const STRUCTURAL_SAFETY_HARNESS_COST = 6500;
+    var opt = {
+        margin:       10,
+        filename:     type === 'solar' ? 'MS_Solar_Bill.pdf' : 'MS_CarWash_Bill.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
 
-const BASE_WASH_PRICE_PER_PLATE = 250;
-const DETERGENT_CHEMICAL_SURCHARGE = 40;
-const ACCESSIBILITY_HAZARD_PREMIUM = 60;
-
-// Hybrid Solar Setup Computation Logic Architecture
-function evaluateComprehensiveSolarCostCalculations() {
-  const platesQuantityInput = document.getElementById('solar-plates-quantity');
-  if (!platesQuantityInput) return;
-  
-  let platesCount = parseInt(platesQuantityInput.value) || 0;
-  if (platesCount < 0) platesCount = 0;
-  
-  const structuralInverterContainer = document.getElementById('solar-inverter-dropdown');
-  const targetInverterPriceFactor = structuralInverterContainer ? parseFloat(structuralInverterContainer.getAttribute('data-selected-value') || 0) : 0;
-  
-  const backupBatteryContainer = document.getElementById('solar-battery-dropdown');
-  const targetBatteryPriceFactor = backupBatteryContainer ? parseFloat(backupBatteryContainer.getAttribute('data-selected-value') || 0) : 0;
-  
-  const calculatedPlatesCostTotal = platesCount * SOLAR_PLATE_UNIT_RATE;
-  
-  let structuralFittingsHardwareCost = 0;
-  if (platesCount > 0) {
-    structuralFittingsHardwareCost = 25000 + (platesCount * 3000);
-  }
-  
-  const grossEstimatedCapitalOutlay = calculatedPlatesCostTotal + targetInverterPriceFactor + targetBatteryPriceFactor + structuralFittingsHardwareCost;
-  
-  const priceDisplayNode = document.getElementById('pdf-solar-price-box');
-  if (priceDisplayNode) {
-    const headingValueNode = priceDisplayNode.querySelector('h3');
-    if (headingValueNode) {
-      headingValueNode.innerText = platesCount > 0 ? `Rs. ${grossEstimatedCapitalOutlay.toLocaleString()}` : 'Rs. 0';
-    }
-  }
-  
-  updateSolarBillItemizedBreakdownReceipt(platesCount, calculatedPlatesCostTotal, targetInverterPriceFactor, targetBatteryPriceFactor, structuralFittingsHardwareCost, grossEstimatedCapitalOutlay);
+    html2pdf().from(element).set(opt).save();
 }
 
-function updateSolarBillItemizedBreakdownReceipt(plates, platesCost, inverterCost, batteryCost, structureCost, finalTotal) {
-  const receiptContainerNode = document.getElementById('solar-itemized-breakdown-receipt');
-  if (!receiptContainerNode) return;
-  
-  if (plates <= 0) {
-    receiptContainerNode.innerHTML = `<p class="text-xs text-center text-slate-400 py-4 font-semibold">Enter plates quantity to generate dynamic cost matrix.</p>`;
-    return;
-  }
-  
-  receiptContainerNode.innerHTML = `
-    <div class="space-y-2.5 font-bold text-xs">
-      <div class="flex justify-between border-b border-dashed border-slate-300 dark:border-slate-700 pb-1.5 text-slate-600 dark:text-slate-400">
-        <span>A-Grade Solar PV Plates (${plates} Units):</span>
-        <span class="text-slate-900 dark:text-white">Rs. ${platesCost.toLocaleString()}</span>
-      </div>
-      <div class="flex justify-between border-b border-dashed border-dashed border-slate-300 dark:border-slate-700 pb-1.5 text-slate-600 dark:text-slate-400">
-        <span>Selected Smart Inverter Stage:</span>
-        <span class="text-slate-900 dark:text-white">Rs. ${inverterCost.toLocaleString()}</span>
-      </div>
-      <div class="flex justify-between border-b border-dashed border-slate-300 dark:border-slate-700 pb-1.5 text-slate-600 dark:text-slate-400">
-        <span>Battery Backup Storage Unit:</span>
-        <span class="text-slate-900 dark:text-white">Rs. ${batteryCost.toLocaleString()}</span>
-      </div>
-      <div class="flex justify-between border-b border-dashed border-slate-300 dark:border-slate-700 pb-1.5 text-slate-600 dark:text-slate-400">
-        <span>Custom Mounting Struts & Wiring:</span>
-        <span class="text-slate-900 dark:text-white">Rs. ${structureCost.toLocaleString()}</span>
-      </div>
-      <div class="flex justify-between text-sm pt-2 text-blue-600 dark:text-blue-400 font-black">
-        <span>Gross System Quote (Net Cash):</span>
-        <span>Rs. ${finalTotal.toLocaleString()}</span>
-      </div>
-    </div>
-  `;
-}
-
-// Car Wash Service Quote Computation Logic Architecture
-function evaluateCarWashOperationalQuotations() {
-  const quantityInputNode = document.getElementById('carwash-plates-quantity');
-  if (!quantityInputNode) return;
-  
-  let functionalPlatesCount = parseInt(quantityInputNode.value) || 0;
-  if (functionalPlatesCount < 0) functionalPlatesCount = 0;
-  
-  const serviceDropdownContainer = document.getElementById('carwash-service-dropdown');
-  const serviceSelectionToken = serviceDropdownContainer ? serviceDropdownContainer.getAttribute('data-selected-value') : 'standard';
-  
-  const elevationDropdownContainer = document.getElementById('tank-elevation-dropdown');
-  const elevationSelectionToken = elevationDropdownContainer ? elevationDropdownContainer.getAttribute('data-selected-value') : 'ground';
-  
-  let computedUnitWashRate = BASE_WASH_PRICE_PER_PLATE;
-  if (serviceSelectionToken === 'premium-chemical') {
-    computedUnitWashRate += DETERGENT_CHEMICAL_SURCHARGE;
-  }
-  if (elevationSelectionToken === 'double-story') {
-    computedUnitWashRate += ACCESSIBILITY_HAZARD_PREMIUM;
-  }
-  
-  const baseWashCalculatedTotal = functionalPlatesCount * computedUnitWashRate;
-  
-  let logisticsSurchargePremium = 0;
-  if (functionalPlatesCount > 0) {
-    logisticsSurchargePremium = functionalPlatesCount < 8 ? 1500 : 800;
-  }
-  
-  const grossServiceQuotationFinal = baseWashCalculatedTotal + logisticsSurchargePremium;
-  
-  const priceDisplayNode = document.getElementById('pdf-carwash-price-box');
-  if (priceDisplayNode) {
-    const headingValueNode = priceDisplayNode.querySelector('h3');
-    if (headingValueNode) {
-      headingValueNode.innerText = functionalPlatesCount > 0 ? `Rs. ${grossServiceQuotationFinal.toLocaleString()}` : 'Rs. 0';
-    }
-  }
-  
-  updateCarWashItemizedBreakdownReceipt(functionalPlatesCount, computedUnitWashRate, baseWashCalculatedTotal, logisticsSurchargePremium, grossServiceQuotationFinal);
-}
-
-function updateCarWashItemizedBreakdownReceipt(plates, unitRate, totalWash, transport, grandTotal) {
-  const receiptContainerNode = document.getElementById('carwash-itemized-breakdown-receipt');
-  if (!receiptContainerNode) return;
-  
-  if (plates <= 0) {
-    receiptContainerNode.innerHTML = `<p class="text-xs text-center text-slate-400 py-4 font-semibold">Enter plates quantity to generate dynamic cost matrix.</p>`;
-    return;
-  }
-  
-  receiptContainerNode.innerHTML = `
-    <div class="space-y-2.5 font-bold text-xs">
-      <div class="flex justify-between border-b border-dashed border-slate-300 dark:border-slate-700 pb-1.5 text-slate-600 dark:text-slate-400">
-        <span>Plates Processing Wash Rate (At Rs. ${unitRate}/Plate):</span>
-        <span class="text-slate-900 dark:text-white">Rs. ${totalWash.toLocaleString()}</span>
-      </div>
-      <div class="flex justify-between border-b border-dashed border-slate-300 dark:border-slate-700 pb-1.5 text-slate-600 dark:text-slate-400">
-        <span>Sahiwal On-Site Logistics & Machinery Setup:</span>
-        <span class="text-slate-900 dark:text-white">Rs. ${transport.toLocaleString()}</span>
-      </div>
-      <div class="flex justify-between border-b border-dashed border-slate-300 dark:border-slate-700 pb-1.5 text-slate-600 dark:text-slate-400">
-        <span>INGCO Pressure Pumps Consumable Overhead:</span>
-        <span class="text-emerald-600 dark:text-emerald-400">INCLUDED FREE</span>
-      </div>
-      <div class="flex justify-between border-b border-dashed border-slate-300 dark:border-slate-700 pb-1.5 text-slate-600 dark:text-slate-400">
-        <span>Safety Lifelines & Inverter Post-Blow Service:</span>
-        <span class="text-emerald-600 dark:text-emerald-400">INCLUDED FREE</span>
-      </div>
-      <div class="flex justify-between text-sm pt-2 text-emerald-600 dark:text-emerald-400 font-black">
-        <span>Net Professional Service Estimate:</span>
-        <span>Rs. ${grandTotal.toLocaleString()}</span>
-      </div>
-    </div>
-  `;
-}
-
-// Safe PDF Bill Quotation Generator Document Transpiler Action
-function downloadBillPDF(billTypeCategoryToken) {
-  let elementTargetId = '';
-  let documentOutputFileName = '';
-  
-  if (billTypeCategoryToken === 'solar') {
-    elementTargetId = 'pdf-solar-target';
-    documentOutputFileName = 'MS_Solar_System_Setup_Quotation.pdf';
-  } else if (billTypeCategoryToken === 'carwash') {
-    elementTargetId = 'pdf-carwash-target';
-    documentOutputFileName = 'MS_Solar_Professional_Wash_Estimate.pdf';
-  }
-  
-  const elementDomNode = document.getElementById(elementTargetId);
-  if (!elementDomNode) {
-    alert('Target calculation invoice structure layout missing.');
-    return;
-  }
-  
-  const conversionLayoutOptions = {
-    margin: [12, 12, 12, 12],
-    filename: documentOutputFileName,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: {
-      scale: 2.5,
-      useCORS: true,
-      letterRendering: true,
-      scrollY: 0
-    },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
-  
-  html2pdf().from(elementDomNode).set(conversionLayoutOptions).save();
-}
-
-// [FIXED BUG] Yeh function adhoora chorne se bracket mismatch crash ho raha tha. Ab isko properly band kar diya gaya hai aur iski logic theek hai.
 function applySolarOffer() {
-  const platesQuantityInput = document.getElementById('solar-plates-quantity');
-  if (!platesQuantityInput) return;
-  
-  let currentPlates = parseInt(platesQuantityInput.value) || 0;
-  if (currentPlates > 0) {
-    alert("Special promotional discount code successfully injected into calculation sequence!");
-    evaluateComprehensiveSolarCostCalculations();
-  } else {
-    alert("Please configure system dimensions before applying promo vouchers.");
-  }
+    var applyBtn = document.getElementById('solar-apply-btn');
+    var applyIcon = document.getElementById('solar-apply-icon');
+    var applyText = document.getElementById('solar-apply-text');
+    var rateInput = document.getElementById('custom-panel-rate');
+
+    if(applyBtn && rateInput) {
+        applyBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+        applyBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+
+        if(applyIcon) {
+            applyIcon.classList.remove('opacity-0', 'max-w-0');
+            applyIcon.classList.add('opacity-100', 'mr-1');
+        }
+
+        if(applyText) applyText.innerText = "Offer Applied";
+        rateInput.disabled = true;
+    }
 }
 
-// Core Engine Bootstrap Systems Initializer Trigger Lifecycle hook
-window.addEventListener('DOMContentLoaded', () => {
-  restoreUserSavedThemeState();
-  initializeRealtimeVisitorBadgeCounter();
-  initializeAdvancedHaloCursorSystem();
-  configureScrollProgressIndicatorBar();
-  setupScrollRevealIntersectionObserver();
-  
-  // Realtime inputs change capture loops attachment
-  const solarPlatesInputField = document.getElementById('solar-plates-quantity');
-  if (solarPlatesInputField) {
-    solarPlatesInputField.addEventListener('input', evaluateComprehensiveSolarCostCalculations);
-  }
-  
-  const carwashPlatesInputField = document.getElementById('carwash-plates-quantity');
-  if (carwashPlatesInputField) {
-    carwashPlatesInputField.addEventListener('input', evaluateCarWashOperationalQuotations);
-  }
+function editSolarOffer() {
+    var applyBtn = document.getElementById('solar-apply-btn');
+    var applyIcon = document.getElementById('solar-apply-icon');
+    var applyText = document.getElementById('solar-apply-text');
+    var rateInput = document.getElementById('custom-panel-rate');
+
+    if(applyBtn && rateInput) {
+        applyBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+        applyBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+
+        if(applyIcon) {
+            applyIcon.classList.remove('opacity-100', 'mr-1');
+            applyIcon.classList.add('opacity-0', 'max-w-0');
+        }
+
+        if(applyText) applyText.innerText = "Apply Offer";
+        rateInput.disabled = false;
+        rateInput.focus();
+    }
+}
+
+        function setVehicleTypeViaBadge(val) {
+            var selectObj = document.getElementById('carwash-type');
+            selectObj.value = val;
+            syncVehicleBadge(val);
+        }
+
+        function syncVehicleBadge(val) {
+            var badges = document.querySelectorAll('.vehicle-badge');
+            badges.forEach(function(b) {
+                b.classList.remove('border-blue-500', 'bg-blue-50');
+                b.classList.add('border-transparent', 'bg-slate-50');
+            });
+            var activeBadge = document.getElementById('badge-car-' + val);
+            if(activeBadge) {
+                activeBadge.classList.remove('border-transparent', 'bg-slate-50');
+                activeBadge.classList.add('border-blue-500', 'bg-blue-50');
+            }
+            calculateCarWashBill();
+        }
+
+        function runAnimatedCounters() {
+            var targetYears = 5;
+            var targetCust = 1000;
+            var currYears = 0;
+            var currCust = 0;
+            
+            var yElem = document.getElementById('counter-years');
+            var cElem = document.getElementById('counter-customers');
+            
+            var intervalY = setInterval(function() {
+                if(currYears >= targetYears) {
+                    clearInterval(intervalY);
+                } else {
+                    currYears++;
+                    yElem.innerText = currYears + "+ Years";
+                }
+            }, 100);
+
+            var intervalC = setInterval(function() {
+                if(currCust >= targetCust) {
+                    clearInterval(intervalC);
+                    cElem.innerText = targetCust + "+";
+                } else {
+                    currCust += 25;
+                    cElem.innerText = currCust + "+";
+                }
+            }, 30);
+        }
+
+        function initScrollAnimations() {
+            var elements = document.querySelectorAll('.scroll-reveal');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            elements.forEach(function(el) {
+                observer.observe(el);
+            });
+        }
+
+        window.addEventListener('scroll', function() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            var progBar = document.getElementById("top-scroll-progress");
+            if(progBar) progBar.style.width = scrolled + "%";
+        });
+
+        window.addEventListener('mousemove', function(e) {
+            var cursor = document.getElementById('custom-halo-cursor');
+            if(cursor) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
+
+        function switchServiceLayout(serviceType) {
+            var solarBlock = document.getElementById('solar-calc-block');
+            var carwashBlock = document.getElementById('carwash-calc-block');
+            
+            if (serviceType === 'carwash') {
+                if(solarBlock) solarBlock.classList.add('hidden');
+                if(carwashBlock) carwashBlock.classList.remove('hidden');
+                document.getElementById('label-main-tab-carwash').innerText = "🧽 Car Wash Active";
+                document.getElementById('label-main-tab-solar').innerText = "Open Solar Setup";
+            } else {
+                if(carwashBlock) carwashBlock.classList.add('hidden');
+                if(solarBlock) solarBlock.classList.remove('hidden');
+                document.getElementById('label-main-tab-solar').innerText = "⚡ Solar Active";
+                document.getElementById('label-main-tab-carwash').innerText = "Open Car Wash";
+            }
+            document.getElementById('panel-main-tab-carwash').classList.add('hidden');
+            document.getElementById('panel-main-tab-solar').classList.add('hidden');
+            
+            setTimeout(function() {
+                var sliderInput = document.getElementById("image-split-slider");
+                if(sliderInput) moveSlider(sliderInput.value);
+            }, 50);
+        }
+
+        function changeCarWashQty(amount) {
+            var qtyInput = document.getElementById("carwash-qty");
+            var currentVal = parseInt(qtyInput.value) || 1;
+            var newVal = currentVal + amount;
+            if (newVal < 1) newVal = 1;
+            qtyInput.value = newVal;
+            calculateCarWashBill();
+        }
+
+        function calculateCarWashBill() {
+            var vehicleRate = parseInt(document.getElementById("carwash-type").value) || 800;
+            var qty = parseInt(document.getElementById("carwash-qty").value) || 1;
+            var total = vehicleRate * qty;
+            document.getElementById("carwash-total-price").innerText = total;
+        }
+
+        function sendCarWashBooking() {
+            var phoneNumber = "923084462121";
+            var name = document.getElementById("carwash-cust-name").value || "Valued Customer";
+            var phone = document.getElementById("carwash-cust-phone").value || "Not Provided";
+            var address = document.getElementById("carwash-cust-address").value || "Not Provided";
+            var date = document.getElementById("carwash-booking-date").value || "ASAP";
+            var time = document.getElementById("carwash-booking-time").value;
+            var qty = document.getElementById("carwash-qty").value;
+            
+            var selectElem = document.getElementById("carwash-type");
+            var vehicleLabel = selectElem.options[selectElem.selectedIndex].text.split("—")[0].trim();
+            var finalBill = document.getElementById("carwash-total-price").innerText;
+
+            var rawMessageText = "🚀 *M S CAR WASH - NEW CLEANING SERVICE BOOKING* 🚀\n\n" + 
+                                 "*Customer Name:* " + name + "\n" +
+                                 "📞 *Customer Phone:* " + phone + "\n" +
+                                 "📍 *Sahiwal Address:* " + address + "\n" +
+                                 "📅 *Scheduled Date:* " + date + "\n" +
+                                 "⏰ *Time Slot:* " + time + "\n" +
+                                 "*Vehicle Type:* " + vehicleLabel + "\n" +
+                                 "*Quantity:* " + qty + " Vehicle(s)\n" +
+                                 "💰 *Final Estimated Bill:* Rs. " + finalBill;
+
+            var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
+            window.open(url, '_blank');
+        }
+        function calculateTankBill() {
+    var gallonType = document.getElementById("tank-gallon-type").value;
+    var baseRate = parseInt(gallonType) || 1500;
+    
+    // Agar 500 gallon select ho to rate 1500 hi rahega
+    if (gallonType === "500") {
+        baseRate = 1500;
+    } else if (gallonType === "1000") {
+        baseRate = 3000;
+    } else if (gallonType === "1500") {
+        baseRate = 4500;
+    } else if (gallonType === "2000") {
+        baseRate = 6000;
+    }
+
+    var qty = parseInt(document.getElementById("tank-qty").value) || 1;
+    var total = baseRate * qty;
+    document.getElementById("tank-total-price").innerText = total;
+}
+
+function changeTankQty(amount) {
+    var qtyInput = document.getElementById("tank-qty");
+    var currentVal = parseInt(qtyInput.value) || 1;
+    var newVal = currentVal + amount;
+    if (newVal < 1) newVal = 1;
+    qtyInput.value = newVal;
+    calculateTankBill();
+}
+
+function sendTankBooking() {
+    var phoneNumber = "923084462121";
+    var name = document.getElementById("tank-cust-name").value || "Valued Customer";
+    var phone = document.getElementById("tank-cust-phone").value || "Not Provided";
+    var address = document.getElementById("tank-cust-address").value || "Not Provided";
+    var date = document.getElementById("tank-booking-date").value || "ASAP";
+    var time = document.getElementById("tank-booking-time").value;
+    var qty = document.getElementById("tank-qty").value;
+
+    var selectElem = document.getElementById("tank-gallon-type");
+    var gallonLabel = selectElem.options[selectElem.selectedIndex].text.split("—")[0].trim();
+    var finalBill = document.getElementById("tank-total-price").innerText;
+
+    var rawMessageText = "🪣 *MS SOLAR SERVICES - WATER TANKI WASH BOOKING* 🪣\n\n" +
+        "👤 *Customer Name:* " + name + "\n" +
+        "📞 *Customer Phone:* " + phone + "\n" +
+        "📍 *Sahiwal Address:* " + address + "\n" +
+        "📅 *Scheduled Date:* " + date + "\n" +
+        "🕒 *Time Slot:* " + time + "\n" +
+        "🪣 *Tanki Capacity:* " + gallonLabel + "\n" +
+        "🔢 *Quantity:* " + qty + " Tanki(s)\n\n" +
+        "💰 *Final Estimated Bill:* Rs. " + finalBill;
+
+    var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
+    window.open(url, '_blank');
+}
+function downloadTankPDF() {
+    const element = document.getElementById('pdf-tank-target');
+    if (!element) return;
+    
+    const opt = {
+        margin:       10,
+        filename:     'MS_Solar_Water_Tank_Invoice.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    
+    html2canvas(element, opt.html2canvas).then((canvas) => {
+        const imgData = canvas.toDataURL('image/jpeg');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF(opt.jsPDF);
+        const imgWidth = 190;
+        const pageHeight = 295;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
+        pdf.save(opt.filename);
+    }).catch(err => console.log("PDF Generation Error:", err));
+}
+
+
+        function openCustomDropdown(id) {
+            var targetPanel = document.getElementById('panel-' + id);
+            if (!targetPanel) return;
+            
+            var isHidden = targetPanel.classList.contains('hidden');
+            
+            var activePanels = document.querySelectorAll('.custom-dropdown-panel');
+            activePanels.forEach(function(p) {
+                p.classList.add('hidden');
+            });
+
+            if (isHidden) {
+                targetPanel.classList.remove('hidden');
+            }
+        }
+
+        function selectCustomOption(id, actualValue, textLabel) {
+            document.getElementById(id).value = actualValue;
+            document.getElementById('label-' + id).innerText = textLabel;
+            document.getElementById('panel-' + id).classList.add('hidden');
+            
+            if (id === 'inv-size') {
+                autoSuggestPanels(actualValue);
+            }
+            
+            calculateBill();
+        }
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.relative')) {
+                var panels = document.querySelectorAll('.custom-dropdown-panel');
+                panels.forEach(function(p) { p.classList.add('hidden'); });
+            }
+        });
+
+        function moveSlider(value) {
+            var sliderLine = document.getElementById("slider-line");
+            var sliderBtn = document.getElementById("slider-btn");
+            var sliderInput = document.getElementById("image-split-slider");
+            var leftPane = document.getElementById("left-clip-pane");
+            var shell = document.getElementById("slider-box-shell");
+            if (!shell) return;
+            var containerWidth = shell.offsetWidth;
+            
+            if(sliderInput) sliderInput.value = value;
+            if(leftPane) leftPane.style.width = value + "%";
+            if(sliderLine) sliderLine.style.left = value + "%";
+            if(sliderBtn) sliderBtn.style.left = value + "%";
+            
+            var imgDirty = document.getElementById("img-dirty-src");
+            var imgClean = document.getElementById("img-clean-src");
+            
+            if(imgDirty) imgDirty.style.width = containerWidth + "px";
+            if(imgClean) imgClean.style.width = containerWidth + "px";
+        }
+
+        function togglePanelState(state) {
+            if (state === 'dirty') {
+                moveSlider(100); 
+            } else if (state === 'clean') {
+                moveSlider(0); 
+            }
+        }
+        // Water Tank Slider Control Logic
+const tankSliderInput = document.getElementById('tank-image-split-slider');
+if (tankSliderInput) {
+    tankSliderInput.addEventListener('input', function(e) {
+        var value = e.target.value;
+        var tankLeftPane = document.getElementById('tank-left-clip-pane');
+        var tankSliderLine = document.getElementById('tank-slider-line');
+        var tankSliderBtn = document.getElementById('tank-slider-btn');
+        
+        if (tankLeftPane) tankLeftPane.style.width = value + '%';
+        if (tankSliderLine) tankSliderLine.style.left = value + '%';
+        if (tankSliderBtn) tankSliderBtn.style.left = value + '%';
+    });
+}
+
+
+        function shareWithFriend() {
+            var websiteUrl = window.location.href;
+            var shareText = "☀️ *MS Solar Cleaning Services Sahiwal* ☀️\n\nGande solar panels ki wajah se kafi ziada bijli zaya hoti hai. Live cost calculator check karne aur professional machinery wash book karne ke liye niche link par click karein:\n\n🔗 " + websiteUrl;
+            var whatsappUrl = "https://wa.me/?text=" + encodeURIComponent(shareText);
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function autoSuggestPanels(systemSize) {
+            var qtyInput = document.getElementById("panel-qty");
+            var sizeNum = parseInt(systemSize) || 3;
+            var calculatedPanels = Math.ceil((sizeNum * 1000) / 585);
+            qtyInput.value = calculatedPanels;
+            calculateBill();
+        }
+
+        function changePanels(amount) {
+            var qtyInput = document.getElementById("panel-qty");
+            var currentVal = parseInt(qtyInput.value) || 0;
+            var newVal = currentVal + amount;
+            if (newVal < 1) newVal = 1;
+            qtyInput.value = newVal;
+            calculateBill();
+        }
+
+        function checkCustomerHistory() {
+            var phone = document.getElementById("cust-phone").value.trim();
+            var statusBox = document.getElementById("history-status-box");
+            var countBadge = document.getElementById("history-count-badge");
+            var rewardMsg = document.getElementById("history-reward-msg");
+            
+            if (!phone) {
+                alert("Meherbani karke pehle Mobile Number darj karein!");
+                statusBox.classList.add("hidden");
+                return;
+            }
+            
+            var currentMonth = new Date().getMonth(); 
+            var dataKey = "ms_solar_user_" + phone;
+            var userData = JSON.parse(localStorage.getItem(dataKey)) || { month: currentMonth, count: 0 };
+            
+            if (userData.month !== currentMonth) {
+                userData.month = currentMonth;
+                userData.count = 0;
+                localStorage.setItem(dataKey, JSON.stringify(userData));
+            }
+            
+            statusBox.classList.remove("hidden");
+            countBadge.innerText = userData.count;
+            
+            if (userData.count === 3) {
+                rewardMsg.innerHTML = "<span class='text-green-600 animate-pulse'>🎉 Mubarak Ho! 3 Services Mukammal. Yeh Wash FREE Hai!</span>";
+            } else if (userData.count >= 4) {
+                rewardMsg.innerHTML = "<span class='text-blue-600'>Loyalty Cycle Restarted (Next Reward after 3 washes)</span>";
+            } else {
+                var remaining = 3 - userData.count;
+                rewardMsg.innerHTML = "<span class='text-amber-600'>Agli " + remaining + " services ke baad 1 FREE wash milegi!</span>";
+            }
+            calculateBill();
+        }
+
+        function calculateBill() {
+            var panelsInput = document.getElementById("panel-qty").value;
+            var panels = parseInt(panelsInput);
+            if (isNaN(panels) || panels < 0) panels = 0;
+            
+            var invertersCount = parseInt(document.getElementById("inverter-qty").value) || 1;
+            var servicePlan = document.getElementById("service-package").value;
+            var phone = document.getElementById("cust-phone").value.trim();
+            
+            var rateInput = document.getElementById("custom-panel-rate");
+var ratePerPanel = rateInput ? (parseFloat(rateInput.value) || 80) : 80;
+
+            var blowerCost = document.getElementById("blower-check").checked ? (500 * invertersCount) : 0; 
+            
+            var total = (panels * ratePerPanel) + blowerCost;
+            var isFreeReward = false;
+            
+            if (phone) {
+                var currentMonth = new Date().getMonth();
+                var userData = JSON.parse(localStorage.getItem("ms_solar_user_" + phone)) || { month: currentMonth, count: 0 };
+                if (userData.month === currentMonth && userData.count === 3) {
+                    isFreeReward = true;
+                }
+            }
+            
+            if (isFreeReward) {
+                total = 0; 
+                document.getElementById("rate-calc-note").innerHTML = "<span class='text-green-400 font-bold'>🎁 3+1 Loyalty Offer Applied: This Service is 100% FREE!</span>";
+            } else if (servicePlan === "Monthly") {
+                total = Math.round(total * 0.90); 
+                document.getElementById("rate-calc-note").innerText = "*Monthly Subscription package configuration active: Flat 10% Off Applied!";
+            } else {
+                document.getElementById("rate-calc-note").innerText = "*Standard washing rate calculated at Rs. 80 per panel";
+            }
+            
+            document.getElementById("total-price").innerText = total;
+
+            var powerLossUnits = (panels * 0.4).toFixed(1); 
+            var moneyLossValue = Math.round(powerLossUnits * 45 * 30); 
+            
+            document.getElementById("alert-units").innerText = powerLossUnits;
+            document.getElementById("alert-money").innerText = moneyLossValue.toLocaleString();
+        }
+
+        function toggleFaq(id) {
+            var ans = document.getElementById("faq-ans-" + id);
+            var icon = document.getElementById("faq-icon-" + id);
+            if (ans.classList.contains("hidden")) {
+                ans.classList.remove("hidden");
+                icon.style.transform = "rotate(180deg)";
+            } else {
+                ans.classList.add("hidden");
+                icon.style.transform = "rotate(0deg)";
+            }
+        }
+
+        function sendBooking() {
+            var phoneNumber = "923084462121"; 
+            var name = document.getElementById("cust-name").value || "Valued Customer";
+            var custPhone = document.getElementById("cust-phone").value.trim() || "Not Provided";
+            
+            var address = document.getElementById("cust-address").value || "Not Provided (Sahiwal Region)";
+            var mapUrlStr = document.getElementById("maps-url").value || "No Live Pin Attached";
+            var date = document.getElementById("booking-date").value || "As soon as possible";
+            var time = document.getElementById("booking-time").value;
+            
+            var planType = document.getElementById("service-package").value;
+            var pBrand = document.getElementById("panel-brand").value;
+            var brand = document.getElementById("inv-brand").value;
+            var size = document.getElementById("inv-size").value;
+            var invertersCount = document.getElementById("inverter-qty").value;
+            var historyLog = document.getElementById("cleaning-history").value;
+            
+            var panelsInput = document.getElementById("panel-qty").value;
+            var qty = parseInt(panelsInput);
+            if (isNaN(qty) || qty < 0) qty = 0;
+            
+            var finalBill = document.getElementById("total-price").innerText;
+            var blowerActive = document.getElementById("blower-check").checked ? "Yes (" + invertersCount + " Inverters)" : "No";
+            
+            var loyaltyStatusText = "Regular Client Campaign";
+            if (custPhone !== "Not Provided") {
+                var currentMonth = new Date().getMonth();
+                var dataKey = "ms_solar_user_" + custPhone;
+                var userData = JSON.parse(localStorage.getItem(dataKey)) || { month: currentMonth, count: 0 };
+                
+                if (userData.count === 3) {
+                    loyaltyStatusText = "🎁 *3+1 FREE LOYALTY WASH APPLIED!*";
+                    userData.count = 4; 
+                } else {
+                    if(userData.count >= 4) {
+                        userData.count = 1; 
+                    } else {
+                        userData.count += 1; 
+                    }
+                    loyaltyStatusText = "Active Service Count: " + userData.count + " This Month";
+                }
+                localStorage.setItem(dataKey, JSON.stringify(userData));
+            }
+                var rateInput = document.getElementById("custom-panel-rate");
+    var appliedRate = rateInput && rateInput.value ? rateInput.value : "80";
+    var rawMessageText = "🧼 *M S SOLAR CLEANING - NEW ADVANCED BOOKING* 🧼\n\n" +
+        "*Customer Name:* " + name + "\n" +
+        "📞 *Customer Phone:* " + custPhone + "\n" +
+        "🏆 *Loyalty Reward Status:* " + loyaltyStatusText + "\n" +
+        "📍 *Sahiwal Address:* " + address + "\n" +
+        "🗺️ *Google Maps Pin:* " + mapUrlStr + "\n" +
+        "📅 *Scheduled Date:* " + date + "\n" +
+        "⏰ *Time Slot:* " + time + "\n" +
+        "📦 *Package Selected:* " + planType + " Plan\n\n" +
+        "☀️ *Solar Panels Qty:* " + qty + " Panels\n" +
+        "💰 *Customer Offer Rate:* Rs. " + appliedRate + " per panel\n" +
+        "🏷️ *Panels Brand:* " + pBrand + "\n" +
+        "⚡ *Inverter Setup:* " + brand + " (" + size + " kw) x " + invertersCount + "\n" +
+        "⏳ *Last Cleaned Status:* " + historyLog + "\n" +
+        "💨 *Inverter Blower Service:* " + blowerActive + "\n" +
+        "💰 *Final Estimated Bill:* Rs. " + finalBill;
+
+            
+            var url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(rawMessageText);
+            window.open(url, '_blank');
+            
+            if (custPhone !== "Not Provided") {
+                checkCustomerHistory();
+            }
+        }
+        
+        window.onresize = function() {
+            var sliderInput = document.getElementById("image-split-slider");
+            if(sliderInput) moveSlider(sliderInput.value);
+        };
+
+        window.onload = function() {
+            if(localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark');
+                document.documentElement.classList.add('dark');
+                var tIcon = document.getElementById('theme-toggle-icon');
+                if(tIcon) tIcon.className = "fas fa-sun";
+            }
+                    // Automatic system color scheme layout engine activator
+        applyAutomaticSystemTheme();
+
+            switchServiceLayout('solar');
+            calculateBill();
+            calculateCarWashBill();
+            runAnimatedCounters();
+            initScrollAnimations();
+
+            var initSlider = setInterval(function(){
+                var shell = document.getElementById("slider-box-shell");
+                if (shell && shell.offsetWidth > 0) {
+                    moveSlider(50);
+                    clearInterval(initSlider);
+                }
+            }, 100);
+    };
+// 1. Dark Mode Automatic System Fix (Poori Website Ke Liye)
+function applyAutomaticSystemTheme() {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (isDark) {
+        document.documentElement.classList.add('dark');
+        document.body.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+        document.body.classList.remove('dark');
+    }
+}
+// System level change ko track karne ke liye event listener
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyAutomaticSystemTheme);
+
+// 2. Custom Scroll & Unhide Function (Teeno Buttons Aur Fast Desk Ke Liye)
+function scrollToSection(sectionId) {
+    // Agar menu open hai to use close karein
+    if (typeof toggleMenu === 'function') {
+        toggleMenu();
+    }
+    
+    const targetBlock = document.getElementById(sectionId);
+    if (targetBlock) {
+        // Agar target hidden hai (Jese safety compliance, reviews, certified standards, ya fast desk)
+        if (targetBlock.classList.contains('hidden')) {
+            targetBlock.classList.remove('hidden');
+        }
+        
+       // Live Visitor Counter Logic
+function initializeLiveVisitorMonitoring() {
+    const counterElement = document.getElementById('visitor-session-counter');
+    if (!counterElement) return;
+
+    let dynamicBaseSeed = parseInt(localStorage.getItem('ms_solar_base_session_visitors'));
+    if (!dynamicBaseSeed || isNaN(dynamicBaseSeed)) {
+        dynamicBaseSeed = Math.floor(Math.random() * (48 - 12 + 1)) + 12;
+        localStorage.setItem('ms_solar_base_session_visitors', dynamicBaseSeed);
+    }
+    
+    counterElement.innerText = dynamicBaseSeed;
+
+    setInterval(() => {
+        let currentCalculatedTrack = parseInt(counterElement.innerText);
+        const algorithmicVariance = Math.random() > 0.55 ? 1 : -1;
+        let revisedCalculation = currentCalculatedTrack + algorithmicVariance;
+        
+        if (revisedCalculation < 12) revisedCalculation = 15;
+        if (revisedCalculation > 85) revisedCalculation = 60;
+        
+        counterElement.innerText = revisedCalculation;
+    }, Math.floor(Math.random() * (7000 - 3500 + 1)) + 3500);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initializeLiveVisitorMonitoring();
 });
+ 
+        // Smooth scroll implementation
+        setTimeout(() => {
+            targetBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+    }
+}
+// 1. Solar aur Car Wash ka PDF Download function
+function downloadBillPDF(type) {
+    var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
+    var element = document.getElementById(elementId);
+    if (!element) return;
 
-// PWA Installation Service Execution Controller
-let deferredPrompt;
-const installBanner = document.getElementById('pwa-install-banner');
-const installBtn = document.getElementById('pwa-install-btn');
+    var parentBlock = document.getElementById(type === 'solar' ? 'solar-calc-block' : 'carwash-calc-block');
+    var wasHidden = parentBlock && parentBlock.classList.contains('hidden');
+    if (wasHidden) parentBlock.classList.remove('hidden');
 
-// Browser se install ka signal pakadna
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (installBanner) {
-    installBanner.style.display = 'flex';
+    var opt = {
+        scale: 2,
+        useCORS: true
+    };
+
+    html2canvas(element, opt).then(function(canvas) {
+        var imgData = canvas.toDataURL('image/jpeg');
+        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+        var imgWidth = 190;
+        var imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
+        pdf.save('MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Wash_Invoice.pdf');
+
+        if (wasHidden) parentBlock.classList.add('hidden');
+    }).catch(function(err) {
+        console.log("PDF Error:", err);
+        if (wasHidden) parentBlock.classList.add('hidden');
+    });
+}
+
+// 2. Water Tanki ka PDF Download function
+function downloadTankPDF() {
+    var element = document.getElementById('tank-calc-block');
+    if (!element) return;
+    
+    var opt = {
+        scale: 2,
+        useCORS: true
+    };
+    
+    html2canvas(element, opt).then(function(canvas) {
+        var imgData = canvas.toDataURL('image/jpeg');
+        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+        var imgWidth = 190;
+        var imgHeight = (canvas.height * imgWidth) / canvas.width;
+        
+        pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
+        pdf.save('MS_Solar_Water_Tank_Invoice.pdf');
+    }).catch(function(err) {
+        console.log("Tank PDF Error:", err);
+    });
+}
+
+    </script>
+            <script>
+  let deferredPrompt;
+  const installBanner = document.getElementById('pwa-install-banner');
+  const installBtn = document.getElementById('pwa-install-btn');
+
+  // Service Worker Registration
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/M-S_Solar-Cleaning-/sw.js')
+        .then(reg => console.log('Service Worker Registered!', reg))
+        .catch(err => console.log('Service Worker Log Error:', err));
+    });
   }
-});
 
-const navInstallBtn = document.getElementById('nav-install-btn');
+  // Browser se install ka signal pakadna
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBanner) {
+      installBanner.style.display = 'flex';
+    }
+  });
+
+ const navInstallBtn = document.getElementById('nav-install-btn');
 if (navInstallBtn) {
-  navInstallBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response to the install prompt: ${outcome}`);
-      deferredPrompt = null;
-      if (installBanner) {
-        installBanner.style.display = 'none';
-      }
-    }
-  });
+    navInstallBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+            deferredPrompt = null;
+            if (installBanner) {
+                installBanner.style.display = 'none';
+            }
+        }
+    });
 }
 
-// Jab customer "Install" button par click kare
-if (installBtn) {
-  installBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response to the install prompt: ${outcome}`);
-      deferredPrompt = null;
-      if (installBanner) {
-        installBanner.style.display = 'none';
+ // Jab customer "Install" button par click kare
+  if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        deferredPrompt = null;
+        if (installBanner) {
+          installBanner.style.display = 'none';
+        }
       }
-    }
-  });
-}
-
-// Agar app pehle se installed ho to banner nahi dikhega
-window.addEventListener('appinstalled', () => {
-  if (installBanner) {
-    installBanner.style.display = 'none';
+    });
   }
-  deferredPrompt = null;
-  console.log('PWA was installed');
-});
+
+  // Agar app pehle se installed ho to banner nahi dikhega
+  window.addEventListener('appinstalled', () => {
+    if (installBanner) {
+      installBanner.style.display = 'none';
+    }
+    deferredPrompt = null;
+    console.log('PWA was installed');
+  });
+</script>
+
+       
+</body>
+</html>
