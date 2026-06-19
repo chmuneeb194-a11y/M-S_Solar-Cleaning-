@@ -620,17 +620,20 @@
 
     <div class="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/50">
         
-        <img src="saaf-tanki.png" class="absolute inset-0 w-full h-full object-cover">
-        
-        <img id="tank-before-image" src="gandi-tanki.png" class="absolute inset-0 w-full h-full object-cover" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
+        <!-- Line 623 -->
+<img src="saaf tanki.png" class="absolute inset-0 w-full h-full object-cover">
 
+<!-- Line 625 -->
+<img id="tank-before-image" src="Gandi tanki.png" class="absolute inset-0 w-full h-full object-cover" style="...">
+        
         <div id="tank-slider-line" class="absolute top-0 bottom-0 w-1 bg-amber-500 z-10 -translate-x-1/2 pointer-events-none" style="left: 50%;"></div>
         
         <div id="tank-slider-button" class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-white rounded-full border-[3px] border-amber-500 z-20 flex items-center justify-center shadow-lg pointer-events-none" style="left: 50%;">
             <i class="fas fa-arrows-alt-h text-amber-600 text-lg"></i>
         </div>
 
-        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full cursor-pointer z-30" style="opacity: 0; appearance: none; background: transparent;" oninput="moveTankSlider(this.value)" onchange="moveTankSlider(this.value)">
+ <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full cursor-pointer z-30" oninput="moveTankSlider(this.value)">
+
     </div>
 </div>
 
