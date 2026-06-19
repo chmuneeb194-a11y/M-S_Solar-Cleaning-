@@ -622,33 +622,35 @@
 
     <div class="relative w-full aspect-[4/5] sm:aspect-square rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/50 group select-none">
         
-        <!-- After Image -->
-        <div class="slider-side-right" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+        <div style="position: absolute; inset: 0; width: 100%; height: 100%;">
             <img src="saaf tanki.png" alt="Saaf Tanki Status" class="w-full h-full object-cover pointer-events-none">
         </div>
 
-        <!-- Before Image -->
-        <div class="slider-side-left dirty-overlay" id="tank-left-clip-pane" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden;">
+        <div id="tank-left-pane" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden;">
             <img src="gandi tanki.png" alt="Gandi Tanki Status" class="absolute top-0 left-0 w-full h-full object-cover pointer-events-none" style="width: 100vw; max-width: none; height: 100%;">
         </div>
 
-        <!-- Center Yellow Line -->
-        <div id="tank-slider-line" class="slider-line" style="position: absolute; top: 0; bottom: 0; width: 4px; background-color: #f59e0b; left: 50%; transform: translateX(-50%); pointer-events-none;"></div>
+        <div id="tank-line-sep" style="position: absolute; top: 0; bottom: 0; width: 4px; background-color: #f59e0b; left: 50%; transform: translateX(-50%); pointer-events-none;"></div>
 
-        <!-- Beautiful Custom Yellow Handle -->
-        <div id="tank-slider-btn" class="slider-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; background-color: #0f172a; border: 4px solid #f59e0b; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-10; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);">
+        <div id="tank-handle-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; background-color: #0f172a; border: 4px solid #f59e0b; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-10; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);">
             <div class="flex items-center justify-center gap-0.5 text-amber-500 text-xs font-bold select-none">
                 <span>◀</span>
                 <span>▶</span>
             </div>
         </div>
 
-        <!-- Range Input Control -->
-        <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-20;" oninput="if(typeof moveSlider === 'function') moveSlider(this.value)">
+        <input type="range" min="0" max="100" value="50" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-20;" 
+               oninput="
+                   let v = this.value + '%';
+                   document.getElementById('tank-left-pane').style.width = v;
+                   document.getElementById('tank-line-sep').style.left = v;
+                   document.getElementById('tank-handle-btn').style.left = v;
+               ">
     </div>
 
-    <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live tanki ki safai ka farq dekhein.</p>
-
+    <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
+</div>
+                
 
 <div id="certified-standards-block" class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center scroll-reveal hidden">
     <div class="flex flex-col items-center">
