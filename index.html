@@ -1237,33 +1237,6 @@
 </div>
 
 
-            <div>
-                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Total Tankis to Clean</label>
-                <div class="flex items-center space-x-3">
-                    <button type="button" onclick="changeTankQty(-1)" class="bg-blue-600 text-white font-bold w-10 h-10 rounded-lg flex items-center justify-center">-</button>
-                    <input type="number" id="tank-qty" value="1" min="1" oninput="calculateTankBill()" class="w-20 text-center ios-input-glass">
-                    <button type="button" onclick="changeTankQty(1)" class="bg-blue-600 text-white font-bold w-10 h-10 rounded-lg flex items-center justify-center">+</button>
-                </div>
-            </div>
-
-            <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-2xl shadow-lg">
-                <span class="text-[10px] uppercase tracking-widest text-blue-400 font-bold">Estimated Net Total</span>
-                <div class="text-4xl font-black my-1">Rs. <span id="tank-total-price">1500</span></div>
-                <p class="text-[10px] text-slate-400">*Premium chemical wash & multi-stage disinfection included.</p>
-            </div>
-
-            <button type="button" onclick="downloadTankPDF()" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2">
-                <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
-            </button>
-
-            <button type="button" onclick="sendTankBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg">
-                <i class="fab fa-whatsapp text-xl"></i> Book Tanki Wash via WhatsApp
-            </button>
-        </div>
-    </div>
-</div>
-
-
             <div class="mt-14 max-w-xs mx-auto ios-glass p-5 rounded-2xl text-center shadow-md scroll-reveal">
                 <div class="flex items-center justify-center space-x-2 mb-3">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon" class="w-7 h-7 object-contain">
