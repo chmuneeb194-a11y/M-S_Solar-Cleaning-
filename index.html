@@ -2226,8 +2226,19 @@ if (navInstallBtn) {
     deferredPrompt = null;
     console.log('PWA was installed');
   });
+<script>
+function moveTankSlider(v) {
+    var img = document.getElementById('tank-before-image');
+    var line = document.getElementById('tank-slider-line');
+    var btn = document.getElementById('tank-slider-button');
+    if (img && line && btn) {
+        img.style.clipPath = "polygon(0 0, " + v + "% 0, " + v + "% 100%, 0 100%)";
+        line.style.left = v + "%";
+        btn.style.left = v + "%";
+    }
+}
 </script>
 
-       
+
 </body>
 </html>
