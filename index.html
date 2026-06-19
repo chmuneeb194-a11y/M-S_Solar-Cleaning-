@@ -644,7 +644,6 @@
 
 <h3 class="text-xl font-bold text-slate-900 dark:text-white text-center mb-4 mt-8">Results (Before vs After)</h3>
 
-<!-- WATER TANK BUTTONS -->
 <div class="flex justify-center gap-3 mb-5">
     <div class="bg-amber-500 text-white font-bold py-2 px-4 rounded-xl shadow-lg flex items-center gap-2 text-sm sm:text-base">
         🤢 Gandi Tanki
@@ -654,7 +653,6 @@
     </div>
 </div>
 
-<!-- WATER TANK SLIDER -->
 <div class="slider-container relative max-w-xl mx-auto h-auto overflow-hidden rounded-3xl shadow-2xl border-2 border-slate-700/50" style="margin-top: 10px;">
     <div class="absolute top-4 left-4 z-20 bg-black/70 text-white text-[11px] font-bold px-2 py-1 rounded">BEFORE</div>
     <div class="absolute top-4 right-4 z-20 bg-blue-600/90 text-white text-[11px] font-bold px-2 py-1 rounded">AFTER</div>
@@ -667,6 +665,17 @@
             <i class="fas fa-arrows-alt-h text-amber-600 text-lg"></i>
         </div>
     </div>
+
+    <style>
+        .tank-slider-clean { -webkit-appearance: none !important; appearance: none !important; background: transparent !important; margin: 0 !important; padding: 0 !important; }
+        .tank-slider-clean::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 40px !important; height: 100% !important; background: transparent !important; cursor: ew-resize; }
+        .tank-slider-clean::-moz-range-thumb { width: 40px !important; height: 100% !important; background: transparent !important; border: none !important; cursor: ew-resize; }
+        .tank-slider-clean:focus { outline: none !important; }
+    </style>
+    
+    <input type="range" min="0" max="100" value="50" class="tank-slider-clean absolute inset-0 w-full h-full cursor-pointer z-30" oninput="moveTankSlider(this.value)">
+</div>
+
 
     <style>
         .tank-slider-clean { -webkit-appearance: none !important; appearance: none !important; background: transparent !important; margin: 0 !important; padding: 0 !important; }
