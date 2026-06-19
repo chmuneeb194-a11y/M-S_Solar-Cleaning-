@@ -628,26 +628,15 @@
                     </button>
                 </div>
 
-                <div class="slider-container" id="slider-box-shell">
-                    <div class="slider-side side-right">
-                        <img id="img-clean-src" src="befor-and-after-wash.png" alt="Clean Solar Panel Stack" class="w-full h-full">
-                    </div>
-                    <div class="slider-side side-left dirty-overlay" id="left-clip-pane">
-                        <img id="img-dirty-src" src="befor-and-after-wash.png" alt="Dirty Solar Panel Stack" class="w-full h-full">
-                    </div>
-                    <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input" oninput="moveSlider(this.value)">
-                    <div id="slider-line" class="slider-line"></div>
-                    <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
-                </div>
 
 <h3 class="text-xl font-bold text-slate-900 dark:text-white text-center mb-4 mt-8">Results (Before vs After)</h3>
 
-<div class="slider-container relative max-w-xl mx-auto" style="margin-top: 10px;">
+<div class="slider-container relative max-w-xl mx-auto h-auto overflow-hidden rounded-3xl shadow-2xl border-2 border-slate-700/50" style="margin-top: 10px;">
     
     <div class="absolute top-4 left-4 z-20 bg-black/70 text-white text-[11px] font-bold px-2 py-1 rounded">BEFORE</div>
     <div class="absolute top-4 right-4 z-20 bg-blue-600/90 text-white text-[11px] font-bold px-2 py-1 rounded">AFTER</div>
 
-    <div class="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/50">
+    <div class="relative w-full aspect-[4/3]">
         <!-- After Image (Clean Tank) -->
         <img src="saaf tanki.png" class="absolute inset-0 w-full h-full object-cover">
         
@@ -662,7 +651,7 @@
             <i class="fas fa-arrows-alt-h text-amber-600 text-lg"></i>
         </div>
     </div>
-
+    
     <!-- Hidden Range Slider with Inline CSS to Kill the Blue Line -->
     <style>
         .tank-slider-clean { -webkit-appearance: none !important; appearance: none !important; background: transparent !important; }
