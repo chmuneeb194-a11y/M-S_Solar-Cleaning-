@@ -628,22 +628,33 @@
                     </button>
                 </div>
 
-            <div class="slider-container relative max-w-xl mx-auto h-auto overflow-hidden rounded-3xl shadow-2xl border-2 border-slate-700/50" id="slider-box-shell">
+<div class="slider-container relative max-w-xl mx-auto h-auto overflow-hidden rounded-3xl shadow-2xl border-2 border-slate-700/50" id="slider-box-shell">
     <div class="slider-side side-right w-full aspect-[4/3] relative">
         <img id="img-clean-src" src="befor-and-after-wash.png" alt="Clean Solar Panel Stack" class="absolute inset-0 w-full h-full object-cover">
     </div>
-    <div class="slider-side side-left dirty-overlay absolute inset-0" id="left-clip-pane">
+    <div class="slider-side side-left dirty-overlay absolute inset-0" id="left-clip-pane" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
         <img id="img-dirty-src" src="befor-and-after-wash.png" alt="Dirty Solar Panel Stack" class="absolute inset-0 w-full h-full object-cover">
     </div>
-    <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input absolute inset-0 w-full h-full cursor-pointer z-30 opacity-0">
-    <div id="slider-line" class="slider-line absolute top-0 bottom-0 w-1 bg-amber-500 z-10 -translate-x-1/2 pointer-events-none" style="left: 50%;"></div>
-    <div id="slider-btn" class="slider-button absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-white rounded-full shadow-lg border-2 border-amber-500 z-20 flex items-center justify-center pointer-events-none" style="left: 50%;">
+    <input type="range" min="0" max="100" value="50" id="image-split-slider" class="absolute inset-0 w-full h-full cursor-pointer z-30 opacity-0" oninput="moveSlider(this.value)">
+    <div id="slider-line" class="absolute top-0 bottom-0 w-1 bg-amber-500 z-10 -translate-x-1/2 pointer-events-none" style="left: 50%;"></div>
+    <div id="slider-btn" class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-white rounded-full shadow-lg border-2 border-amber-500 z-20 flex items-center justify-center pointer-events-none" style="left: 50%;">
         <i class="fas fa-arrows-alt-h text-amber-600 text-lg"></i>
     </div>
 </div>
 
 <h3 class="text-xl font-bold text-slate-900 dark:text-white text-center mb-4 mt-8">Results (Before vs After)</h3>
 
+<!-- WATER TANK BUTTONS -->
+<div class="flex justify-center gap-3 mb-5">
+    <div class="bg-amber-500 text-white font-bold py-2 px-4 rounded-xl shadow-lg flex items-center gap-2 text-sm sm:text-base">
+        🤢 Gandi Tanki
+    </div>
+    <div class="bg-emerald-600 text-white font-bold py-2 px-4 rounded-xl shadow-lg flex items-center gap-2 text-sm sm:text-base">
+        ✨ Chamakdar Tanki
+    </div>
+</div>
+
+<!-- WATER TANK SLIDER -->
 <div class="slider-container relative max-w-xl mx-auto h-auto overflow-hidden rounded-3xl shadow-2xl border-2 border-slate-700/50" style="margin-top: 10px;">
     <div class="absolute top-4 left-4 z-20 bg-black/70 text-white text-[11px] font-bold px-2 py-1 rounded">BEFORE</div>
     <div class="absolute top-4 right-4 z-20 bg-blue-600/90 text-white text-[11px] font-bold px-2 py-1 rounded">AFTER</div>
@@ -666,7 +677,6 @@
     
     <input type="range" min="0" max="100" value="50" class="tank-slider-clean absolute inset-0 w-full h-full cursor-pointer z-30" oninput="moveTankSlider(this.value)">
 </div>
-    
                 
 <div id="certified-standards-block" class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center scroll-reveal hidden">
     <div class="flex flex-col items-center">
