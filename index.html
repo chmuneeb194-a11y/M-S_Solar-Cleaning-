@@ -332,6 +332,35 @@
             transform: translateY(0);
             filter: blur(0);
         }
+                filter: blur(0);
+    }
+    
+    /* Tank slider ki blue bar aur background ko hide karne ke liye */
+    .tank-slider-input {
+        -webkit-appearance: none;
+        appearance: none;
+        background: transparent;
+    }
+    .tank-slider-input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 40px;
+        height: 100%;
+        background: transparent;
+        cursor: ew-resize;
+    }
+    .tank-slider-input::-moz-range-thumb {
+        width: 40px;
+        height: 100%;
+        background: transparent;
+        border: none;
+        cursor: ew-resize;
+    }
+    .tank-slider-input:focus {
+        outline: none;
+    }
+</style>
+    
     </style>
 </head>
 <body class="font-sans text-slate-800 antialiased dark:text-slate-200">
@@ -632,8 +661,8 @@
             <i class="fas fa-arrows-alt-h text-amber-600 text-lg"></i>
         </div>
 
- <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full cursor-pointer z-30" oninput="moveTankSlider(this.value)">
-
+<input type="range" min="0" max="100" value="50" class="tank-slider-input absolute inset-0 w-full h-full cursor-pointer z-30" oninput="moveTankSlider(this.value)">
+        
 </div>
 
     <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
