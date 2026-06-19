@@ -634,25 +634,12 @@
             </div>
         </div>
 
-        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20" 
-               oninput="
-                   let v = this.value + '%';
-                   document.getElementById('tank-before-image').style.clipPath = `polygon(0 0, ${v} 0, ${v} 100%, 0 100%)`;
-                   document.getElementById('tank-slider-line').style.left = v;
-                   document.getElementById('tank-slider-button').style.left = v;
-               ">
-    </div>
-
-    <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
-</div>
-        
+        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20" oninput="moveTankSlider(this.value)">
     </div>
 
     <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
 </div>
 
-    <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
-</div>
                 
                 
 <div id="certified-standards-block" class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center scroll-reveal hidden">
