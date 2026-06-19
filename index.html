@@ -610,45 +610,41 @@
                     <div id="slider-line" class="slider-line"></div>
                     <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
                 </div>
-<div class="slider-container" id="tank-slider-box-shell" style="margin-top: 25px;">
-    <div class="flex justify-center gap-3 mb-5">
-        <span class="bg-amber-500 text-white font-bold py-1 px-4 rounded-lg text-[13px] flex items-center gap-1 shadow">
-            🌵 Gandi Tanki
-        </span>
-        <span class="bg-emerald-600 text-white font-bold py-1 px-4 rounded-lg text-[13px] flex items-center gap-1 shadow">
-            ✨ Saaf Shaffaf Tanki
-        </span>
+
+                <div class="slider-container relative max-w-xl mx-auto" id="tank-slider-box-shell" style="margin-top: 25px;">
+    <div class="absolute top-4 left-4 z-30 bg-black/70 backdrop-blur-sm text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider pointer-events-none">
+        Before
+    </div>
+    <div class="absolute top-4 right-4 z-30 bg-blue-600/90 backdrop-blur-sm text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider pointer-events-none">
+        After
     </div>
 
-    <div id="tank-slider-wrapper" class="relative w-full aspect-[4/5] sm:aspect-square rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/50 group select-none" style="position: relative;">
+    <div class="relative w-full aspect-[4/5] sm:aspect-square rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/50 group select-none">
         
-        <div style="position: absolute; inset: 0; width: 100%; height: 100%;">
-            <img src="saaf tanki.png" alt="Saaf Tanki" class="w-full h-full object-cover pointer-events-none">
-        </div>
+        <img src="saaf tanki.png" alt="Saaf Tanki" class="absolute inset-0 w-full h-full object-cover pointer-events-none">
 
-        <div id="tank-left-pane" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden; z-index: 5;">
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; min-width: 100cqw; min-height: 100%;">
-                <img src="gandi tanki.png" alt="Gandi Tanki" class="w-full h-full object-cover pointer-events-none" style="width: 100%; height: 100%; max-width: none;">
-            </div>
-        </div>
+        <img id="tank-before-img" src="gandi tanki.png" alt="Gandi Tanki" class="absolute inset-0 w-full h-full object-cover pointer-events-none" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
 
-        <div id="tank-line-sep" style="position: absolute; top: 0; bottom: 0; width: 4px; background-color: #f59e0b; left: 50%; transform: translateX(-50%); pointer-events-none; z-index: 10;"></div>
+        <div id="tank-line-sep" class="absolute top-0 bottom-0 w-1 bg-amber-500 pointer-events-none z-20" style="left: 50%; transform: translateX(-50%);"></div>
 
-        <div id="tank-handle-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; background-color: #0f172a; border: 4px solid #f59e0b; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 12; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);">
-            <div class="flex items-center justify-center gap-0.5 text-amber-500 text-xs font-bold select-none">
+        <div id="tank-handle-btn" class="absolute top-1/2 -translate-y-1/2 w-12 h-12 bg-slate-900 rounded-full border-4 border-amber-500 shadow-xl flex items-center justify-center pointer-events-none z-20" style="left: 50%; transform: translate(-50%, -50%);">
+            <div class="flex items-center justify-center gap-0.5 text-amber-500 text-xs font-black select-none">
                 <span>◀</span>
                 <span>▶</span>
             </div>
         </div>
 
-        <input type="range" min="0" max="100" value="50" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 20;" 
+        <input type="range" min="0" max="100" value="50" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-30;" 
                oninput="
                    let v = this.value + '%';
-                   document.getElementById('tank-left-pane').style.width = v;
+                   document.getElementById('tank-before-img').style.clipPath = `polygon(0 0, ${v} 0, ${v} 100%, 0 100%)`;
                    document.getElementById('tank-line-sep').style.left = v;
                    document.getElementById('tank-handle-btn').style.left = v;
                ">
     </div>
+
+    <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
+</div>
 
     <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
 </div>
