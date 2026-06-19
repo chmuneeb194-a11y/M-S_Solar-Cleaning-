@@ -611,20 +611,26 @@
                     <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
                 </div>
 
-<div class="slider-container relative max-w-xl mx-auto" style="margin-top: 25px;">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white text-center mb-4 mt-8">Results (Before vs After)</h3>
+
+<div class="slider-container relative max-w-xl mx-auto" style="margin-top: 10px;">
+    
     <div class="absolute top-4 left-4 z-20 bg-black/70 text-white text-[11px] font-bold px-2 py-1 rounded">BEFORE</div>
     <div class="absolute top-4 right-4 z-20 bg-blue-600/90 text-white text-[11px] font-bold px-2 py-1 rounded">AFTER</div>
 
-    <div class="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/50">
-        <img src="saaf tanki.png" class="absolute inset-0 w-full h-full object-cover">
-        <img id="tank-before-image" src="gandi tanki.png" class="absolute inset-0 w-full h-full object-cover" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
+    <div class="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/50">
+        
+        <img src="saaf-tanki.png" class="absolute inset-0 w-full h-full object-cover">
+        
+        <img id="tank-before-image" src="gandi-tanki.png" class="absolute inset-0 w-full h-full object-cover" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
 
-        <div id="tank-slider-line" class="absolute top-0 bottom-0 w-1 bg-amber-500 z-10 -translate-x-1/2" style="left: 50%;"></div>
-        <div id="tank-slider-button" class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-white rounded-full border-[3px] border-amber-500 z-20 flex items-center justify-center shadow-lg" style="left: 50%;">
+        <div id="tank-slider-line" class="absolute top-0 bottom-0 w-1 bg-amber-500 z-10 -translate-x-1/2 pointer-events-none" style="left: 50%;"></div>
+        
+        <div id="tank-slider-button" class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-white rounded-full border-[3px] border-amber-500 z-20 flex items-center justify-center shadow-lg pointer-events-none" style="left: 50%;">
             <i class="fas fa-arrows-alt-h text-amber-600 text-lg"></i>
         </div>
 
-        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-30" oninput="moveTankSlider(this.value)">
+        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full cursor-pointer z-30" style="opacity: 0; appearance: none; background: transparent;" oninput="moveTankSlider(this.value)" onchange="moveTankSlider(this.value)">
     </div>
 </div>
 
@@ -2218,18 +2224,18 @@ if (navInstallBtn) {
     console.log('PWA was installed');
   });
 <script>
-function moveTankSlider(v) {
-    var img = document.getElementById('tank-before-image');
-    var line = document.getElementById('tank-slider-line');
-    var btn = document.getElementById('tank-slider-button');
-    if (img && line && btn) {
-        img.style.clipPath = "polygon(0 0, " + v + "% 0, " + v + "% 100%, 0 100%)";
-        line.style.left = v + "%";
-        btn.style.left = v + "%";
-    }
+function moveTankSlider(value) {
+    // Gandi tanki wali image ko crop karne ke liye
+    document.getElementById('tank-before-image').style.clipPath = "polygon(0 0, " + value + "% 0, " + value + "% 100%, 0 100%)";
+    
+    // Slider ki line ko move karne ke liye
+    document.getElementById('tank-slider-line').style.left = value + "%";
+    
+    // Slider ke button ko move karne ke liye
+    document.getElementById('tank-slider-button').style.left = value + "%";
 }
 </script>
-
+    
 </script>
 
 
