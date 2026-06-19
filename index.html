@@ -1162,40 +1162,11 @@
 <div id="tank-calc-block" class="hidden">
     <div class="text-center mb-10">
         <span class="text-green-700 font-black text-xs tracking-widest uppercase bg-green-100/80 px-3 py-1.5 rounded-full">
-            🌵 Gandi Tanki vs ✨ Saaf Shaffaf Tanki
+            ✨ Water Tanki Wash Calculator
         </span>
         <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3">Water Tanki Wash Calculator</h2>
         <p class="text-slate-500 text-sm mt-2">Apni tanki ki capacity select karein aur automatic real-time bill check karein</p>
     </div>
-
-    <!-- Image Container (Same Layout, Beautiful Yellow Handle, No Text Cut-Off) -->
-    <div class="relative w-full aspect-[4/5] sm:aspect-square rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/50 group select-none mb-10">
-        <!-- Before Image (Gandi Tanki) -->
-        <img src="images/tank-before.jpg" alt="Gandi Tanki" class="absolute inset-0 w-full h-full object-cover pointer-events-none">
-        
-        <!-- After Image Container (With Resizable Clip) -->
-        <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none img-split-overlay" style="clip-path: inset(0 0 0 50%);">
-            <img src="images/tank-after.jpg" alt="Saaf Shaffaf Tanki" class="absolute inset-0 w-full h-full object-cover pointer-events-none" style="width: 100vw; max-width: none;">
-        </div>
-
-        <!-- Center Yellow Separator Line -->
-        <div class="absolute top-0 bottom-0 w-1 bg-amber-500 left-1/2 -translate-x-1/2 pointer-events-none img-split-line"></div>
-
-        <!-- Custom Beautiful Drag Handle (Exact same as Screenshot 26617) -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-slate-900 rounded-full border-4 border-amber-500 shadow-xl flex items-center justify-center cursor-ew-resize img-split-handle z-10">
-            <div class="flex items-center justify-center gap-0.5 text-amber-500 text-xs font-bold select-none">
-                <span>◀</span>
-                <span>▶</span>
-            </div>
-        </div>
-
-        <!-- Invisible Range Input to Control Slider -->
-        <input type="range" min="0" max="100" value="50" id="image-split-slider-tank" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20" oninput="if(typeof moveSlider === 'function') moveSlider(this.value)">
-    </div>
-
-    <p class="text-slate-500 text-xs text-center mt-4 mb-8 italic">
-        Handle ko left ya right drag karke live safai ka jadui farq dekhein.
-    </p>
 
     <div id="pdf-tank-target" class="ios-glass p-6 rounded-3xl shadow-2xl max-w-xl mx-auto relative">
         <div class="space-y-6">
@@ -1238,6 +1209,33 @@
                     </select>
                 </div>
             </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Total Tankis to Clean</label>
+                <div class="flex items-center space-x-3">
+                    <button type="button" onclick="changeTankQty(-1)" class="bg-blue-600 text-white font-bold w-10 h-10 rounded-lg flex items-center justify-center">-</button>
+                    <input type="number" id="tank-qty" value="1" min="1" oninput="calculateTankBill()" class="w-20 text-center ios-input-glass">
+                    <button type="button" onclick="changeTankQty(1)" class="bg-blue-600 text-white font-bold w-10 h-10 rounded-lg flex items-center justify-center">+</button>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 rounded-2xl shadow-lg">
+                <span class="text-[10px] uppercase tracking-widest text-blue-400 font-bold">Estimated Net Total</span>
+                <div class="text-4xl font-black my-1">Rs. <span id="tank-total-price">1500</span></div>
+                <p class="text-[10px] text-slate-400">*Premium chemical wash & multi-stage disinfection included.</p>
+            </div>
+
+            <button type="button" onclick="downloadTankPDF()" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2">
+                <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
+            </button>
+
+            <button type="button" onclick="sendTankBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg">
+                <i class="fab fa-whatsapp text-xl"></i> Book Tanki Wash via WhatsApp
+            </button>
+        </div>
+    </div>
+</div>
+
 
             <div>
                 <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-1.5">Total Tankis to Clean</label>
