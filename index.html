@@ -610,36 +610,41 @@
                     <div id="slider-line" class="slider-line"></div>
                     <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
                 </div>
-                <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium" data-en="Drag the slider layout handle to view live performance difference comparisons instantly." data-ur="ہینڈل کو لیفٹ یا رائٹ ڈریگ کر کے لائیو صفائی کا واضح فرق دیکھیں۔">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
-            </div>
-                    <!-- Water Tank Before/After Slider Section -->
-        <div class="slider-container" id="tank-slider-box-shell" style="margin-top: 25px;">
-            <div class="flex justify-center gap-3 mb-5">
-                <button type="button" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-1 x-4 rounded-lg text-xs transition-colors">
-                    🌵 Gandi Tanki
-                </button>
-                <button type="button" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1 px-4 rounded-lg text-xs transition-colors">
-                    ✨ Saaf Shaffaf Tanki
-                </button>
-            </div>
+<div class="slider-container" id="tank-slider-box-shell" style="margin-top: 25px;">
+    <div class="flex justify-center gap-3 mb-5">
+        <span class="bg-amber-500 text-white font-bold py-1 px-4 rounded-lg text-[13px] flex items-center gap-1 shadow">
+            🌵 Gandi Tanki
+        </span>
+        <span class="bg-emerald-600 text-white font-bold py-1 px-4 rounded-lg text-[13px] flex items-center gap-1 shadow">
+            ✨ Saaf Shaffaf Tanki
+        </span>
+    </div>
 
-            <div class="slider-side-right" style="position: relative; overflow: hidden; border-radius: 12px;">
-                <!-- After Image (Base) -->
-                <img src="saaf tanki.png" alt="Saaf Tanki Status" style="width: 100%; display: block;">
-                
-                <!-- Before Image (Overlay Wrapper) -->
-                <div id="tank-left-clip-pane" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden; border-right: 2px solid #fff;">
-                    <img src="Gandi tanki.png" alt="Gandi Tanki Status" style="width: 100%; max-width: none; height: 100%; object-fit: cover;">
-                </div>
-                
-                <!-- Range Input Control -->
-                <input type="range" min="0" max="100" value="50" id="tank-image-split-slider" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0;">
-                
-                <!-- Visible Handle Bar -->
-                <div id="tank-slider-line" style="position: absolute; top: 0; left: 50%; width: 2px; height: 100%; bg-color: #fff; transform: translateX(-50%); pointer-events: none;"></div>
-                <div id="tank-slider-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.3); pointer-events: none;">
-                    <i class="fas fa-arrows-alt-h" style="color: #4b5563; font-size: 12px;"></i>
-                </div>
+    <div class="relative w-full aspect-[4/5] sm:aspect-square rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/50 group select-none">
+        
+        <div class="slider-side-right" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+            <img src="saaf tanki.png" alt="Saaf Tanki Status" class="w-full h-full object-cover pointer-events-none">
+        </div>
+
+        <div class="slider-side-left dirty-overlay" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden;">
+            <img src="gandi tanki.png" alt="Gandi Tanki Status" class="absolute top-0 left-0 w-full h-full object-cover pointer-events-none" style="width: 100vw; max-width: none; height: 100%;">
+        </div>
+
+        <div class="absolute top-0 bottom-0 w-1 bg-amber-500 left-1/2 -translate-x-1/2 pointer-events-none"></div>
+
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-slate-900 rounded-full border-4 border-amber-500 shadow-xl flex items-center justify-center cursor-ew-resize z-10">
+            <div class="flex items-center justify-center gap-0.5 text-amber-500 text-xs font-bold select-none">
+                <span>◀</span>
+                <span>▶</span>
+            </div>
+        </div>
+
+        <input type="range" min="0" max="100" value="50" id="tank-image-split-slider" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20">
+    </div>
+
+    <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
+</div>
+
             </div>
             <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live tanki ki safai ka farq dekhein.</p>
         </div>
