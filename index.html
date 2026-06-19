@@ -627,45 +627,38 @@
                         ✨ Saaf Shaffaf Panel
                     </button>
                 </div>
-<div class="slider-container" id="slider-box-shell">
-    <div class="slider-side side-right">
-        <img id="img-clean-src" src="befor-and-after-wash.png" alt="Clean Solar Panel Stack" class="w-full h-full object-cover">
-    </div>
-    <div class="slider-side side-left dirty-overlay" id="left-clip-pane">
-        <img id="img-dirty-src" src="befor-and-after-wash.png" alt="Dirty Solar Panel Stack" class="w-full h-full object-cover">
-    </div>
-    <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input">
-    <div id="slider-line" class="slider-line"></div>
-    <div id="slider-btn" class="slider-button"><i class="fas fa-arrows-alt-h"></i></div>
-</div>
 
+            <div class="slider-container relative max-w-xl mx-auto h-auto overflow-hidden rounded-3xl shadow-2xl border-2 border-slate-700/50" id="slider-box-shell">
+    <div class="slider-side side-right w-full aspect-[4/3] relative">
+        <img id="img-clean-src" src="befor-and-after-wash.png" alt="Clean Solar Panel Stack" class="absolute inset-0 w-full h-full object-cover">
+    </div>
+    <div class="slider-side side-left dirty-overlay absolute inset-0" id="left-clip-pane">
+        <img id="img-dirty-src" src="befor-and-after-wash.png" alt="Dirty Solar Panel Stack" class="absolute inset-0 w-full h-full object-cover">
+    </div>
+    <input type="range" min="0" max="100" value="50" id="image-split-slider" class="slider-input absolute inset-0 w-full h-full cursor-pointer z-30 opacity-0">
+    <div id="slider-line" class="slider-line absolute top-0 bottom-0 w-1 bg-amber-500 z-10 -translate-x-1/2 pointer-events-none" style="left: 50%;"></div>
+    <div id="slider-btn" class="slider-button absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-white rounded-full shadow-lg border-2 border-amber-500 z-20 flex items-center justify-center pointer-events-none" style="left: 50%;">
+        <i class="fas fa-arrows-alt-h text-amber-600 text-lg"></i>
+    </div>
+</div>
 
 <h3 class="text-xl font-bold text-slate-900 dark:text-white text-center mb-4 mt-8">Results (Before vs After)</h3>
 
 <div class="slider-container relative max-w-xl mx-auto h-auto overflow-hidden rounded-3xl shadow-2xl border-2 border-slate-700/50" style="margin-top: 10px;">
-    
     <div class="absolute top-4 left-4 z-20 bg-black/70 text-white text-[11px] font-bold px-2 py-1 rounded">BEFORE</div>
     <div class="absolute top-4 right-4 z-20 bg-blue-600/90 text-white text-[11px] font-bold px-2 py-1 rounded">AFTER</div>
 
     <div class="relative w-full aspect-[4/3]">
-        <!-- After Image (Clean Tank) -->
         <img src="saaf tanki.png" class="absolute inset-0 w-full h-full object-cover">
-        
-        <!-- Before Image (Dirty Tank) -->
         <img id="tank-before-image" src="Gandi tanki.png" class="absolute inset-0 w-full h-full object-cover" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
-        
-        <!-- Orange Center Line -->
         <div id="tank-slider-line" class="absolute top-0 bottom-0 w-1 bg-amber-500 z-10 -translate-x-1/2 pointer-events-none" style="left: 50%;"></div>
-        
-        <!-- Orange Drag Button -->
         <div id="tank-slider-button" class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-white rounded-full shadow-lg border-2 border-amber-500 z-20 flex items-center justify-center pointer-events-none" style="left: 50%;">
             <i class="fas fa-arrows-alt-h text-amber-600 text-lg"></i>
         </div>
     </div>
-    
-    <!-- Hidden Range Slider with Inline CSS to Kill the Blue Line -->
+
     <style>
-        .tank-slider-clean { -webkit-appearance: none !important; appearance: none !important; background: transparent !important; }
+        .tank-slider-clean { -webkit-appearance: none !important; appearance: none !important; background: transparent !important; margin: 0 !important; padding: 0 !important; }
         .tank-slider-clean::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 40px !important; height: 100% !important; background: transparent !important; cursor: ew-resize; }
         .tank-slider-clean::-moz-range-thumb { width: 40px !important; height: 100% !important; background: transparent !important; border: none !important; cursor: ew-resize; }
         .tank-slider-clean:focus { outline: none !important; }
@@ -673,11 +666,7 @@
     
     <input type="range" min="0" max="100" value="50" class="tank-slider-clean absolute inset-0 w-full h-full cursor-pointer z-30" oninput="moveTankSlider(this.value)">
 </div>
-
-    <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
-</div>
-
-                
+    
                 
 <div id="certified-standards-block" class="max-w-3xl mx-auto ios-glass rounded-3xl p-6 mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center scroll-reveal hidden">
     <div class="flex flex-col items-center">
