@@ -612,30 +612,21 @@
                 </div>
 
 <div class="slider-container relative max-w-xl mx-auto" style="margin-top: 25px;">
-    <div class="absolute top-4 left-4 z-20 bg-black/70 backdrop-blur-sm text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider pointer-events-none">
-        Before
-    </div>
-    
-    <div class="absolute top-4 right-4 z-20 bg-blue-600/90 backdrop-blur-sm text-white text-[11px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider pointer-events-none">
-        After
-    </div>
+    <div class="absolute top-4 left-4 z-20 bg-black/70 text-white text-[11px] font-bold px-2 py-1 rounded">BEFORE</div>
+    <div class="absolute top-4 right-4 z-20 bg-blue-600/90 text-white text-[11px] font-bold px-2 py-1 rounded">AFTER</div>
 
-    <div class="relative w-full aspect-[4/5] sm:aspect-square rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/50 group select-none">
-        <img src="saaf tanki.png" alt="Saaf Tanki Status" class="absolute inset-0 w-full h-full object-cover pointer-events-none">
-
-        <img id="tank-before-image" src="gandi tanki.png" alt="Gandi Tanki Status" class="absolute inset-0 w-full h-full object-cover pointer-events-none" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
-
-        <div id="tank-slider-line" class="absolute top-0 bottom-0 w-1 bg-amber-500 pointer-events-none z-10" style="left: 50%;"></div>
-
-        <div id="tank-slider-button" class="absolute top-1/2 -translate-y-1/2 w-12 h-12 bg-slate-900 rounded-full border-4 border-amber-500 shadow-xl flex items-center justify-center pointer-events-none z-10" style="left: 50%; transform: translate(-50%, -50%);">
-            <div class="flex items-center justify-center gap-0.5 text-amber-500 text-xs font-black select-none">
-                <span>◀</span>
-                <span>▶</span>
-            </div>
+    <div class="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700/50">
+        <img src="saaf tanki.png" class="absolute inset-0 w-full h-full object-cover">
+        <img id="tank-before-image" src="gandi tanki.png" class="absolute inset-0 w-full h-full object-cover" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
+        
+        <div id="tank-slider-line" class="absolute top-0 bottom-0 w-1 bg-amber-500 z-10" style="left: 50%;"></div>
+        <div id="tank-slider-button" class="absolute top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full border-2 border-amber-500 z-10 flex items-center justify-center cursor-pointer" style="left: 50%; transform: translate(-50%, -50%);">
+            <span>↔</span>
         </div>
 
-        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20" oninput="moveTankSlider(this.value)">
+        <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" oninput="moveTankSlider(this.value)">
     </div>
+</div>
 
     <p class="text-xs text-slate-500 dark:text-slate-400 text-center mt-4 font-medium">Handle ko left ya right drag karke live safai ka jadui farq dekhein.</p>
 </div>
@@ -2237,6 +2228,8 @@ function moveTankSlider(v) {
         btn.style.left = v + "%";
     }
 }
+</script>
+
 </script>
 
 
