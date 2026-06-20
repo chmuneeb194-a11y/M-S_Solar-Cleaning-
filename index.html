@@ -1093,9 +1093,10 @@
      
                         </div>
 
-                        <button type="button" onclick="downloadBillPDF('solar')" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
-                            <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
+                        <button type="button" onclick="downloadBillAsPDF('solar')" class="w-full bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-900 font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 mt-4">
+    <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
                         </button>
+                        
 
                         <button onclick="sendBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
                             <i class="fab fa-whatsapp text-xl"></i> Complete Booking via WhatsApp
@@ -1186,9 +1187,10 @@
                             <p class="text-[10px] text-slate-600">*Premium high-pressure washer cleaning with deep glossy finishing</p>
                         </div>
 
-                        <button type="button" onclick="downloadBillPDF('carwash')" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-sm text-sm">
-                            <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
+                        <button type="button" onclick="downloadBillAsPDF('car')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 mt-4">
+    <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
                         </button>
+        
 
                         <button onclick="sendCarWashBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
                             <i class="fab fa-whatsapp text-xl"></i> Book Car Wash via WhatsApp
@@ -1262,9 +1264,8 @@
                 <p class="text-[10px] text-slate-400">*Premium chemical wash & multi-stage disinfection included.</p>
             </div>
 
-            <button type="button" onclick="downloadTankPDF()" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2">
-                <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
-            </button>
+            <button type="button" onclick="downloadBillPDF('tank')" ...>
+                
 
             <button type="button" onclick="sendTankBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg">
                 <i class="fab fa-whatsapp text-xl"></i> Book Tanki Wash via WhatsApp
