@@ -7,7 +7,8 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#007bff">
   <script>
@@ -1537,13 +1538,12 @@ const timeSlot = document.getElementById('tank-booking-time')?.value || "09:00 A
 const element = document.createElement('div');
 element.innerHTML = billContent;
 
-// Dynamic container banane ke bajaye body par automatic temporary injector
-const element = document.createElement('div');
-element.id = 'temp-pdf-bill-container';
-element.innerHTML = billContent;
-
-// Isko physical display de rahe hain taake tailwind render ho sake, par visibility hidden hai
-element.style.cssText = 'position: absolute; top: 0; left: 0; width: 800px; background: #fafafa; display: block; z-index: 99999; visibility: visible; opacity: 0.99;';
+// Standard Layout Mode (Isse content background mein render hoga par visible nahi hoga)
+element.style.position = 'absolute';
+element.style.left = '-9999px';
+element.style.top = '0';
+element.style.width = '790px'; 
+element.style.background = '#fafafa';
 document.body.appendChild(element);
 
 const opt = {
@@ -1553,22 +1553,19 @@ const opt = {
     html2canvas:  { 
         scale: 2, 
         useCORS: true, 
-        allowTaint: true,
-        logging: false
+        logging: false,
+        letterRendering: true
     },
     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
 };
 
-// 500ms ka forced buffer delay taake browser pehle text aur images paint karle
-setTimeout(() => {
-    html2pdf().set(opt).from(element).save().then(() => {
-        const el = document.getElementById('temp-pdf-bill-container');
-        if(el) el.remove();
-    }).catch((err) => {
-        console.error("PDF Engine Error: ", err);
-    });
-}, 500);
-    
+// Direct automatic download mechanism
+html2pdf().set(opt).from(element).save().then(() => {
+    document.body.removeChild(element);
+}).catch((err) => {
+    console.error("Download Error: ", err);
+});
+
     
 }
 </script>
