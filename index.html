@@ -1534,44 +1534,34 @@ const timeSlot = document.getElementById('tank-booking-time')?.value || "09:00 A
         fileName = `Tank_Wash_Bill_${name.replace(/\s+/g, '_')}.pdf`;
     }
 
-const element = document.createElement('div');
-element.innerHTML = billContent;
-
-// CSS & Tailwind Compatibility Layer (Isse CSS styles breakdown nahi honge)
-element.style.position = 'absolute';
-element.style.top = '0';
-element.style.left = '0';
-element.style.width = '800px'; 
-element.style.background = '#fafafa';
-element.style.zIndex = '99999'; 
-element.style.visibility = 'visible'; 
-
-document.body.appendChild(element);
-
-const opt = {
-    margin:       [10, 10, 10, 10],
-    filename:     fileName,
-    image:        { type: 'jpeg', quality: 1.0 },
-    html2canvas:  { 
-        scale: 2, 
-        useCORS: true, 
-        allowTaint: false,
-        letterRendering: true,
-        scrollX: 0,
-        scrollY: 0
-    },
-    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-};
-
-// Tailwind elements ko render hone ke liye 300ms ka buffer delay
-setTimeout(() => {
-    html2pdf().set(opt).from(element).save().then(() => {
-        document.body.removeChild(element);
-    }).catch((err) => {
-        console.error("PDF Engine Error: ", err);
-    });
-}, 300);
-
+// Naya System: Print Window Engine (No Canvas, No Blank Pages)
+const printWindow = window.open('', '_blank', 'width=800,height=900');
+printWindow.document.write(`
+    <html>
+    <head>
+        <title>${fileName.replace('.pdf', '')}</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #fafafa; }
+            @page { size: A4; margin: 10mm; }
+            @media print {
+                body { background: white; }
+                .no-print { display: none; }
+            }
+        </style>
+    </head>
+    <body>
+        ${billContent}
+        <script>
+            // Jaise hi page load ho, print dialog kholein aur baad mein window band kar dein
+            window.onload = function() {
+                window.print();
+                setTimeout(function() { window.close(); }, 500);
+            };
+        <\/script>
+    </body>
+    </html>
+`);
+printWindow.document.close();
     
 }
 </script>
