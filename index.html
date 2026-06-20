@@ -1531,16 +1531,29 @@ function downloadBillAsPDF(serviceType) {
         fileName = `Tank_Wash_Bill_${name.replace(/\s+/g, '_')}.pdf`;
     }
 
-    const element = document.createElement('div');
-    element.innerHTML = billContent;
-    const opt = {
-        margin:       10,
-        filename:     fileName,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-    html2pdf().set(opt).from(element).save();
+   const element = document.createElement('div');
+element.innerHTML = billContent;
+
+// CSS tricks taake page background mein sahi render ho aur user ko jhatka na lage
+element.style.position = 'absolute';
+element.style.left = '-9999px';
+element.style.top = '0';
+element.style.width = '790px'; 
+document.body.appendChild(element);
+
+const opt = {
+    margin:       10,
+    filename:     fileName,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true, logging: false },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+
+// Download hone ke baad memory se mitaane ka functional system
+html2pdf().set(opt).from(element).save().then(() => {
+    document.body.removeChild(element);
+});
+    
 }
 </script>
     
