@@ -619,72 +619,82 @@
 <div class="max-w-2xl mx-auto ios-glass p-6 rounded-3xl shadow-xl scroll-reveal">
     <h3 class="text-xl font-bold text-slate-900 dark:text-white text-center mb-3"><i class="fas fa-sparkles text-amber-500 mr-2"></i>Solar Panel Wash Before & After</h3>
     
-    <!-- Solar Filter Interaction Buttons -->
-    <div class="flex justify-center gap-3 mb-5">
-        <button type="button" onclick="togglePanelState('dirty')" class="bg-amber-500 hover:scale-105 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-xl shadow-lg transition flex items-center gap-2">
+    <!-- Solar Filter Interaction Buttons (Single Line & Smaller text) -->
+    <div class="flex justify-center gap-2 mb-5">
+        <button type="button" onclick="togglePanelState('dirty')" class="bg-amber-500 hover:scale-105 hover:bg-amber-600 text-white font-bold py-1.5 px-3 text-xs rounded-xl shadow-md transition whitespace-nowrap flex items-center gap-1.5">
             📸 Mitti Wala Panel
         </button>
-        <button type="button" onclick="togglePanelState('clean')" class="bg-emerald-600 hover:scale-105 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl shadow-lg transition flex items-center gap-2">
+        <button type="button" onclick="togglePanelState('clean')" class="bg-emerald-600 hover:scale-105 hover:bg-emerald-700 text-white font-bold py-1.5 px-3 text-xs rounded-xl shadow-md transition whitespace-nowrap flex items-center gap-1.5">
             ✨ Saaf Shaffaf Panel
         </button>
     </div>
 
     <!-- Solar Slider Component -->
     <div class="slider-container relative w-full overflow-hidden rounded-3xl shadow-2xl border-2 border-slate-700/50 mb-10" style="aspect-ratio: 4/3;">
-        <!-- Clean Base Image (Right Side) -->
         <img src="befor-and-after-wash.png" class="absolute inset-0 w-full h-full object-cover">
-        
-        <!-- Dirty Overlay Image (Left Side Controlled by Clip-Path) -->
         <div id="solar-clip-pane" class="absolute inset-0 w-full h-full" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
             <img src="befor-and-after-wash.png" class="absolute inset-0 w-full h-full object-cover" style="filter: brightness(0.65) contrast(1.15) saturate(0.85);">
         </div>
-        
-        <!-- Native Overlay Range Input -->
         <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full cursor-pointer z-30 opacity-0 m-0 p-0" 
                oninput="document.getElementById('solar-clip-pane').style.clipPath = 'polygon(0 0, ' + this.value + '% 0, ' + this.value + '% 100%, 0 100%)'; document.getElementById('solar-line').style.left = this.value + '%'; document.getElementById('solar-btn').style.left = this.value + '%';">
-        
-        <!-- Slider Handle Styles -->
         <div id="solar-line" class="absolute top-0 bottom-0 w-1 bg-amber-500 z-10 -translate-x-1/2 pointer-events-none" style="left: 50%;"></div>
         <div id="solar-btn" class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-white rounded-full shadow-lg border-2 border-amber-500 z-20 flex items-center justify-center pointer-events-none" style="left: 50%;">
             <i class="fas fa-arrows-alt-h text-amber-600 text-lg"></i>
         </div>
     </div>
 
-    <!-- Section Heading for Water Tank -->
     <h3 class="text-xl font-bold text-slate-900 dark:text-white text-center mb-4 mt-8">Results (Before vs After)</h3>
 
-    <!-- Tank Interactive Indicators -->
-    <div class="flex justify-center gap-3 mb-5">
-        <div class="bg-amber-500 text-white font-bold py-2 px-4 rounded-xl shadow-lg">🤢 Gandi Tanki</div>
-        <div class="bg-emerald-600 text-white font-bold py-2 px-4 rounded-xl shadow-lg">✨ Chamakdar Tanki</div>
+    <!-- Tank Interactive Indicators (Single Line & Smaller text) -->
+    <div class="flex justify-center gap-2 mb-5">
+        <div class="bg-amber-500 text-white font-bold py-1.5 px-3 text-xs rounded-xl shadow-md whitespace-nowrap flex items-center gap-1.5">🤢 Gandi Tanki</div>
+        <div class="bg-emerald-600 text-white font-bold py-1.5 px-3 text-xs rounded-xl shadow-md whitespace-nowrap flex items-center gap-1.5">✨ Chamakdar Tanki</div>
     </div>
 
     <!-- Water Tank Slider Component -->
-    <div class="slider-container relative w-full overflow-hidden rounded-3xl shadow-2xl border-2 border-slate-700/50 mb-4" style="aspect-ratio: 4/3;">
-        <!-- Badge Indicators -->
+    <div class="slider-container relative w-full overflow-hidden rounded-3xl shadow-2xl border-2 border-slate-700/50 mb-10" style="aspect-ratio: 4/3;">
         <div class="absolute top-4 left-4 z-20 bg-black/70 text-white text-[11px] font-bold px-2 py-1 rounded">BEFORE</div>
         <div class="absolute top-4 right-4 z-20 bg-blue-600/90 text-white text-[11px] font-bold px-2 py-1 rounded">AFTER</div>
-        
-        <!-- Saaf Tanki Image Base (Right Side) -->
         <img src="saaf tanki.png" class="absolute inset-0 w-full h-full object-cover">
-        
-        <!-- Gandi Tanki Image Overlay (Left Side Controlled by Clip-Path) -->
         <div id="tank-clip-pane" class="absolute inset-0 w-full h-full" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
             <img src="Gandi tanki.png" class="absolute inset-0 w-full h-full object-cover">
         </div>
-        
-        <!-- Native Slider Input Control -->
         <input type="range" min="0" max="100" value="50" class="absolute inset-0 w-full h-full cursor-pointer z-30 opacity-0 m-0 p-0" 
                oninput="document.getElementById('tank-clip-pane').style.clipPath = 'polygon(0 0, ' + this.value + '% 0, ' + this.value + '% 100%, 0 100%)'; document.getElementById('tank-line').style.left = this.value + '%'; document.getElementById('tank-btn').style.left = this.value + '%';">
-        
-        <!-- Tank Slider Bar & Button Elements -->
         <div id="tank-line" class="absolute top-0 bottom-0 w-1 bg-amber-500 z-10 -translate-x-1/2 pointer-events-none" style="left: 50%;"></div>
         <div id="tank-btn" class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-white rounded-full shadow-lg border-2 border-amber-500 z-20 flex items-center justify-center pointer-events-none" style="left: 50%;">
             <i class="fas fa-arrows-alt-h text-amber-600 text-lg"></i>
         </div>
     </div>
-</div>
 
+    <!-- Certified Safety Standards Section Added Back -->
+    <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div class="flex flex-col items-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
+                <div class="w-12 h-12 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center text-amber-500 mb-3 text-xl">
+                    <i class="fas fa-shield-check"></i>
+                </div>
+                <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Certified Safety Standards</h4>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Zero structural damage or scratching risks</p>
+            </div>
+            <div class="flex flex-col items-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20 flex items-center justify-center text-emerald-500 mb-3 text-xl">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Trained Staff Team</h4>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Equipped with anti-slip shoes and lifeline</p>
+            </div>
+            <div class="flex flex-col items-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center text-blue-500 mb-3 text-xl">
+                    <i class="fas fa-handshake-angle"></i>
+                </div>
+                <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Welcome</h4>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">Welcome</p>
+            </div>
+        </div>
+    </div>
+</div>
+            
         </div>
     </section>
 
