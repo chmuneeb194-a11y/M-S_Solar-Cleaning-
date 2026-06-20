@@ -1546,7 +1546,7 @@ function downloadBillAsPDF(serviceType) {
         
     };
 
-        setTimeout(() => {
+    setTimeout(() => {
         html2pdf().set(opt).from(element).save().then(() => {
             document.body.removeChild(element);
         }).catch((err) => {
@@ -1554,13 +1554,12 @@ function downloadBillAsPDF(serviceType) {
             document.body.removeChild(element);
         });
     }, 250);
-       
 }
-    
 
-       // ==========================================
+// ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
 // ==========================================
+    
 function toggleMenu() {
     const menu = document.getElementById('mobile-menu');
     if (menu) {
