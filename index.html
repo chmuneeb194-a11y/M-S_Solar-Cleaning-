@@ -1410,11 +1410,12 @@ function downloadBillAsPDF(serviceType) {
     const today = new Date().toISOString().split('T')[0];
 
     if (serviceType === 'solar') {
-        const name = document.querySelector('input[placeholder*="Name"]')?.value || "Muneeb Sarwar";
-        const phone = document.querySelector('input[type="tel"]')?.value || "03084462160";
-        const address = document.querySelector('input[placeholder*="Address"]')?.value || "Sahiwal";
-        const date = document.querySelector('input[type="date"]')?.value || today;
-        const timeSlot = document.querySelector('select')?.value || "01:00 PM - 05:00 PM";
+const name = document.getElementById('cust-name')?.value || "Muneeb Sarwar";
+const phone = document.getElementById('cust-phone')?.value || "03084462121";
+const address = document.getElementById('cust-address')?.value || "Sahiwal";
+const date = document.getElementById('booking-date')?.value || today;
+const timeSlot = document.getElementById('booking-time')?.value || "01:00 PM - 05:00 PM";
+        
         
         const qty = document.getElementById('solar-qty-val')?.innerText || "18";
         const brand = document.querySelector('select[name="brand"]')?.value || "Canadian Solar";
@@ -1457,11 +1458,12 @@ function downloadBillAsPDF(serviceType) {
         fileName = `Solar_Bill_${name.replace(/\s+/g, '_')}.pdf`;
 
     } else if (serviceType === 'car') {
-        const name = document.querySelector('#car-form input[placeholder*="Name"]')?.value || "Muneeb Sarwar";
-        const phone = document.querySelector('#car-form input[type="tel"]')?.value || "03084462160";
-        const address = document.querySelector('#car-form input[placeholder*="Address"]')?.value || "Sahiwal";
-        const date = document.querySelector('#car-form input[type="date"]')?.value || today;
-        const timeSlot = document.querySelector('#car-form select')?.value || "12:00 PM - 03:00 PM";
+const name = document.getElementById('carwash-cust-name')?.value || "Muneeb Sarwar";
+const phone = document.getElementById('carwash-cust-phone')?.value || "03084462121";
+const address = document.getElementById('carwash-cust-address')?.value || "Sahiwal";
+const date = document.getElementById('carwash-booking-date')?.value || today;
+const timeSlot = document.getElementById('carwash-booking-time')?.value || "12:00 PM - 03:00 PM";
+        
         
         const carType = document.querySelector('#car-type-select')?.value || "Sedan Car";
         const carQty = document.getElementById('car-qty-val')?.innerText || "1";
@@ -1494,11 +1496,12 @@ function downloadBillAsPDF(serviceType) {
         fileName = `Car_Wash_Bill_${name.replace(/\s+/g, '_')}.pdf`;
 
     } else if (serviceType === 'tank') {
-        const name = document.querySelector('#tank-form input[placeholder*="Name"]')?.value || "Muneeb Sarwar";
-        const phone = document.querySelector('#tank-form input[type="tel"]')?.value || "03084462160";
-        const address = document.querySelector('#tank-form input[placeholder*="Address"]')?.value || "Sahiwal";
-        const date = document.querySelector('#tank-form input[type="date"]')?.value || today;
-        const timeSlot = document.querySelector('#tank-form select')?.value || "09:00 AM - 12:00 PM";
+        const name = document.getElementById('tank-cust-name')?.value || "Muneeb Sarwar";
+const phone = document.getElementById('tank-cust-phone')?.value || "03084462121";
+const address = document.getElementById('tank-cust-address')?.value || "Sahiwal";
+const date = document.getElementById('tank-booking-date')?.value || today;
+const timeSlot = document.getElementById('tank-booking-time')?.value || "09:00 AM - 12:00 PM";
+        
         
         const capacity = document.querySelector('#tank-capacity-select')?.value || "1000 Gallons";
         const tankQty = document.getElementById('tank-qty-val')?.innerText || "1";
