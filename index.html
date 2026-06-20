@@ -562,8 +562,7 @@
                         <span data-en="Our Project Video" data-ur="ہماری پروجیکٹ ویڈیو">Our Project Video</span>
                     </h3>
                     <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-md border border-white/10">
-                        <!-- Replace YOUR_VIDEO_ID with actual YouTube video ID token when ready -->
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="MS Solar Project Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/IB-9OhAIZYE" title="Our Project Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -1533,27 +1532,31 @@ function downloadBillAsPDF(serviceType) {
     element.style.position = 'absolute';
     element.style.left = '-9999px';
     element.style.top = '0';
-    element.style.width = '750px';
+    element.style.width = '700px';
     element.style.background = '#ffffff';
     document.body.appendChild(element);
+    
 
     const opt = {
-        margin:       10,
+        margin:       [10, 10],
         filename:     fileName,
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true, logging: false },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        
     };
 
-    setTimeout(() => {
+        setTimeout(() => {
         html2pdf().set(opt).from(element).save().then(() => {
             document.body.removeChild(element);
         }).catch((err) => {
-            console.error("PDF Engine Error: ", err);
+            console.error("PDF Error: ", err);
             document.body.removeChild(element);
         });
     }, 250);
+       
 }
+    
 
        // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
