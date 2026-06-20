@@ -1537,39 +1537,41 @@ const timeSlot = document.getElementById('tank-booking-time')?.value || "09:00 A
 const element = document.createElement('div');
 element.innerHTML = billContent;
 
-// Forced browser rendering setup
-element.style.position = 'fixed';
-element.style.bottom = '0';
-element.style.right = '0';
-element.style.width = '790px';
-element.style.opacity = '0.01'; 
-element.style.zIndex = '-9999';
-element.style.pointerEvents = 'none';
+// CSS & Tailwind Compatibility Layer (Isse CSS styles breakdown nahi honge)
+element.style.position = 'absolute';
+element.style.top = '0';
+element.style.left = '0';
+element.style.width = '800px'; 
+element.style.background = '#fafafa';
+element.style.zIndex = '99999'; 
+element.style.visibility = 'visible'; 
+
 document.body.appendChild(element);
 
 const opt = {
-    margin:       10,
+    margin:       [10, 10, 10, 10],
     filename:     fileName,
-    image:        { type: 'jpeg', quality: 0.98 },
+    image:        { type: 'jpeg', quality: 1.0 },
     html2canvas:  { 
         scale: 2, 
         useCORS: true, 
-        allowTaint: true,
+        allowTaint: false,
         letterRendering: true,
-        logging: false 
+        scrollX: 0,
+        scrollY: 0
     },
     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
 };
 
-// 250ms delay taake data pehle poora render ho, phir print ho
+// Tailwind elements ko render hone ke liye 300ms ka buffer delay
 setTimeout(() => {
     html2pdf().set(opt).from(element).save().then(() => {
         document.body.removeChild(element);
     }).catch((err) => {
         console.error("PDF Engine Error: ", err);
     });
-}, 250);
-    
+}, 300);
+
     
 }
 </script>
