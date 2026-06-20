@@ -1534,34 +1534,39 @@ const timeSlot = document.getElementById('tank-booking-time')?.value || "09:00 A
         fileName = `Tank_Wash_Bill_${name.replace(/\s+/g, '_')}.pdf`;
     }
 
-// Naya System: Print Window Engine (No Canvas, No Blank Pages)
-const printWindow = window.open('', '_blank', 'width=800,height=900');
-printWindow.document.write(`
-    <html>
-    <head>
-        <title>${fileName.replace('.pdf', '')}</title>
-        <style>
-            body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #fafafa; }
-            @page { size: A4; margin: 10mm; }
-            @media print {
-                body { background: white; }
-                .no-print { display: none; }
-            }
-        </style>
-    </head>
-    <body>
-        ${billContent}
-        <script>
-            // Jaise hi page load ho, print dialog kholein aur baad mein window band kar dein
-            window.onload = function() {
-                window.print();
-                setTimeout(function() { window.close(); }, 500);
-            };
-        <\/script>
-    </body>
-    </html>
-`);
-printWindow.document.close();
+const element = document.createElement('div');
+element.innerHTML = billContent;
+
+// CSS Reset taake tailwind breakdown na kare aur content physical load ho
+element.style.position = 'absolute';
+element.style.top = '-9999px';
+element.style.left = '-9999px';
+element.style.width = '800px'; 
+element.style.background = '#fafafa';
+element.style.display = 'block';
+
+document.body.appendChild(element);
+
+const opt = {
+    margin:       [10, 10, 10, 10],
+    filename:     fileName,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { 
+        scale: 2, 
+        useCORS: true, 
+        logging: false,
+        letterRendering: true
+    },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+};
+
+// Direct automatic download mechanism bina kisi print preview ke
+html2pdf().set(opt).from(element).save().then(() => {
+    document.body.removeChild(element);
+}).catch((err) => {
+    console.error("Download Error: ", err);
+});
+    
     
 }
 </script>
