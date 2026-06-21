@@ -596,6 +596,49 @@
                 </div>
             </div>
         </div>
+        <!-- ==========================================
+     POINT 4: ECO-FRIENDLY CARBON COUNTER START
+     ========================================== -->
+<div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mb-4" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(44, 212, 107, 0.2); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 20px; border-radius: 16px; color: #fff; text-align: center; margin: 20px auto; max-width: 340px;">
+    <h4 style="color: #2cd46b; margin: 0 0 15px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        🌱 OUR GREEN ENERGY IMPACT
+    </h4>
+    
+    <div style="display: flex; justify-content: space-around; align-items: center;">
+        <!-- CO2 Counter -->
+        <div style="flex: 1;">
+            <span id="co2-saved-val" style="font-size: 24px; font-weight: 800; color: #ffc107; display: block; line-height: 1;">0</span>
+            <span style="font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 6px;">CO₂ Saved (KGs)</span>
+        </div>
+        
+        <!-- Divider Line -->
+        <div style="border-left: 1px solid rgba(255,255,255,0.1); height: 35px; margin: 0 10px;"></div>
+        
+        <!-- Trees Counter -->
+        <div style="flex: 1;">
+            <span id="trees-planted-val" style="font-size: 24px; font-weight: 800; color: #2cd46b; display: block; line-height: 1;">0</span>
+            <span style="font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 6px;">Trees Equivalent</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculateGreenStats(totalWashes) {
+        let co2Saved = totalWashes * 2.5; 
+        let treesEquivalent = Math.floor(co2Saved / 21.7); 
+
+        document.getElementById('co2-saved-val').innerText = co2Saved.toLocaleString();
+        document.getElementById('trees-planted-val').innerText = treesEquivalent.toLocaleString();
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        calculateGreenStats(580); 
+    });
+</script>
+<!-- ==========================================
+     POINT 4: ECO-FRIENDLY CARBON COUNTER END
+     ========================================== -->
+        
         <!-- POINT 3: Maintenance History Tracker Start -->
 <div class="w-full max-w-[340px] p-4 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl mt-4">
     <h3 class="text-sm font-black text-yellow-400 uppercase tracking-widest mb-3 flex items-center gap-2">
@@ -626,7 +669,37 @@
     </div>
 </div>
 <!-- POINT 3: Maintenance History Tracker End -->
-        
+     <!-- ==========================================
+     POINT 5: SMART ADMIN PORTAL UI START
+     ========================================== -->
+<div id="admin-portal-box" class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mb-4" style="background: rgba(30, 41, 59, 0.95); border: 2px dashed #ffc107; padding: 20px; border-radius: 16px; color: #fff; text-align: center; margin: 20px auto; max-width: 340px; font-family: sans-serif;">
+    <h4 style="color: #ffc107; margin: 0 0 15px 0; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+        ⚙️ SMART ADMIN PORTAL
+    </h4>
+    <p style="font-size: 11px; color: #94a3b8; margin:-10px 0 15px 0;">Client Database Saver (Local Memory)</p>
+    
+    <div style="display: flex; flex-direction: column; gap: 10px; text-align: left;">
+        <div>
+            <label style="font-size: 10px; color: #cbd5e1; text-transform: uppercase;">Customer Phone No:</label>
+            <input type="tel" id="admin-phone" placeholder="e.g. 03084462160" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 13px; box-sizing: border-box;">
+        </div>
+        <div>
+            <label style="font-size: 10px; color: #cbd5e1; text-transform: uppercase;">Total Washes Completed:</label>
+            <input type="number" id="admin-washes" placeholder="e.g. 5" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 13px; box-sizing: border-box;">
+        </div>
+        <div>
+            <label style="font-size: 10px; color: #cbd5e1; text-transform: uppercase;">Last Wash Date:</label>
+            <input type="date" id="admin-date" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 13px; box-sizing: border-box;">
+        </div>
+        <button onclick="saveCustomerToDatabase()" style="background: #2cd46b; color: #000; font-weight: bold; border: none; padding: 10px; border-radius: 8px; cursor: pointer; margin-top: 5px; font-size: 13px; transition: 0.2s;">
+            💾 Save Customer Record
+        </button>
+    </div>
+</div>
+<!-- ==========================================
+     POINT 5: SMART ADMIN PORTAL UI END
+     ========================================== -->
+   
     </section>
 
     <section class="py-6 bg-slate-100 dark:bg-slate-800/50 border-y border-slate-200 dark:border-slate-700/60">
@@ -1507,7 +1580,47 @@ function downloadBillAsPDF(serviceType) {
     let fileName = "MS_Solar_Bill.pdf";
     const today = new Date().toISOString().split('T')[0];
 
-    // POINT 3: Maintenance History Tracker Logic - Added by Muneeb
+// ==========================================
+// POINT 5: SMART ADMIN PORTAL & TRACKER LOGIC
+// ==========================================
+
+// 1. Admin Portal se Customer Record Save Karne Ka Function
+function saveCustomerToDatabase() {
+    let phone = document.getElementById('admin-phone').value.trim();
+    let washes = document.getElementById('admin-washes').value.trim();
+    let date = document.getElementById('admin-date').value;
+
+    if (!phone || !washes || !date) {
+        alert("Meherbani karke saari maloomat darj karein!");
+        return;
+    }
+
+    // Aapke pehle se maujood format (ms_solar_bills) ke mutabiq bills ka array banana
+    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+    
+    // Naye wash entries loop chalakar add karna jitne completed washes likhe hain
+    for (let i = 0; i < parseInt(washes); i++) {
+        savedBills.push({
+            phone: phone,
+            date: date
+        });
+    }
+
+    // Browser memory mein update kar dena
+    localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
+
+    // Carbon Counter (Point 4) ko chalane ke liye total count update karna
+    updateGlobalCarbonStats();
+
+    alert("Record kamyabi se mahfooz ho gaya hai!");
+    
+    // Inputs khali karna
+    document.getElementById('admin-phone').value = '';
+    document.getElementById('admin-washes').value = '';
+    document.getElementById('admin-date').value = '';
+}
+
+// 2. Wash History Tracker (Point 3) Se Search Karne Ka Automatic Function
 function checkCustomerHistory() {
     const phone = document.getElementById('tracker-phone-input').value.trim();
     if (!phone) {
@@ -1515,8 +1628,7 @@ function checkCustomerHistory() {
         return;
     }
 
-    // LocalStorage se data uthana
-    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills') || '[]');
+    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
     const customerBills = savedBills.filter(bill => bill.phone === phone);
 
     if (customerBills.length === 0) {
@@ -1527,19 +1639,36 @@ function checkCustomerHistory() {
         return;
     }
 
-    // Bills ko date ke mutabiq sort karna taake latest mil sake
+    // Latest date nikalne ke liye sort karna
     customerBills.sort((a, b) => new Date(b.date) - new Date(a.date));
     const latestWash = customerBills[0].date;
-    
-    // Agli wash calculate karna (Standard 30 din baad)
+
+    // Agli wash ki date 15 din baad calculate karna
     const nextWashDate = new Date(latestWash);
-    nextWashDate.setDate(nextWashDate.getDate() + 30);
+    nextWashDate.setDate(nextWashDate.getDate() + 15);
 
     // UI par data show karwana
     document.getElementById('tracker-last-date').innerText = latestWash;
     document.getElementById('tracker-total-count').innerText = customerBills.length;
     document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
 }
+
+// 3. Carbon Stats Global Dynamic Counter Loader
+function updateGlobalCarbonStats() {
+    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+    // Base 580 washes + jitne database mein naye save hue
+    let totalWashes = 580 + savedBills.length;
+    
+    if (typeof calculateGreenStats === "function") {
+        calculateGreenStats(totalWashes);
+    }
+}
+
+// Page load hote hi chalne wala listener
+document.addEventListener("DOMContentLoaded", function() {
+    updateGlobalCarbonStats();
+});
+    
 
 // Bill download karte waqt history auto-save karne ka hook
 function saveBillToHistory(phone, date) {
