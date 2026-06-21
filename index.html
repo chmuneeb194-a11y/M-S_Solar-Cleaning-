@@ -691,9 +691,11 @@
             <label style="font-size: 10px; color: #cbd5e1; text-transform: uppercase;">Last Wash Date:</label>
             <input type="date" id="admin-date" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 13px; box-sizing: border-box;">
         </div>
-        <button onclick="saveCustomerToDatabase()" style="background: #2cd46b; color: #000; font-weight: bold; border: none; padding: 10px; border-radius: 8px; cursor: pointer; margin-top: 5px; font-size: 13px; transition: 0.2s;">
-            💾 Save Customer Record
-        </button>
+       <button onclick="saveCustomerToDatabase()" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #2cd46b 0%, #15803d 100%); color: #ffffff; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border: none; border-radius: 12px; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(44, 212, 107, 0.3); transition: all 0.3s ease; font-family: sans-serif;" onmouseover="this.style.transform='減cale(1.02)'; this.style.boxShadow='0 6px 20px rgba(44, 212, 107, 0.5)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(44, 212, 107, 0.3)';">
+    <i class="fas fa-shield-alt" style="font-size: 14px; color: #fff;"></i> 
+    <span style="color: #ffffff;">Secure Save Record</span>
+       </button>
+        
     </div>
 </div>
 <!-- ==========================================
@@ -1584,41 +1586,71 @@ function downloadBillAsPDF(serviceType) {
 // POINT 5: SMART ADMIN PORTAL & TRACKER LOGIC
 // ==========================================
 
-// 1. Admin Portal se Customer Record Save Karne Ka Function
 function saveCustomerToDatabase() {
-    let phone = document.getElementById('admin-phone').value.trim();
-    let washes = document.getElementById('admin-washes').value.trim();
-    let date = document.getElementById('admin-date').value;
+    try {
+        let phone = document.getElementById('admin-phone').value.trim();
+        let washes = document.getElementById('admin-washes').value.trim();
+        let rawDate = document.getElementById('admin-date').value;
 
-    if (!phone || !washes || !date) {
-        alert("Meherbani karke saari maloomat darj karein!");
-        return;
+        if (!phone || !washes || !rawDate) {
+            alert("Meherbani karke saari maloomat darj karein!");
+            return;
+        }
+
+        // Date format handler: Agar date slash '/' ke sath (DD/MM/YYYY) aaye toh convert karein
+        let formattedDate = rawDate;
+        if (rawDate.includes('/')) {
+            let parts = rawDate.split('/');
+            if (parts[0].length === 2 && parts[2].length === 4) {
+                formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+            }
+        }
+
+        // LocalStorage se pehle se maujood array nikalna
+        let savedBills = [];
+        try {
+            let localData = localStorage.getItem('ms_solar_bills');
+            if (localData) {
+                savedBills = JSON.parse(localData);
+            }
+        } catch (e) {
+            savedBills = [];
+        }
+        
+        if (!Array.isArray(savedBills)) {
+            savedBills = [];
+        }
+        
+        // Jitne washes completed likhe hain, utni entries loop chala kar add karna
+        let count = parseInt(washes) || 1;
+        for (let i = 0; i < count; i++) {
+            savedBills.push({
+                phone: phone,
+                date: formattedDate
+            });
+        }
+
+        // Database mein save kar dena
+        localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
+
+        // Carbon counter ko live update karna
+        if (typeof updateGlobalCarbonStats === "function") {
+            updateGlobalCarbonStats();
+        }
+
+        alert("Record kamyabi se mahfooz ho gaya hai!");
+        
+        // Inputs ko automatic khali kar dena
+        document.getElementById('admin-phone').value = '';
+        document.getElementById('admin-washes').value = '';
+        document.getElementById('admin-date').value = '';
+        
+    } catch (error) {
+        console.error("Saving Error: ", error);
+        alert("Kuch masla hua hai! Meherbani karke dubara check karein.");
     }
-
-    // Aapke pehle se maujood format (ms_solar_bills) ke mutabiq bills ka array banana
-    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-    
-    // Naye wash entries loop chalakar add karna jitne completed washes likhe hain
-    for (let i = 0; i < parseInt(washes); i++) {
-        savedBills.push({
-            phone: phone,
-            date: date
-        });
-    }
-
-    // Browser memory mein update kar dena
-    localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
-
-    // Carbon Counter (Point 4) ko chalane ke liye total count update karna
-    updateGlobalCarbonStats();
-
-    alert("Record kamyabi se mahfooz ho gaya hai!");
-    
-    // Inputs khali karna
-    document.getElementById('admin-phone').value = '';
-    document.getElementById('admin-washes').value = '';
-    document.getElementById('admin-date').value = '';
 }
+    
 
 // 2. Wash History Tracker (Point 3) Se Search Karne Ka Automatic Function
 function checkCustomerHistory() {
