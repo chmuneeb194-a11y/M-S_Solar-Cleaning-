@@ -596,6 +596,37 @@
                 </div>
             </div>
         </div>
+        <!-- POINT 3: Maintenance History Tracker Start -->
+<div class="w-full max-w-[340px] p-4 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl mt-4">
+    <h3 class="text-sm font-black text-yellow-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+        <i class="fas fa-history"></i> Wash History Tracker
+    </h3>
+    <div class="space-y-3 text-xs text-slate-200">
+        <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
+            <span>Last Wash Date:</span>
+            <span id="tracker-last-date" class="font-bold text-white">No Record</span>
+        </div>
+        <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
+            <span>Total Washes:</span>
+            <span id="tracker-total-count" class="font-bold text-green-400">0</span>
+        </div>
+        <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
+            <span>Next Suggested Wash:</span>
+            <span id="tracker-next-date" class="font-bold text-yellow-400">Not Calculated</span>
+        </div>
+        
+        <!-- Customer Input Area -->
+        <div class="mt-2 pt-2 border-t border-white/10">
+            <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Check Your History (Phone No):</label>
+            <div class="flex gap-2">
+                <input type="tel" id="tracker-phone-input" placeholder="03001234567" class="w-full bg-black/40 border border-white/10 rounded-lg px-2 py-1 text-white focus:outline-none focus:border-yellow-400 text-xs">
+                <button onclick="checkCustomerHistory()" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-3 py-1 rounded-lg transition text-xs">Check</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- POINT 3: Maintenance History Tracker End -->
+        
     </section>
 
     <section class="py-6 bg-slate-100 dark:bg-slate-800/50 border-y border-slate-200 dark:border-slate-700/60">
@@ -1476,6 +1507,48 @@ function downloadBillAsPDF(serviceType) {
     let fileName = "MS_Solar_Bill.pdf";
     const today = new Date().toISOString().split('T')[0];
 
+    // POINT 3: Maintenance History Tracker Logic - Added by Muneeb
+function checkCustomerHistory() {
+    const phone = document.getElementById('tracker-phone-input').value.trim();
+    if (!phone) {
+        alert("Bhai, pehle phone number toh likhein!");
+        return;
+    }
+
+    // LocalStorage se data uthana
+    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills') || '[]');
+    const customerBills = savedBills.filter(bill => bill.phone === phone);
+
+    if (customerBills.length === 0) {
+        document.getElementById('tracker-last-date').innerText = "No Record";
+        document.getElementById('tracker-total-count').innerText = "0";
+        document.getElementById('tracker-next-date').innerText = "Not Calculated";
+        alert("Is number ka koi purana record nahi mila!");
+        return;
+    }
+
+    // Bills ko date ke mutabiq sort karna taake latest mil sake
+    customerBills.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const latestWash = customerBills[0].date;
+    
+    // Agli wash calculate karna (Standard 30 din baad)
+    const nextWashDate = new Date(latestWash);
+    nextWashDate.setDate(nextWashDate.getDate() + 30);
+
+    // UI par data show karwana
+    document.getElementById('tracker-last-date').innerText = latestWash;
+    document.getElementById('tracker-total-count').innerText = customerBills.length;
+    document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
+}
+
+// Bill download karte waqt history auto-save karne ka hook
+function saveBillToHistory(phone, date) {
+    if (!phone) return;
+    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills') || '[]');
+    savedBills.push({ phone: phone, date: date });
+    localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
+}
+    
     if (serviceType === 'solar') {
         const name = document.getElementById('cust-name')?.value || "Customer";
         const phone = document.getElementById('cust-phone')?.value || "N/A";
