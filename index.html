@@ -614,65 +614,125 @@
         </div>
         
         <!-- Divider Line -->
-        <div style="border-left: 1px solid rgba(255,255,255,0.1); height: 35px; margin: 0 10px;"></div>
-        
-        <!-- Trees Counter -->
-        <div style="flex: 1;">
-            <span id="trees-planted-val" style="font-size: 24px; font-weight: 800; color: #2cd46b; display: block; line-height: 1;">0</span>
-            <span style="font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 6px;">Trees Equivalent</span>
-        </div>
-    </div>
-</div>
+        <!-- ======================================================== -->
+        <!-- POINT 6: RESPONSIVE SIDE-BY-SIDE VISUALS DASHBOARD       -->
+        <!-- ======================================================== -->
+        <div class="w-full max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start scroll-reveal">
 
-<script>
-    function calculateGreenStats(totalWashes) {
-        let co2Saved = totalWashes * 2.5; 
-        let treesEquivalent = Math.floor(co2Saved / 21.7); 
+            <!-- 1️⃣ CARD: MS SOLAR EXPERTS TEAM IMAGE -->
+            <div class="w-full bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-xl p-4 flex flex-col items-center">
+                <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="team-solar-service.jpg" alt="M S Solar Team Action" class="w-full h-auto object-cover">
+                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent p-4">
+                        <p class="text-base font-bold text-white tracking-wide">MS Solar Experts</p>
+                        <p class="text-xs text-yellow-400 uppercase font-bold tracking-widest mt-1">Sahiwal Field Lead</p>
+                    </div>
+                    <span class="absolute top-3 right-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-lg">
+                        <i class="fas fa-check-circle"></i> On-Site Action
+                    </span>
+                </div>
+            </div>
 
-        document.getElementById('co2-saved-val').innerText = co2Saved.toLocaleString();
-        document.getElementById('trees-planted-val').innerText = treesEquivalent.toLocaleString();
-    }
+            <!-- 2️⃣ CARD: LIVE WORK MAGIC (BEFORE/AFTER SLIDER) -->
+            <div class="w-full bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-xl p-6">
+                <h3 class="text-sm font-black text-yellow-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <i class="fas fa-magic text-lg"></i>
+                    <span>LIVE WORK MAGIC</span>
+                </h3>
+                <div id="beforeAfterSlider" class="relative w-full aspect-video rounded-xl overflow-hidden shadow-md">
+                    <img src="team-solar-service.jpg" alt="After Cleaning" class="absolute inset-0 w-full h-full object-cover">
+                    <div id="beforeImageWrapper" class="absolute inset-0 left-0 overflow-hidden w-1/2 border-r-2 border-yellow-400 shadow-2xl">
+                        <img src="ingo.jpg" alt="Before Cleaning" class="absolute inset-0 w-full h-full object-cover max-w-none">
+                    </div>
+                    <div id="sliderHandle" class="absolute inset-y-0 left-1/2 -ml-3 w-6 flex items-center justify-center cursor-ew-resize z-20">
+                        <div class="w-6 h-6 rounded-full bg-yellow-400 shadow-md flex items-center justify-center">
+                            <i class="fas fa-arrows-alt-h text-xs text-slate-900"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-300 mt-3 text-center">Drag the arrow to see the transformation!</p>
+            </div>
 
-    document.addEventListener("DOMContentLoaded", function() {
-        calculateGreenStats(580); 
-    });
-</script>
-<!-- ==========================================
-     POINT 4: ECO-FRIENDLY CARBON COUNTER END
-     ========================================== -->
-        
-        <!-- POINT 3: Maintenance History Tracker Start -->
-        <div class="w-full max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start scroll-reveal">
+            <!-- 3️⃣ CARD: OUR PROJECT VIDEO -->
+            <div class="w-full bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-xl p-6">
+                <h3 class="text-sm font-black text-yellow-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <i class="fas fa-play-circle text-lg"></i>
+                    <span>OUR PROJECT VIDEO</span>
+                </h3>
+                <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-md">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/lB-9OHAIZYE" title="Our Project Video" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
 
-    <h3 class="text-sm font-black text-yellow-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-        <i class="fas fa-history"></i> Wash History Tracker
-    </h3>
-    <div class="space-y-3 text-xs text-slate-200">
-        <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
-            <span>Last Wash Date:</span>
-            <span id="tracker-last-date" class="font-bold text-white">No Record</span>
         </div>
-        <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
-            <span>Total Washes:</span>
-            <span id="tracker-total-count" class="font-bold text-green-400">0</span>
-        </div>
-        <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
-            <span>Next Suggested Wash:</span>
-            <span id="tracker-next-date" class="font-bold text-yellow-400">Not Calculated</span>
-        </div>
-        
-        <!-- Customer Input Area -->
-        <div class="mt-2 pt-2 border-t border-white/10">
-            <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Check Your History (Phone No):</label>
-            <div class="flex gap-2">
-                <input type="tel" id="tracker-phone-input" placeholder="03001234567" class="w-full bg-black/40 border border-white/10 rounded-lg px-2 py-1 text-white focus:outline-none focus:border-yellow-400 text-xs">
-                <button onclick="checkCustomerHistory()" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-3 py-1 rounded-lg transition text-xs">Check</button>
+
+        <!-- ======================================================== -->
+        <!-- POINT 4: ECO-FRIENDLY CARBON COUNTER BAR (FULL WIDTH)    -->
+        <!-- ======================================================== -->
+        <div class="w-full max-w-7xl mx-auto px-4 mb-8">
+            <div class="ios-glass rounded-3xl overflow-hidden transition-all shadow-lg p-6" style="background: rgba(15, 23, 42, 0.8);">
+                <h4 class="text-xs font-bold text-emerald-400 tracking-wider uppercase mb-4 text-center">Our Green Energy Impact</h4>
+                <div class="flex justify-around items-center text-center">
+                    <div class="flex-1">
+                        <span id="co2-saved-val" class="text-2xl font-extrabold text-amber-400 block">1,455</span>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block mt-1">CO₂ Saved (KGs)</span>
+                    </div>
+                    <div class="border-left border-white/10 h-10 mx-4"></div>
+                    <div class="flex-1">
+                        <span id="trees-planted-val" class="text-2xl font-extrabold text-emerald-400 block">67</span>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block mt-1">Trees Equivalent</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- POINT 3: Maintenance History Tracker End -->
-     <!-- ==========================================
+
+        <script>
+            function calculateGreenStats(totalWashes) {
+                let co2Saved = totalWashes * 2.5;
+                let treesEquivalent = Math.floor(co2Saved / 21.7);
+
+                document.getElementById('co2-saved-val').innerText = co2Saved.toLocaleString();
+                document.getElementById('trees-planted-val').innerText = treesEquivalent.toLocaleString();
+            }
+            document.addEventListener("DOMContentLoaded", function() {
+                calculateGreenStats(580);
+            });
+        </script>
+
+        <!-- ======================================================== -->
+        <!-- POINT 3: MAINTENANCE HISTORY TRACKER                     -->
+        <!-- ======================================================== -->
+        <div class="w-full max-w-7xl mx-auto px-4 py-8">
+            <div class="w-full max-w-xl mx-auto bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-xl p-6">
+                <h3 class="text-sm font-black text-yellow-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                    <i class="fas fa-history"></i> Wash History Tracker
+                </h3>
+                <div class="space-y-3 text-xs text-slate-200">
+                    <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
+                        <span>Last Wash Date:</span>
+                        <span id="tracker-last-date" class="font-bold text-white">No Record</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
+                        <span>Total Washes:</span>
+                        <span id="tracker-total-count" class="font-bold text-green-400">0</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
+                        <span>Next Suggested Wash:</span>
+                        <span id="tracker-next-date" class="font-bold text-yellow-400">Not Calculated</span>
+                    </div>
+                </div>
+
+                <!-- Customer Input Area -->
+                <div class="mt-4 pt-2 border-t border-white/10">
+                    <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Check Your History (Phone No):</label>
+                    <div class="flex gap-2">
+                        <input type="tel" id="tracker-phone-input" placeholder="03001234567" class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-yellow-400 transition-all">
+                        <button onclick="checkCustomerHistory()" class="bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold px-4 rounded-xl text-xs transition-all shadow-md">Check</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 <!-- POINT 5: SMART ADMIN PORTAL UI START -->
 <div id="admin-portal-box" class="w-full max-w-[340px] p-4 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl mt-6 mx-auto text-left">
     <h3 class="text-sm font-black text-yellow-400 uppercase tracking-widest mb-1 flex items-center gap-2">
