@@ -682,9 +682,13 @@
             </div>
             
             <div class="text-right">
-                <button onclick="saveCustomerToDatabase()" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-yellow-500 font-bold px-6 py-2 rounded-xl text-sm transition-all border border-slate-700">
-                    <i class="fas fa-save mr-1"></i> Save To Browser Memory
-                </button>
+<button onclick="saveCustomerToDatabase()" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-yellow-400 font-bold px-6 py-2 rounded-xl text-sm transition-all border border-slate-700">
+    <i class="fas fa-save mr-1"></i> Save To Browser Memory
+</button>
+<button onclick="downloadBackupFile()" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-emerald-400 font-bold px-6 py-2 rounded-xl text-sm transition-all border border-emerald-800 ml-0 sm:ml-2 mt-2 sm:mt-0">
+    <i class="fas fa-file-download mr-1"></i> Download File Backup
+</button>
+                
             </div>
         </div>
     </div>
@@ -1514,10 +1518,18 @@
 // ========================================================
 function checkCustomerHistory() {
     try {
-        const phoneInput = document.getElementById('tracker-phone-input');
-        if (!phoneInput) return;
+        const allInputs = document.querySelectorAll('input[type="tel"], #tracker-phone-input');
+        let phone = "";
         
-        const phone = phoneInput.value.trim();
+        for (let inp of allInputs) {
+            if (inp.id === "tracker-phone-input" || inp.placeholder.includes("Phone")) {
+                if (inp.value.trim() !== "") {
+                    phone = inp.value.trim();
+                    break;
+                }
+            }
+        }
+        
         if (!phone) {
             alert("Meherbani karke pehle Mobile Number darj karein!");
             return;
@@ -1543,7 +1555,7 @@ function checkCustomerHistory() {
         });
 
         const nextWashDate = new Date(latestWash);
-        nextWashDate.setDate(nextWashDate.getDate() + 90); // Next wash after 3 months
+        nextWashDate.setDate(nextWashDate.getDate() + 90);
 
         document.getElementById('tracker-last-date').innerText = latestWash;
         document.getElementById('tracker-total-count').innerText = totalWashedPanels;
@@ -1559,7 +1571,6 @@ function checkCustomerHistory() {
 function updateGlobalCarbonStats() {
     try {
         const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-        
         let totalWashes = 580 + savedBills.length;
         let co2Saved = totalWashes * 2.5;
         let treesEquivalent = Math.round(co2Saved / 22);
@@ -1598,7 +1609,6 @@ function saveCustomerToDatabase() {
         }
         
         let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-        
         const existingIndex = savedBills.findIndex(bill => bill.phone === phone);
         const newRecord = {
             phone: phone,
@@ -1615,7 +1625,7 @@ function saveCustomerToDatabase() {
         localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
         updateGlobalCarbonStats();
         
-        alert("Record kamyabi se mahfooz ho gaya hai!");
+        alert("Record kamyabi se mahfooz ho gaya hai! Agar aap iska backup file banana chahte hain toh niche diye gaye Backup button ko dabayein.");
         phoneField.value = '';
         washesField.value = '';
         dateField.value = '';
@@ -1623,6 +1633,23 @@ function saveCustomerToDatabase() {
         console.error("Saving Error: ", error);
     }
 }
+
+// ========================================================
+// MANUAL BACKUP TO FILE SYSTEM (FOR MS SOLAR FOLDER)
+// ========================================================
+function downloadBackupFile() {
+    const data = localStorage.getItem('ms_solar_bills') || "[]";
+    const blob = new Blob([data], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "ms_solar_database_backup.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    alert("Backup file download ho gayi hai! Isay aap apne 'Ms Solar' folder mein drag/save kar ke rakh sakte hain.");
+}
+    
     
  
 function downloadBillAsPDF(serviceType) {
