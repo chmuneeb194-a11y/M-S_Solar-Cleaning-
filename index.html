@@ -1585,10 +1585,12 @@ function downloadBillAsPDF(serviceType) {
     let billContent = "";
     let fileName = "MS_Solar_Bill.pdf";
     const today = new Date().toISOString().split('T')[0];
+} 
 
 // ==========================================
 // POINT 5: SMART ADMIN PORTAL & TRACKER LOGIC
 // ==========================================
+
 function saveCustomerToDatabase() {
     try {
         const phone = document.getElementById('admin-phone').value.trim();
@@ -1601,33 +1603,21 @@ function saveCustomerToDatabase() {
         }
 
         let savedBills = [];
-        try {
-            const localData = localStorage.getItem('ms_solar_bills');
-            if (localData) {
-                savedBills = JSON.parse(localData);
-            }
-        } catch (e) {
-            savedBills = [];
+        const localData = localStorage.getItem('ms_solar_bills');
+        if (localData) {
+            try { savedBills = JSON.parse(localData); } catch(e) { savedBills = []; }
         }
-
-        if (!Array.isArray(savedBills)) {
-            savedBills = [];
-        }
+        if (!Array.isArray(savedBills)) { savedBills = []; }
 
         const customerIndex = savedBills.findIndex(bill => bill.phone === phone);
         if (customerIndex !== -1) {
             savedBills[customerIndex].date = rawDate;
             savedBills[customerIndex].totalWashes = parseInt(washes) || 1;
         } else {
-            savedBills.push({
-                phone: phone,
-                date: rawDate,
-                totalWashes: parseInt(washes) || 1
-            });
+            savedBills.push({ phone: phone, date: rawDate, totalWashes: parseInt(washes) || 1 });
         }
 
         localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
-
         alert("Record kamyabi se mahfooz ho gaya hai!");
 
         document.getElementById('admin-phone').value = '';
@@ -1653,11 +1643,10 @@ function checkCustomerHistory() {
         let savedBills = [];
         const localData = localStorage.getItem('ms_solar_bills');
         if (localData) {
-            savedBills = JSON.parse(localData);
+            try { savedBills = JSON.parse(localData); } catch(e) { savedBills = []; }
         }
 
         const customerRecord = savedBills.find(bill => bill.phone === phone);
-
         if (!customerRecord) {
             document.getElementById('tracker-last-date').innerText = "No Record";
             document.getElementById('tracker-total-count').innerText = "0";
