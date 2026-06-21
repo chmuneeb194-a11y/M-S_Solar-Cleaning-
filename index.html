@@ -584,76 +584,71 @@
             </div>
         </div>
     </section>
-<!-- SECTION 3 & 4: TRACKER & CARBON COUNTER DUAL DESKTOP ROW -->
-<section class="py-12 bg-slate-900/40 border-y border-slate-800 backdrop-blur-md relative z-30">
-    <div class="container mx-auto max-w-6xl px-4">
-        <!-- Desktop Grid: Left side Tracker, Right side Carbon Counter -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+
+<!-- SECTION 3: ECO-FRIENDLY CARBON COUNTER (TOP FULL WIDTH) -->
+<section class="py-10 bg-emerald-950/20 border-y border-emerald-800/40 backdrop-blur-md relative z-30">
+    <div class="container mx-auto max-w-3xl px-4">
+        <div class="bg-slate-950/60 p-6 rounded-2xl border border-emerald-500/20 shadow-xl">
+            <div class="flex items-center gap-2 mb-4 border-b border-emerald-950 pb-3">
+                <i class="fas fa-leaf text-emerald-400 text-xl animate-bounce"></i>
+                <h3 class="text-lg font-bold text-emerald-400 uppercase tracking-wider">Our Green Energy Impact</h3>
+            </div>
+            <p class="text-xs text-slate-400 mb-6">MS Solar Services ki har wash se environment mein carbon dioxide ki kami hoti hai. Live environment savings niche darj hain:</p>
             
-            <!-- LEFT COLUMN: MAINTENANCE HISTORY TRACKER (POINT 3) -->
-            <div class="bg-slate-950/60 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between shadow-xl">
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <i class="fas fa-history text-yellow-500 text-xl"></i>
-                        <h3 class="text-lg font-bold text-white uppercase tracking-wider">Wash History Tracker</h3>
-                    </div>
-                    <p class="text-xs text-slate-400 mb-6">Apna phone number darj karke apni pichli safai ki tareekh aur agli wash ki confirm date check karein.</p>
-                    
-                    <!-- Stats Sub-Grid Inside Tracker -->
-                    <div class="grid grid-cols-3 gap-3 text-center mb-6">
-                        <div class="bg-slate-900/80 p-3 rounded-xl border border-white/5">
-                            <span class="block text-[9px] uppercase text-slate-500 tracking-wider mb-1">Last Wash Date</span>
-                            <span id="tracker-last-date" class="font-bold text-white text-sm">No Record</span>
-                        </div>
-                        <div class="bg-slate-900/80 p-3 rounded-xl border border-white/5">
-                            <span class="block text-[9px] uppercase text-slate-500 tracking-wider mb-1">Total Wash Panels</span>
-                            <span id="tracker-total-count" class="font-bold text-emerald-400 text-sm">0</span>
-                        </div>
-                        <div class="bg-slate-900/80 p-3 rounded-xl border border-white/5">
-                            <span class="block text-[9px] uppercase text-slate-500 tracking-wider mb-1">Next Due Wash</span>
-                            <span id="tracker-next-date" class="font-bold text-yellow-400 text-sm">Not Calculated</span>
-                        </div>
-                    </div>
+            <!-- Carbon Stats Live Display Boxes -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div class="bg-slate-950/80 p-5 rounded-xl border border-emerald-500/10 text-center">
+                    <span id="co2-saved-val" class="block text-2xl font-black text-emerald-400 tracking-tight">1,450</span>
+                    <span class="block text-[10px] uppercase text-slate-400 mt-1 tracking-wider">KG CO₂ SAVED (SAHIWAL REGION)</span>
                 </div>
-
-                <!-- Input Box and Button Container -->
-                <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-800">
-                    <input type="tel" id="tracker-phone-input" placeholder="Enter Phone (e.g., 0308...)" class="w-full bg-slate-900 text-white border border-slate-700 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-yellow-500 transition-all">
-                    <button onclick="checkCustomerHistory()" class="bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm whitespace-nowrap transition-all shadow-md">Check History</button>
+                <div class="bg-slate-950/80 p-5 rounded-xl border border-emerald-500/10 text-center">
+                    <span id="trees-planted-val" class="block text-2xl font-black text-emerald-400 tracking-tight">66</span>
+                    <span class="block text-[10px] uppercase text-slate-400 mt-1 tracking-wider">TREES PLANTED EQUIVALENT</span>
                 </div>
             </div>
-
-            <!-- RIGHT COLUMN: ECO-FRIENDLY CARBON COUNTER (POINT 4) -->
-            <div class="bg-emerald-950/20 p-6 rounded-2xl border border-emerald-800/40 flex flex-col justify-between shadow-xl">
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <i class="fas fa-leaf text-emerald-400 text-xl"></i>
-                        <h3 class="text-lg font-bold text-emerald-400 uppercase tracking-wider">Our Green Energy Impact</h3>
-                    </div>
-                    <p class="text-xs text-slate-400 mb-6">MS Solar Services ki har wash se environment mein carbon dioxide ki kami hoti hai. Live environment savings niche darj hain:</p>
-                    
-                    <!-- Carbon Stats Live Display Boxes -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-slate-950/80 p-5 rounded-xl border border-emerald-500/20 text-center">
-                            <span id="co2-saved-val" class="block text-2xl font-black text-emerald-400 tracking-tight">1,450</span>
-                            <span class="block text-[10px] uppercase text-slate-400 mt-1 tracking-wider">KG CO₂ SAVED (SAHIWAL REGION)</span>
-                        </div>
-                        <div class="bg-slate-950/80 p-5 rounded-xl border border-emerald-500/20 text-center">
-                            <span id="trees-planted-val" class="block text-2xl font-black text-emerald-400 tracking-tight">66</span>
-                            <span class="block text-[10px] uppercase text-slate-400 mt-1 tracking-wider">TREES PLANTED EQUIVALENT</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="pt-4 border-t border-emerald-950 text-[11px] text-emerald-400/60 text-center italic">
-                    ⚡ Live updating based on region data logs.
-                </div>
+            <div class="text-[11px] text-emerald-400/60 text-center italic">
+                ⚡ Live updating based on region data logs.
             </div>
-
         </div>
     </div>
 </section>
 
-<!-- SECTION 5: SMART ADMIN PORTAL (DESKTOP CENTER BLOCK) -->
+<!-- SECTION 4: WASH HISTORY TRACKER (MIDDLE FULL WIDTH) -->
+<section class="py-10 bg-slate-900/40 border-b border-slate-800 backdrop-blur-md relative z-30">
+    <div class="container mx-auto max-w-3xl px-4">
+        <div class="bg-slate-950/60 p-6 rounded-2xl border border-slate-800 shadow-xl">
+            <div class="flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">
+                <i class="fas fa-history text-yellow-500 text-xl"></i>
+                <h3 class="text-lg font-bold text-white uppercase tracking-wider">Wash History Tracker</h3>
+            </div>
+            <p class="text-xs text-slate-400 mb-6">Apna phone number darj karke apni pichli safai ki tareekh aur agli wash ki confirm date check karein.</p>
+            
+            <!-- Stats Sub-Grid Inside Tracker -->
+            <div class="grid grid-cols-3 gap-3 text-center mb-6">
+                <div class="bg-slate-900/80 p-3 rounded-xl border border-white/5">
+                    <span class="block text-[9px] uppercase text-slate-500 tracking-wider mb-1">Last Wash Date</span>
+                    <span id="tracker-last-date" class="font-bold text-white text-sm">No Record</span>
+                </div>
+                <div class="bg-slate-900/80 p-3 rounded-xl border border-white/5">
+                    <span class="block text-[9px] uppercase text-slate-500 tracking-wider mb-1">Total Wash Panels</span>
+                    <span id="tracker-total-count" class="font-bold text-emerald-400 text-sm">0</span>
+                </div>
+                <div class="bg-slate-900/80 p-3 rounded-xl border border-white/5">
+                    <span class="block text-[9px] uppercase text-slate-500 tracking-wider mb-1">Next Due Wash</span>
+                    <span id="tracker-next-date" class="font-bold text-yellow-400 text-sm">Not Calculated</span>
+                </div>
+            </div>
+
+            <!-- Input Box and Button Stacked or Row based on screen -->
+            <div class="flex flex-col gap-3 pt-4 border-t border-slate-800">
+                <input type="tel" id="tracker-phone-input" placeholder="Enter Phone (e.g., 0308...)" class="w-full bg-slate-900 text-white border border-slate-700 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-yellow-500 transition-all">
+                <button onclick="checkCustomerHistory()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm transition-all shadow-md">Check History</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 5: SMART ADMIN PORTAL (BOTTOM FULL WIDTH) -->
 <section class="py-10 bg-slate-950 border-b border-slate-900 relative z-30">
     <div class="container mx-auto max-w-3xl px-4">
         <div class="bg-gradient-to-b from-slate-900 to-slate-950 p-6 rounded-2xl border border-slate-800 shadow-2xl">
@@ -1511,44 +1506,48 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
-   // ========================================================
+// ========================================================
 // MAINTENANCE HISTORY TRACKER FUNCTION (POINT 3)
 // ========================================================
 function checkCustomerHistory() {
-    const phoneInput = document.getElementById('tracker-phone-input');
-    if (!phoneInput) return;
-    
-    const phone = phoneInput.value.trim();
-    if (!phone) {
-        alert("Bhai, pehle phone number toh likhein!");
-        return;
+    try {
+        const phoneInput = document.getElementById('tracker-phone-input');
+        if (!phoneInput) return;
+        
+        const phone = phoneInput.value.trim();
+        if (!phone) {
+            alert("Meherbani karke pehle Mobile Number darj karein!");
+            return;
+        }
+
+        const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+        const customerBills = savedBills.filter(bill => bill.phone === phone);
+
+        if (customerBills.length === 0) {
+            document.getElementById('tracker-last-date').innerText = "No Record";
+            document.getElementById('tracker-total-count').innerText = "0";
+            document.getElementById('tracker-next-date').innerText = "Not Calculated";
+            alert("Is number ka koi purana record nahi mila!");
+            return;
+        }
+
+        customerBills.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const latestWash = customerBills[0].date;
+
+        let totalWashedPanels = 0;
+        customerBills.forEach(bill => {
+            totalWashedPanels += parseInt(bill.totalWashes) || 0;
+        });
+
+        const nextWashDate = new Date(latestWash);
+        nextWashDate.setDate(nextWashDate.getDate() + 90); // Next wash after 3 months
+
+        document.getElementById('tracker-last-date').innerText = latestWash;
+        document.getElementById('tracker-total-count').innerText = totalWashedPanels;
+        document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
+    } catch(err) {
+        console.error("Tracker Error: ", err);
     }
-
-    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-    const customerBills = savedBills.filter(bill => bill.phone === phone);
-
-    if (customerBills.length === 0) {
-        document.getElementById('tracker-last-date').innerText = "No Record";
-        document.getElementById('tracker-total-count').innerText = "0";
-        document.getElementById('tracker-next-date').innerText = "Not Calculated";
-        alert("Is number ka koi purana record nahi mila!");
-        return;
-    }
-
-    customerBills.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const latestWash = customerBills[0].date;
-
-    let totalWashedPanels = 0;
-    customerBills.forEach(bill => {
-        totalWashedPanels += parseInt(bill.totalWashes) || 0;
-    });
-
-    const nextWashDate = new Date(latestWash);
-    nextWashDate.setDate(nextWashDate.getDate() + 15);
-
-    document.getElementById('tracker-last-date').innerText = latestWash;
-    document.getElementById('tracker-total-count').innerText = totalWashedPanels;
-    document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
 }
 
 // ========================================================
@@ -1556,11 +1555,7 @@ function checkCustomerHistory() {
 // ========================================================
 function updateGlobalCarbonStats() {
     try {
-        let savedBills = [];
-        const localData = localStorage.getItem('ms_solar_bills');
-        if (localData) {
-            try { savedBills = JSON.parse(localData); } catch(e) { savedBills = []; }
-        }
+        const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
         
         let totalWashes = 580 + savedBills.length;
         let co2Saved = totalWashes * 2.5;
@@ -1599,11 +1594,7 @@ function saveCustomerToDatabase() {
             return;
         }
         
-        let savedBills = [];
-        const localData = localStorage.getItem('ms_solar_bills');
-        if (localData) {
-            try { savedBills = JSON.parse(localData); } catch(e) { savedBills = []; }
-        }
+        let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
         
         const existingIndex = savedBills.findIndex(bill => bill.phone === phone);
         const newRecord = {
@@ -1629,6 +1620,7 @@ function saveCustomerToDatabase() {
         console.error("Saving Error: ", error);
     }
 }
+    
  
 function downloadBillAsPDF(serviceType) {
     let billContent = "";
