@@ -670,39 +670,37 @@
 </div>
 <!-- POINT 3: Maintenance History Tracker End -->
      <!-- ==========================================
-     POINT 5: SMART ADMIN PORTAL UI START
-     ========================================== -->
-<div id="admin-portal-box" style="background: rgba(30, 41, 59, 0.45); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); padding: 20px; border-radius: 20px; color: #fff; text-align: center; margin: 20px auto; width: 92%; max-width: 340px; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);">
-    <h4 style="color: #ffc107; margin: 0 0 4px 0; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+<!-- POINT 5: SMART ADMIN PORTAL UI START -->
+<div id="admin-portal-box" style="background: #0f172a !important; border: 1px solid rgba(255,255,255,0.1) !important; padding: 24px !important; border-radius: 20px !important; color: #fff !important; text-align: center !important; margin: 30px auto !important; width: 92% !important; max-width: 360px !important; box-sizing: border-box !important; display: block !important; clear: both !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;">
+    <h4 style="color: #ffc107 !important; margin: 0 0 6px 0 !important; font-size: 15px !important; font-weight: bold !important; text-transform: uppercase !important; letter-spacing: 1px !important;">
         ⚙️ SMART ADMIN PORTAL
     </h4>
-    <p style="font-size: 11px; color: #94a3b8; margin: 0 0 20px 0; font-weight: 500;">Client Database Saver (Local Memory)</p>
+    <p style="font-size: 11px !important; color: #94a3b8 !important; margin: 0 0 20px 0 !important;">Client Database Saver (Local Memory)</p>
     
-    <div style="display: flex; flex-direction: column; gap: 16px; text-align: left; width: 100%; box-sizing: border-box;">
-        <div style="width: 100%; box-sizing: border-box;">
-            <label style="font-size: 10px; color: #94a3b8; text-transform: uppercase; display: block; margin-bottom: 6px; font-weight: 700; letter-spacing: 0.5px;">Customer Phone No:</label>
-            <input type="tel" id="admin-phone" placeholder="e.g. 03084462160" style="width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(15, 23, 42, 0.6); color: #fff; font-size: 14px; box-sizing: border-box; display: block; outline: none; transition: border 0.2s;" onfocus="this.style.border='1px solid #ffc107'">
-        </div>
-        <div style="width: 100%; box-sizing: border-box;">
-            <label style="font-size: 10px; color: #94a3b8; text-transform: uppercase; display: block; margin-bottom: 6px; font-weight: 700; letter-spacing: 0.5px;">Total Washes Completed:</label>
-            <input type="number" id="admin-washes" placeholder="e.g. 5" style="width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(15, 23, 42, 0.6); color: #fff; font-size: 14px; box-sizing: border-box; display: block; outline: none; transition: border 0.2s;" onfocus="this.style.border='1px solid #ffc107'">
-        </div>
-        <div style="width: 100%; box-sizing: border-box;">
-            <label style="font-size: 10px; color: #94a3b8; text-transform: uppercase; display: block; margin-bottom: 6px; font-weight: 700; letter-spacing: 0.5px;">Last Wash Date:</label>
-            <input type="date" id="admin-date" style="width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(15, 23, 42, 0.6); color: #fff; font-size: 14px; box-sizing: border-box; display: block; outline: none; transition: border 0.2s;" onfocus="this.style.border='1px solid #ffc107'">
+    <div style="display: block !important; text-align: left !important; width: 100% !important; box-sizing: border-box !important;">
+        <div style="margin-bottom: 15px !important; width: 100% !important; box-sizing: border-box !important;">
+            <label style="font-size: 11px !important; color: #cbd5e1 !important; text-transform: uppercase !important; display: block !important; margin-bottom: 6px !important; font-weight: 600 !important;">Customer Phone No:</label>
+            <input type="tel" id="admin-phone" placeholder="e.g. 03084462160" style="width: 100% !important; padding: 12px !important; border-radius: 10px !important; border: 1px solid rgba(255,255,255,0.15) !important; background: #1e293b !important; color: #fff !important; font-size: 14px !important; box-sizing: border-box !important; display: block !important; outline: none !important;">
         </div>
         
-        <button onclick="saveCustomerToDatabase()" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); color: #0f172a; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; border: none; border-radius: 10px; cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.25); transition: all 0.2s ease; box-sizing: border-box;">
+        <div style="margin-bottom: 15px !important; width: 100% !important; box-sizing: border-box !important;">
+            <label style="font-size: 11px !important; color: #cbd5e1 !important; text-transform: uppercase !important; display: block !important; margin-bottom: 6px !important; font-weight: 600 !important;">Total Washes Completed:</label>
+            <input type="number" id="admin-washes" placeholder="e.g. 18" style="width: 100% !important; padding: 12px !important; border-radius: 10px !important; border: 1px solid rgba(255,255,255,0.15) !important; background: #1e293b !important; color: #fff !important; font-size: 14px !important; box-sizing: border-box !important; display: block !important; outline: none !important;">
+        </div>
+        
+        <div style="margin-bottom: 20px !important; width: 100% !important; box-sizing: border-box !important;">
+            <label style="font-size: 11px !important; color: #cbd5e1 !important; text-transform: uppercase !important; display: block !important; margin-bottom: 6px !important; font-weight: 600 !important;">Last Wash Date:</label>
+            <input type="date" id="admin-date" style="width: 100% !important; padding: 12px !important; border-radius: 10px !important; border: 1px solid rgba(255,255,255,0.15) !important; background: #1e293b !important; color: #fff !important; font-size: 14px !important; box-sizing: border-box !important; display: block !important; outline: none !important; color-scheme: dark !important;">
+        </div>
+        
+        <button onclick="saveCustomerToDatabase()" style="width: 100% !important; padding: 15px !important; background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important; color: #0f172a !important; font-weight: bold !important; font-size: 13px !important; text-transform: uppercase !important; border: none !important; border-radius: 10px !important; cursor: pointer !important; display: block !important; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3) !important; box-sizing: border-box !important; -webkit-appearance: none !important;">
             💾 Safe Save Customer Record
         </button>
     </div>
 </div>
+<!-- POINT 5: SMART ADMIN PORTAL UI END -->
         
         
-<!-- ==========================================
-     POINT 5: SMART ADMIN PORTAL UI END
-     ========================================== -->
-   
     </section>
 
     <section class="py-6 bg-slate-100 dark:bg-slate-800/50 border-y border-slate-200 dark:border-slate-700/60">
@@ -1594,7 +1592,7 @@ function saveCustomerToDatabase() {
         let dateField = document.getElementById('admin-date');
 
         if (!phoneField || !washesField || !dateField) {
-            alert("Error: Input fields screen par nahi miliye!");
+            alert("Error: Fields screen par nahi miliye!");
             return;
         }
 
@@ -1610,15 +1608,9 @@ function saveCustomerToDatabase() {
         let savedBills = [];
         let localData = localStorage.getItem('ms_solar_bills');
         if (localData) {
-            try {
-                savedBills = JSON.parse(localData);
-            } catch (e) {
-                savedBills = [];
-            }
+            try { savedBills = JSON.parse(localData); } catch (e) { savedBills = []; }
         }
-        if (!Array.isArray(savedBills)) {
-            savedBills = [];
-        }
+        if (!Array.isArray(savedBills)) { savedBills = []; }
         
         let count = parseInt(washes) || 1;
         for (let i = 0; i < count; i++) {
@@ -1642,12 +1634,10 @@ function saveCustomerToDatabase() {
         
     } catch (error) {
         console.error("Saving Error: ", error);
-        alert("Technical masla: Data save nahi ho saka!");
+        alert("Technical masla aaya hai!");
     }
 }
     
-
-
 // 2. Wash History Tracker (Point 3) Se Search Karne Ka Automatic Function
 function checkCustomerHistory() {
     const phone = document.getElementById('tracker-phone-input').value.trim();
