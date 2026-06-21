@@ -28,6 +28,41 @@
     </script>
     
     <style>
+ /* Current Loss Meter Styles - Added by Muneeb */
+.ms-loss-card {
+    background: rgba(30, 41, 59, 0.65) !important;
+    backdrop-filter: blur(15px);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    color: white;
+}
+.loss-slider {
+    width: 100%;
+    height: 8px;
+    background: #475569;
+    border-radius: 5px;
+    outline: none;
+    -webkit-appearance: none;
+}
+.loss-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ef4444;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ef4444;
+}
+.loss-display {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f87171;
+    text-align: center;
+    margin-top: 10px;
+}
+        
         /* Weather Alert Banner Styles - Added by Muneeb */
 .ms-weather-banner {
     display: flex;
@@ -475,6 +510,21 @@
     </select>
 </div>
 <!-- Ms Solar Weather Alert Banner End -->
+    <!-- Ms Solar Current Loss Meter Start -->
+<div class="ms-loss-card">
+    <h3 style="color: #f59e0b; margin-bottom: 10px; font-weight: bold;">📉 Live Solar Efficiency Loss Meter</h3>
+    <p style="font-size: 13px; color: #cbd5e1;">Plates par mitti ki teh (layer) ke mutabiq slider ko aage karein aur customer ko live nuqsaan dikhein:</p>
+    
+    <div style="margin: 20px 0;">
+        <input type="range" id="loss-range-input" min="0" max="40" value="0" class="loss-slider" oninput="calculateSolarLoss(this.value)">
+    </div>
+    
+    <div class="loss-display">
+        Mitti se Nuqsaan: <span id="loss-percentage-val">0</span>%
+    </div>
+    <p id="loss-advice-text" style="text-align: center; font-size: 12px; color: #34d399; margin-top: 5px; font-weight: 500;">Plates bilkul saaf hain, system 100% chal raha hai! ✨</p>
+</div>
+<!-- Ms Solar Current Loss Meter End -->
     
     <div id="mobile-menu" class="fixed inset-0 bg-slate-950/40 backdrop-blur-md z-50 hidden transition-all duration-300 flex justify-end">
         <div class="absolute inset-0" onclick="toggleMenu()"></div>
