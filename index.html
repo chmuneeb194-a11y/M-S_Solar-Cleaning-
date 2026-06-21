@@ -1588,7 +1588,6 @@ function downloadBillAsPDF(serviceType) {
 
 function saveCustomerToDatabase() {
     try {
-        // Inputs ko sahi tareeqay se read karna
         let phoneField = document.getElementById('admin-phone');
         let washesField = document.getElementById('admin-washes');
         let dateField = document.getElementById('admin-date');
@@ -1607,7 +1606,6 @@ function saveCustomerToDatabase() {
             return;
         }
 
-        // Date format adjustment
         let formattedDate = rawDate;
         if (rawDate.includes('/')) {
             let parts = rawDate.split('/');
@@ -1616,7 +1614,6 @@ function saveCustomerToDatabase() {
             }
         }
 
-        // LocalStorage handle karna safety ke sath
         let savedBills = [];
         let localData = localStorage.getItem('ms_solar_bills');
         if (localData) {
@@ -1630,7 +1627,6 @@ function saveCustomerToDatabase() {
             savedBills = [];
         }
         
-        // Entries save karna array mein
         let count = parseInt(washes) || 1;
         for (let i = 0; i < count; i++) {
             savedBills.push({
@@ -1639,55 +1635,21 @@ function saveCustomerToDatabase() {
             });
         }
 
-        // Final Save in Browser Memory
         localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
 
-        // Global stats refresh
         if (typeof updateGlobalCarbonStats === "function") {
             updateGlobalCarbonStats();
         }
 
         alert("Record kamyabi se mahfooz ho gaya hai!");
         
-        // Fields khali karna
         phoneField.value = '';
         washesField.value = '';
         dateField.value = '';
         
     } catch (error) {
         console.error("Saving Error: ", error);
-        alert("Kuch technical masla hua hai! Dobara koshish karein.");
-    }
-}
-    
-        
-        // Jitne washes completed likhe hain, utni entries loop chala kar add karna
-        let count = parseInt(washes) || 1;
-        for (let i = 0; i < count; i++) {
-            savedBills.push({
-                phone: phone,
-                date: formattedDate
-            });
-        }
-
-        // Database mein save kar dena
-        localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
-
-        // Carbon counter ko live update karna
-        if (typeof updateGlobalCarbonStats === "function") {
-            updateGlobalCarbonStats();
-        }
-
-        alert("Record kamyabi se mahfooz ho gaya hai!");
-        
-        // Inputs ko automatic khali kar dena
-        document.getElementById('admin-phone').value = '';
-        document.getElementById('admin-washes').value = '';
-        document.getElementById('admin-date').value = '';
-        
-    } catch (error) {
-        console.error("Saving Error: ", error);
-        alert("Kuch masla hua hai! Meherbani karke dubara check karein.");
+        alert("Kuch technical masla hua hai!");
     }
 }
     
