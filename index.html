@@ -1580,7 +1580,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
-    
 function downloadBillAsPDF(serviceType) {
     let billContent = "";
     let fileName = "MS_Solar_Bill.pdf";
@@ -1666,13 +1665,16 @@ function checkCustomerHistory() {
         alert("Tracker Error: " + err.message);
     }
 }
-    
-    
 
 // 3. Carbon Stats Global Dynamic Counter Loader
 function updateGlobalCarbonStats() {
-    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-    // Base 580 washes + jitne database mein naye save hue
+    let savedBills = [];
+    const localData = localStorage.getItem('ms_solar_bills');
+    if (localData) {
+        try { savedBills = JSON.parse(localData); } catch(e) { savedBills = []; }
+    }
+    if (!Array.isArray(savedBills)) { savedBills = []; }
+
     let totalWashes = 580 + savedBills.length;
     
     if (typeof calculateGreenStats === "function") {
@@ -1684,6 +1686,7 @@ function updateGlobalCarbonStats() {
 document.addEventListener("DOMContentLoaded", function() {
     updateGlobalCarbonStats();
 });
+    
     
 
 // Bill download karte waqt history auto-save karne ka hook
