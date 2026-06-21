@@ -554,7 +554,32 @@
                         <i class="fas fa-check-circle"></i> On-Site Action
                     </span>
                 </div>
-
+                    <!-- PREMIUM BEFORE & AFTER SLIDER CONTAINER -->
+                    <div class="w-full max-w-[340px] p-4 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-xl overflow-hidden relative mb-6">
+                        <h3 class="text-sm font-black text-yellow-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                            <i class="fas fa-magic text-lg"></i>
+                            <span data-en="Live Work Magic" data-ur="ہمارا لائیو جادو">Live Work Magic</span>
+                        </h3>
+                        
+                        <div id="beforeAfterSlider" class="relative w-full aspect-video rounded-xl overflow-hidden shadow-md select-none group cursor-ew-resize">
+                            <!-- After Image (Background) -->
+                            <img src="team-solar-service.jpg" alt="After Cleaning" class="absolute inset-0 w-full h-full object-cover pointer-events-none">
+                            
+                            <!-- Before Image (Foreground overlay) -->
+                            <div id="beforeImageWrapper" class="absolute inset-y-0 left-0 right-0 overflow-hidden w-1/2 border-r-2 border-yellow-400">
+                                <img src="ingo.jpg" alt="Before Cleaning" class="absolute inset-y-0 left-0 w-full h-full object-cover max-w-none">
+                            </div>
+                            
+                            <!-- Center Handle Button -->
+                            <div id="sliderHandle" class="absolute inset-y-0 left-1/2 -ml-3 w-6 flex items-center justify-center pointer-events-none">
+                                <div class="w-6 h-6 rounded-full bg-yellow-400 shadow-md flex items-center justify-center text-slate-900 text-xs font-bold">
+                                    <i class="fas fa-arrows-alt-h"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-300 mt-2 text-center" data-en="Drag the arrow to see the transformation!" data-ur="تبدیلی دیکھنے کے لیے تیر کو آگے پیچھے کریں!">Drag the arrow to see the transformation!</p>
+                    </div>
+                
                 <!-- Project Video Block (Embedded YouTube Frame) -->
                 <div class="w-full max-w-[340px] p-4 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-xl">
                     <h3 class="text-sm font-black text-yellow-400 uppercase tracking-widest mb-3 flex items-center gap-2 justify-center md:justify-start">
@@ -2425,6 +2450,30 @@ if (navInstallBtn) {
     deferredPrompt = null;
     console.log('PWA was installed');
   });
+       // ==========================================
+    // PREMIUM BEFORE/AFTER IMAGE SLIDER LOGIC
+    // ==========================================
+    const slider = document.getElementById('beforeAfterSlider');
+    const beforeWrapper = document.getElementById('beforeImageWrapper');
+    const handle = document.getElementById('sliderHandle');
+    
+    if(slider && beforeWrapper && handle) {
+        const moveSlider = (e) => {
+            const rect = slider.getBoundingClientRect();
+            const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            let percentage = (x / rect.width) * 100;
+            
+            if (percentage < 0) percentage = 0;
+            if (percentage > 100) percentage = 100;
+            
+            beforeWrapper.style.width = `${percentage}%`;
+            handle.style.left = `${percentage}%`;
+        };
+        
+        slider.addEventListener('mousemove', moveSlider);
+        slider.addEventListener('touchmove', moveSlider, { passive: true });
+    }
+        
 <script>
 function moveTankSlider(value) {
     // Gandi tanki wali image ko crop karne ke liye
