@@ -1580,11 +1580,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
-function downloadBillAsPDF(serviceType) {
-    let billContent = "";
-    let fileName = "MS_Solar_Bill.pdf";
-    const today = new Date().toISOString().split('T')[0];
-} 
 
 // ==========================================
 // POINT 5: SMART ADMIN PORTAL & TRACKER LOGIC
@@ -1687,8 +1682,6 @@ document.addEventListener("DOMContentLoaded", function() {
     updateGlobalCarbonStats();
 });
     
-    
-
 // Bill download karte waqt history auto-save karne ka hook
 function saveBillToHistory(phone, date) {
     if (!phone) return;
@@ -1696,7 +1689,11 @@ function saveBillToHistory(phone, date) {
     savedBills.push({ phone: phone, date: date });
     localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
 }
-    
+  function downloadBillAsPDF(serviceType) {
+    let billContent = "";
+    let fileName = "MS_Solar_Bill.pdf";
+    const today = new Date().toISOString().split('T')[0];
+      
     if (serviceType === 'solar') {
         const name = document.getElementById('cust-name')?.value || "Customer";
         const phone = document.getElementById('cust-phone')?.value || "N/A";
