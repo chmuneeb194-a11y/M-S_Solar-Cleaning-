@@ -1589,80 +1589,95 @@ function downloadBillAsPDF(serviceType) {
 // ==========================================
 // POINT 5: SMART ADMIN PORTAL & TRACKER LOGIC
 // ==========================================
-
 function saveCustomerToDatabase() {
-    let phoneField = document.getElementById('admin-phone');
-    let washesField = document.getElementById('admin-washes');
-    let dateField = document.getElementById('admin-date');
+    try {
+        const phone = document.getElementById('admin-phone').value.trim();
+        const washes = document.getElementById('admin-washes').value.trim();
+        const rawDate = document.getElementById('admin-date').value;
 
-    if (!phoneField || !washesField || !dateField) {
-        alert("Error: Fields screen par nahi miliyan!");
-        return;
+        if (!phone || !washes || !rawDate) {
+            alert("Meherbani karke saari maloomat darj karein!");
+            return;
+        }
+
+        let savedBills = [];
+        try {
+            const localData = localStorage.getItem('ms_solar_bills');
+            if (localData) {
+                savedBills = JSON.parse(localData);
+            }
+        } catch (e) {
+            savedBills = [];
+        }
+
+        if (!Array.isArray(savedBills)) {
+            savedBills = [];
+        }
+
+        const customerIndex = savedBills.findIndex(bill => bill.phone === phone);
+        if (customerIndex !== -1) {
+            savedBills[customerIndex].date = rawDate;
+            savedBills[customerIndex].totalWashes = parseInt(washes) || 1;
+        } else {
+            savedBills.push({
+                phone: phone,
+                date: rawDate,
+                totalWashes: parseInt(washes) || 1
+            });
+        }
+
+        localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
+
+        alert("Record kamyabi se mahfooz ho gaya hai!");
+
+        document.getElementById('admin-phone').value = '';
+        document.getElementById('admin-washes').value = '';
+        document.getElementById('admin-date').value = '';
+
+        if (typeof updateGlobalCarbonStats === "function") {
+            updateGlobalCarbonStats();
+        }
+    } catch (err) {
+        alert("Saving Error: " + err.message);
     }
-
-    let phone = phoneField.value.trim();
-    let washes = parseInt(washesField.value.trim()) || 0;
-    let rawDate = dateField.value;
-
-    if (!phone || washes <= 0 || !rawDate) {
-        alert("Meherbani karke saari maloomat darj karein!");
-        return;
-    }
-
-    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills') || '[]');
-    
-    // Purana record check karke update ya naya add karna bina loop ke duplicate kiye
-    let customerIndex = savedBills.findIndex(bill => bill.phone === phone);
-    
-    if (customerIndex !== -1) {
-        savedBills[customerIndex].date = rawDate;
-        savedBills[customerIndex].totalWashes = washes;
-    } else {
-        savedBills.push({ phone: phone, date: rawDate, totalWashes: washes });
-    }
-
-    localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
-
-    if (typeof updateGlobalCarbonStats === "function") {
-        updateGlobalCarbonStats();
-    }
-
-    alert("Record kamyabi se mahfooz ho gaya hai!");
-    phoneField.value = '';
-    washesField.value = '';
-    dateField.value = '';
 }
-    
-    
-// 2. Wash History Tracker (Point 3) Se Search Karne Ka Automatic Function
+
 function checkCustomerHistory() {
-    const phone = document.getElementById('tracker-phone-input').value.trim();
-    if (!phone) {
-        alert("Bhai, pehle phone number toh likhein!");
-        return;
+    try {
+        const phone = document.getElementById('tracker-phone-input').value.trim();
+        if (!phone) {
+            alert("Bhai, pehle phone number toh likhein!");
+            return;
+        }
+
+        let savedBills = [];
+        const localData = localStorage.getItem('ms_solar_bills');
+        if (localData) {
+            savedBills = JSON.parse(localData);
+        }
+
+        const customerRecord = savedBills.find(bill => bill.phone === phone);
+
+        if (!customerRecord) {
+            document.getElementById('tracker-last-date').innerText = "No Record";
+            document.getElementById('tracker-total-count').innerText = "0";
+            document.getElementById('tracker-next-date').innerText = "Not Calculated";
+            alert("Is number ka koi purana record nahi mila!");
+            return;
+        }
+
+        let latestWash = customerRecord.date;
+        document.getElementById('tracker-last-date').innerText = latestWash;
+        document.getElementById('tracker-total-count').innerText = customerRecord.totalWashes || 1;
+
+        const nextWashDate = new Date(latestWash);
+        nextWashDate.setDate(nextWashDate.getDate() + 30);
+        document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
+    } catch (err) {
+        alert("Tracker Error: " + err.message);
     }
-
-    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills') || '[]');
-    const customerRecord = savedBills.find(bill => bill.phone === phone);
-
-    if (!customerRecord) {
-        document.getElementById('tracker-last-date').innerText = "No Record";
-        document.getElementById('tracker-total-count').innerText = "0";
-        document.getElementById('tracker-next-date').innerText = "Not Calculated";
-        alert("Is number ka koi purana record nahi mila!");
-        return;
-    }
-
-    // UI par data load karwana
-    let latestWash = customerRecord.date;
-    document.getElementById('tracker-last-date').innerText = latestWash;
-    document.getElementById('tracker-total-count').innerText = customerRecord.totalWashes || 1;
-    
-    // Agli suggested wash standard 30 din baad
-    const nextWashDate = new Date(latestWash);
-    nextWashDate.setDate(nextWashDate.getDate() + 30);
-    document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
 }
+    
     
 
 // 3. Carbon Stats Global Dynamic Counter Loader
