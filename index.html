@@ -671,34 +671,39 @@
 <!-- POINT 3: Maintenance History Tracker End -->
      <!-- ==========================================
 <!-- POINT 5: SMART ADMIN PORTAL UI START -->
-<div id="admin-portal-box" style="background: #0f172a !important; border: 1px solid rgba(255,255,255,0.1) !important; padding: 24px !important; border-radius: 20px !important; color: #fff !important; text-align: center !important; margin: 30px auto !important; width: 92% !important; max-width: 360px !important; box-sizing: border-box !important; display: block !important; clear: both !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;">
-    <h4 style="color: #ffc107 !important; margin: 0 0 6px 0 !important; font-size: 15px !important; font-weight: bold !important; text-transform: uppercase !important; letter-spacing: 1px !important;">
-        ⚙️ SMART ADMIN PORTAL
-    </h4>
-    <p style="font-size: 11px !important; color: #94a3b8 !important; margin: 0 0 20px 0 !important;">Client Database Saver (Local Memory)</p>
-    
-    <div style="display: block !important; text-align: left !important; width: 100% !important; box-sizing: border-box !important;">
-        <div style="margin-bottom: 15px !important; width: 100% !important; box-sizing: border-box !important;">
-            <label style="font-size: 11px !important; color: #cbd5e1 !important; text-transform: uppercase !important; display: block !important; margin-bottom: 6px !important; font-weight: 600 !important;">Customer Phone No:</label>
-            <input type="tel" id="admin-phone" placeholder="e.g. 03084462160" style="width: 100% !important; padding: 12px !important; border-radius: 10px !important; border: 1px solid rgba(255,255,255,0.15) !important; background: #1e293b !important; color: #fff !important; font-size: 14px !important; box-sizing: border-box !important; display: block !important; outline: none !important;">
+<div id="admin-portal-box" class="w-full max-w-[340px] p-4 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl mt-6 mx-auto text-left">
+    <h3 class="text-sm font-black text-yellow-400 uppercase tracking-widest mb-1 flex items-center gap-2">
+        <i class="fas fa-cog"></i> Smart Admin Portal
+    </h3>
+    <p class="text-[10px] text-slate-400 uppercase tracking-wider mb-4">Client Database Saver (Local Memory)</p>
+
+    <div class="space-y-4 text-xs">
+        <!-- Phone Input -->
+        <div>
+            <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Customer Phone No:</label>
+            <input type="tel" id="admin-phone" placeholder="e.g. 03084462160" class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-yellow-400 text-xs">
         </div>
-        
-        <div style="margin-bottom: 15px !important; width: 100% !important; box-sizing: border-box !important;">
-            <label style="font-size: 11px !important; color: #cbd5e1 !important; text-transform: uppercase !important; display: block !important; margin-bottom: 6px !important; font-weight: 600 !important;">Total Washes Completed:</label>
-            <input type="number" id="admin-washes" placeholder="e.g. 18" style="width: 100% !important; padding: 12px !important; border-radius: 10px !important; border: 1px solid rgba(255,255,255,0.15) !important; background: #1e293b !important; color: #fff !important; font-size: 14px !important; box-sizing: border-box !important; display: block !important; outline: none !important;">
+
+        <!-- Total Washes Input -->
+        <div>
+            <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Total Washes Completed:</label>
+            <input type="number" id="admin-washes" placeholder="e.g. 18" class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-yellow-400 text-xs">
         </div>
-        
-        <div style="margin-bottom: 20px !important; width: 100% !important; box-sizing: border-box !important;">
-            <label style="font-size: 11px !important; color: #cbd5e1 !important; text-transform: uppercase !important; display: block !important; margin-bottom: 6px !important; font-weight: 600 !important;">Last Wash Date:</label>
-            <input type="date" id="admin-date" style="width: 100% !important; padding: 12px !important; border-radius: 10px !important; border: 1px solid rgba(255,255,255,0.15) !important; background: #1e293b !important; color: #fff !important; font-size: 14px !important; box-sizing: border-box !important; display: block !important; outline: none !important; color-scheme: dark !important;">
+
+        <!-- Last Wash Date Input -->
+        <div>
+            <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Last Wash Date:</label>
+            <input type="date" id="admin-date" class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-yellow-400 text-xs">
         </div>
-        
-        <button onclick="saveCustomerToDatabase()" style="width: 100% !important; padding: 15px !important; background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important; color: #0f172a !important; font-weight: bold !important; font-size: 13px !important; text-transform: uppercase !important; border: none !important; border-radius: 10px !important; cursor: pointer !important; display: block !important; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3) !important; box-sizing: border-box !important; -webkit-appearance: none !important;">
-            💾 Safe Save Customer Record
+
+        <!-- Submit Button -->
+        <button onclick="saveCustomerToDatabase()" class="w-full bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-black font-black py-2.5 px-4 rounded-xl transition-all transform active:scale-95 shadow-lg flex items-center justify-center gap-2 mt-2">
+            <i class="fas fa-save"></i> SECURE SAVE CUSTOMER RECORD
         </button>
     </div>
 </div>
 <!-- POINT 5: SMART ADMIN PORTAL UI END -->
+        
         
         
     </section>
