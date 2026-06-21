@@ -596,110 +596,38 @@
                 </div>
             </div>
         </div>
-        <!-- ==========================================
-     POINT 4: ECO-FRIENDLY CARBON COUNTER START
-     ========================================== -->
-<div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mb-4" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(44, 212, 107, 0.2); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 20px; border-radius: 16px; color: #fff; text-align: center; margin: 20px auto; max-width: 340px;">
-    <h4 style="color: #2cd46b; margin: 0 0 15px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-        🌱 OUR GREEN ENERGY IMPACT
-    </h4>
-    
-    <div style="display: flex; justify-content: space-around; align-items: center;">
-        <!-- CO2 Counter -->
-        <div style="flex: 1;">
-            <span id="co2-saved-val" style="font-size: 24px; font-weight: 800; color: #ffc107; display: block; line-height: 1;">0</span>
-            <span style="font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 6px;">CO₂ Saved (KGs)</span>
-        </div>
-        
-        <!-- Divider Line -->
-        <div style="border-left: 1px solid rgba(255,255,255,0.1); height: 35px; margin: 0 10px;"></div>
-        
-        <!-- Trees Counter -->
-        <div style="flex: 1;">
-            <span id="trees-planted-val" style="font-size: 24px; font-weight: 800; color: #2cd46b; display: block; line-height: 1;">0</span>
-            <span style="font-size: 10px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 6px;">Trees Equivalent</span>
-        </div>
-    </div>
-</div>
 
-<script>
-    function calculateGreenStats(totalWashes) {
-        let co2Saved = totalWashes * 2.5; 
-        let treesEquivalent = Math.floor(co2Saved / 21.7); 
-
-        document.getElementById('co2-saved-val').innerText = co2Saved.toLocaleString();
-        document.getElementById('trees-planted-val').innerText = treesEquivalent.toLocaleString();
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        calculateGreenStats(580); 
-    });
-</script>
-<!-- ==========================================
-     POINT 4: ECO-FRIENDLY CARBON COUNTER END
-     ========================================== -->
-        
-        <!-- POINT 3: Maintenance History Tracker Start -->
-<div class="w-full max-w-[340px] p-4 bg-white/10 backdrop-blur-2xl rounded-3xl border border-white/20 shadow-2xl mt-4">
-    <h3 class="text-sm font-black text-yellow-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-        <i class="fas fa-history"></i> Wash History Tracker
+        <!-- ======================================================== -->
+<!-- POINT 3: MAINTENANCE HISTORY TRACKER                     -->
+<!-- ======================================================== -->
+<div class="w-full max-w-md mx-auto px-5 py-6 bg-slate-900 border border-white/10 rounded-2xl mb-6 shadow-xl block relative z-30">
+    <h3 class="text-xs font-black text-yellow-400 uppercase tracking-widest mb-4 flex items-center gap-2 justify-center">
+        <i class="fas fa-history text-sm"></i> Wash History Tracker
     </h3>
     <div class="space-y-3 text-xs text-slate-200">
-        <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
-            <span>Last Wash Date:</span>
+        <div class="flex justify-between items-center bg-black/30 p-2.5 rounded-xl border border-white/5">
+            <span class="text-slate-400">Last Wash Date:</span>
             <span id="tracker-last-date" class="font-bold text-white">No Record</span>
         </div>
-        <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
-            <span>Total Washes:</span>
-            <span id="tracker-total-count" class="font-bold text-green-400">0</span>
+        <div class="flex justify-between items-center bg-black/30 p-2.5 rounded-xl border border-white/5">
+            <span class="text-slate-400">Total Washes:</span>
+            <span id="tracker-total-count" class="font-bold text-emerald-400">0</span>
         </div>
-        <div class="flex justify-between items-center bg-black/20 p-2 rounded-xl">
-            <span>Next Suggested Wash:</span>
+        <div class="flex justify-between items-center bg-black/30 p-2.5 rounded-xl border border-white/5">
+            <span class="text-slate-400">Next Suggested Wash:</span>
             <span id="tracker-next-date" class="font-bold text-yellow-400">Not Calculated</span>
         </div>
-        
-        <!-- Customer Input Area -->
-        <div class="mt-2 pt-2 border-t border-white/10">
-            <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Check Your History (Phone No):</label>
-            <div class="flex gap-2">
-                <input type="tel" id="tracker-phone-input" placeholder="03001234567" class="w-full bg-black/40 border border-white/10 rounded-lg px-2 py-1 text-white focus:outline-none focus:border-yellow-400 text-xs">
-                <button onclick="checkCustomerHistory()" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-3 py-1 rounded-lg transition text-xs">Check</button>
-            </div>
+    </div>
+
+    <div class="mt-5 pt-4 border-t border-white/10">
+        <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2 text-center tracking-wider">Check Your History (Phone No):</label>
+        <div class="flex gap-2">
+            <input type="tel" id="tracker-phone-input" placeholder="03084462121" class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-yellow-400 transition-all">
+            <button onclick="checkCustomerHistory()" class="bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-black px-5 rounded-xl text-xs shadow-md transition-all cursor-pointer">Check</button>
         </div>
     </div>
 </div>
-<!-- POINT 3: Maintenance History Tracker End -->
-     <!-- ==========================================
-<!-- POINT 5: SMART ADMIN PORTAL UI START -->
-<div id="admin-portal-box" style="background: #0f172a !important; border: 1px solid rgba(255,255,255,0.1) !important; padding: 24px !important; border-radius: 20px !important; color: #fff !important; text-align: center !important; margin: 30px auto !important; width: 92% !important; max-width: 360px !important; box-sizing: border-box !important; display: block !important; clear: both !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;">
-    <h4 style="color: #ffc107 !important; margin: 0 0 6px 0 !important; font-size: 15px !important; font-weight: bold !important; text-transform: uppercase !important; letter-spacing: 1px !important;">
-        ⚙️ SMART ADMIN PORTAL
-    </h4>
-    <p style="font-size: 11px !important; color: #94a3b8 !important; margin: 0 0 20px 0 !important;">Client Database Saver (Local Memory)</p>
-    
-    <div style="display: block !important; text-align: left !important; width: 100% !important; box-sizing: border-box !important;">
-        <div style="margin-bottom: 15px !important; width: 100% !important; box-sizing: border-box !important;">
-            <label style="font-size: 11px !important; color: #cbd5e1 !important; text-transform: uppercase !important; display: block !important; margin-bottom: 6px !important; font-weight: 600 !important;">Customer Phone No:</label>
-            <input type="tel" id="admin-phone" placeholder="e.g. 03084462160" style="width: 100% !important; padding: 12px !important; border-radius: 10px !important; border: 1px solid rgba(255,255,255,0.15) !important; background: #1e293b !important; color: #fff !important; font-size: 14px !important; box-sizing: border-box !important; display: block !important; outline: none !important;">
-        </div>
-        
-        <div style="margin-bottom: 15px !important; width: 100% !important; box-sizing: border-box !important;">
-            <label style="font-size: 11px !important; color: #cbd5e1 !important; text-transform: uppercase !important; display: block !important; margin-bottom: 6px !important; font-weight: 600 !important;">Total Washes Completed:</label>
-            <input type="number" id="admin-washes" placeholder="e.g. 18" style="width: 100% !important; padding: 12px !important; border-radius: 10px !important; border: 1px solid rgba(255,255,255,0.15) !important; background: #1e293b !important; color: #fff !important; font-size: 14px !important; box-sizing: border-box !important; display: block !important; outline: none !important;">
-        </div>
-        
-        <div style="margin-bottom: 20px !important; width: 100% !important; box-sizing: border-box !important;">
-            <label style="font-size: 11px !important; color: #cbd5e1 !important; text-transform: uppercase !important; display: block !important; margin-bottom: 6px !important; font-weight: 600 !important;">Last Wash Date:</label>
-            <input type="date" id="admin-date" style="width: 100% !important; padding: 12px !important; border-radius: 10px !important; border: 1px solid rgba(255,255,255,0.15) !important; background: #1e293b !important; color: #fff !important; font-size: 14px !important; box-sizing: border-box !important; display: block !important; outline: none !important; color-scheme: dark !important;">
-        </div>
-        
-        <button onclick="saveCustomerToDatabase()" style="width: 100% !important; padding: 15px !important; background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important; color: #0f172a !important; font-weight: bold !important; font-size: 13px !important; text-transform: uppercase !important; border: none !important; border-radius: 10px !important; cursor: pointer !important; display: block !important; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3) !important; box-sizing: border-box !important; -webkit-appearance: none !important;">
-            💾 Safe Save Customer Record
-        </button>
-    </div>
-</div>
-<!-- POINT 5: SMART ADMIN PORTAL UI END -->
-        
+
         
     </section>
 
@@ -1581,62 +1509,53 @@ function downloadBillAsPDF(serviceType) {
     let fileName = "MS_Solar_Bill.pdf";
     const today = new Date().toISOString().split('T')[0];
 
-// ==========================================
-// POINT 5: SMART ADMIN PORTAL & TRACKER LOGIC
-// ==========================================
-
-function saveCustomerToDatabase() {
+// ========================================================
+// POINT 3: MAINTENANCE HISTORY TRACKER (UPDATED LOGIC)
+// ========================================================
+function checkCustomerHistory() {
     try {
-        let phoneField = document.getElementById('admin-phone');
-        let washesField = document.getElementById('admin-washes');
-        let dateField = document.getElementById('admin-date');
-
-        if (!phoneField || !washesField || !dateField) {
-            alert("Error: Fields screen par nahi miliye!");
+        const phoneInput = document.getElementById('tracker-phone-input');
+        if (!phoneInput) return;
+        
+        const phone = phoneInput.value.trim();
+        if (!phone) {
+            alert("Bhai, pehle phone number toh likhein!");
             return;
         }
-
-        let phone = phoneField.value.trim();
-        let washes = washesField.value.trim();
-        let rawDate = dateField.value;
-
-        if (!phone || !washes || !rawDate) {
-            alert("Meherbani karke saari maloomat darj karein!");
-            return;
-        }
-
+        
         let savedBills = [];
-        let localData = localStorage.getItem('ms_solar_bills');
+        const localData = localStorage.getItem('ms_solar_bills');
         if (localData) {
-            try { savedBills = JSON.parse(localData); } catch (e) { savedBills = []; }
+            try { savedBills = JSON.parse(localData); } catch(e) { savedBills = []; }
         }
-        if (!Array.isArray(savedBills)) { savedBills = []; }
         
-        let count = parseInt(washes) || 1;
-        for (let i = 0; i < count; i++) {
-            savedBills.push({
-                phone: phone,
-                date: rawDate
-            });
+        // Number search logic
+        const customerRecord = savedBills.find(bill => bill.phone === phone);
+        
+        if (!customerRecord) {
+            document.getElementById('tracker-last-date').innerText = "No Record";
+            document.getElementById('tracker-total-count').innerText = "0";
+            document.getElementById('tracker-next-date').innerText = "Not Calculated";
+            alert("Is number (" + phone + ") ka koi purana record nahi mila!");
+            return;
         }
-
-        localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
-
-        if (typeof updateGlobalCarbonStats === "function") {
-            updateGlobalCarbonStats();
-        }
-
-        alert("Record kamyabi se mahfooz ho gaya hai!");
         
-        phoneField.value = '';
-        washesField.value = '';
-        dateField.value = '';
+        // Screen par data set karna
+        let latestWash = customerRecord.date;
+        document.getElementById('tracker-last-date').innerText = latestWash;
+        document.getElementById('tracker-total-count').innerText = customerRecord.totalWashes || 1;
+
+        // Next suggest wash auto-calculate (30 din baad ki tareekh)
+        const nextWashDate = new Date(latestWash);
+        nextWashDate.setDate(nextWashDate.getDate() + 30);
+        document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
         
-    } catch (error) {
-        console.error("Saving Error: ", error);
-        alert("Technical masla aaya hai!");
+    } catch (err) {
+        alert("Tracker Error: " + err.message);
     }
 }
+    
+
     
 // 2. Wash History Tracker (Point 3) Se Search Karne Ka Automatic Function
 function checkCustomerHistory() {
