@@ -1594,7 +1594,7 @@ function saveCustomerToDatabase() {
         let dateField = document.getElementById('admin-date');
 
         if (!phoneField || !washesField || !dateField) {
-            alert("System error: Input fields nahi miley!");
+            alert("Error: Input fields screen par nahi miliye!");
             return;
         }
 
@@ -1605,14 +1605,6 @@ function saveCustomerToDatabase() {
         if (!phone || !washes || !rawDate) {
             alert("Meherbani karke saari maloomat darj karein!");
             return;
-        }
-
-        let formattedDate = rawDate;
-        if (rawDate.includes('/')) {
-            let parts = rawDate.split('/');
-            if (parts[0].length === 2 && parts[2].length === 4) {
-                formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
-            }
         }
 
         let savedBills = [];
@@ -1632,7 +1624,7 @@ function saveCustomerToDatabase() {
         for (let i = 0; i < count; i++) {
             savedBills.push({
                 phone: phone,
-                date: formattedDate
+                date: rawDate
             });
         }
 
@@ -1650,9 +1642,10 @@ function saveCustomerToDatabase() {
         
     } catch (error) {
         console.error("Saving Error: ", error);
-        alert("Kuch technical masla hua hai!");
+        alert("Technical masla: Data save nahi ho saka!");
     }
 }
+    
 
 
 // 2. Wash History Tracker (Point 3) Se Search Karne Ka Automatic Function
