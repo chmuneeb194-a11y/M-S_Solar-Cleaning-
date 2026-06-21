@@ -28,82 +28,8 @@
     </script>
     
     <style>
- /* Current Loss Meter Styles - Added by Muneeb */
-.ms-loss-card {
-    background: rgba(30, 41, 59, 0.65) !important;
-    backdrop-filter: blur(15px);
-    border: 1.5px solid rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    color: white;
-}
-.loss-slider {
-    width: 100%;
-    height: 8px;
-    background: #475569;
-    border-radius: 5px;
-    outline: none;
-    -webkit-appearance: none;
-}
-.loss-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #ef4444;
-    cursor: pointer;
-    box-shadow: 0 0 10px #ef4444;
-}
-.loss-display {
-    font-size: 24px;
-    font-weight: bold;
-    color: #f87171;
-    text-align: center;
-    margin-top: 10px;
-}
-        
-        /* Weather Alert Banner Styles - Added by Muneeb */
-.ms-weather-banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(135deg, #ff9800, #e65100);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    font-family: sans-serif;
-    animation: pulse-soft 4s infinite ease-in-out;
-}
-.ms-weather-banner.hidden {
-    display: none !important;
-}
-.weather-content {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.weather-icon {
-    font-size: 24px;
-}
-.weather-close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
-}
-.weather-control-box {
-    background: rgba(30, 41, 59, 0.7);
-    padding: 12px;
-    border-radius: 8px;
-    border-left: 4px solid #ff9800;
-    margin-bottom: 15px;
-    color: white;
-}
-        
+ 
+            
         @keyframes pulse-soft {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.95; transform: scale(1.005); }
@@ -491,40 +417,7 @@
             </div>
         </div>
     </header>
-<!-- Ms Solar Weather Alert Banner Start -->
-<div id="weather-alert-container" class="ms-weather-banner hidden">
-    <div class="weather-content">
-        <span class="weather-icon">⚠️</span>
-        <p id="weather-alert-text">Muneeb bhai, elaqay mein mitti ka toofan/andhi reported hai. Customers ko alert bhejin!</p>
-    </div>
-    <button onclick="dismissWeatherAlert()" class="weather-close-btn">&times;</button>
-</div>
 
-<!-- Admin Control Selector -->
-<div class="weather-control-box">
-    <label for="weather-trigger"><b>Sahiwal Region Weather Alert:</b></label>
-    <select id="weather-trigger" onchange="toggleWeatherAlert(this.value)" style="background: #1e293b; color: white; border: 1px solid #ff9800; padding: 5px; border-radius: 4px; margin-left: 10px;">
-        <option value="normal">Normal Weather (Saaf Mausam)</option>
-        <option value="dust">Dust Storm / Mitti ki Andhi Alert</option>
-        <option value="rain">Rain Forecast / Barish ka Imkan</option>
-    </select>
-</div>
-<!-- Ms Solar Weather Alert Banner End -->
-    <!-- Ms Solar Current Loss Meter Start -->
-<div class="ms-loss-card">
-    <h3 style="color: #f59e0b; margin-bottom: 10px; font-weight: bold;">📉 Live Solar Efficiency Loss Meter</h3>
-    <p style="font-size: 13px; color: #cbd5e1;">Plates par mitti ki teh (layer) ke mutabiq slider ko aage karein aur customer ko live nuqsaan dikhein:</p>
-    
-    <div style="margin: 20px 0;">
-        <input type="range" id="loss-range-input" min="0" max="40" value="0" class="loss-slider" oninput="calculateSolarLoss(this.value)">
-    </div>
-    
-    <div class="loss-display">
-        Mitti se Nuqsaan: <span id="loss-percentage-val">0</span>%
-    </div>
-    <p id="loss-advice-text" style="text-align: center; font-size: 12px; color: #34d399; margin-top: 5px; font-weight: 500;">Plates bilkul saaf hain, system 100% chal raha hai! ✨</p>
-</div>
-<!-- Ms Solar Current Loss Meter End -->
     
     <div id="mobile-menu" class="fixed inset-0 bg-slate-950/40 backdrop-blur-md z-50 hidden transition-all duration-300 flex justify-end">
         <div class="absolute inset-0" onclick="toggleMenu()"></div>
@@ -1577,30 +1470,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
-    // Weather Alert Logic for Ms Solar - Added by Muneeb
-let currentSubatWeatherStatus = "normal";
-
-function toggleWeatherAlert(status) {
-    currentSubatWeatherStatus = status;
-    const banner = document.getElementById('weather-alert-container');
-    const alertText = document.getElementById('weather-alert-text');
-    
-    if (status === 'dust') {
-        alertText.innerText = "⚠️ Ms Solar Alert: Ilaqay mein tez mitti ki andhi reported hai! Solar plates par mitti jamanay ka imkan hai.";
-        banner.classList.remove('hidden');
-    } else if (status === 'rain') {
-        alertText.innerText = "🌧️ Ms Solar Notice: Barish ka imkan hai, washing schedule mutasir ho sakta hai.";
-        banner.classList.remove('hidden');
-    } else {
-        banner.classList.add('hidden');
-    }
-}
-
-function dismissWeatherAlert() {
-    document.getElementById('weather-alert-container').className = "ms-weather-banner hidden";
-    document.getElementById('weather-trigger').value = "normal";
-    currentSubatWeatherStatus = "normal";
-}
     
 function downloadBillAsPDF(serviceType) {
     let billContent = "";
