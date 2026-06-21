@@ -1586,57 +1586,48 @@ function downloadBillAsPDF(serviceType) {
 // ==========================================
 
 function saveCustomerToDatabase() {
-    try {
-        let phoneField = document.getElementById('admin-phone');
-        let washesField = document.getElementById('admin-washes');
-        let dateField = document.getElementById('admin-date');
+    let phoneField = document.getElementById('admin-phone');
+    let washesField = document.getElementById('admin-washes');
+    let dateField = document.getElementById('admin-date');
 
-        if (!phoneField || !washesField || !dateField) {
-            alert("Error: Fields screen par nahi miliye!");
-            return;
-        }
-
-        let phone = phoneField.value.trim();
-        let washes = washesField.value.trim();
-        let rawDate = dateField.value;
-
-        if (!phone || !washes || !rawDate) {
-            alert("Meherbani karke saari maloomat darj karein!");
-            return;
-        }
-
-        let savedBills = [];
-        let localData = localStorage.getItem('ms_solar_bills');
-        if (localData) {
-            try { savedBills = JSON.parse(localData); } catch (e) { savedBills = []; }
-        }
-        if (!Array.isArray(savedBills)) { savedBills = []; }
-        
-        let count = parseInt(washes) || 1;
-        for (let i = 0; i < count; i++) {
-            savedBills.push({
-                phone: phone,
-                date: rawDate
-            });
-        }
-
-        localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
-
-        if (typeof updateGlobalCarbonStats === "function") {
-            updateGlobalCarbonStats();
-        }
-
-        alert("Record kamyabi se mahfooz ho gaya hai!");
-        
-        phoneField.value = '';
-        washesField.value = '';
-        dateField.value = '';
-        
-    } catch (error) {
-        console.error("Saving Error: ", error);
-        alert("Technical masla aaya hai!");
+    if (!phoneField || !washesField || !dateField) {
+        alert("Error: Fields screen par nahi miliyan!");
+        return;
     }
+
+    let phone = phoneField.value.trim();
+    let washes = parseInt(washesField.value.trim()) || 0;
+    let rawDate = dateField.value;
+
+    if (!phone || washes <= 0 || !rawDate) {
+        alert("Meherbani karke saari maloomat darj karein!");
+        return;
+    }
+
+    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills') || '[]');
+    
+    // Purana record check karke update ya naya add karna bina loop ke duplicate kiye
+    let customerIndex = savedBills.findIndex(bill => bill.phone === phone);
+    
+    if (customerIndex !== -1) {
+        savedBills[customerIndex].date = rawDate;
+        savedBills[customerIndex].totalWashes = washes;
+    } else {
+        savedBills.push({ phone: phone, date: rawDate, totalWashes: washes });
+    }
+
+    localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
+
+    if (typeof updateGlobalCarbonStats === "function") {
+        updateGlobalCarbonStats();
+    }
+
+    alert("Record kamyabi se mahfooz ho gaya hai!");
+    phoneField.value = '';
+    washesField.value = '';
+    dateField.value = '';
 }
+    
     
 // 2. Wash History Tracker (Point 3) Se Search Karne Ka Automatic Function
 function checkCustomerHistory() {
@@ -1646,10 +1637,10 @@ function checkCustomerHistory() {
         return;
     }
 
-    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-    const customerBills = savedBills.filter(bill => bill.phone === phone);
+    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills') || '[]');
+    const customerRecord = savedBills.find(bill => bill.phone === phone);
 
-    if (customerBills.length === 0) {
+    if (!customerRecord) {
         document.getElementById('tracker-last-date').innerText = "No Record";
         document.getElementById('tracker-total-count').innerText = "0";
         document.getElementById('tracker-next-date').innerText = "Not Calculated";
@@ -1657,19 +1648,17 @@ function checkCustomerHistory() {
         return;
     }
 
-    // Latest date nikalne ke liye sort karna
-    customerBills.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const latestWash = customerBills[0].date;
-
-    // Agli wash ki date 15 din baad calculate karna
-    const nextWashDate = new Date(latestWash);
-    nextWashDate.setDate(nextWashDate.getDate() + 15);
-
-    // UI par data show karwana
+    // UI par data load karwana
+    let latestWash = customerRecord.date;
     document.getElementById('tracker-last-date').innerText = latestWash;
-    document.getElementById('tracker-total-count').innerText = customerBills.length;
+    document.getElementById('tracker-total-count').innerText = customerRecord.totalWashes || 1;
+    
+    // Agli suggested wash standard 30 din baad
+    const nextWashDate = new Date(latestWash);
+    nextWashDate.setDate(nextWashDate.getDate() + 30);
     document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
 }
+    
 
 // 3. Carbon Stats Global Dynamic Counter Loader
 function updateGlobalCarbonStats() {
