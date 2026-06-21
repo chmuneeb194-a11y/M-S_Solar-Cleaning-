@@ -615,31 +615,7 @@
             <div class="bg-black/40 p-4 rounded-xl border border-white/5">
                 <span class="text-[10px] uppercase text-slate-400 block mb-1 tracking-wider">Next Suggested Wash</span>
                 <span id="tracker-next-date" class="font-bold text-yellow-400 text-base">Not Calculated</span>
-            </div>
-        </div>
-        <div class="mt-6 pt-6 border-t border-white/10 flex flex-col md:flex-row gap-3 justify-center items-center">
-            <input type="tel" id="tracker-phone-input" placeholder="Enter Phone (0308...)" class="w-full md:w-64 bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-white text-xs focus:border-yellow-400 outline-none transition-all">
-            <button onclick="checkCustomerHistory()" class="bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-black px-6 py-2.5 rounded-xl text-xs transition-all cursor-pointer whitespace-nowrap">Check History</button>
-        </div>
-    </div>
-</section>
-    
-    <section class="py-6 bg-slate-100 dark:bg-slate-800/50 border-y border-slate-200 dark:border-slate-700/60">
-        <div class="container mx-auto max-w-4xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center space-x-3">
-                <div class="text-3xl text-amber-500 animate-spin" style="animation-duration: 20s;"><i class="fas fa-sun"></i></div>
-                <div>
-                    <h4 class="text-xs font-black text-slate-500 uppercase tracking-wider" data-en="Sahiwal Weather Context Alerts" data-ur="ساہیوال موسم الرٹ">Sahiwal Local Weather Alert</h4>
-                    <p class="text-xs text-slate-700 dark:text-slate-300 font-bold" data-en="High solar irradiation index active. Keep setups clean to prevent cell degradation risks." data-ur="دھول اور زیادہ درجہ حرارت ریکارڈ۔ پینلز صاف رکھیں تاکہ کارکردگی بہتر رہے۔">Optimal generation weather conditions. Keep panels washed to avoid thermal dust burning losses.</p>
-                </div>
-            </div>
-            <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white dark:border-slate-700 px-4 py-2 rounded-2xl text-center shadow-sm min-w-[120px]">
-                <span class="block text-xl font-black text-blue-600 dark:text-blue-400">38°C</span>
-                <span class="text-[9px] uppercase tracking-widest font-bold text-slate-400" data-en="Sahiwal Region" data-ur="ساہیوال ریجن">Sahiwal Region</span>
-            </div>
-        </div>
-    </section>
-    <section class="w-full max-w-6xl mx-auto px-4 py-6 relative z-30">
+<section class="w-full max-w-6xl mx-auto px-4 py-6 relative z-30">
     <div class="bg-gradient-to-r from-emerald-950/80 to-slate-900/90 border border-emerald-500/20 rounded-3xl p-6 shadow-xl backdrop-blur-xl">
         <h4 class="text-xs font-black text-emerald-400 uppercase tracking-widest mb-4 flex items-center justify-center gap-2">
             <i class="fas fa-leaf text-sm animate-bounce"></i> Our Green Energy Impact
@@ -655,44 +631,60 @@
             </div>
         </div>
     </div>
-    </section>
-    <!-- ======================================================== -->
-<!-- POINT 5: SMART ADMIN PORTAL & BOOKING TRACKER             -->
-<!-- ======================================================== -->
+</section>
+
+<section class="w-full max-w-6xl mx-auto px-4 py-6 relative z-30">
+    <div class="bg-slate-900/90 border border-white/10 rounded-3xl p-6 shadow-2xl">
+        <h3 class="text-xs font-black text-yellow-400 uppercase tracking-widest mb-6 flex items-center justify-center gap-2">
+            <i class="fas fa-history"></i> Wash History Tracker
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div class="bg-black/40 p-4 rounded-xl border border-white/5">
+                <span class="text-[10px] uppercase text-slate-400 block mb-1 tracking-wider">Last Wash Date</span>
+                <span id="tracker-last-date" class="font-bold text-white text-base">No Record</span>
+            </div>
+            <div class="bg-black/40 p-4 rounded-xl border border-white/5">
+                <span class="text-[10px] uppercase text-slate-400 block mb-1 tracking-wider">Total Washes</span>
+                <span id="tracker-total-count" class="font-bold text-emerald-400 text-base">0</span>
+            </div>
+            <div class="bg-black/40 p-4 rounded-xl border border-white/5">
+                <span class="text-[10px] uppercase text-slate-400 block mb-1 tracking-wider">Next Suggested Wash</span>
+                <span id="tracker-next-date" class="font-bold text-yellow-400 text-base">Not Calculated</span>
+            </div>
+        </div>
+        <div class="mt-6 pt-6 border-t border-white/10 flex flex-col md:flex-row gap-3 justify-center items-center">
+            <input type="tel" id="tracker-phone-input" placeholder="Enter Phone (0308...)" class="w-full md:w-64 bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-white text-xs focus:border-yellow-400 outline-none transition-all">
+            <button onclick="checkCustomerHistory()" class="bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-black px-6 py-2.5 rounded-xl text-xs transition-all cursor-pointer whitespace-nowrap">Check History</button>
+        </div>
+    </div>
+</section>
+
 <section id="admin-portal" class="w-full max-w-6xl mx-auto px-4 py-8 relative z-30">
     <div class="bg-slate-900/95 border border-yellow-500/20 rounded-3xl p-6 shadow-2xl backdrop-blur-xl">
         <h3 class="text-xs font-black text-yellow-400 uppercase tracking-widest mb-6 flex items-center justify-center gap-2">
             <i class="fas fa-user-shield text-sm animate-pulse"></i> MS Solar Smart Admin Portal
         </h3>
-        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            <!-- Left Column: Add/Update Customer Entry -->
             <div class="space-y-4 bg-black/40 p-5 rounded-2xl border border-white/5">
                 <h4 class="text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-2">
                     <i class="fas fa-user-plus text-emerald-400"></i> Log Customer Maintenance
                 </h4>
-                
                 <div>
                     <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Customer Phone Number:</label>
                     <input type="tel" id="admin-phone" placeholder="e.g., 03084462121" class="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white text-xs focus:border-yellow-400 outline-none transition-all">
                 </div>
-                
                 <div>
                     <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Total Solar Panels Cleaned:</label>
                     <input type="number" id="admin-washes" placeholder="e.g., 12" class="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white text-xs focus:border-yellow-400 outline-none transition-all">
                 </div>
-                
                 <div>
                     <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Service Date:</label>
                     <input type="date" id="admin-date" class="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2 text-white text-xs focus:border-yellow-400 outline-none transition-all">
                 </div>
-                
                 <button onclick="saveCustomerToDatabase()" class="w-full mt-2 bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-slate-900 font-black py-2.5 rounded-xl text-xs shadow-md transition-all cursor-pointer uppercase tracking-wider">
                     Save Record to Database
                 </button>
             </div>
-
-            <!-- Right Column: Live Portal Instructions & Quick Status -->
             <div class="space-y-4">
                 <div class="bg-gradient-to-br from-slate-950 to-slate-900 p-5 rounded-2xl border border-white/5 h-full flex flex-col justify-between">
                     <div>
@@ -700,18 +692,12 @@
                             <i class="fas fa-info-circle text-yellow-400"></i> Business Automation Sync
                         </h4>
                         <p class="text-xs text-slate-400 leading-relaxed">
-                            Muneeb bhai, is section se aap jo bhi record save karenge, wo customer ke phone number ke sath Local Storage mein lock ho jayega. 
+                            Muneeb bhai, is section se aap jo bhi record save karenge, wo customer ke phone number ke sath Local Storage mein lock ho jayega.
                         </p>
                         <ul class="text-[11px] text-slate-400 space-y-2 mt-3 list-disc pl-4">
                             <li>Customer jab apna number daal kar check karega, usay automatic apni history dikhegi.</li>
                             <li>Aapka Carbon Impact Counter is database ke sath real-time mein automatic barhta rahega.</li>
                         </ul>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-[10px] uppercase font-bold text-slate-500">System Status:</span>
-                        <span class="flex items-center gap-1.5 text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Ready
-                        </span>
                     </div>
                 </div>
             </div>
@@ -1651,62 +1637,7 @@ function checkCustomerHistory() {
 
     // Latest date nikalne ke liye sort karna
     customerBills.sort((a, b) => new Date(b.date) - new Date(a.date));
-    const latestWash = customerBills[0].date;
 
-    // Agli wash ki date 15 din baad calculate karna
-    const nextWashDate = new Date(latestWash);
-    nextWashDate.setDate(nextWashDate.getDate() + 15);
-
-    // UI par data show karwana
-    document.getElementById('tracker-last-date').innerText = latestWash;
-    document.getElementById('tracker-total-count').innerText = customerBills.length;
-    document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
-}
-
-// ========================================================
-// POINT 4: GREEN ENERGY IMPACT DYNAMIC LOGIC (UPDATED)
-// ========================================================
-function updateGlobalCarbonStats() {
-    try {
-        let savedBills = [];
-        const localData = localStorage.getItem('ms_solar_bills');
-        if (localData) {
-            try { savedBills = JSON.parse(localData); } catch(e) { savedBills = []; }
-        }
-        
-        // Base 580 washes + naye save shuda bills
-        let totalWashes = 580 + savedBills.length;
-        
-        // Formula: Har wash par takreeban 2.5 KG CO2 bachti hai
-        let co2Saved = totalWashes * 2.5;
-        // Formula: Har 22 KG CO2 bachna 1 darakht ke barabar hai
-        let treesEquivalent = Math.round(co2Saved / 22);
-        
-        // UI fields update karna
-        const co2Element = document.getElementById('co2-saved-val');
-        const treesElement = document.getElementById('trees-planted-val');
-        
-        if (co2Element) co2Element.innerText = co2Saved.toLocaleString();
-        if (treesElement) treesElement.innerText = treesEquivalent.toLocaleString();
-        
-    } catch (err) {
-        console.error("Carbon Stats Error: ", err);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    updateGlobalCarbonStats();
-});
-
-    
-
-// Bill download karte waqt history auto-save karne ka hook
-function saveBillToHistory(phone, date) {
-    if (!phone) return;
-    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills') || '[]');
-    savedBills.push({ phone: phone, date: date });
-    localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
-}
     
     if (serviceType === 'solar') {
         const name = document.getElementById('cust-name')?.value || "Customer";
