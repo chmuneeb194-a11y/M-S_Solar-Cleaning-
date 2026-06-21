@@ -1520,24 +1520,20 @@
 // ========================================================
 function checkCustomerHistory() {
     try {
-        const allInputs = document.querySelectorAll('input[type="tel"], #tracker-phone-input');
-        let phone = "";
-        
-        for (let inp of allInputs) {
-            if (inp.id === "tracker-phone-input" || inp.placeholder.includes("Phone")) {
-                if (inp.value.trim() !== "") {
-                    phone = inp.value.trim();
-                    break;
-                }
-            }
+        const phoneInput = document.getElementById('tracker-phone-input');
+        if (!phoneInput) {
+            alert("Input field nahi mili!");
+            return;
         }
         
+        const phone = phoneInput.value.trim();
         if (!phone) {
             alert("Meherbani karke pehle Mobile Number darj karein!");
             return;
         }
 
         const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+        // Number match karne ke liye filter
         const customerBills = savedBills.filter(bill => bill.phone === phone);
 
         if (customerBills.length === 0) {
@@ -1548,6 +1544,7 @@ function checkCustomerHistory() {
             return;
         }
 
+        // Tarteeb lagane ke liye (Latest Date upar)
         customerBills.sort((a, b) => new Date(b.date) - new Date(a.date));
         const latestWash = customerBills[0].date;
 
@@ -1556,9 +1553,11 @@ function checkCustomerHistory() {
             totalWashedPanels += parseInt(bill.totalWashes) || 0;
         });
 
+        // Agli wash ki date (90 din baad)
         const nextWashDate = new Date(latestWash);
         nextWashDate.setDate(nextWashDate.getDate() + 90);
 
+        // HTML par data show karna
         document.getElementById('tracker-last-date').innerText = latestWash;
         document.getElementById('tracker-total-count').innerText = totalWashedPanels;
         document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
@@ -1566,6 +1565,7 @@ function checkCustomerHistory() {
         console.error("Tracker Error: ", err);
     }
 }
+    
 
 // ========================================================
 // CARBON COUNTER LIVE LOGIC (POINT 4)
