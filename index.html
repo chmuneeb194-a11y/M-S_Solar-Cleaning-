@@ -672,32 +672,32 @@
      <!-- ==========================================
      POINT 5: SMART ADMIN PORTAL UI START
      ========================================== -->
-<div id="admin-portal-box" class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mb-4" style="background: rgba(30, 41, 59, 0.95); border: 2px dashed #ffc107; padding: 20px; border-radius: 16px; color: #fff; text-align: center; margin: 20px auto; max-width: 340px; font-family: sans-serif;">
-    <h4 style="color: #ffc107; margin: 0 0 15px 0; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+<div id="admin-portal-box" class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mb-4" style="background: rgba(30, 41, 59, 0.95); border: 2px dashed #ffc107; padding: 20px; border-radius: 16px; color: #fff; text-align: center; margin: 20px auto; max-width: 340px; font-family: sans-serif; box-sizing: border-box;">
+    <h4 style="color: #ffc107; margin: 0 0 5px 0; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 6px;">
         ⚙️ SMART ADMIN PORTAL
     </h4>
-    <p style="font-size: 11px; color: #94a3b8; margin:-10px 0 15px 0;">Client Database Saver (Local Memory)</p>
+    <p style="font-size: 11px; color: #94a3b8; margin: 0 0 15px 0;">Client Database Saver (Local Memory)</p>
     
-    <div style="display: flex; flex-direction: column; gap: 10px; text-align: left;">
-        <div>
-            <label style="font-size: 10px; color: #cbd5e1; text-transform: uppercase;">Customer Phone No:</label>
-            <input type="tel" id="admin-phone" placeholder="e.g. 03084462160" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 13px; box-sizing: border-box;">
+    <div style="display: flex; flex-direction: column; gap: 12px; text-align: left; width: 100%; box-sizing: border-box;">
+        <div style="width: 100%;">
+            <label style="font-size: 10px; color: #cbd5e1; text-transform: uppercase; display: block; margin-bottom: 4px;">Customer Phone No:</label>
+            <input type="tel" id="admin-phone" placeholder="e.g. 03084462160" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 13px; box-sizing: border-box; display: block;">
         </div>
-        <div>
-            <label style="font-size: 10px; color: #cbd5e1; text-transform: uppercase;">Total Washes Completed:</label>
-            <input type="number" id="admin-washes" placeholder="e.g. 5" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 13px; box-sizing: border-box;">
+        <div style="width: 100%;">
+            <label style="font-size: 10px; color: #cbd5e1; text-transform: uppercase; display: block; margin-bottom: 4px;">Total Washes Completed:</label>
+            <input type="number" id="admin-washes" placeholder="e.g. 5" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 13px; box-sizing: border-box; display: block;">
         </div>
-        <div>
-            <label style="font-size: 10px; color: #cbd5e1; text-transform: uppercase;">Last Wash Date:</label>
-            <input type="date" id="admin-date" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 13px; box-sizing: border-box;">
+        <div style="width: 100%;">
+            <label style="font-size: 10px; color: #cbd5e1; text-transform: uppercase; display: block; margin-bottom: 4px;">Last Wash Date:</label>
+            <input type="date" id="admin-date" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 13px; box-sizing: border-box; display: block;">
         </div>
-       <button onclick="saveCustomerToDatabase()" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #2cd46b 0%, #15803d 100%); color: #ffffff; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border: none; border-radius: 12px; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(44, 212, 107, 0.3); transition: all 0.3s ease; font-family: sans-serif;" onmouseover="this.style.transform='減cale(1.02)'; this.style.boxShadow='0 6px 20px rgba(44, 212, 107, 0.5)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(44, 212, 107, 0.3)';">
-    <i class="fas fa-shield-alt" style="font-size: 14px; color: #fff;"></i> 
-    <span style="color: #ffffff;">Secure Save Record</span>
-       </button>
         
+        <button onclick="saveCustomerToDatabase()" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #2cd46b 0%, #15803d 100%); color: #ffffff; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; border: none; border-radius: 12px; cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 15px rgba(44, 212, 107, 0.3); transition: all 0.3s ease; font-family: sans-serif; box-sizing: border-box;">
+            <span style="color: #ffffff;">Secure Save Record</span>
+        </button>
     </div>
 </div>
+        
 <!-- ==========================================
      POINT 5: SMART ADMIN PORTAL UI END
      ========================================== -->
@@ -1588,16 +1588,26 @@ function downloadBillAsPDF(serviceType) {
 
 function saveCustomerToDatabase() {
     try {
-        let phone = document.getElementById('admin-phone').value.trim();
-        let washes = document.getElementById('admin-washes').value.trim();
-        let rawDate = document.getElementById('admin-date').value;
+        // Inputs ko sahi tareeqay se read karna
+        let phoneField = document.getElementById('admin-phone');
+        let washesField = document.getElementById('admin-washes');
+        let dateField = document.getElementById('admin-date');
+
+        if (!phoneField || !washesField || !dateField) {
+            alert("System error: Input fields nahi miley!");
+            return;
+        }
+
+        let phone = phoneField.value.trim();
+        let washes = washesField.value.trim();
+        let rawDate = dateField.value;
 
         if (!phone || !washes || !rawDate) {
             alert("Meherbani karke saari maloomat darj karein!");
             return;
         }
 
-        // Date format handler: Agar date slash '/' ke sath (DD/MM/YYYY) aaye toh convert karein
+        // Date format adjustment
         let formattedDate = rawDate;
         if (rawDate.includes('/')) {
             let parts = rawDate.split('/');
@@ -1606,20 +1616,50 @@ function saveCustomerToDatabase() {
             }
         }
 
-        // LocalStorage se pehle se maujood array nikalna
+        // LocalStorage handle karna safety ke sath
         let savedBills = [];
-        try {
-            let localData = localStorage.getItem('ms_solar_bills');
-            if (localData) {
+        let localData = localStorage.getItem('ms_solar_bills');
+        if (localData) {
+            try {
                 savedBills = JSON.parse(localData);
+            } catch (e) {
+                savedBills = [];
             }
-        } catch (e) {
-            savedBills = [];
         }
-        
         if (!Array.isArray(savedBills)) {
             savedBills = [];
         }
+        
+        // Entries save karna array mein
+        let count = parseInt(washes) || 1;
+        for (let i = 0; i < count; i++) {
+            savedBills.push({
+                phone: phone,
+                date: formattedDate
+            });
+        }
+
+        // Final Save in Browser Memory
+        localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
+
+        // Global stats refresh
+        if (typeof updateGlobalCarbonStats === "function") {
+            updateGlobalCarbonStats();
+        }
+
+        alert("Record kamyabi se mahfooz ho gaya hai!");
+        
+        // Fields khali karna
+        phoneField.value = '';
+        washesField.value = '';
+        dateField.value = '';
+        
+    } catch (error) {
+        console.error("Saving Error: ", error);
+        alert("Kuch technical masla hua hai! Dobara koshish karein.");
+    }
+}
+    
         
         // Jitne washes completed likhe hain, utni entries loop chala kar add karna
         let count = parseInt(washes) || 1;
