@@ -416,95 +416,102 @@
         </div>
     </header>
 <nav class="space-y-3">
-                    <!-- 1. Solar Solutions -->
-                    <button type="button" onclick="scrollToSection('solar-calc-block')" class="w-full flex items-center space-x-3 p-2.5 rounded-xl font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 text-left transition">
-                        <span class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-sm"><i class="fas fa-bolt"></i></span>
-                        <span class="text-xs sm:text-sm">⚡ Solar Solutions Setup</span>
-                    </button>
+<div id="mobile-menu" class="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-50 hidden transition-all duration-300 flex justify-end">
+    <div class="absolute inset-0" onclick="toggleMenu()"></div>
+    <div class="relative w-72 max-w-[85vw] h-full overflow-y-auto bg-slate-900 shadow-2xl border-l border-slate-800 flex flex-col justify-between p-4">
+        <div>
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+                <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Navigation Menu</span>
+                <button type="button" onclick="toggleMenu()" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-slate-800 transition">
+                    <i class="fas fa-times text-sm"></i>
+                </button>
+            </div>
 
-                    <!-- 2. Car Wash -->
-                    <button type="button" onclick="scrollToSection('carwash-calc-block')" class="w-full flex items-center space-x-3 p-2.5 rounded-xl font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 text-left transition">
-                        <span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-sm"><i class="fas fa-soap"></i></span>
-                        <span class="text-xs sm:text-sm">🧽 Car Wash Service Setup</span>
-                    </button>
+            <nav class="space-y-2">
+                <button type="button" onclick="scrollToSection('solar-calc-block')" class="w-full flex items-center space-x-3 p-2.5 rounded-xl font-bold text-slate-100 bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-950/20 text-left transition">
+                    <span class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-sm"><i class="fas fa-bolt"></i></span>
+                    <span class="text-xs sm:text-sm">⚡ Solar Solutions Setup</span>
+                </button>
 
-                    <!-- 3. Safety Compliance -->
-                    <button type="button" onclick="scrollToSection('safety-compliance-block')" class="w-full flex items-center justify-between p-2.5 rounded-xl transition-all text-left bg-slate-100/50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 group">
+                <button type="button" onclick="scrollToSection('carwash-calc-block')" class="w-full flex items-center space-x-3 p-2.5 rounded-xl font-bold text-slate-100 bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-950/20 text-left transition">
+                    <span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-sm"><i class="fas fa-soap"></i></span>
+                    <span class="text-xs sm:text-sm">🧽 Car Wash Service Setup</span>
+                </button>
+
+                <button type="button" onclick="scrollToSection('safety-compliance-block')" class="w-full flex items-center justify-between p-2.5 rounded-xl transition-all text-left bg-slate-800/50 hover:bg-blue-950/30 group">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-sm shadow-sm"><i class="fas fa-shield-alt"></i></span>
+                        <span class="text-xs sm:text-sm font-semibold tracking-wide text-slate-200 group-hover:text-blue-400">🛡️ Safety Compliance</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+                </button>
+
+                <button type="button" onclick="scrollToSection('reviews-grid-block')" class="w-full flex items-center justify-between p-2.5 rounded-xl transition-all text-left bg-slate-800/50 hover:bg-blue-950/30 group">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-sm shadow-sm"><i class="fas fa-star"></i></span>
+                        <span class="text-xs sm:text-sm font-semibold tracking-wide text-slate-200 group-hover:text-blue-400">⭐ Customer Reviews</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+                </button>
+
+                <button type="button" onclick="scrollToSection('certified-standards-block')" class="w-full flex items-center justify-between p-2.5 rounded-xl transition-all text-left bg-slate-800/50 hover:bg-blue-950/30 group">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-sm shadow-sm"><i class="fas fa-certificate"></i></span>
+                        <span class="text-xs sm:text-sm font-semibold tracking-wide text-slate-200 group-hover:text-blue-400">🏅 Certified Standards</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+                </button>
+
+                <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mt-2">
+                    <a href="https://wa.me/923084462121?text=Hi%20MS%20Solar%20Cleaning,%20I%20want%20to%20book%20a%20service." target="_blank" class="flex items-center justify-between p-2.5 bg-teal-800/20 border border-teal-500/30 rounded-xl">
                         <div class="flex items-center gap-3">
-                            <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-sm shadow-sm"><i class="fas fa-shield-alt"></i></span>
-                            <span class="text-xs sm:text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400">🛡️ Safety Compliance</span>
+                            <span class="w-6 h-6 rounded-lg bg-green-500/10 text-green-500 flex items-center justify-center text-sm"><i class="fab fa-whatsapp"></i></span>
+                            <span class="text-xs sm:text-sm font-bold text-white">Book Now (WhatsApp)</span>
                         </div>
-                        <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
-                    </button>
+                        <i class="fas fa-chevron-right text-xs text-slate-400"></i>
+                    </a>
+                </div>
 
-                    <!-- 4. Customer Reviews -->
-                    <button type="button" onclick="scrollToSection('reviews-grid-block')" class="w-full flex items-center justify-between p-2.5 rounded-xl transition-all text-left bg-slate-100/50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 group">
+                <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mt-2">
+                    <button type="button" id="nav-install-btn" class="w-full flex items-center justify-between p-2.5 bg-blue-800/20 border border-blue-500/30 rounded-xl text-left">
                         <div class="flex items-center gap-3">
-                            <span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-sm shadow-sm"><i class="fas fa-star"></i></span>
-                            <span class="text-xs sm:text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400">⭐ Customer Reviews</span>
+                            <span class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm"><i class="fas fa-download"></i></span>
+                            <span class="text-xs sm:text-sm font-bold text-white">Install Application</span>
                         </div>
-                        <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
+                        <i class="fas fa-chevron-right text-xs text-slate-400"></i>
                     </button>
+                </div>
 
-                    <!-- 5. Certified Standards -->
-                    <button type="button" onclick="scrollToSection('certified-standards-block')" class="w-full flex items-center justify-between p-2.5 rounded-xl transition-all text-left bg-slate-100/50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 group">
-                        <div class="flex items-center gap-3">
-                            <span class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-sm shadow-sm"><i class="fas fa-certificate"></i></span>
-                            <span class="text-xs sm:text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400">🏅 Certified Standards</span>
+                <div class="mt-2 w-full">
+                    <div onclick="unlockAdminPortal()" class="flex items-center justify-between border border-yellow-500/20 bg-slate-900/60 p-2.5 rounded-xl cursor-pointer hover:border-yellow-500/40 transition-all duration-300 active:scale-95 group">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500">
+                                <i class="fas fa-user-shield text-xs animate-pulse"></i>
+                            </div>
+                            <div class="text-left">
+                                <h4 class="text-xs font-bold text-slate-300 group-hover:text-yellow-400 transition-colors">Smart Admin</h4>
+                                <p class="text-[9px] text-slate-500">Authorized Only</p>
+                            </div>
                         </div>
-                        <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
-                    </button>
-
-                    <!-- 6. Book Now (WhatsApp) -->
-                    <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mb-4 mt-2">
-                        <a href="https://wa.me/923084462121?text=Hi%20MS%20Solar%20Cleaning,%20I%20want%20to%20book%20a%20service." target="_blank" class="flex items-center justify-between p-2.5 bg-teal-800/20 border border-teal-500/30 rounded-xl">
-                            <div class="flex items-center gap-3">
-                                <span class="w-6 h-6 rounded-lg bg-green-500/10 text-green-500 flex items-center justify-center text-sm"><i class="fab fa-whatsapp"></i></span>
-                                <span class="text-sm font-bold text-slate-800 dark:text-white">Book Now (WhatsApp)</span>
-                            </div>
-                            <i class="fas fa-chevron-right text-xs text-slate-400"></i>
-                        </a>
+                        <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
                     </div>
+                </div>
+            </nav>
+        </div>
 
-                    <!-- 7. Install Application -->
-                    <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mb-4">
-                        <button type="button" id="nav-install-btn" class="w-full flex items-center justify-between p-2.5 bg-blue-800/20 border border-blue-500/30 rounded-xl text-left">
-                            <div class="flex items-center gap-3">
-                                <span class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm"><i class="fas fa-download"></i></span>
-                                <span class="text-sm font-bold text-slate-800 dark:text-white">Install Application</span>
-                            </div>
-                            <i class="fas fa-chevron-right text-xs text-slate-400"></i>
-                        </button>
-                    </div>
-
-                    <!-- 8. Smart Admin -->
-                    <div class="mt-2 w-full">
-                        <div onclick="unlockAdminPortal()" class="flex items-center justify-between border border-yellow-500/20 bg-slate-900/60 p-2.5 rounded-xl cursor-pointer hover:border-yellow-500/40 transition-all duration-300 active:scale-95 group">
-                            <div class="flex items-center gap-2">
-                                <div class="w-6 h-6 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500">
-                                    <i class="fas fa-user-shield text-xs animate-pulse"></i>
-                                </div>
-                                <div class="text-left">
-                                    <h4 class="text-xs font-bold text-slate-300 group-hover:text-yellow-400 transition-colors">Smart Admin</h4>
-                                    <p class="text-[9px] text-slate-500">Authorized Only</p>
-                                </div>
-                            </div>
-                            <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
-                        </div>
-                    </div>
-
-                    <!-- 9. Dark Mode & Language Preferences Box -->
-                    <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2">
-                        <button type="button" onclick="toggleDarkMode()" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-100 dark:bg-slate-800 font-semibold text-xs text-slate-700 dark:text-slate-300 transition active:scale-95">
-                            <i class="fas fa-moon text-blue-500 dark:text-yellow-400"></i>
-                            <span id="theme-text">Dark Mode</span>
-                        </button>
-                        <button type="button" onclick="toggleLanguage()" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-100 dark:bg-slate-800 font-semibold text-xs text-slate-700 dark:text-slate-300 transition active:scale-95">
-                            <i class="fas fa-globe text-emerald-500"></i>
-                            <span id="lang-text">اردو</span>
-                        </button>
-                    </div>
-</nav>
+        <div class="mt-auto pt-4 border-t border-slate-800 flex items-center justify-between gap-2 bg-slate-900">
+            <button type="button" onclick="toggleDarkMode()" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-800 font-semibold text-xs text-slate-300 transition active:scale-95">
+                <i class="fas fa-moon text-yellow-400"></i>
+                <span id="theme-text">Dark Mode</span>
+            </button>
+            <button type="button" onclick="toggleLanguage ? toggleLanguage() : (typeof changeLanguage !== 'undefined' ? changeLanguage() : alert('Language function missing'))" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-800 font-semibold text-xs text-slate-300 transition active:scale-95">
+                <i class="fas fa-globe text-emerald-500"></i>
+                <span id="lang-text">اردو</span>
+            </button>
+        </div>
+    </div>
+</div>
+    
     
 
     <section id="home" class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 overflow-hidden">
