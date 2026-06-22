@@ -497,6 +497,22 @@
                 </button>
             </div>
         </div>
+                                <!-- SMART ADMIN BOX IN MOBILE MENU -->
+                        <div class="mt-2 pt-2 border-t border-slate-800/50">
+                            <div onclick="unlockAdminPortal()" class="flex items-center justify-between border border-yellow-500/20 bg-slate-900/60 p-2.5 rounded-xl cursor-pointer hover:border-yellow-500/40 transition-all duration-300 active:scale-95 group">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-6 h-6 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500">
+                                        <i class="fas fa-user-shield text-xs animate-pulse"></i>
+                                    </div>
+                                    <div class="text-left">
+                                        <h4 class="text-xs font-bold text-slate-300 group-hover:text-yellow-400 transition-colors">Smart Admin</h4>
+                                        <p class="text-[9px] text-slate-500">Authorized Only</p>
+                                    </div>
+                                </div>
+                                <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
+                            </div>
+                        </div>
+        
     </div>
 
     
@@ -1516,24 +1532,42 @@
 
 <script>
 // ========================================================
+// SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
+// ========================================================
+function unlockAdminPortal() {
+    const password = prompt("Smart Admin Portal unlock karne ke liye password darj karein:");
+    if (password === "Chmuneeb@1992") {
+        const adminSection = document.getElementById('secret-admin-section');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        // Mobile menu ko foran band karne ke liye class lagayein
+        if (mobileMenu) mobileMenu.classList.add('hidden');
+        
+        if (adminSection) {
+            adminSection.classList.remove('hidden');
+            alert("Welcome Muneeb Bhai! Admin Portal kamyabi se unlock ho gaya hai.");
+            adminSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    } else if (password !== null) {
+        alert("Galat Password! Aapko Admin Portal kholne ki ijaazat nahi hai.");
+    }
+}
+
+// ========================================================
 // MAINTENANCE HISTORY TRACKER FUNCTION (POINT 3)
 // ========================================================
 function checkCustomerHistory() {
     try {
-        const phoneInput = document.getElementById('tracker-phone-input');
-        if (!phoneInput) {
-            alert("Input field nahi mili!");
-            return;
-        }
+        const trackerInput = document.getElementById('tracker-phone-input');
+        if (!trackerInput) return;
         
-        const phone = phoneInput.value.trim();
-        if (!phone) {
+        const phone = trackerInput.value.trim();
+        if (phone === "") {
             alert("Meherbani karke pehle Mobile Number darj karein!");
             return;
         }
 
         const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-        // Number match karne ke liye filter
         const customerBills = savedBills.filter(bill => bill.phone === phone);
 
         if (customerBills.length === 0) {
@@ -1544,7 +1578,6 @@ function checkCustomerHistory() {
             return;
         }
 
-        // Tarteeb lagane ke liye (Latest Date upar)
         customerBills.sort((a, b) => new Date(b.date) - new Date(a.date));
         const latestWash = customerBills[0].date;
 
@@ -1553,11 +1586,9 @@ function checkCustomerHistory() {
             totalWashedPanels += parseInt(bill.totalWashes) || 0;
         });
 
-        // Agli wash ki date (90 din baad)
         const nextWashDate = new Date(latestWash);
         nextWashDate.setDate(nextWashDate.getDate() + 90);
 
-        // HTML par data show karna
         document.getElementById('tracker-last-date').innerText = latestWash;
         document.getElementById('tracker-total-count').innerText = totalWashedPanels;
         document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
@@ -1565,7 +1596,6 @@ function checkCustomerHistory() {
         console.error("Tracker Error: ", err);
     }
 }
-    
 
 // ========================================================
 // CARBON COUNTER LIVE LOGIC (POINT 4)
@@ -1589,6 +1619,7 @@ function updateGlobalCarbonStats() {
 document.addEventListener('DOMContentLoaded', function() {
     updateGlobalCarbonStats();
 });
+    
 
 // ========================================================
 // ADMIN PORTAL DATABASE SAVE LOGIC (POINT 5)
