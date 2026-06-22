@@ -417,18 +417,17 @@
     </header>
 
 <div id="mobile-menu" class="fixed inset-0 bg-slate-950/40 backdrop-blur-md z-50 hidden transition-all duration-300 flex justify-end">
-    
-        <div class="absolute inset-0" onclick="toggleMenu()"></div>
-<div class="relative w-72 max-w-[85vw] h-screen overflow-y-auto bg-slate-900 shadow-2xl border-l border-slate-800 flex flex-col">
-    
-    
-            <div>
-                <div class="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800 mb-8">
-                    <span class="text-xs font-black uppercase tracking-widest text-slate-400">Navigation Menu</span>
-                    <button type="button" onclick="toggleMenu()" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-50 dark:bg-slate-800/50 transition">
-                        <i class="fas fa-times text-sm"></i>
-                    </button>
-                </div>
+    <div class="absolute inset-0" onclick="toggleMenu()"></div>
+    <div class="relative w-72 max-w-[85vw] h-full bg-slate-900 shadow-2xl border-l border-slate-800 flex flex-col" style="max-height: 100vh; overflow-y: auto;">
+        <div>
+            <div class="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800 mb-8">
+                <span class="text-xs font-black uppercase tracking-widest text-slate-400">Navigation Menu</span>
+                <button type="button" onclick="toggleMenu()" class="w-8 h-8 rounded-l flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-50 dark:bg-slate-800/50 transition">
+                    <i class="fas fa-times text-sm"></i>
+                </button>
+            </div>
+        </div>
+        
                 
                 <nav class="space-y-3">
                     <button type="button" onclick="scrollToSection('solar-calc-block')" class="w-full flex items-center space-x-3 p-3 rounded-xl font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 text-left transition">
