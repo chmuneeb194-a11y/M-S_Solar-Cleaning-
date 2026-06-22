@@ -1620,36 +1620,38 @@ function saveCustomerToDatabase() {
         const phoneField = document.getElementById('admin-phone');
         const washesField = document.getElementById('admin-washes');
         const dateField = document.getElementById('admin-date');
-        
+
         if (!phoneField || !washesField || !dateField) return;
-        
+
         let phone = phoneField.value.trim();
         let washes = washesField.value.trim();
         let rawDate = dateField.value;
-        
+
         if (!phone || !washes || !rawDate) {
-            alert("Meherbani karke saari maloomat darj karein!");
+            alert("Meherbani karke saari maloonat darj karein!");
             return;
         }
-        
+
         let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
         const existingIndex = savedBills.findIndex(bill => bill.phone === phone);
+        
         const newRecord = {
             phone: phone,
-            totalWashes: parseInt(washes) || 1,
+            totalWashedPanels: parseInt(washes) || 1,
             date: rawDate
         };
-        
+
         if (existingIndex > -1) {
             savedBills[existingIndex] = newRecord;
         } else {
             savedBills.push(newRecord);
         }
-        
+
         localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
         updateGlobalCarbonStats();
+
+        alert("Record kamyabi se mahfooz ho gaya hai! Agar aap iska backup file banana chahte hain toh niche diye gaye Backup button par click karein.");
         
-        alert("Record kamyabi se mahfooz ho gaya hai! Agar aap iska backup file banana chahte hain toh niche diye gaye Backup button ko dabayein.");
         phoneField.value = '';
         washesField.value = '';
         dateField.value = '';
@@ -1657,6 +1659,7 @@ function saveCustomerToDatabase() {
         console.error("Saving Error: ", error);
     }
 }
+    
 
 // ========================================================
 // MANUAL BACKUP TO FILE SYSTEM (FOR MS SOLAR FOLDER)
