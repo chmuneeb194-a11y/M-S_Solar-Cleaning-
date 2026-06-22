@@ -1024,7 +1024,8 @@
                 <div class="text-center mb-10">
                     <span class="text-green-700 font-black text-xs tracking-widest uppercase bg-green-100/80 px-3 py-1.5 rounded-full border border-white/80 shadow-sm inline-block dark:bg-green-900/40 dark:text-green-300">Instant Solar Quote</span>
                     <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-3" data-en="Solar Panel Cost Estimation" data-ur="سولر پینل سروس بل کیلکولیٹر">Solar Panel Cost Estimation</h2>
-                    <p class="text-slate-500 text-sm mt-2">Apne panels ki tadad set karein aur automatic real-time bill check karein (Rs. 80 Per Panel).</p>
+tic real-time bill check karein (Rs. <span id="dynamic-text-rate">70</span> Per Panel).</p>
+                    
                 </div>
 
                 <div class="max-w-xl mx-auto mb-8 bg-red-50/80 backdrop-blur-xl border-l-4 border-red-500 p-4 rounded-r-2xl shadow-sm border-y border-r border-white/50 dark:bg-red-950/20 dark:border-red-700">
@@ -1820,6 +1821,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Website kholte hi automatic scan chalayein taake reminders foran dikhein
     if (typeof loadOverdueAlerts === 'function') {
         loadOverdueAlerts();
+            // Live rate ko screen wale text ke andar auto-update karna
+    const textRateSpan = document.getElementById('dynamic-text-rate');
+    if (textRateSpan) {
+        textRateSpan.innerText = savedRate;
+    }
+           // Customer offer wale input box ko bhi automatic live rate par set karna
+    const customRateInput = document.getElementById('custom-panel-rate');
+    if (customRateInput) {
+        customRateInput.value = savedRate;
+    }
+        
     }
 });
     
@@ -1854,6 +1866,8 @@ function downloadBillAsPDF(serviceType) {
 
     if (serviceType === 'solar') {
         const name = document.getElementById('cust-name')?.value || "Customer";
+        const currentGlobalRate = localStorage.getItem('ms_solar_panel_rate') || '70';
+        
         const phone = document.getElementById('cust-phone')?.value || "N/A";
         const address = document.getElementById('cust-address')?.value || "Sahiwal";
         const date = document.getElementById('booking-date')?.value || today;
@@ -2543,7 +2557,9 @@ if (tankSliderInput) {
             var phone = document.getElementById("cust-phone").value.trim();
             
             var rateInput = document.getElementById("custom-panel-rate");
-var ratePerPanel = rateInput ? (parseFloat(rateInput.value) || 80) : 80;
+var currentGlobalRate = localStorage.getItem('ms_solar_panel_rate') || '70';
+var ratePerPanel = rateInput ? (parseFloat(rateInput.value) || parseFloat(currentGlobalRate)) : parseFloat(currentGlobalRate);
+            
 
             var blowerCost = document.getElementById("blower-check").checked ? (500 * invertersCount) : 0; 
             
@@ -2565,7 +2581,8 @@ var ratePerPanel = rateInput ? (parseFloat(rateInput.value) || 80) : 80;
                 total = Math.round(total * 0.90); 
                 document.getElementById("rate-calc-note").innerText = "*Monthly Subscription package configuration active: Flat 10% Off Applied!";
             } else {
-                document.getElementById("rate-calc-note").innerText = "*Standard washing rate calculated at Rs. 80 per panel";
+  document.getElementById('rate-calc-note').innerText = "*Standard washing rate calculated at Rs. " + ratePerPanel + " per panel";
+                
             }
             
             document.getElementById("total-price").innerText = total;
