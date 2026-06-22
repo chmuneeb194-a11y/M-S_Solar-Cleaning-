@@ -1547,11 +1547,11 @@ function unlockAdminPortal() {
 // ========================================================
 // MAINTENANCE HISTORY TRACKER FUNCTION (POINT 3)
 // ========================================================
-function checkCustomerHistory() {
+function checkHistory() {
     try {
         const trackerInput = document.getElementById('tracker-phone-input');
         if (!trackerInput) return;
-        
+
         const phone = trackerInput.value.trim();
         if (phone === "") {
             alert("Meherbani karke pehle Mobile Number darj karein!");
@@ -1569,24 +1569,32 @@ function checkCustomerHistory() {
             return;
         }
 
+        // Latest record nikalne ke liye sort karein
         customerBills.sort((a, b) => new Date(b.date) - new Date(a.date));
-        const latestWash = customerBills[0].date;
+        const latestWash = customerBills[0];
 
-        let totalWashedPanels = 0;
+        let totalPanels = 0;
         customerBills.forEach(bill => {
-            totalWashedPanels += parseInt(bill.totalWashes) || 0;
+            // Dono purane aur naye data ko support karne ke liye dono check laga diye hain
+            totalPanels += parseInt(bill.totalWashedPanels) || parseInt(bill.totalWashes) || 0;
         });
 
-        const nextWashDate = new Date(latestWash);
+        // HTML elements mein data show karwayen
+        if(document.getElementById('tracker-last-date')) document.getElementById('tracker-last-date').innerText = latestWash.date;
+        if(document.getElementById('tracker-total-count')) document.getElementById('tracker-total-count').innerText = totalPanels;
+        
+        // Agli wash ki date (90 din baad)
+        const nextWashDate = new Date(latestWash.date);
         nextWashDate.setDate(nextWashDate.getDate() + 90);
+        
+        const formattedNextDate = nextWashDate.toISOString().split('T')[0];
+        if(document.getElementById('tracker-next-date')) document.getElementById('tracker-next-date').innerText = formattedNextDate;
 
-        document.getElementById('tracker-last-date').innerText = latestWash;
-        document.getElementById('tracker-total-count').innerText = totalWashedPanels;
-        document.getElementById('tracker-next-date').innerText = nextWashDate.toISOString().split('T')[0];
-    } catch(err) {
-        console.error("Tracker Error: ", err);
+    } catch (error) {
+        console.error("Tracker Error: ", error);
     }
 }
+    
 
 // ========================================================
 // CARBON COUNTER LIVE LOGIC (POINT 4)
