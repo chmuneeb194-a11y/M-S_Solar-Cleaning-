@@ -1521,13 +1521,15 @@ function unlockAdminPortal() {
     const password = prompt("Smart Admin Portal unlock karne ke liye password darj karein:");
     if (password === "Chmuneeb@1992") {
         const adminSection = document.getElementById('secret-admin-section');
-        const mobileMenu = document.getElementById('mobile-menu');
         
-        // Mobile menu ko proper tareeqe se reset aur close karne ke liye:
-        if (mobileMenu) {
-            mobileMenu.classList.add('hidden');
-            // Agar aapke script mein toggle karne ke liye alag se open class use ho rahi hai to usay remove karein
-            mobileMenu.classList.remove('flex', 'opacity-100', 'translate-x-0');
+        // Menu toggle button ko dhoond kar khud hi click karwayen taake state refresh ke bina bilkul stable close ho
+        const menuToggleBtn = document.querySelector('[onclick*="toggleMenu"]');
+        if (menuToggleBtn) {
+            menuToggleBtn.click();
+        } else {
+            // Agar toggle button na mile to fallback backup:
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) mobileMenu.classList.add('hidden');
         }
         
         if (adminSection) {
@@ -1539,6 +1541,7 @@ function unlockAdminPortal() {
         alert("Galat Password! Aapko Admin Portal kholne ki ijaazat nahi hai.");
     }
 }
+    
     
 
 // ========================================================
