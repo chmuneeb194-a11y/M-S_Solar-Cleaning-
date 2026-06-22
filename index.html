@@ -1523,8 +1523,12 @@ function unlockAdminPortal() {
         const adminSection = document.getElementById('secret-admin-section');
         const mobileMenu = document.getElementById('mobile-menu');
         
-        // Mobile menu ko foran band karne ke liye class lagayein
-        if (mobileMenu) mobileMenu.classList.add('hidden');
+        // Mobile menu ko proper tareeqe se reset aur close karne ke liye:
+        if (mobileMenu) {
+            mobileMenu.classList.add('hidden');
+            // Agar aapke script mein toggle karne ke liye alag se open class use ho rahi hai to usay remove karein
+            mobileMenu.classList.remove('flex', 'opacity-100', 'translate-x-0');
+        }
         
         if (adminSection) {
             adminSection.classList.remove('hidden');
@@ -1535,6 +1539,7 @@ function unlockAdminPortal() {
         alert("Galat Password! Aapko Admin Portal kholne ki ijaazat nahi hai.");
     }
 }
+    
 
 // ========================================================
 // MAINTENANCE HISTORY TRACKER FUNCTION (POINT 3)
