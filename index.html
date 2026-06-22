@@ -416,11 +416,11 @@
         </div>
     </header>
 
-    <div id="mobile-menu" class="fixed inset-0 bg-slate-950/40 backdrop-blur-md z-50 hidden transition-all duration-300 flex justify-end">
-        
+<div id="mobile-menu" class="fixed inset-0 bg-slate-950/40 backdrop-blur-md z-50 hidden transition-all duration-300 flex">
+    
         <div class="absolute inset-0" onclick="toggleMenu()"></div>
-        <div class="relative w-72 max-w-[85vw] h-full bg-slate-900 shadow-2xl overflow-y-auto flex flex-col">
-
+<div class="relative w-72 max-w-[85vw] h-full bg-slate-900 shadow-2xl border-l border-slate-800 flex flex-col">
+    
             <div>
                 <div class="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800 mb-8">
                     <span class="text-xs font-black uppercase tracking-widest text-slate-400">Navigation Menu</span>
@@ -2022,13 +2022,21 @@ function downloadBillAsPDF(serviceType) {
 // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
 // ==========================================
-    function toggleMenu() {
+function toggleMenu() {
     var menu = document.getElementById('mobile-menu');
     if (menu) {
         var isHidden = menu.classList.contains('hidden');
         if (isHidden) {
             menu.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+            
+            // Menu ke andar forcefully scroll active karne ke liye
+            var innerBox = menu.querySelector('.relative.w-72');
+            if (innerBox) {
+                innerBox.style.maxHeight = '100vh';
+                innerBox.style.overflowY = 'auto';
+            }
+
             setTimeout(function() {
                 menu.classList.add('menu-active');
             }, 10);
@@ -2056,6 +2064,7 @@ function scrollToSection(id) {
         }, 150);
     }
 }
+    
     
 // ==========================================
 // AUTOMATIC SYSTEM THEME ENGINE
