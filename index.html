@@ -1803,7 +1803,7 @@ function saveGlobalRate() {
     }
 }
 
-// Page load hote hi saved rate aur note dono ko load karna
+// Page load hote hi saved rate, note aur reminders ko automatic load karna
 document.addEventListener('DOMContentLoaded', () => {
     const rateInput = document.getElementById('global-panel-rate');
     const reasonInput = document.getElementById('global-rate-reason');
@@ -1816,14 +1816,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedReason = localStorage.getItem('ms_solar_rate_reason') || '';
         reasonInput.value = savedReason;
     }
+    
+    // Website kholte hi automatic scan chalayein taake reminders foran dikhein
+    if (typeof loadOverdueAlerts === 'function') {
+        loadOverdueAlerts();
+    }
 });
     
-// AUTOMATIC WHATSAPP REMINDER TEXT DISPATCHER
+    // AUTOMATIC WHATSAPP REMINDER TEXT DISPATCHER (CONNECTED WITH DYNAMIC RATE & NOTE)
 function sendWhatsAppReminder(phone, lastDate, panels) {
-    const message = `Assalam-o-Alaikum!\n\nMS Solar Cleaning Services ki taraf se yaad-dahani. Aapke *${panels} Solar Panels* ki pichli safai ki tareekh *${lastDate}* thi.\n\nSolar panels par mitti aur dhool ki wajah se electricity generation kam ho jati hai. Behtar performance ke liye agli wash confirm karwein.\n\nShukriya!\nM-S SOLAR SERVICES`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank');
+    try {
+        // Browser memory se live rate aur reason uthayein
+        const currentRate = localStorage.getItem('ms_solar_panel_rate') || '70';
+        const rateReason = localStorage.getItem('ms_solar_rate_reason') || '';
+        
+        // Agar aapne koi offer note likha hai toh woh message mein shamil hoga
+        let offerText = "";
+        if (rateReason.trim() !== "") {
+            offerText = `\n\n📢 Special Notice: ${rateReason}`;
+        }
+        
+        const message = `Assalam-o-Alaikum!\n\nMS Solar Cleaning Services ki taraf se yaad-dahani. Aapke *${panels}* Solar Panels ki pichli wash ko 15 din se upar ho chuke hain (Last Wash Date: ${lastDate}).\n\nHumari current rate *Rs. ${currentRate} per panel* hai.${offerText}\n\nKindly apni wash scheduling ke liye reply karein. Shukriya!`;
+        
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+        window.open(whatsappUrl, '_blank');
+    } catch (error) {
+        console.error("Error dispatching dynamic WhatsApp reminder: ", error);
+    }
 }
     
  
