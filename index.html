@@ -689,6 +689,31 @@
 <button onclick="downloadBackupFile()" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-emerald-400 font-bold px-6 py-2 rounded-xl text-sm transition-all border border-emerald-800 ml-0 sm:ml-2 mt-2 sm:mt-0">
     <i class="fas fa-file-download mr-1"></i> Download File Backup
 </button>
+    <!-- PREMIUM OVERDUE ALERT DASHBOARD (POINT 6 ADVANCE) -->
+<div class="mt-8 pt-6 border-t border-slate-800">
+    <div class="flex items-center gap-2 mb-4">
+        <i class="fas fa-exclamation-triangle text-red-500 text-lg animate-pulse"></i>
+        <h4 class="text-sm font-bold text-red-400 uppercase tracking-wider">15-Days Overdue Alerts (Urgent Follow-ups)</h4>
+    </div>
+    <p class="text-xs text-slate-400 mb-4">Muneeb bhai, niche un customers ki automatic list hai jinki wash ko 15 din se upar ho chuke hain. Aap ek click par unhein WhatsApp reminder bhej sakte hain:</p>
+    
+    <div class="overflow-x-auto rounded-xl border border-slate-800/80 bg-slate-900/40 backdrop-blur-sm">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="border-b border-slate-800 bg-slate-950/50 text-[10px] uppercase tracking-wider text-slate-400 font-bold">
+                    <th class="p-3">Customer Phone</th>
+                    <th class="p-3">Total Panels</th>
+                    <th class="p-3">Last Wash Date</th>
+                    <th class="p-3">Days Passed</th>
+                    <th class="p-3 text-right">Action</th>
+                </tr>
+            </thead>
+            <tbody id="overdue-alerts-list" class="divide-y divide-slate-800 text-xs text-slate-200">
+                <!-- JavaScript automatically scan karke yahan rows add karega -->
+            </tbody>
+        </table>
+    </div>
+</div>
                 
             </div>
         </div>
@@ -1657,7 +1682,9 @@ function saveCustomerToDatabase() {
 
         localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
         updateGlobalCarbonStats();
-
+updateGlobalCarbonStats();
+loadOverdueAlerts(); // <-- Yeh exact Line 1685 par likhein
+        
         alert("Record kamyabi se mahfooz ho gaya hai! Agar aap iska backup file banana chahte hain toh niche diye gaye Backup button par click karein.");
         
         phoneField.value = '';
@@ -1686,6 +1713,66 @@ function downloadBackupFile() {
     alert("Backup file download ho gayi hai! Isay aap apne 'Ms Solar' folder mein drag/save kar ke rakh sakte hain.");
 }
     
+   // AUTO SCAN AND LOAD OVERDUE CUSTOMERS (15 DAYS+)
+function loadOverdueAlerts() {
+    try {
+        const listContainer = document.getElementById('overdue-alerts-list');
+        if (!listContainer) return;
+        
+        listContainer.innerHTML = ''; 
+        
+        const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+        if (savedBills.length === 0) {
+            listContainer.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-500 italic">No customer records found in memory.</td></tr>`;
+            return;
+        }
+        
+        const today = new Date();
+        let overdueCount = 0;
+        
+        savedBills.forEach(bill => {
+            const lastWashDate = new Date(bill.date);
+            if (isNaN(lastWashDate.getTime())) return;
+            
+            const diffTime = Math.abs(today - lastWashDate);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays >= 15) {
+                overdueCount++;
+                const panels = bill.totalWashedPanels || bill.totalWashes || 0;
+                
+                const row = document.createElement('tr');
+                row.className = "hover:bg-slate-800/30 transition-colors duration-150";
+                row.innerHTML = `
+                    <td class="p-3 font-mono text-emerald-400 font-bold">${bill.phone}</td>
+                    <td class="p-3 font-semibold">${panels} Panels</td>
+                    <td class="p-3 text-slate-400">${bill.date}</td>
+                    <td class="p-3"><span class="bg-red-500/10 text-red-400 px-2 py-0.5 rounded border border-red-500/20 font-bold">${diffDays} Days ago</span></td>
+                    <td class="p-3 text-right">
+                        <button onclick="sendWhatsAppReminder('${bill.phone}', '${bill.date}', ${panels})" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-1.5 px-3 rounded-lg text-[11px] uppercase tracking-wider transition-all duration-200 active:scale-95 shadow-md shadow-emerald-900/20">
+                            <i class="fab fa-whatsapp text-sm"></i> Send Reminder
+                        </button>
+                    </td>
+                `;
+                listContainer.appendChild(row);
+            }
+        });
+        
+        if (overdueCount === 0) {
+            listContainer.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-emerald-400 font-semibold italic">🎉 Muneeb bhai, Sab perfect hai! Kisi bhi customer ki wash 15 din se overdue nahi hai.</td></tr>`;
+        }
+    } catch (error) {
+        console.error("Error loading overdue alerts: ", error);
+    }
+}
+
+// AUTOMATIC WHATSAPP REMINDER TEXT DISPATCHER
+function sendWhatsAppReminder(phone, lastDate, panels) {
+    const message = `Assalam-o-Alaikum!\n\nMS Solar Cleaning Services ki taraf se yaad-dahani. Aapke *${panels} Solar Panels* ki pichli safai ki tareekh *${lastDate}* thi.\n\nSolar panels par mitti aur dhool ki wajah se electricity generation kam ho jati hai. Behtar performance ke liye agli wash confirm karwein.\n\nShukriya!\nM-S SOLAR SERVICES`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
+}
     
  
 function downloadBillAsPDF(serviceType) {
