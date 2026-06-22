@@ -1621,18 +1621,17 @@ function checkHistory() {
 
         let totalPanels = 0;
         customerBills.forEach(bill => {
-            // Dono purane aur naye data ko support karne ke liye dono check laga diye hain
             totalPanels += parseInt(bill.totalWashedPanels) || parseInt(bill.totalWashes) || 0;
         });
 
         // HTML elements mein data show karwayen
         if(document.getElementById('tracker-last-date')) document.getElementById('tracker-last-date').innerText = latestWash.date;
         if(document.getElementById('tracker-total-count')) document.getElementById('tracker-total-count').innerText = totalPanels;
-        
-        // Agli wash ki date (90 din baad)
+
+        // Agli wash ki date (Ab poore 15 din baad ki calculation hogi)
         const nextWashDate = new Date(latestWash.date);
-        nextWashDate.setDate(nextWashDate.getDate() + 90);
-        
+        nextWashDate.setDate(nextWashDate.getDate() + 15);
+
         const formattedNextDate = nextWashDate.toISOString().split('T')[0];
         if(document.getElementById('tracker-next-date')) document.getElementById('tracker-next-date').innerText = formattedNextDate;
 
@@ -1640,7 +1639,8 @@ function checkHistory() {
         console.error("Tracker Error: ", error);
     }
 }
-    
+
+
 
 // ========================================================
 // CARBON COUNTER LIVE LOGIC (POINT 4)
