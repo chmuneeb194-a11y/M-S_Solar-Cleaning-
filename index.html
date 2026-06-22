@@ -1808,32 +1808,37 @@ function saveGlobalRate() {
 document.addEventListener('DOMContentLoaded', () => {
     const rateInput = document.getElementById('global-panel-rate');
     const reasonInput = document.getElementById('global-rate-reason');
-    
-    if (rateInput) {
-        const savedRate = localStorage.getItem('ms_solar_panel_rate') || '70';
-        rateInput.value = savedRate;
-    }
-    if (reasonInput) {
-        const savedReason = localStorage.getItem('ms_solar_rate_reason') || '';
-        reasonInput.value = savedReason;
-    }
-    
-    // Website kholte hi automatic scan chalayein taake reminders foran dikhein
-    if (typeof loadOverdueAlerts === 'function') {
-        loadOverdueAlerts();
-            // Live rate ko screen wale text ke andar auto-update karna
+
+    // Browser memory se hamesha fresh live rate uthane ke liye default setting
+    const savedRate = localStorage.getItem('ms_solar_panel_rate') || '75';
+    const savedReason = localStorage.getItem('ms_solar_rate_reason') || '';
+
+    if (rateInput) rateInput.value = savedRate;
+    if (reasonInput) reasonInput.value = savedReason;
+
+    // Live rate ko screen wale text ke andar auto-update karna
     const textRateSpan = document.getElementById('dynamic-text-rate');
     if (textRateSpan) {
         textRateSpan.innerText = savedRate;
     }
-           // Customer offer wale input box ko bhi automatic live rate par set karna
+
+    // Customer offer wale input box ko bhi automatic live rate par set karna
     const customRateInput = document.getElementById('custom-panel-rate');
     if (customRateInput) {
         customRateInput.value = savedRate;
     }
-        
+
+    // Website kholte hi automatic scan chalayein taake reminders foran dikhein
+    if (typeof loadOverdueAlerts === 'function') {
+        loadOverdueAlerts();
+    }
+
+    // Forcefully re-calculate bill with fresh memory data on load
+    if (typeof calculateBill === 'function') {
+        calculateBill();
     }
 });
+    
     
     // AUTOMATIC WHATSAPP REMINDER TEXT DISPATCHER (CONNECTED WITH DYNAMIC RATE & NOTE)
 function sendWhatsAppReminder(phone, lastDate, panels) {
