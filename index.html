@@ -416,30 +416,20 @@
         </div>
     </header>
 
-<div id="mobile-menu" class="fixed inset-0 bg-slate-950/40 backdrop-blur-md z-50 hidden transition-all duration-300 flex justify-end items-stretch h-screen max-h-screen overflow-y-auto">
-    
-    <div class="absolute inset-0" onclick="toggleMenu()"></div>
-<div class="relative w-72 max-w-[85vw] h-full overflow-y-auto bg-slate-900 shadow-2xl border-l border-slate-800 flex flex-col">
-    
-        <div>
-            <div class="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800 mb-8">
-                <span class="text-xs font-black uppercase tracking-widest text-slate-300">    Navigation Menu</span>
-                <button type="button" onclick="toggleMenu()" class="w-8 h-8 rounded-l flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-50 dark:bg-slate-800/50 transition">
-                    <i class="fas fa-times text-sm"></i>
-                </button>
-            </div>
-        </div>
-        
-<nav class="space-y-2">
+<nav class="space-y-2 landscape:space-y-0 landscape:grid landscape:grid-cols-2 landscape:gap-2 md:space-y-0 md:grid md:grid-cols-2 md:gap-2">
+                    <!-- 1. Solar Solutions -->
                     <button type="button" onclick="scrollToSection('solar-calc-block')" class="w-full flex items-center space-x-3 p-2.5 rounded-xl font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 text-left transition">
                         <span class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-sm"><i class="fas fa-bolt"></i></span>
                         <span class="text-xs sm:text-sm">⚡ Solar Solutions Setup</span>
                     </button>
+
+                    <!-- 2. Car Wash -->
                     <button type="button" onclick="scrollToSection('carwash-calc-block')" class="w-full flex items-center space-x-3 p-2.5 rounded-xl font-bold text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 text-left transition">
                         <span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-sm"><i class="fas fa-soap"></i></span>
                         <span class="text-xs sm:text-sm">🧽 Car Wash Service Setup</span>
                     </button>
 
+                    <!-- 3. Safety Compliance -->
                     <button type="button" onclick="scrollToSection('safety-compliance-block')" class="w-full flex items-center justify-between p-2.5 rounded-xl transition-all text-left bg-slate-100/50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 group">
                         <div class="flex items-center gap-3">
                             <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-sm shadow-sm"><i class="fas fa-shield-alt"></i></span>
@@ -447,6 +437,8 @@
                         </div>
                         <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
                     </button>
+
+                    <!-- 4. Customer Reviews -->
                     <button type="button" onclick="scrollToSection('reviews-grid-block')" class="w-full flex items-center justify-between p-2.5 rounded-xl transition-all text-left bg-slate-100/50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 group">
                         <div class="flex items-center gap-3">
                             <span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-sm shadow-sm"><i class="fas fa-star"></i></span>
@@ -455,6 +447,7 @@
                         <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
                     </button>
 
+                    <!-- 5. Certified Standards -->
                     <button type="button" onclick="scrollToSection('certified-standards-block')" class="w-full flex items-center justify-between p-2.5 rounded-xl transition-all text-left bg-slate-100/50 dark:bg-slate-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 group">
                         <div class="flex items-center gap-3">
                             <span class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-sm shadow-sm"><i class="fas fa-certificate"></i></span>
@@ -463,8 +456,9 @@
                         <i class="fas fa-chevron-right text-[10px] text-slate-400 group-hover:translate-x-0.5 transition-transform"></i>
                     </button>
 
-                    <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mb-2 mt-2">
-                        <a href="https://wa.me/923084462121?text=Hi%20MS%20Solar%20Cleaning,%20I%20want%20to%20book%20a%20service." target="_blank" class="flex items-center justify-between p-2.5 bg-teal-800/20 border border-teal-500/30 rounded-xl">
+                    <!-- 6. Book Now (WhatsApp) -->
+                    <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm landscape:mt-0">
+                        <a href="https://wa.me/923084462121?text=Hi%20MS%20Solar%20Cleaning,%20I%20want%20to%20book%20a%20service." target="_blank" class="flex items-center justify-between p-2.5 bg-teal-800/20 border border-teal-500/30 rounded-xl h-full">
                             <div class="flex items-center gap-3">
                                 <span class="w-6 h-6 rounded-lg bg-green-500/10 text-green-500 flex items-center justify-center text-sm"><i class="fab fa-whatsapp"></i></span>
                                 <span class="text-sm font-bold text-slate-800 dark:text-white">Book Now (WhatsApp)</span>
@@ -473,8 +467,9 @@
                         </a>
                     </div>
 
-                    <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm mb-2">
-                        <button type="button" id="nav-install-btn" class="w-full flex items-center justify-between p-2.5 bg-blue-800/20 border border-blue-500/30 rounded-xl text-left">
+                    <!-- 7. Install Application -->
+                    <div class="ios-glass rounded-2xl overflow-hidden transition-all shadow-sm">
+                        <button type="button" id="nav-install-btn" class="w-full flex items-center justify-between p-2.5 bg-blue-800/20 border border-blue-500/30 rounded-xl text-left h-full">
                             <div class="flex items-center gap-3">
                                 <span class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-sm"><i class="fas fa-download"></i></span>
                                 <span class="text-sm font-bold text-slate-800 dark:text-white">Install Application</span>
@@ -483,9 +478,9 @@
                         </button>
                     </div>
 
-                    <!-- SMART ADMIN BOX IN MOBILE MENU -->
-                    <div class="mt-2 w-full">
-                        <div onclick="unlockAdminPortal()" class="flex items-center justify-between border border-yellow-500/20 bg-slate-900/60 p-2.5 rounded-xl cursor-pointer hover:border-yellow-500/40 transition-all duration-300 active:scale-95 group">
+                    <!-- 8. Smart Admin -->
+                    <div class="w-full">
+                        <div onclick="unlockAdminPortal()" class="flex items-center justify-between border border-yellow-500/20 bg-slate-900/60 p-2.5 rounded-xl cursor-pointer hover:border-yellow-500/40 transition-all duration-300 active:scale-95 group h-full">
                             <div class="flex items-center gap-2">
                                 <div class="w-6 h-6 rounded-lg bg-yellow-500/10 flex items-center justify-center text-yellow-500">
                                     <i class="fas fa-user-shield text-xs animate-pulse"></i>
@@ -499,9 +494,7 @@
                         </div>
                     </div>
 </nav>
-                </div>
-            </div>
-    </div>
+    
 
 
     <section id="home" class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 overflow-hidden">
