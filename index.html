@@ -689,6 +689,23 @@
 <button onclick="downloadBackupFile()" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-emerald-400 font-bold px-6 py-2 rounded-xl text-sm transition-all border border-emerald-800 ml-0 sm:ml-2 mt-2 sm:mt-0">
     <i class="fas fa-file-download mr-1"></i> Download File Backup
 </button>
+                    <!-- GLOBAL RATE & REASON UPDATER (POINT 9 ADVANCE) -->
+    <div class="mt-4 p-4 bg-slate-900/40 rounded-xl border border-slate-800/80 flex flex-col gap-3">
+        <div class="flex items-center justify-between gap-3 border-b border-slate-800/50 pb-2">
+            <div class="flex flex-col text-left">
+                <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Current Rate Per Panel (Rs)</label>
+                <input type="number" id="global-panel-rate" placeholder="e.g. 70" class="w-24 bg-slate-950 text-white font-mono font-bold text-center border border-slate-800 rounded-lg py-1.5 px-2 focus:border-emerald-500 text-sm" value="70">
+            </div>
+            <button onclick="saveGlobalRate()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded-xl text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 shadow-md shadow-emerald-900/20 mt-4">
+                Update Rate & Note
+            </button>
+        </div>
+        <div class="flex flex-col text-left">
+            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Rate Change Reason / Special Note (Urdu/English)</label>
+            <input type="text" id="global-rate-reason" placeholder="e.g. Petrol sasta hone ki wajah se rate kam kar di gayi hai!" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-lg py-2 px-3 focus:border-emerald-500 text-xs">
+        </div>
+    </div>
+                
     <!-- PREMIUM OVERDUE ALERT DASHBOARD (POINT 6 ADVANCE) -->
 <div class="mt-8 pt-6 border-t border-slate-800">
     <div class="flex items-center gap-2 mb-4">
@@ -1762,7 +1779,45 @@ function loadOverdueAlerts() {
     }
 }
     
+// GLOBAL RATE & REASON UPDATER LOGIC (POINT 9)
+function saveGlobalRate() {
+    try {
+        const rateInput = document.getElementById('global-panel-rate');
+        const reasonInput = document.getElementById('global-rate-reason');
+        if (!rateInput || !reasonInput) return;
+        
+        const currentRate = parseFloat(rateInput.value) || 70;
+        const rateReason = reasonInput.value.trim() || "";
+        
+        // Dono cheezon ko browser memory mein save karein
+        localStorage.setItem('ms_solar_panel_rate', currentRate);
+        localStorage.setItem('ms_solar_rate_reason', rateReason);
+        
+        alert(`Muneeb bhai, rate aur note kamyabi se update ho gaye hain!\n\nRate: Rs. ${currentRate}\nNote: "${rateReason || 'No note entered'}"`);
+        
+        if (typeof updateGlobalCarbonStats === 'function') {
+            updateGlobalCarbonStats();
+        }
+    } catch (error) {
+        console.error("Error saving global rate and reason: ", error);
+    }
+}
 
+// Page load hote hi saved rate aur note dono ko load karna
+document.addEventListener('DOMContentLoaded', () => {
+    const rateInput = document.getElementById('global-panel-rate');
+    const reasonInput = document.getElementById('global-rate-reason');
+    
+    if (rateInput) {
+        const savedRate = localStorage.getItem('ms_solar_panel_rate') || '70';
+        rateInput.value = savedRate;
+    }
+    if (reasonInput) {
+        const savedReason = localStorage.getItem('ms_solar_rate_reason') || '';
+        reasonInput.value = savedReason;
+    }
+});
+    
 // AUTOMATIC WHATSAPP REMINDER TEXT DISPATCHER
 function sendWhatsAppReminder(phone, lastDate, panels) {
     const message = `Assalam-o-Alaikum!\n\nMS Solar Cleaning Services ki taraf se yaad-dahani. Aapke *${panels} Solar Panels* ki pichli safai ki tareekh *${lastDate}* thi.\n\nSolar panels par mitti aur dhool ki wajah se electricity generation kam ho jati hai. Behtar performance ke liye agli wash confirm karwein.\n\nShukriya!\nM-S SOLAR SERVICES`;
