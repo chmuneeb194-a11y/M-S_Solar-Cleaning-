@@ -2021,43 +2021,41 @@ function downloadBillAsPDF(serviceType) {
 // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
 // ==========================================
-    
-function toggleMenu() {
-function toggleMenu() {
-    const menu = document.getElementById('mobile-menu');
+    function toggleMenu() {
+    var menu = document.getElementById('mobile-menu');
     if (menu) {
-        // classList.toggle true return karta hai agar class add ho (yaani menu chhup jaye)
-        const isHidden = menu.classList.toggle('hidden');
-        
-        if (!isHidden) {
-            document.body.style.overflow = 'hidden'; // Menu khul gaya, background scroll lock
+        var isHidden = menu.classList.contains('hidden');
+        if (isHidden) {
+            menu.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            setTimeout(function() {
+                menu.classList.add('menu-active');
+            }, 10);
         } else {
-            document.body.style.overflow = '';       // Menu band ho gaya, background scroll chalu
+            menu.classList.remove('menu-active');
+            document.body.style.overflow = '';
+            setTimeout(function() {
+                menu.classList.add('hidden');
+            }, 300);
         }
-
-        setTimeout(() => {
-            menu.classList.toggle('menu-active');
-        }, 10);
     }
 }
 
 function scrollToSection(id) {
-    const menu = document.getElementById('mobile-menu');
+    var menu = document.getElementById('mobile-menu');
     if (menu) {
         menu.classList.remove('menu-active');
         menu.classList.add('hidden');
-        document.body.style.overflow = ''; // Option click hote hi background scroll wapas chalu
+        document.body.style.overflow = '';
     }
-
-    const targetElement = document.getElementById(id);
+    var targetElement = document.getElementById(id);
     if (targetElement) {
-        setTimeout(() => {
+        setTimeout(function() {
             targetElement.scrollIntoView({ behavior: 'smooth' });
         }, 150);
     }
 }
     
-
 // ==========================================
 // AUTOMATIC SYSTEM THEME ENGINE
 // ==========================================
