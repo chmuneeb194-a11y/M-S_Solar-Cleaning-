@@ -2023,9 +2023,18 @@ function downloadBillAsPDF(serviceType) {
 // ==========================================
     
 function toggleMenu() {
+function toggleMenu() {
     const menu = document.getElementById('mobile-menu');
     if (menu) {
-        menu.classList.toggle('hidden');
+        // classList.toggle true return karta hai agar class add ho (yaani menu chhup jaye)
+        const isHidden = menu.classList.toggle('hidden');
+        
+        if (!isHidden) {
+            document.body.style.overflow = 'hidden'; // Menu khul gaya, background scroll lock
+        } else {
+            document.body.style.overflow = '';       // Menu band ho gaya, background scroll chalu
+        }
+
         setTimeout(() => {
             menu.classList.toggle('menu-active');
         }, 10);
@@ -2037,8 +2046,9 @@ function scrollToSection(id) {
     if (menu) {
         menu.classList.remove('menu-active');
         menu.classList.add('hidden');
+        document.body.style.overflow = ''; // Option click hote hi background scroll wapas chalu
     }
-    
+
     const targetElement = document.getElementById(id);
     if (targetElement) {
         setTimeout(() => {
@@ -2046,6 +2056,7 @@ function scrollToSection(id) {
         }, 150);
     }
 }
+    
 
 // ==========================================
 // AUTOMATIC SYSTEM THEME ENGINE
