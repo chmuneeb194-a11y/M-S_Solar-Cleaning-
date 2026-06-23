@@ -2005,15 +2005,20 @@ function downloadBillAsPDF_Old(serviceType) {
         fileName = `Tank_Wash_Bill_${name.replace(/\s+/g, '_')}.pdf`;
     }
 
-    const element = document.createElement('div');
-    element.innerHTML = billContent;
-    element.style.position = 'absolute';
-    element.style.left = '-9999px';
-    element.style.top = '0';
-    element.style.width = '700px';
-    element.style.background = '#ffffff';
-    document.body.appendChild(element);
-    
+const element = document.createElement('div');
+element.innerHTML = billContent;
+
+// Naya Styling: Screen ke andar rakh kar usay baqi website ke peeche chupa dena
+element.style.position = 'absolute';
+element.style.left = '0';
+element.style.top = '0';
+element.style.width = '700px';
+element.style.background = '#ffffff';
+element.style.zIndex = '-9999'; // Yeh PDF ko blank hone se bachayega
+element.style.opacity = '1';
+
+document.body.appendChild(element);
+
 
     const opt = {
         margin:       [10, 10],
