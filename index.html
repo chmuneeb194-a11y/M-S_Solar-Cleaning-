@@ -1968,7 +1968,7 @@ function loadOverdueAlerts() {
                         </div>
                     </div>
                     <div class="pt-2 sm:pt-0 border-t border-slate-800/60 sm:border-t-0 text-right">
-                        <button onclick='sendWhatsAppReminder("${bill.phone}", "${bill.date}", ${panels}, ${bill.faults ? JSON.stringify(bill.faults) : "null"})'
+                        <button onclick="sendWhatsAppReminder('${bill.phone}', '${bill.date}', ${panels})"
                         
                             <i class="fab fa-whatsapp text-sm"></i> Send Reminder
                         </button>
