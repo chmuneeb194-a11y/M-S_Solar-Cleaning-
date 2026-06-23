@@ -1880,36 +1880,120 @@ function sendWhatsAppReminder(phone, lastDate, panels) {
         console.error("Error dispatching dynamic WhatsApp reminder: ", error);
     }
 }
+
 function downloadAsJPG(containerId, fileName) {
-    const element = document.getElementById(containerId);
+    // Calculator se live data uthana
+    const custName = document.getElementById('cust-name')?.value || document.getElementById('carwash-cust-name')?.value || document.getElementById('tank-cust-name')?.value || "Valued Customer";
+    const custPhone = document.getElementById('cust-phone')?.value || document.getElementById('carwash-cust-phone')?.value || document.getElementById('tank-cust-phone')?.value || "N/A";
+    const custAddress = document.getElementById('cust-address')?.value || document.getElementById('carwash-cust-address')?.value || document.getElementById('tank-cust-address')?.value || "Sahiwal Region";
+    
+    // Total bill ki amount nikalna
+    const totalCostText = document.getElementById('solar-cost-val')?.innerText || document.getElementById('car-cost-val')?.innerText || document.getElementById('tank-cost-val')?.innerText || "0";
 
-    if (!element) {
-        alert("Data container nahi mila! Koshish karein ke ID sahi ho.");
-        return;
-    }
+    // Aaj ki date auto nikalna
+    const today = new Date().toLocaleDateString('en-GB');
 
-    // Direct screen wale container ka lightweight screenshot lega
-    html2canvas(element, {
-        scale: 2, // HD Quality
+    // Ek faked temporary container banana jo screen par nahi dikhega par uski photo banti hai
+    const billWrapper = document.createElement('div');
+    billWrapper.style.position = 'absolute';
+    billWrapper.style.left = '-9999px';
+    billWrapper.style.top = '0';
+    billWrapper.style.width = '550px';
+    billWrapper.style.background = '#ffffff';
+    billWrapper.style.color = '#1e293b';
+    billWrapper.style.fontFamily = "'Segoe UI', Roboto, Arial, sans-serif";
+    billWrapper.style.padding = '30px';
+    billWrapper.style.boxSizing = 'border-box';
+
+    // Professional Computerized Bill / Memo Pad Layout Design
+    billWrapper.innerHTML = `
+        <!-- HEADER / MEMO PAD TOP -->
+        <div style="text-align: center; border-bottom: 3px double #0284c7; padding-bottom: 15px; margin-bottom: 20px;">
+            <h1 style="margin: 0; color: #0284c7; font-size: 28px; font-weight: 800; letter-spacing: 1px;">MS SOLAR CLEANING SERVICES</h1>
+            <p style="margin: 5px 0 0 0; color: #64748b; font-size: 13px; font-weight: 600;">Solar Panels, Water Tanks & Car Detailing Specialists</p>
+            <p style="margin: 2px 0 0 0; color: #0284c7; font-size: 12px; font-weight: bold;">Chichawatni • Sahiwal • Pakpattan • Arifwala</p>
+        </div>
+
+        <!-- BILL INFO & CUSTOMER DETAILS -->
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 13px; background: #f8fafc; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+            <div>
+                <p style="margin: 3px 0;"><strong>Customer:</strong> ${custName}</p>
+                <p style="margin: 3px 0;"><strong>Phone:</strong> ${custPhone}</p>
+                <p style="margin: 3px 0;"><strong>Address:</strong> ${custAddress}</p>
+            </div>
+            <div style="text-align: right;">
+                <p style="margin: 3px 0;"><strong>Invoice No:</strong> #MS-${Math.floor(1000 + Math.random() * 9000)}</p>
+                <p style="margin: 3px 0;"><strong>Date:</strong> ${today}</p>
+                <p style="margin: 3px 0; color: #10b981; font-weight: bold;">Status: Generated</p>
+            </div>
+        </div>
+
+        <!-- ITEMS TABLE -->
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 14px;">
+            <thead>
+                <tr style="background: #0284c7; color: #ffffff; text-align: left;">
+                    <th style="padding: 10px; border-radius: 4px 0 0 4px;">Service Description</th>
+                    <th style="padding: 10px; text-align: right; border-radius: 0 4px 4px 0;">Total Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 12px 10px;">
+                        <strong>${fileName.replace('_', ' ')}</strong><br>
+                        <span style="font-size: 11px; color: #64748b;">Professional eco-friendly cleaning service.</span>
+                    </td>
+                    <td style="padding: 12px 10px; text-align: right; font-weight: 700; color: #0f172a;">Rs. ${totalCostText}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- TOTAL & NET BALANCE -->
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 40px;">
+            <div style="width: 220px; background: #f1f5f9; padding: 12px; border-radius: 8px; border-left: 5px solid #0284c7;">
+                <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; color: #0284c7;">
+                    <span>Net Total:</span>
+                    <span>Rs. ${totalCostText}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER & CONTACT INFO -->
+        <div style="text-align: center; border-top: 1px dashed #cbd5e1; padding-top: 15px; font-size: 12px; color: #475569;">
+            <p style="margin: 0 0 5px 0; font-weight: 700; color: #0284c7;">Thank you for choosing MS Solar Cleaning Services!</p>
+            <p style="margin: 3px 0; font-weight: 600;">For Complaints & Next Booking Contact:</p>
+            <p style="margin: 3px 0; font-size: 14px; font-weight: bold; color: #0f172a;">📞 0308-4462160</p>
+            <p style="margin: 10px 0 0 0; font-size: 10px; color: #94a3b8;">This is a digitally generated invoice statement.</p>
+        </div>
+    `;
+
+    document.body.appendChild(billWrapper);
+
+    // html2canvas se is khubsoorat temporary container ki snapshot lena
+    html2canvas(billWrapper, {
+        scale: 2, // HD printing quality
         useCORS: true,
         logging: false,
-        backgroundColor: null // Jo calculator ka background hai wahi rakhega
+        backgroundColor: '#ffffff'
     }).then(canvas => {
-        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
         const link = document.createElement('a');
-        link.download = `${fileName}.jpg`;
+link.download = `${fileName}.jpg`;
+        
         link.href = imgData;
         
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        document.body.removeChild(billWrapper); // Kaam khatam hone par remove karna
     }).catch(error => {
         console.error("Download fail ho gaya:", error);
-        alert("Kuch masla hua, dobara koshish karein.");
+        if(document.body.contains(billWrapper)) {
+            document.body.removeChild(billWrapper);
+        }
+        alert("Bill download karne mein masla hua, dobara koshish karein.");
     });
 }
-    
-    
+
 
 // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
@@ -2679,59 +2763,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 150);
     }
 }
-// 1. Solar aur Car Wash ka PDF Download function
-function downloadBillPDF(type) {
-    var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
-    var element = document.getElementById(elementId);
-    if (!element) return;
 
-    var parentBlock = document.getElementById(type === 'solar' ? 'solar-calc-block' : 'carwash-calc-block');
-    var wasHidden = parentBlock && parentBlock.classList.contains('hidden');
-    if (wasHidden) parentBlock.classList.remove('hidden');
-
-    var opt = {
-        scale: 2,
-        useCORS: true
-    };
-
-    html2canvas(element, opt).then(function(canvas) {
-        var imgData = canvas.toDataURL('image/jpeg');
-        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-        var imgWidth = 190;
-        var imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-        pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
-        pdf.save('MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Wash_Invoice.pdf');
-
-        if (wasHidden) parentBlock.classList.add('hidden');
-    }).catch(function(err) {
-        console.log("PDF Error:", err);
-        if (wasHidden) parentBlock.classList.add('hidden');
-    });
-}
-
-// 2. Water Tanki ka PDF Download function
-function downloadTankPDF() {
-    var element = document.getElementById('tank-calc-block');
-    if (!element) return;
-    
-    var opt = {
-        scale: 2,
-        useCORS: true
-    };
-    
-    html2canvas(element, opt).then(function(canvas) {
-        var imgData = canvas.toDataURL('image/jpeg');
-        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-        var imgWidth = 190;
-        var imgHeight = (canvas.height * imgWidth) / canvas.width;
-        
-        pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
-        pdf.save('MS_Solar_Water_Tank_Invoice.pdf');
-    }).catch(function(err) {
-        console.log("Tank PDF Error:", err);
-    });
-}
 
     </script>
             <script>
