@@ -1882,7 +1882,8 @@ function sendWhatsAppReminder(phone, lastDate, panels) {
 }
 
 
-function downloadAsJPG(containerId, fileName) {
+
+    function downloadAsJPG(containerId, fileName) {
     let custName = "";
     let custPhone = "";
     let custAddress = "";
@@ -1890,17 +1891,16 @@ function downloadAsJPG(containerId, fileName) {
     let specificationsHTML = "";
 
     // 1. SOLAR CALCULATOR DATA FETCH
-    if (containerId === 'solar-calc-block') {
-        custName = document.getElementById('cust-name')?.value || "Valued Customer";
-        custPhone = document.getElementById('cust-phone')?.value || "N/A";
-        custAddress = document.getElementById('cust-address')?.value || "Sahiwal Region";
-        totalCostText = document.getElementById('solar-cost-val')?.innerText || "0";
+    if (containerId === 'solar-calc-block' || containerId === 'solar') {
+        custName = document.getElementById('cust-name')?.value || document.getElementById('solar-cust-name')?.value || "Valued Customer";
+        custPhone = document.getElementById('cust-phone')?.value || document.getElementById('solar-cust-phone')?.value || "N/A";
+        custAddress = document.getElementById('cust-address')?.value || document.getElementById('solar-cust-address')?.value || "Sahiwal Region";
+        totalCostText = document.getElementById('solar-cost-val')?.innerText || document.getElementById('total-cost')?.innerText || "0";
         
-        const platesCount = document.getElementById('solar-qty-val')?.innerText || "0";
-        // Specific selector matching for solar dropdowns
-        const brand = document.getElementById('solar-brand-select')?.value || document.querySelector("select[name='Brand1']")?.value || "Standard";
-        const inverter = document.getElementById('inverter-brand-select')?.value || document.querySelector("select[name='Inverter1']")?.value || "Standard";
-        const systemSize = document.getElementById('system-size-select')?.value || "Standard";
+        const platesCount = document.getElementById('solar-qty-val')?.innerText || document.getElementById('plates-qty')?.value || "0";
+        const brand = document.getElementById('solar-brand-select')?.value || document.querySelector("select[name='Brand1']").value || "Standard";
+        const inverter = document.getElementById('inverter-brand-select')?.value || document.querySelector("select[name='Inverter1']").value || "Standard";
+        const systemSize = document.getElementById('system-size-select')?.value || "3 KW";
 
         specificationsHTML = `
             <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Service Type:</span> <span style="font-weight: 600; color: #3b82f6;">Solar Panel Cleaning</span></div>
@@ -1911,21 +1911,21 @@ function downloadAsJPG(containerId, fileName) {
         `;
     } 
     // 2. CAR WASH CALCULATOR DATA FETCH
-    else if (containerId === 'car-calc-block') {
-        custName = document.getElementById('carwash-cust-name')?.value || "Valued Customer";
-        custPhone = document.getElementById('carwash-cust-phone')?.value || "N/A";
-        custAddress = document.getElementById('carwash-cust-address')?.value || "Sahiwal Region";
-        totalCostText = document.getElementById('car-cost-val')?.innerText || "0";
+    else if (containerId === 'car-calc-block' || containerId === 'car') {
+        custName = document.getElementById('carwash-cust-name')?.value || document.getElementById('car-cust-name')?.value || "Valued Customer";
+        custPhone = document.getElementById('carwash-cust-phone')?.value || document.getElementById('car-cust-phone')?.value || "N/A";
+        custAddress = document.getElementById('carwash-cust-address')?.value || document.getElementById('car-cust-address')?.value || "Sahiwal Region";
+        totalCostText = document.getElementById('car-cost-val')?.innerText || document.getElementById('car-total-price')?.innerText || "0";
         
-        const carType = document.getElementById('car-type-select')?.value || "Standard Vehicle";
+        const carType = document.getElementById('car-type-select')?.value || "Vehicle";
         
         specificationsHTML = `
             <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Service Type:</span> <span style="font-weight: 600; color: #3b82f6;">Premium Car Wash</span></div>
             <div style="display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Vehicle Type:</span> <span style="font-weight: bold; color: #ffffff;">${carType}</span></div>
         `;
     } 
-    // 3. WATER TANK CALCULATOR DATA FETCH (WORKING FINE)
-    else if (containerId === 'tank-calc-block') {
+    // 3. WATER TANK CALCULATOR DATA FETCH
+    else {
         custName = document.getElementById('tank-cust-name')?.value || "Valued Customer";
         custPhone = document.getElementById('tank-cust-phone')?.value || "N/A";
         custAddress = document.getElementById('tank-cust-address')?.value || "Sahiwal Region";
@@ -1943,7 +1943,7 @@ function downloadAsJPG(containerId, fileName) {
 
     const today = new Date().toLocaleDateString('en-GB');
 
-    // Canvas Blueprint Wrapper (UI System)
+    // UI Memo Wrapper Design System
     const billWrapper = document.createElement('div');
     billWrapper.style.position = 'absolute';
     billWrapper.style.left = '-9999px';
@@ -1990,7 +1990,7 @@ function downloadAsJPG(containerId, fileName) {
 
         <div style="text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 15px; font-size: 11px; color: #94a3b8;">
             <p style="margin: 0 0 5px 0; font-weight: 600; color: #3b82f6;">Thank you for choosing premium quality!</p>
-            <p style="margin: 2px 0; font-size: 14px; font-weight: bold; color: #ffffff;">📞 0308-4462121</p>
+            <p style="margin: 2px 0; font-size: 14px; font-weight: bold; color: #ffffff;">📞 0308-4462160</p>
         </div>
     `;
 
@@ -2015,7 +2015,8 @@ function downloadAsJPG(containerId, fileName) {
         console.error("Export failed:", error);
         if (document.body.contains(billWrapper)) document.body.removeChild(billWrapper);
     });
-}
+    }
+    
     
 // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
