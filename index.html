@@ -2804,15 +2804,150 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 // 1. Solar aur Car Wash ka PDF Download function
 function downloadBillPDF(type) {
-    // Yeh aapke purane perfect function ko solar ya car ka data pass karega
-    downloadBillAsPDF_Old(type);
+    generateDynamicInvoice(type);
 }
 
 function downloadTankPDF() {
-    // Yeh aapke purane perfect function ko tank ka data pass karega
-    downloadBillAsPDF_Old('tank');
+    generateDynamicInvoice('tank');
 }
+
+function generateDynamicInvoice(serviceType) {
+    let today = new Date().toISOString().split('T')[0];
     
+    // 1. Data Parsing with Fallbacks
+    let name = "", phone = "", address = "", date = "", timeSlot = "", serviceName = "", qty = "1", price = "0", detailLabel = "", detailVal = "";
+
+    if (serviceType === 'solar') {
+        name = document.getElementById('cust-name')?.value || "Valued Customer";
+        phone = document.getElementById('cust-phone')?.value || "N/A";
+        address = document.getElementById('cust-address')?.value || "Sahiwal Region";
+        date = document.getElementById('booking-date')?.value || today;
+        timeSlot = document.getElementById('booking-time')?.value || "Standard Slot";
+        qty = document.getElementById('solar-qty-val')?.innerText || "0";
+        price = document.getElementById('solar-cost-val')?.innerText || "0";
+        serviceName = "Solar Panel Professional Washing";
+        detailLabel = "Total Panels";
+        detailVal = qty + " Plates";
+    } else if (serviceType === 'car') {
+        name = document.getElementById('carwash-cust-name')?.value || "Valued Customer";
+        phone = document.getElementById('carwash-cust-phone')?.value || "N/A";
+        address = document.getElementById('carwash-cust-address')?.value || "Sahiwal Region";
+        date = document.getElementById('carwash-booking-date')?.value || today;
+        timeSlot = document.getElementById('carwash-booking-time')?.value || "Standard Slot";
+        qty = document.getElementById('car-qty-val')?.innerText || "1";
+        price = document.getElementById('car-cost-val')?.innerText || "0";
+        serviceName = "Doorstep Premium Car Detailing";
+        detailLabel = "Vehicle Qty";
+        detailVal = qty + " Car(s)";
+    } else if (serviceType === 'tank') {
+        name = document.getElementById('tank-cust-name')?.value || "Valued Customer";
+        phone = document.getElementById('tank-cust-phone')?.value || "N/A";
+        address = document.getElementById('tank-cust-address')?.value || "Sahiwal Region";
+        date = document.getElementById('tank-booking-date')?.value || today;
+        timeSlot = document.getElementById('tank-booking-time')?.value || "Standard Slot";
+        qty = document.getElementById('tank-qty-val')?.innerText || "1";
+        price = document.getElementById('tank-cost-val')?.innerText || "0";
+        serviceName = "Water Tank Hygienic Disinfection";
+        detailLabel = "Total Tanks";
+        detailVal = qty + " Tank(s)";
+    }
+
+    // 2. Premium Invoice Layout Construction (Strict Standard CSS)
+    let billHTML = `
+    <div style="font-family: Arial, sans-serif; padding: 40px; color: #1e293b; background: #ffffff; max-width: 700px; margin: 0 auto; box-sizing: border-box;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+            <tr>
+                <td>
+                    <h1 style="margin: 0; color: #0f172a; font-size: 26px; font-weight: 800; letter-spacing: 0.5px;">MS SOLAR CLEANING</h1>
+                    <p style="margin: 5px 0 0 0; color: #64748b; font-size: 13px; font-weight: 600;">Premium Washing & Maintenance Services</p>
+                </td>
+                <td style="text-align: right; vertical-align: top;">
+                    <h2 style="margin: 0; color: #0f172a; font-size: 20px; font-weight: 700; letter-spacing: 1px;">INVOICE</h2>
+                    <p style="margin: 5px 0 0 0; color: #64748b; font-size: 13px;">Date: <b>${date}</b></p>
+                </td>
+            </tr>
+        </table>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 30px;">
+            <h3 style="margin: 0 0 12px 0; color: #475569; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Customer Details</h3>
+            <table style="width: 100%; font-size: 14px; border-collapse: collapse; line-height: 22px;">
+                <tr><td style="width: 25%; font-weight: bold; color: #475569;">Name:</td><td style="color: #0f172a;">${name}</td></tr>
+                <tr><td style="font-weight: bold; color: #475569;">Phone:</td><td style="color: #0f172a;">${phone}</td></tr>
+                <tr><td style="font-weight: bold; color: #475569;">Address:</td><td style="color: #0f172a;">${address}</td></tr>
+                <tr><td style="font-weight: bold; color: #475569;">Time Slot:</td><td style="color: #0f172a;">${timeSlot}</td></tr>
+            </table>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 35px;">
+            <thead>
+                <tr style="background: #0f172a; color: #ffffff;">
+                    <th style="padding: 12px 15px; text-align: left; font-size: 13px; font-weight: 600; border-radius: 8px 0 0 8px;">Service Description</th>
+                    <th style="padding: 12px 15px; text-align: center; font-size: 13px; font-weight: 600;">${detailLabel}</th>
+                    <th style="padding: 12px 15px; text-align: right; font-size: 13px; font-weight: 600; border-radius: 0 8px 8px 0;">Total Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 2px solid #f1f5f9;">
+                    <td style="padding: 16px 15px; font-size: 14px; font-weight: 700; color: #0f172a;">${serviceName}</td>
+                    <td style="padding: 16px 15px; text-align: center; font-size: 14px; color: #475569;">${detailVal}</td>
+                    <td style="padding: 16px 15px; text-align: right; font-size: 14px; font-weight: 700; color: #0f172a;">Rs. ${price}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table style="width: 100%; border-collapse: collapse; border-top: 2px dashed #cbd5e1; padding-top: 20px;">
+            <tr>
+                <td style="color: #64748b; font-style: italic; font-size: 12px; vertical-align: middle;">Thank you for choosing MS Solar Cleaning Services!</td>
+                <td style="text-align: right; vertical-align: middle;">
+                    <span style="font-size: 14px; font-weight: 600; color: #475569;">Net Payable:</span>
+                    <span style="font-size: 20px; font-weight: 800; color: #0f172a; margin-left: 10px;">Rs. ${price}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    `;
+
+    // 3. Creating an Independent Visible Worker Sandbox (Fixes the blank page engine bug completely)
+    let workerBox = document.createElement('div');
+    workerBox.innerHTML = billHTML;
+    
+    // Element screen par daala jayega par safe zone se bahar taake engine renders calculations sahi kare
+    workerBox.style.position = 'fixed';
+    workerBox.style.left = '0';
+    workerBox.style.top = '0';
+    workerBox.style.width = '700px';
+    workerBox.style.zIndex = '-99999';
+    workerBox.style.background = '#ffffff';
+    workerBox.style.opacity = '1';
+    workerBox.style.visibility = 'visible';
+    
+    document.body.appendChild(workerBox);
+
+    let opt = {
+        margin: [12, 12, 12, 12],
+        filename: 'MS_Solar_' + serviceType.toUpperCase() + '_Invoice.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+            scale: 2, 
+            useCORS: true, 
+            logging: false, 
+            letterRendering: true,
+            scrollX: 0,
+            scrollY: 0
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    // Absolute browser sync handler
+    setTimeout(function() {
+        html2pdf().from(workerBox).set(opt).save().then(function() {
+            document.body.removeChild(workerBox);
+        }).catch(function(err) {
+            console.error("PDF Render Blocked:", err);
+            document.body.removeChild(workerBox);
+        });
+    }, 400);
+}
     
 
     </script>
