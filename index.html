@@ -1879,7 +1879,8 @@ function sendWhatsAppReminder(phone, lastDate, panels) {
 }
     
  
-function downloadBillAsPDF(serviceType) {
+function downloadBillAsPDF_Old(serviceType) {
+    
     let billContent = "";
     let fileName = "MS_Solar_Bill.pdf";
     const today = new Date().toISOString().split('T')[0];
@@ -2812,25 +2813,21 @@ function downloadBillPDF(type) {
     if (wasHidden) parentBlock.classList.remove('hidden');
 
     var opt = {
-        scale: 2,
-        useCORS: true
+        margin: 10,
+        filename: 'MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Wash_Invoice.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    html2canvas(element, opt).then(function(canvas) {
-        var imgData = canvas.toDataURL('image/jpeg');
-        var pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-        var imgWidth = 190;
-        var imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-        pdf.addImage(imgData, 'JPEG', 10, 10, imgWidth, imgHeight);
-        pdf.save('MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Wash_Invoice.pdf');
-
+    html2pdf().from(element).set(opt).save().then(function() {
         if (wasHidden) parentBlock.classList.add('hidden');
     }).catch(function(err) {
         console.log("PDF Error:", err);
         if (wasHidden) parentBlock.classList.add('hidden');
     });
 }
+    
 
 // 2. Water Tanki ka PDF Download function
 function downloadTankPDF() {
