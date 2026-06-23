@@ -2006,34 +2006,37 @@ function downloadBillAsPDF_Old(serviceType) {
     }
 
     const element = document.createElement('div');
+
+    const element = document.createElement('div');
     element.innerHTML = billContent;
 
-    // Perfect top-layer rendering framework without visual block
-    element.style.position = 'absolute';
+    // Crash-free configuration: Is se browser memory crash nahi hogi
+    element.style.position = 'fixed';
     element.style.left = '0';
     element.style.top = '0';
-    element.style.width = '700px';
+    element.style.width = '650px'; // Render size safe rakhna mobile ke liye
     element.style.background = '#ffffff';
-    element.style.zIndex = '99999'; // Top layer par taake backgrounds isay mita na sakein
-    element.style.visibility = 'visible';
+    element.style.opacity = '0.01'; // Invisible render taake layout par load na paray
+    element.style.pointerEvents = 'none';
+    element.style.zIndex = '-99999';
 
     document.body.appendChild(element);
 
     const opt = {
         margin:       [10, 10, 10, 10],
         filename:     fileName,
-        image:        { type: 'jpeg', quality: 0.98 },
+        image:        { type: 'jpeg', quality: 0.95 }, // Memory safe quality
         html2canvas:  { 
-            scale: 2, 
+            scale: 1.5, // 2 scale mobile memory crash karta hai, 1.5 bilkul perfect aur light hai
             useCORS: true, 
             logging: false,
-            scrollX: 0,    // MAGIC LINE 1: Mobile scroll position bug fix
-            scrollY: 0     // MAGIC LINE 2: Mobile scroll position bug fix
+            scrollX: 0,
+            scrollY: 0
         },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // Mobile processing ke liye delay ko safe zone (500ms) par le kar jana
+    // Safe memory rendering delay
     setTimeout(() => {
         html2pdf().set(opt).from(element).save().then(() => {
             if (element && element.parentNode) {
@@ -2045,9 +2048,8 @@ function downloadBillAsPDF_Old(serviceType) {
                 element.parentNode.removeChild(element);
             }
         });
-    }, 500);
+    }, 400);
     
-
 // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
 // ==========================================
