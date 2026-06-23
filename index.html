@@ -2804,66 +2804,34 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 // 1. Solar aur Car Wash ka PDF Download function
 function downloadBillPDF(type) {
-    // Agar target block kaam nahi kar raha, toh seedha calculator block ko target karte hain
     var elementId = (type === 'solar') ? 'solar-calc-block' : 'carwash-calc-block';
+    printSection(elementId);
+}
+
+function downloadTankPDF() {
+    printSection('tank-calc-block');
+}
+
+function printSection(elementId) {
     var element = document.getElementById(elementId);
     if (!element) return;
 
+    // Element ko temporarily screen par show karna taake print ho sake
     var originalStyle = element.style.display;
     element.style.setProperty('display', 'block', 'important');
     element.classList.remove('hidden');
 
-    var opt = {
-        margin: 15,
-        filename: 'MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Wash_Invoice.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+    // Browser ka built-in print menu kholna (No blank pages issue)
+    window.print();
 
+    // Print command ke baad wapas block ko apni jagah chupa dena
     setTimeout(function() {
-        html2pdf().from(element).set(opt).save().then(function() {
-            element.style.display = originalStyle;
-            element.classList.add('hidden');
-        }).catch(function(err) {
-            console.log("PDF Error:", err);
-            element.style.display = originalStyle;
-            element.classList.add('hidden');
-        });
-    }, 400);
+        element.style.display = originalStyle;
+        element.classList.add('hidden');
+    }, 1000);
 }
     
-    
 
-// 2. Water Tanki ka PDF Download function
-function downloadTankPDF() {
-    // Seedha main block ko target karenge taake blank na aaye
-    var element = document.getElementById('tank-calc-block');
-    if (!element) return;
-
-    var originalStyle = element.style.display;
-    element.style.setProperty('display', 'block', 'important');
-    element.classList.remove('hidden');
-
-    var opt = {
-        margin: 15,
-        filename: 'MS_Solar_Water_Tank_Invoice.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    setTimeout(function() {
-        html2pdf().from(element).set(opt).save().then(function() {
-            element.style.display = originalStyle;
-            element.classList.add('hidden');
-        }).catch(function(err) {
-            console.log("Tank PDF Error:", err);
-            element.style.display = originalStyle;
-            element.classList.add('hidden');
-        });
-    }, 400);
-}
     
     
 
