@@ -2804,43 +2804,35 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 // 1. Solar aur Car Wash ka PDF Download function
 function downloadBillPDF(type) {
-    var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
+    // Agar target block kaam nahi kar raha, toh seedha calculator block ko target karte hain
+    var elementId = (type === 'solar') ? 'solar-calc-block' : 'carwash-calc-block';
     var element = document.getElementById(elementId);
     if (!element) return;
 
-    // Calc block ko temporerily visible karna taake html2pdf data read kar sake
-    var parentBlock = document.getElementById(type === 'solar' ? 'solar-calc-block' : 'carwash-calc-block');
-    var originalStyle = parentBlock ? parentBlock.style.display : '';
-    
-    if (parentBlock) {
-        parentBlock.style.setProperty('display', 'block', 'important');
-        parentBlock.classList.remove('hidden');
-    }
+    var originalStyle = element.style.display;
+    element.style.setProperty('display', 'block', 'important');
+    element.classList.remove('hidden');
 
     var opt = {
-        margin: 10,
+        margin: 15,
         filename: 'MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Wash_Invoice.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, logging: false },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // Choti si delay taake DOM render ho jaye aur blank na aaye
     setTimeout(function() {
         html2pdf().from(element).set(opt).save().then(function() {
-            if (parentBlock) {
-                parentBlock.style.display = originalStyle;
-                parentBlock.classList.add('hidden');
-            }
+            element.style.display = originalStyle;
+            element.classList.add('hidden');
         }).catch(function(err) {
             console.log("PDF Error:", err);
-            if (parentBlock) {
-                parentBlock.style.display = originalStyle;
-                parentBlock.classList.add('hidden');
-            }
+            element.style.display = originalStyle;
+            element.classList.add('hidden');
         });
-    }, 300);
+    }, 400);
 }
+    
     
 
 // 2. Water Tanki ka PDF Download function
