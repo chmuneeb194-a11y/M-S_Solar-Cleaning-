@@ -1881,15 +1881,15 @@ function sendWhatsAppReminder(phone, lastDate, panels) {
     }
 }
 
+
 function downloadAsJPG(containerId, fileName) {
-    // 1. Live Inputs se tumhare saare points automatic uthana
     let custName = "";
     let custPhone = "";
     let custAddress = "";
     let totalCostText = "0";
     let specificationsHTML = "";
 
-    // SOLAR CALCULATOR DATA FILL
+    // 1. SOLAR CALCULATOR DATA FETCH
     if (containerId === 'solar-calc-block') {
         custName = document.getElementById('cust-name')?.value || "Valued Customer";
         custPhone = document.getElementById('cust-phone')?.value || "N/A";
@@ -1897,32 +1897,34 @@ function downloadAsJPG(containerId, fileName) {
         totalCostText = document.getElementById('solar-cost-val')?.innerText || "0";
         
         const platesCount = document.getElementById('solar-qty-val')?.innerText || "0";
-        const brand = document.querySelector("select[name='Brand1']")?.value || "Standard";
-        const inverter = document.querySelector("select[name='Inverter1']")?.value || "Standard";
-        const systemSize = document.querySelector("select[style*='KW']")?.value || "3 KW";
+        // Specific selector matching for solar dropdowns
+        const brand = document.getElementById('solar-brand-select')?.value || document.querySelector("select[name='Brand1']")?.value || "Standard";
+        const inverter = document.getElementById('inverter-brand-select')?.value || document.querySelector("select[name='Inverter1']")?.value || "Standard";
+        const systemSize = document.getElementById('system-size-select')?.value || "Standard";
 
         specificationsHTML = `
             <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Service Type:</span> <span style="font-weight: 600; color: #3b82f6;">Solar Panel Cleaning</span></div>
             <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Total Panels:</span> <span style="font-weight: bold; color: #ffffff;">${platesCount} Plates</span></div>
-            <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Panel Brand:</span> <span style="color: #f43f5e;">${brand}</span></div>
-            <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Inverter Brand:</span> <span style="color: #e2e8f0;">${inverter}</span></div>
+            <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Panel Brand:</span> <span style="color: #f43f5e; font-weight: 600;">${brand}</span></div>
+            <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Inverter Brand:</span> <span style="color: #e2e8f0; font-weight: 600;">${inverter}</span></div>
             <div style="display: flex; justify-content: space-between;"><span style="color: #94a3b8;">System Size:</span> <span style="color: #06b6d4; font-weight: 600;">${systemSize}</span></div>
         `;
     } 
-    // CAR WASH CALCULATOR DATA FILL
+    // 2. CAR WASH CALCULATOR DATA FETCH
     else if (containerId === 'car-calc-block') {
         custName = document.getElementById('carwash-cust-name')?.value || "Valued Customer";
         custPhone = document.getElementById('carwash-cust-phone')?.value || "N/A";
         custAddress = document.getElementById('carwash-cust-address')?.value || "Sahiwal Region";
         totalCostText = document.getElementById('car-cost-val')?.innerText || "0";
         
-        const carType = document.getElementById('car-type-select')?.value || "Vehicle";
+        const carType = document.getElementById('car-type-select')?.value || "Standard Vehicle";
+        
         specificationsHTML = `
             <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Service Type:</span> <span style="font-weight: 600; color: #3b82f6;">Premium Car Wash</span></div>
             <div style="display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Vehicle Type:</span> <span style="font-weight: bold; color: #ffffff;">${carType}</span></div>
         `;
     } 
-    // WATER TANK CALCULATOR DATA FILL
+    // 3. WATER TANK CALCULATOR DATA FETCH (WORKING FINE)
     else if (containerId === 'tank-calc-block') {
         custName = document.getElementById('tank-cust-name')?.value || "Valued Customer";
         custPhone = document.getElementById('tank-cust-phone')?.value || "N/A";
@@ -1931,6 +1933,7 @@ function downloadAsJPG(containerId, fileName) {
         
         const capacity = document.getElementById('tank-capacity-select')?.value || "Standard Size";
         const tankQty = document.getElementById('tank-qty')?.value || "1";
+        
         specificationsHTML = `
             <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Service Type:</span> <span style="font-weight: 600; color: #3b82f6;">Water Tank Cleaning</span></div>
             <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Tank Capacity:</span> <span style="font-weight: bold; color: #ffffff;">${capacity}</span></div>
@@ -1940,13 +1943,12 @@ function downloadAsJPG(containerId, fileName) {
 
     const today = new Date().toLocaleDateString('en-GB');
 
-    // 2. Website Ke Asli Premium Dark Glassmorphic Theme Ka Wrapper
+    // Canvas Blueprint Wrapper (UI System)
     const billWrapper = document.createElement('div');
     billWrapper.style.position = 'absolute';
     billWrapper.style.left = '-9999px';
     billWrapper.style.top = '0';
     billWrapper.style.width = '460px';
-    // Website matching linear-gradient dark background
     billWrapper.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
     billWrapper.style.color = '#ffffff';
     billWrapper.style.fontFamily = "'Segoe UI', Roboto, sans-serif";
@@ -1954,20 +1956,19 @@ function downloadAsJPG(containerId, fileName) {
     billWrapper.style.boxSizing = 'border-box';
     billWrapper.style.border = '1px solid rgba(255, 255, 255, 0.1)';
     billWrapper.style.borderRadius = '24px';
-    billWrapper.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.5)';
 
     billWrapper.innerHTML = `
         <div style="text-align: center; border-bottom: 2px dashed rgba(59, 130, 246, 0.3); padding-bottom: 20px; margin-bottom: 22px;">
-            <img src="logo.png" alt="MS Solar Logo" style="width: 90px; height: auto; margin-bottom: 10px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));">
-            <h2 style="margin: 0; font-size: 22px; font-weight: 800; color: #3b82f6; letter-spacing: 0.5px; text-transform: uppercase;">MS SOLAR CLEANING</h2>
-            <p style="margin: 4px 0 0 0; color: #94a3b8; font-size: 11px; font-weight: 500;">Premium Solar Panel, Water Tank & Car Detailing</p>
+            <img src="logo.png" alt="MS Solar Logo" style="width: 90px; height: auto; margin-bottom: 10px;">
+            <h2 style="margin: 0; font-size: 22px; font-weight: 800; color: #3b82f6; letter-spacing: 0.5px;">MS SOLAR CLEANING</h2>
+            <p style="margin: 4px 0 0 0; color: #94a3b8; font-size: 11px;">Premium Solar Panel, Water Tank & Car Detailing</p>
             <div style="margin-top: 6px; display: inline-block; background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); padding: 2px 10px; border-radius: 20px; color: #06b6d4; font-size: 10px; font-weight: 600;">
                 Chichawatni • Sahiwal • Pakpattan • Arifwala
             </div>
         </div>
 
-        <div style="background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); padding: 15px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 18px; font-size: 13px; line-height: 1.5;">
-            <div style="font-size: 11px; font-weight: bold; color: #3b82f6; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;">Customer Details</div>
+        <div style="background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); padding: 15px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 18px; font-size: 13px;">
+            <div style="font-size: 11px; font-weight: bold; color: #3b82f6; text-transform: uppercase; margin-bottom: 8px;">Customer Details</div>
             <div style="margin-bottom: 6px;"><strong style="color: #64748b;">Name:</strong> <span style="color: #e2e8f0; font-weight: 600;">${custName}</span></div>
             <div style="margin-bottom: 6px;"><strong style="color: #64748b;">WhatsApp/Mob:</strong> <span style="color: #e2e8f0;">${custPhone}</span></div>
             <div style="margin-bottom: 6px;"><strong style="color: #64748b;">Area Location:</strong> <span style="color: #e2e8f0;">${custAddress}</span></div>
@@ -1975,7 +1976,7 @@ function downloadAsJPG(containerId, fileName) {
         </div>
 
         <div style="background: rgba(15, 23, 42, 0.5); padding: 15px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 22px; font-size: 13px;">
-            <div style="font-size: 11px; font-weight: bold; color: #06b6d4; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 5px;">Order Summary</div>
+            <div style="font-size: 11px; font-weight: bold; color: #06b6d4; text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 5px;">Order Summary</div>
             ${specificationsHTML}
         </div>
 
@@ -1984,21 +1985,19 @@ function downloadAsJPG(containerId, fileName) {
                 <div style="font-size: 14px; font-weight: bold; color: #10b981;">Estimated Net Total</div>
                 <div style="font-size: 9px; color: #64748b; margin-top: 2px;">Eco-friendly setup & chemical wash</div>
             </div>
-            <div style="font-size: 24px; font-weight: 900; color: #ffffff; letter-spacing: 0.5px;">Rs. ${totalCostText}</div>
+            <div style="font-size: 24px; font-weight: 900; color: #ffffff;">Rs. ${totalCostText}</div>
         </div>
 
         <div style="text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 15px; font-size: 11px; color: #94a3b8;">
             <p style="margin: 0 0 5px 0; font-weight: 600; color: #3b82f6;">Thank you for choosing premium quality!</p>
-            <p style="margin: 2px 0; font-size: 14px; font-weight: bold; color: #ffffff; letter-spacing: 0.5px;">📞 0308-4462160</p>
-            <p style="margin: 8px 0 0 0; font-size: 9px; color: #475569;">This is an officially verified digital summary invoice statement.</p>
+            <p style="margin: 2px 0; font-size: 14px; font-weight: bold; color: #ffffff;">📞 0308-4462121</p>
         </div>
     `;
 
     document.body.appendChild(billWrapper);
 
-    // 3. High-Quality Image Rendering Process
     html2canvas(billWrapper, {
-        scale: 2, // Double resolution for ultra sharp text/logo
+        scale: 2,
         useCORS: true,
         logging: false,
         backgroundColor: '#0f172a'
@@ -2013,13 +2012,11 @@ function downloadAsJPG(containerId, fileName) {
         document.body.removeChild(link);
         document.body.removeChild(billWrapper);
     }).catch(error => {
-        console.error("Image export failed:", error);
+        console.error("Export failed:", error);
         if (document.body.contains(billWrapper)) document.body.removeChild(billWrapper);
     });
 }
     
-
-
 // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
 // ==========================================
