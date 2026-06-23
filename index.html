@@ -2837,6 +2837,7 @@ function downloadBillPDF(type) {
 
 // 2. Water Tanki ka PDF Download function
 function downloadTankPDF() {
+    // Seedha main block ko target karenge taake blank na aaye
     var element = document.getElementById('tank-calc-block');
     if (!element) return;
 
@@ -2845,7 +2846,7 @@ function downloadTankPDF() {
     element.classList.remove('hidden');
 
     var opt = {
-        margin: 10,
+        margin: 15,
         filename: 'MS_Solar_Water_Tank_Invoice.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, logging: false },
@@ -2861,8 +2862,9 @@ function downloadTankPDF() {
             element.style.display = originalStyle;
             element.classList.add('hidden');
         });
-    }, 300);
+    }, 400);
 }
+    
     
 
     </script>
