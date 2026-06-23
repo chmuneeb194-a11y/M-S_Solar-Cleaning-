@@ -2070,10 +2070,12 @@ function sendWhatsAppReminder(phone, lastDate, panels, faults) {
             reportText += "\n• All Systems: ✅ Checked & OK";
         }
 
+                }
+
         const message = `Assalam-o-Alaikum!\n\nMS Solar Cleaning Services ki taraf se yaad-dahani. Aapke ${panels} Solar Panels wash ho gaye hain.${reportText}`;
-        
+
         const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+    
         window.open(whatsappUrl, '_blank');
     } catch (error) {
         console.error("Error dispatching dynamic WhatsApp reminder: ", error);
