@@ -2804,34 +2804,37 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 // 1. Solar aur Car Wash ka PDF Download function
 function downloadBillPDF(type) {
-    var elementId = (type === 'solar') ? 'solar-calc-block' : 'carwash-calc-block';
+    var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
     printSection(elementId);
 }
 
 function downloadTankPDF() {
-    printSection('tank-calc-block');
+    printSection('pdf-tank-target');
 }
 
 function printSection(elementId) {
     var element = document.getElementById(elementId);
     if (!element) return;
 
-    // Element ko temporarily screen par show karna taake print ho sake
-    var originalStyle = element.style.display;
-    element.style.setProperty('display', 'block', 'important');
-    element.classList.remove('hidden');
-
-    // Browser ka built-in print menu kholna (No blank pages issue)
-    window.print();
-
-    // Print command ke baad wapas block ko apni jagah chupa dena
-    setTimeout(function() {
-        element.style.display = originalStyle;
-        element.classList.add('hidden');
-    }, 1000);
-}
+    // Ek naya temporary blank window kholna sirf print ke liye
+    var printWindow = window.open('', '', 'height=600,width=800');
     
-
+    // Website ki bootstrap/tailwind tailwind css aur bill ka HTML us window mein daalna
+    printWindow.document.write('<html><head><title>Invoice</title>');
+    printWindow.document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">');
+    printWindow.document.write('</head><body class="p-6 bg-white text-black">');
+    printWindow.document.write(element.innerHTML);
+    printWindow.document.write('</body></html>');
+    
+    printWindow.document.close();
+    
+    // Chota sa delay taake styling load ho jaye, phir print option khulega aur window band ho jayegi
+    setTimeout(function() {
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    }, 500);
+}
     
     
 
