@@ -2803,19 +2803,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 }
 // 1. Solar aur Car Wash ka PDF Download function
+
 function downloadBillPDF(type) {
-    generateIframeInvoice(type);
+    generatePerfectDynamicPDF(type);
 }
 
 function downloadTankPDF() {
-    generateIframeInvoice('tank');
+    generatePerfectDynamicPDF('tank');
 }
 
-function generateIframeInvoice(serviceType) {
+function generatePerfectDynamicPDF(serviceType) {
     let today = new Date().toISOString().split('T')[0];
     let name = "", phone = "", address = "", date = "", timeSlot = "", serviceName = "", qty = "1", price = "0", detailLabel = "", detailVal = "";
 
-    // 1. Data Parsing from Input Fields
+    // 1. Data Parsing safely from inputs
     if (serviceType === 'solar') {
         name = document.getElementById('cust-name')?.value || "Valued Customer";
         phone = document.getElementById('cust-phone')?.value || "N/A";
@@ -2851,101 +2852,103 @@ function generateIframeInvoice(serviceType) {
         detailVal = qty + " Tank(s)";
     }
 
-    // 2. High Quality HTML Invoice Template
-    let invoiceHTML = `
-    <html>
-    <head>
-        <title>MS Solar Invoice</title>
-        <style>
-            body { font-family: Arial, sans-serif; padding: 20px; color: #1e293b; background: #ffffff; }
-            .header-table { width: 100%; border-bottom: 2px solid #0f172a; padding-bottom: 10px; margin-bottom: 20px; }
-            .title { margin: 0; color: #0f172a; font-size: 22px; font-weight: bold; }
-            .subtitle { margin: 4px 0 0 0; color: #64748b; font-size: 12px; }
-            .inv-title { margin: 0; color: #0f172a; font-size: 18px; text-align: right; }
-            .inv-date { margin: 4px 0 0 0; color: #64748b; font-size: 12px; text-align: right; }
-            .cust-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 13px; }
-            .cust-table { width: 100%; line-height: 20px; }
-            .cust-label { font-weight: bold; width: 25%; color: #475569; }
-            .data-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 13px; }
-            .data-table th { background: #0f172a; color: #ffffff; padding: 10px; text-align: left; }
-            .data-table td { padding: 12px 10px; border-bottom: 1px solid #e2e8f0; }
-            .total-section { text-align: right; font-size: 16px; font-weight: bold; color: #0f172a; border-top: 1px dashed #cbd5e1; padding-top: 10px; }
-            @print { body { padding: 0; } }
-        </style>
-    </head>
-    <body>
-        <table class="header-table">
+    // 2. Beautiful Professional HTML Template (Completely inline CSS - No Framework Bugs)
+    let finalBillHTML = `
+    <div style="font-family: Arial, sans-serif; padding: 30px; color: #1e293b; background: #ffffff; max-width: 650px; margin: 0 auto; box-sizing: border-box;">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; border-bottom: 2px solid #0f172a; padding-bottom: 15px;">
             <tr>
                 <td>
-                    <h1 class="title">MS SOLAR CLEANING</h1>
-                    <p class="subtitle">Premium Washing & Maintenance Services</p>
+                    <h1 style="margin: 0; color: #0f172a; font-size: 24px; font-weight: bold; letter-spacing: 0.5px;">MS SOLAR CLEANING</h1>
+                    <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px; font-weight: 600;">Premium Washing & Maintenance Services</p>
                 </td>
-                <td>
-                    <h2 class="inv-title">INVOICE</h2>
-                    <p class="inv-date">Date: ${date}</p>
+                <td style="text-align: right; vertical-align: top;">
+                    <h2 style="margin: 0; color: #0f172a; font-size: 18px; font-weight: bold; letter-spacing: 1px;">INVOICE</h2>
+                    <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Date: <b>${date}</b></p>
                 </td>
             </tr>
         </table>
 
-        <div class="cust-box">
-            <table class="cust-table">
-                <tr><td class="cust-label">Customer Name:</td><td>${name}</td></tr>
-                <tr><td class="cust-label">Phone Number:</td><td>${phone}</td></tr>
-                <tr><td class="cust-label">Service Address:</td><td>${address}</td></tr>
-                <tr><td class="cust-label">Booking Slot:</td><td>${timeSlot}</td></tr>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 25px;">
+            <h3 style="margin: 0 0 10px 0; color: #475569; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Customer Details</h3>
+            <table style="width: 100%; font-size: 13px; border-collapse: collapse; line-height: 20px;">
+                <tr><td style="width: 25%; font-weight: bold; color: #475569;">Name:</td><td style="color: #0f172a;">${name}</td></tr>
+                <tr><td style="font-weight: bold; color: #475569;">Phone:</td><td style="color: #0f172a;">${phone}</td></tr>
+                <tr><td style="font-weight: bold; color: #475569;">Address:</td><td style="color: #0f172a;">${address}</td></tr>
+                <tr><td style="font-weight: bold; color: #475569;">Time Slot:</td><td style="color: #0f172a;">${timeSlot}</td></tr>
             </table>
         </div>
 
-        <table class="data-table">
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
             <thead>
-                <tr>
-                    <th>Service Description</th>
-                    <th style="text-align: center;">${detailLabel}</th>
-                    <th style="text-align: right;">Total Amount</th>
+                <tr style="background: #0f172a; color: #ffffff;">
+                    <th style="padding: 10px 12px; text-align: left; font-size: 13px; border-radius: 6px 0 0 6px;">Service Description</th>
+                    <th style="padding: 10px 12px; text-align: center; font-size: 13px;">${detailLabel}</th>
+                    <th style="padding: 10px 12px; text-align: right; font-size: 13px; border-radius: 0 6px 6px 0;">Total Amount</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="font-weight: bold;">${serviceName}</td>
-                    <td style="text-align: center;">${detailVal}</td>
-                    <td style="text-align: right; font-weight: bold;">Rs. ${price}</td>
+                <tr style="border-bottom: 2px solid #f1f5f9;">
+                    <td style="padding: 14px 12px; font-size: 13px; font-weight: bold; color: #0f172a;">${serviceName}</td>
+                    <td style="padding: 14px 12px; text-align: center; font-size: 13px; color: #475569;">${detailVal}</td>
+                    <td style="padding: 14px 12px; text-align: right; font-size: 13px; font-weight: bold; color: #0f172a;">Rs. ${price}</td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="total-section">
-            Net Payable: <span style="margin-left: 10px; font-size: 18px;">Rs. ${price}</span>
-        </div>
-    </body>
-    </html>
+        <table style="width: 100%; border-collapse: collapse; border-top: 2px dashed #cbd5e1; padding-top: 15px;">
+            <tr>
+                <td style="color: #64748b; font-style: italic; font-size: 11px; vertical-align: middle;">Thank you for choosing MS Solar! Service with Trust.</td>
+                <td style="text-align: right; vertical-align: middle;">
+                    <span style="font-size: 13px; font-weight: bold; color: #475569;">Net Payable:</span>
+                    <span style="font-size: 18px; font-weight: bold; color: #0f172a; margin-left: 10px;">Rs. ${price}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
     `;
 
-    // 3. Iframe Sandbox Logic (Crash-proof and Zero Blank Page Risk)
-    let iframe = document.createElement('iframe');
-    iframe.style.position = 'absolute';
-    iframe.style.width = '0px';
-    iframe.style.height = '0px';
-    iframe.style.border = 'none';
-    document.body.appendChild(iframe);
+    // 3. Independent Temporary Visible Container Strategy
+    let container = document.createElement('div');
+    container.innerHTML = finalBillHTML;
+    
+    // Engine calculations ko secure karne ke liye frameset rule apply karna
+    container.style.position = 'fixed';
+    container.style.left = '0';
+    container.style.top = '0';
+    container.style.width = '650px';
+    container.style.zIndex = '-99999';
+    container.style.background = '#ffffff';
+    container.style.opacity = '1';
+    container.style.visibility = 'visible';
+    
+    document.body.appendChild(container);
 
-    let doc = iframe.contentWindow.document;
-    doc.open();
-    doc.write(invoiceHTML);
-    doc.close();
+    let opt = {
+        margin: [12, 12, 12, 12],
+        filename: 'MS_Solar_' + serviceType.toUpperCase() + '_Invoice.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+            scale: 2, 
+            useCORS: true, 
+            logging: false, 
+            letterRendering: true,
+            scrollX: 0,
+            scrollY: 0
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
 
-    // Browser ko full resource load hone ka waqt dena aur phir native print layout call karna
+    // Rendering sync delay to avoid blank capture
     setTimeout(function() {
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
-        
-        // Print command ke thori der baad iframe ko remove karna
-        setTimeout(function() {
-            document.body.removeChild(iframe);
-        }, 1000);
-    }, 500);
+        html2pdf().from(container).set(opt).save().then(function() {
+            document.body.removeChild(container);
+        }).catch(function(err) {
+            console.error("PDF Engine Timeout:", err);
+            document.body.removeChild(container);
+        });
+    }, 450);
 }
     
-
 
     </script>
             <script>
