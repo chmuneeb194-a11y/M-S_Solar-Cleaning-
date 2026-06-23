@@ -2808,24 +2808,38 @@ function downloadBillPDF(type) {
     var element = document.getElementById(elementId);
     if (!element) return;
 
+    // Calc block ko temporerily visible karna taake html2pdf data read kar sake
     var parentBlock = document.getElementById(type === 'solar' ? 'solar-calc-block' : 'carwash-calc-block');
-    var wasHidden = parentBlock && parentBlock.classList.contains('hidden');
-    if (wasHidden) parentBlock.classList.remove('hidden');
+    var originalStyle = parentBlock ? parentBlock.style.display : '';
+    
+    if (parentBlock) {
+        parentBlock.style.setProperty('display', 'block', 'important');
+        parentBlock.classList.remove('hidden');
+    }
 
     var opt = {
         margin: 10,
         filename: 'MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Wash_Invoice.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    html2pdf().from(element).set(opt).save().then(function() {
-        if (wasHidden) parentBlock.classList.add('hidden');
-    }).catch(function(err) {
-        console.log("PDF Error:", err);
-        if (wasHidden) parentBlock.classList.add('hidden');
-    });
+    // Choti si delay taake DOM render ho jaye aur blank na aaye
+    setTimeout(function() {
+        html2pdf().from(element).set(opt).save().then(function() {
+            if (parentBlock) {
+                parentBlock.style.display = originalStyle;
+                parentBlock.classList.add('hidden');
+            }
+        }).catch(function(err) {
+            console.log("PDF Error:", err);
+            if (parentBlock) {
+                parentBlock.style.display = originalStyle;
+                parentBlock.classList.add('hidden');
+            }
+        });
+    }, 300);
 }
     
 
