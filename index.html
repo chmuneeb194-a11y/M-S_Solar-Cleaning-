@@ -7,7 +7,7 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#007bff">
@@ -1249,9 +1249,10 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
      
                         </div>
 
-                        <button type="button" onclick="downloadBillAsPDF('solar')" class="w-full bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-900 font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 mt-4">
-    <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
-                        </button>
+<button type="button" onclick="downloadAsJPG('pdf-solar-target', 'Solar-Bill')" class="w-full bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2 mb-4">
+    <i class="fas fa-file-image"></i> Download Bill Statement as Image
+</button>
+                        
                         
 
                         <button onclick="sendBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
@@ -1343,9 +1344,10 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
                             <p class="text-[10px] text-slate-600">*Premium high-pressure washer cleaning with deep glossy finishing</p>
                         </div>
 
-                        <button type="button" onclick="downloadBillAsPDF('car')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 mt-4">
-    <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
-                        </button>
+<button type="button" onclick="downloadAsJPG('pdf-car-target', 'Car-Wash-Bill')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2 mb-4">
+    <i class="fas fa-file-image"></i> Download Bill Statement as Image
+</button>
+        
         
 
                         <button onclick="sendCarWashBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
@@ -1420,9 +1422,10 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
                 <p class="text-[10px] text-slate-400">*Premium chemical wash & multi-stage disinfection included.</p>
             </div>
 
-            <button type="button" onclick="downloadBillAsPDF('tank')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 mt-4">
-    <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
-            </button>
+<button type="button" onclick="downloadBillAsPDF('tank')" class="w-full bg-sky-600 hover:bg-sky-
+<i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
+</button>
+            
             
                 
 
@@ -1877,161 +1880,36 @@ function sendWhatsAppReminder(phone, lastDate, panels) {
         console.error("Error dispatching dynamic WhatsApp reminder: ", error);
     }
 }
-    
- 
-function downloadBillAsPDF(serviceType) {
-    let billContent = "";
-    let fileName = "MS_Solar_Bill.pdf";
-    const today = new Date().toISOString().split('T')[0];
+function downloadAsJPG(containerId, fileName) {
+    const element = document.getElementById(containerId);
 
-    if (serviceType === 'solar') {
-        const name = document.getElementById('cust-name')?.value || "Customer";
-        const currentGlobalRate = localStorage.getItem('ms_solar_panel_rate') || '70';
-        
-        const phone = document.getElementById('cust-phone')?.value || "N/A";
-        const address = document.getElementById('cust-address')?.value || "Sahiwal";
-        const date = document.getElementById('booking-date')?.value || today;
-        const timeSlot = document.getElementById('booking-time')?.value || "01:00 PM - 05:00 PM";
-
-        const qty = document.getElementById('solar-qty-val')?.innerText || "0";
-        const brand = document.querySelector('select[name="Brand1"]')?.value || "Standard";
-        const inverter = document.querySelector('select[name="Inverter1"]')?.value || "Standard";
-        const lastClean = document.querySelector('input[name="last-cleaned"]:checked')?.value || "N/A";
-        const blowerService = document.querySelector('input[type="checkbox"]')?.checked ? "Yes" : "No";
-        const totalCost = document.getElementById('solar-cost-val')?.innerText || "0";
-
-        billContent = `
-            <div style="font-family: Arial, sans-serif; padding: 30px; color: #1e293b; background: #ffffff; width: 700px;">
-                <div style="text-align: center; margin-bottom: 25px; border-bottom: 3px solid #0f172a; padding-bottom: 15px;">
-                    <h2 style="margin: 0; color: #0f172a;">☀️ M S SOLAR CLEANING ☀️</h2>
-                    <p style="margin: 5px 0 0 0; font-size: 13px; color: #64748b; font-weight: bold;">NEW ADVANCED BOOKING BILL</p>
-                </div>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                    <tr style="background: #f1f5f9;"><td style="padding: 10px; font-weight: bold; width: 40%;">Customer Name:</td><td style="padding: 10px;">${name}</td></tr>
-                    <tr><td style="padding: 10px; font-weight: bold;">Customer Phone:</td><td style="padding: 10px;">${phone}</td></tr>
-                    <tr style="background: #f1f5f9;"><td style="padding: 10px; font-weight: bold;">Address:</td><td style="padding: 10px;">${address}</td></tr>
-                    <tr><td style="padding: 10px; font-weight: bold;">Scheduled Date:</td><td style="padding: 10px;">${date}</td></tr>
-                    <tr style="background: #f1f5f9;"><td style="padding: 10px; font-weight: bold;">Time Slot:</td><td style="padding: 10px;">${timeSlot}</td></tr>
-                </table>
-                <div style="background: #0f172a; color: white; padding: 12px; font-weight: bold; margin-bottom: 15px; border-radius: 4px;">SERVICE DETAILS</div>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
-                    <tr style="background: #f8fafc;"><td style="padding: 10px; font-weight: bold; width: 40%;">Solar Panels Qty:</td><td style="padding: 10px;">${qty}</td></tr>
-                    <tr><td style="padding: 10px; font-weight: bold;">Panels Brand:</td><td style="padding: 10px;">${brand}</td></tr>
-                    <tr style="background: #f8fafc;"><td style="padding: 10px; font-weight: bold;">Inverter Setup:</td><td style="padding: 10px;">${inverter}</td></tr>
-                    <tr><td style="padding: 10px; font-weight: bold;">Last Cleaned Status:</td><td style="padding: 10px;">${lastClean}</td></tr>
-                    <tr style="background: #f8fafc;"><td style="padding: 10px; font-weight: bold;">Inverter Blower Service:</td><td style="padding: 10px;">${blowerService}</td></tr>
-                </table>
-                <div style="text-align: right; margin-top: 20px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
-                    <span style="font-size: 16px; font-weight: bold; color: #475569;">Final Estimated Bill:</span>
-                    <span style="font-size: 24px; font-weight: bold; color: #0f172a; margin-left: 10px;">Rs. ${totalCost}</span>
-                </div>
-            </div>
-        `;
-        fileName = `Solar_Bill_${name.replace(/\s+/g, '_')}.pdf`;
-
-    } else if (serviceType === 'car') {
-        const name = document.getElementById('carwash-cust-name')?.value || "Customer";
-        const phone = document.getElementById('carwash-cust-phone')?.value || "N/A";
-        const address = document.getElementById('carwash-cust-address')?.value || "Sahiwal";
-        const date = document.getElementById('carwash-booking-date')?.value || today;
-        const timeSlot = document.getElementById('carwash-booking-time')?.value || "12:00 PM - 03:00 PM";
-
-        const carType = document.querySelector('#car-type-select')?.value || "Sedan Car";
-        const carQty = document.getElementById('car-qty-val')?.innerText || "1";
-        const totalCost = document.getElementById('car-cost-val')?.innerText || "0";
-
-        billContent = `
-            <div style="font-family: Arial, sans-serif; padding: 30px; color: #1e293b; background: #ffffff; width: 700px;">
-                <div style="text-align: center; margin-bottom: 25px; border-bottom: 3px solid #e2e8f0; padding-bottom: 15px;">
-                    <h2 style="margin: 0; color: #0f172a;">🚗 M S CAR WASH SERVICE 🚗</h2>
-                    <p style="margin: 5px 0 0 0; font-size: 13px; color: #64748b; font-weight: bold;">PREMIUM HIGH-PRESSURE WASH</p>
-                </div>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                    <tr style="background: #f1f5f9;"><td style="padding: 10px; font-weight: bold; width: 40%;">Customer Name:</td><td style="padding: 10px;">${name}</td></tr>
-                    <tr><td style="padding: 10px; font-weight: bold;">Customer Phone:</td><td style="padding: 10px;">${phone}</td></tr>
-                    <tr style="background: #f1f5f9;"><td style="padding: 10px; font-weight: bold;">Address:</td><td style="padding: 10px;">${address}</td></tr>
-                    <tr><td style="padding: 10px; font-weight: bold;">Scheduled Date:</td><td style="padding: 10px;">${date}</td></tr>
-                    <tr style="background: #f1f5f9;"><td style="padding: 10px; font-weight: bold;">Time Slot:</td><td style="padding: 10px;">${timeSlot}</td></tr>
-                </table>
-                <div style="background: #1d4ed8; color: white; padding: 12px; font-weight: bold; margin-bottom: 15px;">VEHICLE DETAILS</div>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
-                    <tr style="background: #f8fafc;"><td style="padding: 10px; font-weight: bold; width: 40%;">Vehicle Category:</td><td style="padding: 10px;">${carType}</td></tr>
-                    <tr><td style="padding: 10px; font-weight: bold;">Vehicles Qty:</td><td style="padding: 10px;">${carQty}</td></tr>
-                </table>
-                <div style="text-align: right; margin-top: 20px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
-                    <span style="font-size: 16px; font-weight: bold; color: #475569;">Final Estimated Bill:</span>
-                    <span style="font-size: 24px; font-weight: bold; color: #1d4ed8; margin-left: 10px;">Rs. ${totalCost}</span>
-                </div>
-            </div>
-        `;
-        fileName = `Car_Wash_Bill_${name.replace(/\s+/g, '_')}.pdf`;
-
-    } else if (serviceType === 'tank') {
-        const name = document.getElementById('tank-cust-name')?.value || "Customer";
-        const phone = document.getElementById('tank-cust-phone')?.value || "N/A";
-        const address = document.getElementById('tank-cust-address')?.value || "Sahiwal";
-        const date = document.getElementById('tank-booking-date')?.value || today;
-        const timeSlot = document.getElementById('tank-booking-time')?.value || "09:00 AM - 12:00 PM";
-
-        const capacity = document.querySelector('#tank-capacity-select')?.value || "1000 Gallons";
-        const tankQty = document.getElementById('tank-qty-val')?.innerText || "1";
-        const totalCost = document.getElementById('tank-cost-val')?.innerText || "0";
-
-        billContent = `
-            <div style="font-family: Arial, sans-serif; padding: 30px; color: #1e293b; background: #ffffff; width: 700px;">
-                <div style="text-align: center; margin-bottom: 25px; border-bottom: 3px solid #e2e8f0; padding-bottom: 15px;">
-                    <h2 style="margin: 0; color: #0f172a;">🌊 M S WATER TANK CLEANING 🌊</h2>
-                    <p style="margin: 5px 0 0 0; font-size: 13px; color: #64748b; font-weight: bold;">HYGIENIC DISINFECTION SERVICE</p>
-                </div>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                    <tr style="background: #f1f5f9;"><td style="padding: 10px; font-weight: bold; width: 40%;">Customer Name:</td><td style="padding: 10px;">${name}</td></tr>
-                    <tr><td style="padding: 10px; font-weight: bold;">Customer Phone:</td><td style="padding: 10px;">${phone}</td></tr>
-                    <tr style="background: #f1f5f9;"><td style="padding: 10px; font-weight: bold;">Address:</td><td style="padding: 10px;">${address}</td></tr>
-                    <tr><td style="padding: 10px; font-weight: bold;">Booking Date:</td><td style="padding: 10px;">${date}</td></tr>
-                    <tr style="background: #f1f5f9;"><td style="padding: 10px; font-weight: bold;">Time Slot:</td><td style="padding: 10px;">${timeSlot}</td></tr>
-                </table>
-                <div style="background: #0284c7; color: white; padding: 12px; font-weight: bold; margin-bottom: 15px;">TANK DETAILS</div>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
-                    <tr style="background: #f8fafc;"><td style="padding: 10px; font-weight: bold; width: 40%;">Tank Capacity:</td><td style="padding: 10px;">${capacity}</td></tr>
-                    <tr><td style="padding: 10px; font-weight: bold;">Total Tanks to Wash:</td><td style="padding: 10px;">${tankQty}</td></tr>
-                </table>
-                <div style="text-align: right; margin-top: 20px; padding-top: 15px; border-top: 2px dashed #cbd5e1;">
-                    <span style="font-size: 16px; font-weight: bold; color: #475569;">Final Estimated Bill:</span>
-                    <span style="font-size: 24px; font-weight: bold; color: #0284c7; margin-left: 10px;">Rs. ${totalCost}</span>
-                </div>
-            </div>
-        `;
-        fileName = `Tank_Wash_Bill_${name.replace(/\s+/g, '_')}.pdf`;
+    if (!element) {
+        alert("Data container nahi mila! Koshish karein ke ID sahi ho.");
+        return;
     }
 
-    const element = document.createElement('div');
-    element.innerHTML = billContent;
-    element.style.position = 'absolute';
-    element.style.left = '-9999px';
-    element.style.top = '0';
-    element.style.width = '700px';
-    element.style.background = '#ffffff';
-    document.body.appendChild(element);
-    
-
-    const opt = {
-        margin:       [10, 10],
-        filename:     fileName,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    // Direct screen wale container ka lightweight screenshot lega
+    html2canvas(element, {
+        scale: 2, // HD Quality
+        useCORS: true,
+        logging: false,
+        backgroundColor: null // Jo calculator ka background hai wahi rakhega
+    }).then(canvas => {
+        const imgData = canvas.toDataURL('image/jpeg', 0.9);
+        const link = document.createElement('a');
+        link.download = `${fileName}.jpg`;
+        link.href = imgData;
         
-    };
-
-    setTimeout(() => {
-        html2pdf().set(opt).from(element).save().then(() => {
-            document.body.removeChild(element);
-        }).catch((err) => {
-            console.error("PDF Error: ", err);
-            document.body.removeChild(element);
-        });
-    }, 250);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }).catch(error => {
+        console.error("Download fail ho gaya:", error);
+        alert("Kuch masla hua, dobara koshish karein.");
+    });
 }
+    
+    
 
 // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
