@@ -1247,13 +1247,11 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
     </button>
 </div>
      
-                        </div>
-
-                        <button type="button" onclick="downloadBillAsPDF('solar')" class="w-full bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-900 font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 mt-4">
+                        </div>                        
+<button type="button" onclick="downloadBillPDF('solar')" class="w-full bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 text-white font-bold p-3 rounded-xl flex items-center justify-center gap-2 shadow-lg mb-4">
     <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
-                        </button>
+</button>
                         
-
                         <button onclick="sendBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
                             <i class="fab fa-whatsapp text-xl"></i> Complete Booking via WhatsApp
                         </button>
@@ -1343,9 +1341,10 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
                             <p class="text-[10px] text-slate-600">*Premium high-pressure washer cleaning with deep glossy finishing</p>
                         </div>
 
-                        <button type="button" onclick="downloadBillAsPDF('car')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 mt-4">
+<button type="button" onclick="downloadBillPDF('car')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold p-3 rounded-xl flex items-center justify-center gap-2 shadow-lg mb-4">
     <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
-                        </button>
+</button>
+        
         
 
                         <button onclick="sendCarWashBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
@@ -1420,10 +1419,11 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
                 <p class="text-[10px] text-slate-400">*Premium chemical wash & multi-stage disinfection included.</p>
             </div>
 
-            <button type="button" onclick="downloadBillAsPDF('tank')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:scale-[1.02] flex items-center justify-center gap-2 mt-4">
-    <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
-            </button>
             
+            <button type="button" onclick="downloadTankPDF()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold p-3 rounded-xl flex items-center justify-center gap-2 shadow-lg mb-4">
+    <i class="fas fa-file-pdf"></i> Download Bill Statement as PDF
+</button>
+
                 
 
             <button type="button" onclick="sendTankBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg">
