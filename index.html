@@ -732,6 +732,35 @@
     <div id="overdue-alerts-list" class="grid grid-cols-1 gap-3 text-slate-200">
         <!-- JavaScript automatically scan karke yahan pyare cards add karega -->
     </div>
+            <div class="mt-6 pt-6 border-t border-slate-800">
+            <div class="flex items-center gap-2 mb-4">
+                <i class="fas fa-shield-alt text-emerald-500 text-lg"></i>
+                <h4 class="text-sm font-bold text-white uppercase tracking-wider">Point 11: Data Security & Backup</h4>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button type="button" onclick="backupToWhatsApp()" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-sm transition-all shadow-md">
+                    <i class="fab fa-whatsapp text-base"></i> Send Backup to WhatsApp
+                </button>
+
+                <button type="button" onclick="exportToExcel()" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-sm transition-all shadow-md">
+                    <i class="fas fa-file-excel text-base"></i> Export Excel Sheet (CSV)
+                </button>
+
+                <button type="button" onclick="exportToJSON()" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-sm transition-all border border-slate-700 shadow-md">
+                    <i class="fas fa-download text-base"></i> Download Offline Backup
+                </button>
+
+                <label class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-xl text-sm cursor-pointer text-center transition-all shadow-md">
+                    <i class="fas fa-upload text-base"></i> Upload & Restore Data
+                    <input type="file" id="restore-file" accept=".json" class="hidden" onchange="restoreFromJSON(event)">
+                </label>
+            </div>
+
+            <button type="button" onclick="secureSystemReset()" class="w-full mt-3 flex items-center justify-center gap-2 px-4 py-2 bg-red-950/30 hover:bg-red-900/50 text-red-400 border border-red-900/40 font-medium rounded-xl text-xs transition-all">
+                <i class="fas fa-trash-alt"></i> Secure System Reset (Password Required)
+            </button>
+            </div>
     
 </div>
                 
@@ -1588,8 +1617,136 @@ function unlockAdminPortal() {
     }
 }
     
+   // ==========================================
+// POINT 11: DATA SECURITY - WHATSAPP BACKUP
+// ==========================================
+function backupToWhatsApp() {
+    try {
+        const backupData = {
+            customers: JSON.parse(localStorage.getItem('customers') || '[]'),
+            tokens: JSON.parse(localStorage.getItem('tokens') || '[]'),
+            history: JSON.parse(localStorage.getItem('maintenance_history') || '[]')
+        };
+        
+        if (backupData.customers.length === 0 && backupData.tokens.length === 0 && backupData.history.length === 0) {
+            alert("Muneeb bhai, filhal database mein backup lene ke liye koi data maujood nahi hai!");
+            return;
+        }
+        
+        const secureString = JSON.stringify(backupData);
+        const textData = encodeURIComponent(secureString);
+        const whatsappUrl = `https://wa.me/923084462121?text=👑 *MS SOLAR SYSTEM BACKUP* 👑%0A%0AMuneeb bhai, is pure message ko copy karke apne paas safe rakh lein. Zaroorat parne par yeh data restore karne ke kaam aayega:%0A%0A\`\`\`${textData}\`\`\`;`;
+        
+        window.open(whatsappUrl, '_blank');
+    } catch (error) {
+        alert("❌ Backup generate karte hue koi masla aaya hai: " + error.message);
+    }
+    }
     
+// 2. Excel/CSV Sheet Export Function
+function exportToExcel() {
+    try {
+        const rawCustomers = localStorage.getItem('customers') || '[]';
+        const customers = JSON.parse(rawCustomers);
+        
+        if (customers.length === 0) {
+            alert("Muneeb bhai, export karne ke liye database mein koi customer data nahi hai!");
+            return;
+        }
+        
+        let csvContent = "data:text/csv;charset=utf-8,Customer ID,Name,Phone,Location,Total Panels,Wash Date\n";
+        
+        customers.forEach(c => {
+            csvContent += `"${c.id || ''}","${c.name || ''}","${c.phone || ''}","${c.location || ''}","${c.panels || ''}","${c.date || ''}"\n`;
+        });
+        
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "ms_solar_customers_report.csv");
+        document.body.appendChild(link);
+        
+        link.click();
+        document.body.removeChild(link);
+    } catch (error) {
+        alert("❌ Excel export mein koi masla aaya: " + error.message);
+    }
+}
+    // 3. Offline JSON File Download Function
+function exportToJSON() {
+    try {
+        const backupData = {
+            customers: JSON.parse(localStorage.getItem('customers') || '[]'),
+            tokens: JSON.parse(localStorage.getItem('tokens') || '[]'),
+            history: JSON.parse(localStorage.getItem('maintenance_history') || '[]')
+        };
+        
+        if (backupData.customers.length === 0 && backupData.tokens.length === 0 && backupData.history.length === 0) {
+            alert("Muneeb bhai, download karne ke liye database mein koi data nahi hai!");
+            return;
+        }
+        
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", "ms_solar_security_backup.json");
+        document.body.appendChild(downloadAnchor);
+        
+        downloadAnchor.click();
+        document.body.removeChild(downloadAnchor);
+    } catch (error) {
+        alert("❌ Backup file download mein koi masla aaya: " + error.message);
+    }
+}
+    // 4. Data Restore Function (JSON Upload)
+function restoreFromJSON(event) {
+    try {
+        const file = event.target.files[0];
+        if (!file) return;
 
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const importedData = JSON.parse(e.target.result);
+                
+                // Tasalli karne ke liye confirm box
+                if (confirm("Muneeb bhai, kya aap waqai is file se data restore karna chahte hain? Mojooda data badal jayega.")) {
+                    if (importedData.customers) localStorage.setItem('customers', JSON.stringify(importedData.customers));
+                    if (importedData.tokens) localStorage.setItem('tokens', JSON.stringify(importedData.tokens));
+                    if (importedData.history) localStorage.setItem('maintenance_history', JSON.stringify(importedData.history));
+                    
+                    alert("🎉 Data 100% kamyabi se restore ho gaya hai! Page reload ho raha hai...");
+                    window.location.reload();
+                }
+            } catch (err) {
+                alert("❌ Ghalt file select ki hai, yeh backup file sahi nahi hai.");
+            }
+        };
+        reader.readAsText(file);
+    } catch (error) {
+        alert("❌ Restore karne mein koi masla aaya: " + error.message);
+    }
+    }
+    // 5. Password Protected Reset Switch
+function secureSystemReset() {
+    try {
+        const password = prompt("🚨 DANGER ZONE! Poora data saaf karne ke liye Admin Password darj karein:");
+        
+        // Aapka wahi secret admin password jo portal kholne ke liye hai
+        if (password === "Chmuneeb@1992") {
+            if (confirm("Muneeb bhai, kya aap waqai poora system reset karna chahte hain? Backup ke bagair saara data hamesha ke liye ud jayega!")) {
+                localStorage.clear();
+                alert("🧹 Poora system clear kar diya gaya hai. Bilkul saaf shuruat!");
+                window.location.reload();
+            }
+        } else if (password !== null) {
+            alert("❌ Galat Password! Access Denied.");
+        }
+    } catch (error) {
+        alert("❌ Reset karne mein koi masla aaya: " + error.message);
+    }
+    }
+    
 // ========================================================
 // MAINTENANCE HISTORY TRACKER FUNCTION (POINT 3)
 // ========================================================
