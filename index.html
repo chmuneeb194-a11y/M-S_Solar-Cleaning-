@@ -2026,14 +2026,19 @@ function downloadBillAsPDF_Old(serviceType) {
 
     setTimeout(() => {
         html2pdf().set(opt).from(element).save().then(() => {
-            document.body.removeChild(element);
+            setTimeout(() => {
+                if (element && element.parentNode) {
+                    element.parentNode.removeChild(element);
+                }
+            }, 1500); // 1.5 second ka delay taake mobile download pehle mukammal ho jaye
         }).catch((err) => {
             console.error("PDF Error: ", err);
-            document.body.removeChild(element);
+            if (element && element.parentNode) {
+                element.parentNode.removeChild(element);
+            }
         });
-    }, 250);
-}
-
+    }, 500); // 500ms delay taake data pehle memory mein load ho sake
+    
 // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
 // ==========================================
@@ -2805,149 +2810,26 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1. Solar aur Car Wash ka PDF Download function
 
 function downloadBillPDF(type) {
-    generatePerfectDynamicPDF(type);
+    // Purane chalte hue function ko target karna aur delay dena taake canvas blank na ho
+    setTimeout(function() {
+        if (typeof downloadBillAsPDF_Old === 'function') {
+            downloadBillAsPDF_Old(type);
+        } else {
+            console.error("Core function missing");
+        }
+    }, 250);
 }
 
 function downloadTankPDF() {
-    generatePerfectDynamicPDF('tank');
-}
-
-function generatePerfectDynamicPDF(serviceType) {
-    let today = new Date().toISOString().split('T')[0];
-    let name = "", phone = "", address = "", date = "", timeSlot = "", serviceName = "", qty = "1", price = "0", detailLabel = "", detailVal = "";
-
-    // 1. Data Parsing safely from inputs
-    if (serviceType === 'solar') {
-        name = document.getElementById('cust-name')?.value || "Valued Customer";
-        phone = document.getElementById('cust-phone')?.value || "N/A";
-        address = document.getElementById('cust-address')?.value || "Sahiwal Region";
-        date = document.getElementById('booking-date')?.value || today;
-        timeSlot = document.getElementById('booking-time')?.value || "Standard Slot";
-        qty = document.getElementById('solar-qty-val')?.innerText || "0";
-        price = document.getElementById('solar-cost-val')?.innerText || "0";
-        serviceName = "Solar Panel Professional Washing";
-        detailLabel = "Total Panels";
-        detailVal = qty + " Plates";
-    } else if (serviceType === 'car') {
-        name = document.getElementById('carwash-cust-name')?.value || "Valued Customer";
-        phone = document.getElementById('carwash-cust-phone')?.value || "N/A";
-        address = document.getElementById('carwash-cust-address')?.value || "Sahiwal Region";
-        date = document.getElementById('carwash-booking-date')?.value || today;
-        timeSlot = document.getElementById('carwash-booking-time')?.value || "Standard Slot";
-        qty = document.getElementById('car-qty-val')?.innerText || "1";
-        price = document.getElementById('car-cost-val')?.innerText || "0";
-        serviceName = "Doorstep Premium Car Detailing";
-        detailLabel = "Vehicle Qty";
-        detailVal = qty + " Car(s)";
-    } else if (serviceType === 'tank') {
-        name = document.getElementById('tank-cust-name')?.value || "Valued Customer";
-        phone = document.getElementById('tank-cust-phone')?.value || "N/A";
-        address = document.getElementById('tank-cust-address')?.value || "Sahiwal Region";
-        date = document.getElementById('tank-booking-date')?.value || today;
-        timeSlot = document.getElementById('tank-booking-time')?.value || "Standard Slot";
-        qty = document.getElementById('tank-qty-val')?.innerText || "1";
-        price = document.getElementById('tank-cost-val')?.innerText || "0";
-        serviceName = "Water Tank Hygienic Disinfection";
-        detailLabel = "Total Tanks";
-        detailVal = qty + " Tank(s)";
-    }
-
-    // 2. Beautiful Professional HTML Template (Completely inline CSS - No Framework Bugs)
-    let finalBillHTML = `
-    <div style="font-family: Arial, sans-serif; padding: 30px; color: #1e293b; background: #ffffff; max-width: 650px; margin: 0 auto; box-sizing: border-box;">
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; border-bottom: 2px solid #0f172a; padding-bottom: 15px;">
-            <tr>
-                <td>
-                    <h1 style="margin: 0; color: #0f172a; font-size: 24px; font-weight: bold; letter-spacing: 0.5px;">MS SOLAR CLEANING</h1>
-                    <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px; font-weight: 600;">Premium Washing & Maintenance Services</p>
-                </td>
-                <td style="text-align: right; vertical-align: top;">
-                    <h2 style="margin: 0; color: #0f172a; font-size: 18px; font-weight: bold; letter-spacing: 1px;">INVOICE</h2>
-                    <p style="margin: 4px 0 0 0; color: #64748b; font-size: 12px;">Date: <b>${date}</b></p>
-                </td>
-            </tr>
-        </table>
-
-        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 25px;">
-            <h3 style="margin: 0 0 10px 0; color: #475569; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Customer Details</h3>
-            <table style="width: 100%; font-size: 13px; border-collapse: collapse; line-height: 20px;">
-                <tr><td style="width: 25%; font-weight: bold; color: #475569;">Name:</td><td style="color: #0f172a;">${name}</td></tr>
-                <tr><td style="font-weight: bold; color: #475569;">Phone:</td><td style="color: #0f172a;">${phone}</td></tr>
-                <tr><td style="font-weight: bold; color: #475569;">Address:</td><td style="color: #0f172a;">${address}</td></tr>
-                <tr><td style="font-weight: bold; color: #475569;">Time Slot:</td><td style="color: #0f172a;">${timeSlot}</td></tr>
-            </table>
-        </div>
-
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-            <thead>
-                <tr style="background: #0f172a; color: #ffffff;">
-                    <th style="padding: 10px 12px; text-align: left; font-size: 13px; border-radius: 6px 0 0 6px;">Service Description</th>
-                    <th style="padding: 10px 12px; text-align: center; font-size: 13px;">${detailLabel}</th>
-                    <th style="padding: 10px 12px; text-align: right; font-size: 13px; border-radius: 0 6px 6px 0;">Total Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom: 2px solid #f1f5f9;">
-                    <td style="padding: 14px 12px; font-size: 13px; font-weight: bold; color: #0f172a;">${serviceName}</td>
-                    <td style="padding: 14px 12px; text-align: center; font-size: 13px; color: #475569;">${detailVal}</td>
-                    <td style="padding: 14px 12px; text-align: right; font-size: 13px; font-weight: bold; color: #0f172a;">Rs. ${price}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <table style="width: 100%; border-collapse: collapse; border-top: 2px dashed #cbd5e1; padding-top: 15px;">
-            <tr>
-                <td style="color: #64748b; font-style: italic; font-size: 11px; vertical-align: middle;">Thank you for choosing MS Solar! Service with Trust.</td>
-                <td style="text-align: right; vertical-align: middle;">
-                    <span style="font-size: 13px; font-weight: bold; color: #475569;">Net Payable:</span>
-                    <span style="font-size: 18px; font-weight: bold; color: #0f172a; margin-left: 10px;">Rs. ${price}</span>
-                </td>
-            </tr>
-        </table>
-    </div>
-    `;
-
-    // 3. Independent Temporary Visible Container Strategy
-    let container = document.createElement('div');
-    container.innerHTML = finalBillHTML;
-    
-    // Engine calculations ko secure karne ke liye frameset rule apply karna
-    container.style.position = 'fixed';
-    container.style.left = '0';
-    container.style.top = '0';
-    container.style.width = '650px';
-    container.style.zIndex = '-99999';
-    container.style.background = '#ffffff';
-    container.style.opacity = '1';
-    container.style.visibility = 'visible';
-    
-    document.body.appendChild(container);
-
-    let opt = {
-        margin: [12, 12, 12, 12],
-        filename: 'MS_Solar_' + serviceType.toUpperCase() + '_Invoice.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-            scale: 2, 
-            useCORS: true, 
-            logging: false, 
-            letterRendering: true,
-            scrollX: 0,
-            scrollY: 0
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    // Rendering sync delay to avoid blank capture
     setTimeout(function() {
-        html2pdf().from(container).set(opt).save().then(function() {
-            document.body.removeChild(container);
-        }).catch(function(err) {
-            console.error("PDF Engine Timeout:", err);
-            document.body.removeChild(container);
-        });
-    }, 450);
+        if (typeof downloadBillAsPDF_Old === 'function') {
+            downloadBillAsPDF_Old('tank');
+        } else {
+            console.error("Core function missing");
+        }
+    }, 250);
 }
+    
     
 
     </script>
