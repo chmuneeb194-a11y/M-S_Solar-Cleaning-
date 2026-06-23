@@ -2805,33 +2805,57 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1. Solar aur Car Wash ka PDF Download function
 function downloadBillPDF(type) {
     var elementId = (type === 'solar') ? 'pdf-solar-target' : 'pdf-carwash-target';
-    var element = document.getElementById(elementId);
-    if (!element) return;
-
-    var opt = {
-        margin: 15,
-        filename: 'MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Invoice.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    html2pdf().from(element).set(opt).save();
+    generatePerfectPDF(elementId, 'MS_Solar_' + (type === 'solar' ? 'Solar' : 'Car') + '_Invoice.pdf');
 }
 
 function downloadTankPDF() {
-    var element = document.getElementById('pdf-tank-target');
+    generatePerfectPDF('pdf-tank-target', 'MS_Solar_Water_Tank_Invoice.pdf');
+}
+
+function generatePerfectPDF(elementId, fileName) {
+    var element = document.getElementById(elementId);
     if (!element) return;
 
+    // Masla hal karne ke liye element ko clone karenge taake layout na toote
+    var clone = element.cloneNode(true);
+    
+    // Hidden classes ko remove karna taake html2pdf ko poora data saaf nazar aaye
+    clone.style.pointerEvents = 'none';
+    clone.style.display = 'block';
+    clone.style.visibility = 'visible';
+    clone.style.opacity = '1';
+    clone.style.maxHeight = 'none';
+    clone.classList.remove('hidden', 'opacity-0', 'max-h-0', 'transition-all');
+    
+    // Isko temporarily body mein append karenge screen se baahir taake user ko bura na lage
+    clone.style.position = 'absolute';
+    clone.style.top = '-9999px';
+    clone.style.left = '0';
+    clone.style.width = '100%';
+    document.body.appendChild(clone);
+
     var opt = {
-        margin: 15,
-        filename: 'MS_Solar_Water_Tank_Invoice.pdf',
+        margin: [10, 10, 10, 10],
+        filename: fileName,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
+        html2canvas: { 
+            scale: 2, 
+            useCORS: true, 
+            logging: false,
+            letterRendering: true
+        },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    html2pdf().from(element).set(opt).save();
+    // Chota sa delay taake render engine active ho jaye
+    setTimeout(function() {
+        html2pdf().from(clone).set(opt).save().then(function() {
+            document.body.removeChild(clone);
+        }).catch(function(err) {
+            console.error("PDF Error: ", err);
+            document.body.removeChild(clone);
+        });
+    }, 300);
 }
     
     
