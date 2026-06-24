@@ -1883,7 +1883,7 @@ function downloadNewInvoice(serviceType) {
     let qty = "1", price = "0";
     let isBlowerChecked = false;
 
-    // 1. DYNAMIC DATA FETCHING
+    // 1. EXACT FIELD FETCHING
     if (serviceType === 'Solar') {
         custName = document.getElementById('solar-cust-name')?.value || document.getElementById('cust-name')?.value || "Valued Customer";
         custPhone = document.getElementById('solar-cust-phone')?.value || document.getElementById('cust-phone')?.value || "N/A";
@@ -1926,100 +1926,133 @@ function downloadNewInvoice(serviceType) {
 
     let invNo = "MS-" + Math.floor(1000 + Math.random() * 9000);
 
-    // 2. DYNAMIC PREMIUM HTML WRAPPER GENERATION WITH LOGO & BLUE TEXT
+    // 2. CREATE EXACT HTML TEMPLATE REPLICA
     const billWrapper = document.createElement('div');
     billWrapper.style.position = 'absolute';
     billWrapper.style.left = '-9999px';
     billWrapper.style.top = '0';
-    billWrapper.style.width = '550px';
-    billWrapper.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
-    billWrapper.style.color = '#ffffff';
+    billWrapper.style.width = '750px';
+    billWrapper.style.height = '1050px';
+    billWrapper.style.background = '#ffffff';
     billWrapper.style.fontFamily = '"Segoe UI", Roboto, sans-serif';
-    billWrapper.style.padding = '30px';
+    billWrapper.style.padding = '50px';
     billWrapper.style.boxSizing = 'border-box';
-    billWrapper.style.borderRadius = '24px';
+    billWrapper.style.display = 'block';
 
-    // Premium Blue Typography Theme
     billWrapper.innerHTML = `
-        <div style="text-align: center; border-bottom: 2px dashed rgba(59, 130, 246, 0.3); padding-bottom: 20px; margin-bottom: 20px;">
-            <img src="logo.png" alt="MS Solar Logo" style="width: 100px; height: auto; margin-bottom: 10px;">
-            <h2 style="margin: 0; font-size: 24px; font-weight: 800; color: #3b82f6; letter-spacing: 0.5px;">MS SOLAR CLEANING SERVICES</h2>
-            <p style="margin: 4px 0 0; color: #94a3b8; font-size: 12px;">Chichawatni • Sahiwal • Pakpattan • Arifwala</p>
-        </div>
-
-        <div style="background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); padding: 18px; border-radius: 14px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">
-                <span style="color: #94a3b8;"><strong>Invoice Number:</strong></span>
-                <span style="color: #60a5fa; font-weight: bold;">${invNo}</span>
+        <div style="display: table; width: 100%; border-bottom: 2px dashed #e2e8f0; padding-bottom: 25px; margin-bottom: 35px;">
+            <div style="display: table-cell; width: 130px; vertical-align: middle;">
+                <img src="logo.png" style="width: 120px; height: auto;">
             </div>
-            <div style="display: flex; justify-content: space-between; font-size: 14px;">
-                <span style="color: #94a3b8;"><strong>Date:</strong></span>
-                <span style="color: #60a5fa; font-weight: bold;">${bookingDate}</span>
+            <div style="display: table-cell; vertical-align: middle; padding-left: 20px;">
+                <h1 style="margin: 0; font-size: 28px; font-weight: 900; color: #0f172a; letter-spacing: -0.5px;">MS SOLAR CLEANING SERVICES</h1>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 14px; font-weight: 600;">Premium Doorstep Washing & Detailing Services</p>
+                <p style="margin: 2px 0 0 0; color: #3b82f6; font-size: 13px; font-weight: 700;">Chichawatni • Sahiwal • Pakpattan • Arifwala</p>
             </div>
         </div>
 
-        <div style="background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); padding: 18px; border-radius: 14px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);">
-            <h3 style="margin: 0 0 12px 0; font-size: 15px; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.5px;">Customer Details</h3>
-            <div style="margin-bottom: 6px; font-size: 14px;"><strong style="color: #94a3b8;">Name:</strong> <span style="color: #ffffff; margin-left: 10px;">${custName}</span></div>
-            <div style="margin-bottom: 6px; font-size: 14px;"><strong style="color: #94a3b8;">WhatsApp:</strong> <span style="color: #ffffff; margin-left: 10px;">${custPhone}</span></div>
-            <div style="margin-bottom: 6px; font-size: 14px;"><strong style="color: #94a3b8;">Location:</strong> <span style="color: #ffffff; margin-left: 10px;">${custAddress}</span></div>
+        <div style="display: table; width: 100%; margin-bottom: 35px; background: #f8fafc; padding: 15px 20px; border-radius: 12px; border: 1px solid #edf2f7;">
+            <div style="display: table-cell; width: 50%; font-size: 15px; color: #64748b; font-weight: 600;">
+                <span style="color: #3b82f6; font-weight: bold;">✦ Premium Business Statement</span>
+            </div>
+            <div style="display: table-cell; width: 50%; text-align: right; font-size: 15px; color: #312e81;">
+                <div style="margin-bottom: 4px;"><strong>Invoice No:</strong> <span style="color: #1e40af; font-weight: 800; margin-left: 5px;">${invNo}</span></div>
+                <div><strong>Date:</strong> <span style="color: #1e40af; font-weight: 800; margin-left: 5px;">${bookingDate}</span></div>
+            </div>
         </div>
 
-        <div style="background: rgba(15, 23, 42, 0.5); padding: 18px; border-radius: 14px; border: 1px solid rgba(59, 130, 246, 0.2); margin-bottom: 20px;">
-            <h3 style="margin: 0 0 12px 0; font-size: 15px; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.5px;">Order Summary</h3>
+        <div style="margin-bottom: 40px; background: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+            <h3 style="margin: 0 0 18px 0; font-size: 16px; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.5px; border-left: 4px solid #3b82f6; padding-left: 10px;">Customer Information</h3>
             
-            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 8px; font-size: 13px; font-weight: bold; color: #94a3b8;">
-                <span>Service Description</span>
-                <span>Qty</span>
-                <span>Price (PKR)</span>
+            <div style="display: table; width: 100%; margin-bottom: 12px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+                <div style="display: table-cell; width: 150px; color: #64748b; font-weight: 600; font-size: 15px;">👤 Client Name:</div>
+                <div style="display: table-cell; color: #0f172a; font-weight: 700; font-size: 16px;">${custName}</div>
+            </div>
+            
+            <div style="display: table; width: 100%; margin-bottom: 12px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+                <div style="display: table-cell; width: 150px; color: #64748b; font-weight: 600; font-size: 15px;">📞 WhatsApp/Mob:</div>
+                <div style="display: table-cell; color: #0f172a; font-weight: 700; font-size: 16px;">${custPhone}</div>
+            </div>
+            
+            <div style="display: table; width: 100%; margin-bottom: 12px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+                <div style="display: table-cell; width: 150px; color: #64748b; font-weight: 600; font-size: 15px;">📍 Job Location:</div>
+                <div style="display: table-cell; color: #0f172a; font-weight: 700; font-size: 16px;">${custAddress}</div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 4px 0; color: ${serviceType === 'Solar' ? '#60a5fa' : '#ffffff'}; font-weight: ${serviceType === 'Solar' ? 'bold' : 'normal'}">
-                <span>Solar Panel Wash</span>
-                <span>${serviceType === 'Solar' ? qty : '-'}</span>
-                <span>${serviceType === 'Solar' ? 'Rs. ' + price : '-'}</span>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 4px 0; color: ${isBlowerChecked ? '#60a5fa' : '#ffffff'}; font-weight: ${isBlowerChecked ? 'bold' : 'normal'}">
-                <span>Inverter Services</span>
-                <span>${isBlowerChecked ? '1' : '-'}</span>
-                <span>${isBlowerChecked ? 'Included' : '-'}</span>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 4px 0; color: ${serviceType === 'Water Tank' ? '#60a5fa' : '#ffffff'}; font-weight: ${serviceType === 'Water Tank' ? 'bold' : 'normal'}">
-                <span>Water Tank Wash</span>
-                <span>${serviceType === 'Water Tank' ? qty : '-'}</span>
-                <span>${serviceType === 'Water Tank' ? 'Rs. ' + price : '-'}</span>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 4px 0; color: ${serviceType === 'Car Wash' ? '#60a5fa' : '#ffffff'}; font-weight: ${serviceType === 'Car Wash' ? 'bold' : 'normal'}">
-                <span>Car Wash / Detailing</span>
-                <span>${serviceType === 'Car Wash' ? qty : '-'}</span>
-                <span>${serviceType === 'Car Wash' ? 'Rs. ' + price : '-'}</span>
+            <div style="display: table; width: 100%; padding-bottom: 4px;">
+                <div style="display: table-cell; width: 150px; color: #64748b; font-weight: 600; font-size: 15px;">📅 Booking Date:</div>
+                <div style="display: table-cell; color: #0f172a; font-weight: 700; font-size: 16px;">${bookingDate}</div>
             </div>
         </div>
 
-        <div style="background: rgba(30, 41, 59, 0.9); padding: 16px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid #3b82f6; margin-bottom: 20px;">
-            <span style="font-size: 14px; font-weight: bold; color: #94a3b8; text-transform: uppercase;">Estimated Grand Total:</span>
-            <span style="font-size: 24px; font-weight: 900; color: #ffffff;">Rs. ${price}</span>
+        <div style="margin-bottom: 40px;">
+            <h3 style="margin: 0 0 15px 0; font-size: 16px; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.5px; border-left: 4px solid #3b82f6; padding-left: 10px;">Service Order Breakdown</h3>
+            
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="background: #1e3a8a; color: #ffffff;">
+                        <th style="padding: 12px 15px; font-size: 14px; font-weight: 700; border-top-left-radius: 8px; border-bottom-left-radius: 8px;">Service Description</th>
+                        <th style="padding: 12px 15px; font-size: 14px; font-weight: 700; text-align: center;">Qty</th>
+                        <th style="padding: 12px 15px; font-size: 14px; font-weight: 700; text-align: right; border-top-right-radius: 8px; border-bottom-right-radius: 8px;">Amount (PKR)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid #e2e8f0; background: ${serviceType === 'Solar' ? '#f0fdf4' : 'transparent'}; font-weight: ${serviceType === 'Solar' ? '700' : 'normal'};">
+                        <td style="padding: 14px 15px; font-size: 15px; color: ${serviceType === 'Solar' ? '#166534' : '#475569'};">Solar Panel Professional Washing Service</td>
+                        <td style="padding: 14px 15px; font-size: 15px; text-align: center; color: #0f172a;">${serviceType === 'Solar' ? qty : '-'}</td>
+                        <td style="padding: 14px 15px; font-size: 15px; text-align: right; color: #0f172a;">${serviceType === 'Solar' ? 'Rs. ' + price : '-'}</td>
+                    </tr>
+                    
+                    <tr style="border-bottom: 1px solid #e2e8f0; background: ${isBlowerChecked ? '#f0fdf4' : 'transparent'}; font-weight: ${isBlowerChecked ? '700' : 'normal'};">
+                        <td style="padding: 14px 15px; font-size: 15px; color: ${isBlowerChecked ? '#166534' : '#475569'};">Inverter & Battery DB Box Blower Cleaning</td>
+                        <td style="padding: 14px 15px; font-size: 15px; text-align: center; color: #0f172a;">${isBlowerChecked ? '1' : '-'}</td>
+                        <td style="padding: 14px 15px; font-size: 15px; text-align: right; color: #1e40af;">${isBlowerChecked ? 'Included' : '-'}</td>
+                    </tr>
+                    
+                    <tr style="border-bottom: 1px solid #e2e8f0; background: ${serviceType === 'Water Tank' ? '#f0fdf4' : 'transparent'}; font-weight: ${serviceType === 'Water Tank' ? '700' : 'normal'};">
+                        <td style="padding: 14px 15px; font-size: 15px; color: ${serviceType === 'Water Tank' ? '#166534' : '#475569'};">Water Tank Multi-Stage Disinfection Wash</td>
+                        <td style="padding: 14px 15px; font-size: 15px; text-align: center; color: #0f172a;">${serviceType === 'Water Tank' ? qty : '-'}</td>
+                        <td style="padding: 14px 15px; font-size: 15px; text-align: right; color: #0f172a;">${serviceType === 'Water Tank' ? 'Rs. ' + price : '-'}</td>
+                    </tr>
+                    
+                    <tr style="border-bottom: 1px solid #e2e8f0; background: ${serviceType === 'Car Wash' ? '#f0fdf4' : 'transparent'}; font-weight: ${serviceType === 'Car Wash' ? '700' : 'normal'};">
+                        <td style="padding: 14px 15px; font-size: 15px; color: ${serviceType === 'Car Wash' ? '#166534' : '#475569'};">Premium Doorstep Car Detailing & Eco Wash</td>
+                        <td style="padding: 14px 15px; font-size: 15px; text-align: center; color: #0f172a;">${serviceType === 'Car Wash' ? qty : '-'}</td>
+                        <td style="padding: 14px 15px; font-size: 15px; text-align: right; color: #0f172a;">${serviceType === 'Car Wash' ? 'Rs. ' + price : '-'}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div style="text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 15px; font-size: 11px; color: #94a3b8;">
-            <p style="margin: 0 0 5px 0;">Thank you for choosing premium quality!</p>
-            <p style="margin: 0; font-weight: bold; color: #ffffff;">📞 Muneeb: 0308-4462160 | Safdar: 0308-7274525</p>
+        <div style="background: #0d9488; padding: 18px 25px; border-radius: 12px; margin-bottom: 50px; border-left: 6px solid #115e59;">
+            <div style="display: table; width: 100%;">
+                <div style="display: table-cell; vertical-align: middle; font-size: 15px; font-weight: 800; color: #ccfbf1; text-transform: uppercase; letter-spacing: 1px;">
+                    Net Payable Grand Total:
+                </div>
+                <div style="display: table-cell; vertical-align: middle; text-align: right; font-size: 26px; font-weight: 900; color: #ffffff;">
+                    Rs. ${price}
+                </div>
+            </div>
+        </div>
+
+        <div style="position: absolute; bottom: 50px; left: 50px; right: 50px; text-align: center; border-top: 2px dashed #e2e8f0; padding-top: 20px;">
+            <p style="margin: 0 0 6px 0; font-size: 14px; font-weight: 700; color: #475569;">Thank you for choosing MS Solar Cleaning Services!</p>
+            <p style="margin: 0; font-size: 14px; font-weight: 800; color: #0f172a; background: #f1f5f9; display: inline-block; padding: 6px 16px; border-radius: 20px;">
+                📞 Muneeb: 0308-4462160 &nbsp;|&nbsp; Safdar: 0308-7274525
+            </p>
         </div>
     `;
 
     document.body.appendChild(billWrapper);
 
-    // 3. EXPORT HO KAR HD IMAGE DOWNLOAD HOGI
+    // 3. EXPORT CAPTURING DIRECT HD IMAGE
     html2canvas(billWrapper, {
-        scale: 2,
+        scale: 2, // High resolution HD mapping
         useCORS: true,
         logging: false,
-        backgroundColor: '#0f172a'
+        backgroundColor: '#ffffff'
     }).then(canvas => {
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const imgData = canvas.toDataURL('image/jpeg', 0.98);
         const link = document.createElement('a');
         link.download = serviceType.replace(' ', '_') + '_Invoice_' + invNo + '.jpg';
         link.href = imgData;
@@ -2029,7 +2062,7 @@ function downloadNewInvoice(serviceType) {
         document.body.removeChild(link);
         document.body.removeChild(billWrapper);
     }).catch(error => {
-        console.error("Export failed:", error);
+        console.error("Invoice Export failed:", error);
         if (document.body.contains(billWrapper)) document.body.removeChild(billWrapper);
     });
 }
