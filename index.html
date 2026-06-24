@@ -1880,91 +1880,109 @@ function sendWhatsAppReminder(phone, lastDate, panels) {
 
 function downloadNewInvoice(serviceType) {
     let custName = "", custPhone = "", custAddress = "", bookingDate = "";
-    let qty = "1", price = "0", serviceDesc = "";
+    let qty = "1", price = "0";
+    let isBlowerChecked = false;
 
-    // 1. DATA FETCHING BASED ON SERVICE
+    // 1. DYNAMIC DATA FETCHING FOR EACH SERVICE
     if (serviceType === 'Solar') {
-        custName = document.getElementById('cust-name')?.value || document.getElementById('solar-cust-name')?.value || "Valued Customer";
-        custPhone = document.getElementById('cust-phone')?.value || document.getElementById('solar-cust-phone')?.value || "N/A";
-        custAddress = document.getElementById('cust-address')?.value || document.getElementById('solar-cust-address')?.value || "Sahiwal Region";
-        bookingDate = document.getElementById('booking-date')?.value || new Date().toLocaleDateString('en-GB');
-        qty = document.getElementById('solar-qty-val')?.innerText || "1";
-        price = document.getElementById('solar-cost-val')?.innerText || document.getElementById('total-price')?.innerText || "0";
-        serviceDesc = "Solar Panel Wash Services";
+        custName = document.getElementById('solar-cust-name')?.value || document.getElementById('cust-name')?.value || "Valued Customer";
+        custPhone = document.getElementById('solar-cust-phone')?.value || document.getElementById('cust-phone')?.value || "N/A";
+        custAddress = document.getElementById('solar-cust-address')?.value || document.getElementById('cust-address')?.value || "Sahiwal Region";
+        bookingDate = document.getElementById('solar-booking-date')?.value || document.getElementById('booking-date')?.value || new Date().toLocaleDateString('en-GB');
+        
+        let solarQtyEl = document.getElementById('panel-qty') || document.getElementById('solar-qty-val');
+        qty = solarQtyEl ? (solarQtyEl.value || solarQtyEl.innerText) : "1";
+        
+        let solarPriceEl = document.getElementById('solar-cost-val') || document.getElementById('total-price');
+        price = solarPriceEl ? solarPriceEl.innerText.replace(/[^0-9]/g, '') : "0";
+
+        let blowerCheckEl = document.getElementById('blower-check');
+        if (blowerCheckEl && blowerCheckEl.checked) {
+            isBlowerChecked = true;
+        }
     } else if (serviceType === 'Car Wash') {
         custName = document.getElementById('carwash-cust-name')?.value || "Valued Customer";
         custPhone = document.getElementById('carwash-cust-phone')?.value || "N/A";
         custAddress = document.getElementById('carwash-cust-address')?.value || "Sahiwal Region";
         bookingDate = document.getElementById('carwash-booking-date')?.value || new Date().toLocaleDateString('en-GB');
-        qty = document.getElementById('carwash-qty')?.value || "1";
-        price = document.getElementById('car-cost-val')?.innerText || document.getElementById('car-total-price')?.innerText || "0";
-        serviceDesc = "Premium Car Detailing / Wash";
+        
+        let carQtyEl = document.getElementById('carwash-qty');
+        qty = carQtyEl ? carQtyEl.value : "1";
+        
+        let carPriceEl = document.getElementById('carwash-total-price') || document.getElementById('car-total-price') || document.getElementById('car-cost-val');
+        price = carPriceEl ? carPriceEl.innerText.replace(/[^0-9]/g, '') : "0";
     } else if (serviceType === 'Water Tank') {
         custName = document.getElementById('tank-cust-name')?.value || "Valued Customer";
         custPhone = document.getElementById('tank-cust-phone')?.value || "N/A";
         custAddress = document.getElementById('tank-cust-address')?.value || "Sahiwal Region";
         bookingDate = document.getElementById('tank-booking-date')?.value || new Date().toLocaleDateString('en-GB');
-        qty = document.getElementById('tank-qty')?.value || "1";
-        price = document.getElementById('tank-total-price')?.innerText || "0";
-        serviceDesc = "Water Tank Multi-Stage Wash";
+        
+        let tankQtyEl = document.getElementById('tank-qty');
+        qty = tankQtyEl ? tankQtyEl.value : "1";
+        
+        let tankPriceEl = document.getElementById('tank-total-price');
+        price = tankPriceEl ? tankPriceEl.innerText.replace(/[^0-9]/g, '') : "0";
     }
 
-    // 2. CANVAS CREATION & DRAWING
+    // 2. CANVAS DESIGN MANAGEMENT
     const img = new Image();
-    img.src = 'invoice-bg.png'; // Jo image aapne upload ki hai
+    img.src = 'invoice-bg.png';
     img.crossOrigin = 'anonymous';
 
     img.onload = function () {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         
-        // Original premium image size set kar rahe hain
         canvas.width = img.width;
         canvas.height = img.height;
         
-        // Background draw karein
         ctx.drawImage(img, 0, 0);
         
-        // Font styles set karein (Dark Blue color matching design)
-        ctx.fillStyle = '#1e293b';
+        // Aapki pasand ka Royal Blue Color
+        ctx.fillStyle = '#1e40af';
+        
+        // 1. TOP RIGHT BOX: Invoice No (MS-1000 se agay dynamic) & Date
         ctx.font = 'bold 24px "Segoe UI", Roboto, sans-serif';
+        let invNo = "MS-" + Math.floor(1000 + Math.random() * 9000);
+        ctx.fillText(invNo, 695, 260);
+        ctx.fillText(bookingDate, 695, 285);
         
-        // Date & Invoice Number (Top Right Box)
-        ctx.fillText(bookingDate, 550, 282);
-        ctx.fillText("MS-" + Math.floor(1000 + Math.random() * 9000), 550, 252);
+        // 2. CUSTOMER DETAILS SECTION
+        ctx.font = 'bold 25px "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(custName, 350, 380);
+        ctx.fillText(custPhone, 350, 416);
+        ctx.fillText(custAddress, 350, 452);
+        ctx.fillText(bookingDate, 350, 488);
         
-        // Customer Details positions
-        ctx.font = '22px "Segoe UI", Roboto, sans-serif';
-        ctx.fillText(custName, 340, 375);
-        ctx.fillText(custPhone, 340, 412);
-        ctx.fillText(custAddress, 340, 448);
-        ctx.fillText(bookingDate, 340, 485);
+        // 3. ORDER SUMMARY TABLE ITEMS (Dynamic Rows Mapping)
+        ctx.font = 'bold 25px "Segoe UI", Roboto, sans-serif';
         
-        // Order Summary Table Row Items
-        ctx.font = 'bold 22px "Segoe UI", Roboto, sans-serif';
-        let rowY = 595; // Default position for text row
+        if (serviceType === 'Solar') {
+            ctx.fillText(qty, 630, 602);
+            ctx.fillText("Rs. " + price, 750, 602);
+            if (isBlowerChecked) {
+                ctx.fillText("Included", 750, 635); 
+            }
+        } else if (serviceType === 'Water Tank') {
+            ctx.fillText(qty, 630, 668);
+            ctx.fillText("Rs. " + price, 750, 668);
+        } else if (serviceType === 'Car Wash') {
+            ctx.fillText(qty, 630, 701);
+            ctx.fillText("Rs. " + price, 750, 701);
+        }
         
-        if (serviceType === 'Solar') rowY = 595;
-        else if (serviceType === 'Water Tank') rowY = 655;
-        else if (serviceType === 'Car Wash') rowY = 685;
-        
-        ctx.font = '20px "Segoe UI", Roboto, sans-serif';
-        ctx.fillText(qty, 610, rowY);
-        ctx.fillText("Rs. " + price, 730, rowY);
-        
-        // Grand Total Box
-        ctx.fillStyle = '#ffffff'; // White text for grand total box
-        ctx.font = 'bold 26px "Segoe UI", Roboto, sans-serif';
+        // 4. GRAND TOTAL BOX (Text color is White)
+        ctx.fillStyle = '#ffffff'; 
+        ctx.font = 'bold 32px "Segoe UI", Roboto, sans-serif';
         ctx.fillText("Rs. " + price, 730, 822);
         
-        // Image Download Logic
+        // 5. TRIGGER DOWNLOAD
         const link = document.createElement('a');
-        link.download = serviceType.replace(' ', '_') + '_Invoice.png';
+        link.download = serviceType.replace(' ', '_') + '_Invoice_' + invNo + '.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
     };
 }
-    
     
     
 // ==========================================
