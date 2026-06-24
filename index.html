@@ -1883,7 +1883,7 @@ function downloadNewInvoice(serviceType) {
     let qty = "1", price = "0";
     let isBlowerChecked = false;
 
-    // 1. EXACT FIELD FETCHING
+    // 1. DYNAMIC DATA FETCHING
     if (serviceType === 'Solar') {
         custName = document.getElementById('solar-cust-name')?.value || document.getElementById('cust-name')?.value || "Valued Customer";
         custPhone = document.getElementById('solar-cust-phone')?.value || document.getElementById('cust-phone')?.value || "N/A";
@@ -1924,69 +1924,116 @@ function downloadNewInvoice(serviceType) {
         price = tankPriceEl ? tankPriceEl.innerText.replace(/[^0-9]/g, '') : "0";
     }
 
-    const img = new Image();
-    img.src = 'invoice-bg.png';
-    img.crossOrigin = 'anonymous';
+    let invNo = "MS-" + Math.floor(1000 + Math.random() * 9000);
 
-    img.onload = function () {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-        
-        // Royal Blue Solid Color
-        ctx.fillStyle = '#1e40af';
-        
-        // --- 1. TOP RIGHT BOX (Invoice No & Date) ---
-        ctx.font = 'bold 32px "Segoe UI", Roboto, sans-serif';
-        let invNo = "MS-" + Math.floor(1000 + Math.random() * 9000);
-        ctx.fillText(invNo, 680, 262);
-        ctx.fillText(bookingDate, 680, 292);
-        
-        // --- 2. CUSTOMER DETAILS SECTION (Perfect Row Alignment) ---
-        ctx.font = 'bold 30px "Segoe UI", Roboto, sans-serif';
-        ctx.fillText(custName, 350, 390);
-        ctx.fillText(custPhone, 350, 428);
-        ctx.fillText(custAddress, 350, 465);
-        ctx.fillText(bookingDate, 350, 502);
-        
-        // --- 3. ORDER SUMMARY TABLE ROWS (Big Fonts & Placed Right Inside Table) ---
-        ctx.font = 'bold 30px "Segoe UI", Roboto, sans-serif';
-        
-        if (serviceType === 'Solar') {
-            // Solar Panel Wash Row
-            ctx.fillText(qty, 635, 608);
-            ctx.fillText("Rs. " + price, 755, 608);
+    // 2. DYNAMIC PREMIUM HTML WRAPPER GENERATION WITH LOGO & BLUE TEXT
+    const billWrapper = document.createElement('div');
+    billWrapper.style.position = 'absolute';
+    billWrapper.style.left = '-9999px';
+    billWrapper.style.top = '0';
+    billWrapper.style.width = '550px';
+    billWrapper.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
+    billWrapper.style.color = '#ffffff';
+    billWrapper.style.fontFamily = '"Segoe UI", Roboto, sans-serif';
+    billWrapper.style.padding = '30px';
+    billWrapper.style.boxSizing = 'border-box';
+    billWrapper.style.borderRadius = '24px';
+
+    // Premium Blue Typography Theme
+    billWrapper.innerHTML = `
+        <div style="text-align: center; border-bottom: 2px dashed rgba(59, 130, 246, 0.3); padding-bottom: 20px; margin-bottom: 20px;">
+            <img src="logo.png" alt="MS Solar Logo" style="width: 100px; height: auto; margin-bottom: 10px;">
+            <h2 style="margin: 0; font-size: 24px; font-weight: 800; color: #3b82f6; letter-spacing: 0.5px;">MS SOLAR CLEANING SERVICES</h2>
+            <p style="margin: 4px 0 0; color: #94a3b8; font-size: 12px;">Chichawatni • Sahiwal • Pakpattan • Arifwala</p>
+        </div>
+
+        <div style="background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); padding: 18px; border-radius: 14px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px;">
+                <span style="color: #94a3b8;"><strong>Invoice Number:</strong></span>
+                <span style="color: #60a5fa; font-weight: bold;">${invNo}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                <span style="color: #94a3b8;"><strong>Date:</strong></span>
+                <span style="color: #60a5fa; font-weight: bold;">${bookingDate}</span>
+            </div>
+        </div>
+
+        <div style="background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); padding: 18px; border-radius: 14px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);">
+            <h3 style="margin: 0 0 12px 0; font-size: 15px; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.5px;">Customer Details</h3>
+            <div style="margin-bottom: 6px; font-size: 14px;"><strong style="color: #94a3b8;">Name:</strong> <span style="color: #ffffff; margin-left: 10px;">${custName}</span></div>
+            <div style="margin-bottom: 6px; font-size: 14px;"><strong style="color: #94a3b8;">WhatsApp:</strong> <span style="color: #ffffff; margin-left: 10px;">${custPhone}</span></div>
+            <div style="margin-bottom: 6px; font-size: 14px;"><strong style="color: #94a3b8;">Location:</strong> <span style="color: #ffffff; margin-left: 10px;">${custAddress}</span></div>
+        </div>
+
+        <div style="background: rgba(15, 23, 42, 0.5); padding: 18px; border-radius: 14px; border: 1px solid rgba(59, 130, 246, 0.2); margin-bottom: 20px;">
+            <h3 style="margin: 0 0 12px 0; font-size: 15px; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.5px;">Order Summary</h3>
             
-            // Inverter Services Row (If checked)
-            if (isBlowerChecked) {
-                ctx.fillText("1", 635, 642);
-                ctx.fillText("Included", 755, 642);
-            }
-        } else if (serviceType === 'Water Tank') {
-            // Water Tank Wash Row
-            ctx.fillText(qty, 635, 675);
-            ctx.fillText("Rs. " + price, 755, 675);
-        } else if (serviceType === 'Car Wash') {
-            // Car Wash Row
-            ctx.fillText(qty, 635, 710);
-            ctx.fillText("Rs. " + price, 755, 710);
-        }
-        
-        // --- 4. GRAND TOTAL BOX (Bottom Teal Box - Solid White Bold Text) ---
-        ctx.fillStyle = '#ffffff'; 
-        ctx.font = 'bold 36px "Segoe UI", Roboto, sans-serif';
-        ctx.fillText("Rs. " + price, 735, 825);
-        
-        // --- 5. TRIGGER DOWNLOAD ---
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 8px; font-size: 13px; font-weight: bold; color: #94a3b8;">
+                <span>Service Description</span>
+                <span>Qty</span>
+                <span>Price (PKR)</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 4px 0; color: ${serviceType === 'Solar' ? '#60a5fa' : '#ffffff'}; font-weight: ${serviceType === 'Solar' ? 'bold' : 'normal'}">
+                <span>Solar Panel Wash</span>
+                <span>${serviceType === 'Solar' ? qty : '-'}</span>
+                <span>${serviceType === 'Solar' ? 'Rs. ' + price : '-'}</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 4px 0; color: ${isBlowerChecked ? '#60a5fa' : '#ffffff'}; font-weight: ${isBlowerChecked ? 'bold' : 'normal'}">
+                <span>Inverter Services</span>
+                <span>${isBlowerChecked ? '1' : '-'}</span>
+                <span>${isBlowerChecked ? 'Included' : '-'}</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 4px 0; color: ${serviceType === 'Water Tank' ? '#60a5fa' : '#ffffff'}; font-weight: ${serviceType === 'Water Tank' ? 'bold' : 'normal'}">
+                <span>Water Tank Wash</span>
+                <span>${serviceType === 'Water Tank' ? qty : '-'}</span>
+                <span>${serviceType === 'Water Tank' ? 'Rs. ' + price : '-'}</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 4px 0; color: ${serviceType === 'Car Wash' ? '#60a5fa' : '#ffffff'}; font-weight: ${serviceType === 'Car Wash' ? 'bold' : 'normal'}">
+                <span>Car Wash / Detailing</span>
+                <span>${serviceType === 'Car Wash' ? qty : '-'}</span>
+                <span>${serviceType === 'Car Wash' ? 'Rs. ' + price : '-'}</span>
+            </div>
+        </div>
+
+        <div style="background: rgba(30, 41, 59, 0.9); padding: 16px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid #3b82f6; margin-bottom: 20px;">
+            <span style="font-size: 14px; font-weight: bold; color: #94a3b8; text-transform: uppercase;">Estimated Grand Total:</span>
+            <span style="font-size: 24px; font-weight: 900; color: #ffffff;">Rs. ${price}</span>
+        </div>
+
+        <div style="text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 15px; font-size: 11px; color: #94a3b8;">
+            <p style="margin: 0 0 5px 0;">Thank you for choosing premium quality!</p>
+            <p style="margin: 0; font-weight: bold; color: #ffffff;">📞 Muneeb: 0308-4462160 | Safdar: 0308-7274525</p>
+        </div>
+    `;
+
+    document.body.appendChild(billWrapper);
+
+    // 3. EXPORT HO KAR HD IMAGE DOWNLOAD HOGI
+    html2canvas(billWrapper, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#0f172a'
+    }).then(canvas => {
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
         const link = document.createElement('a');
-        link.download = serviceType.replace(' ', '_') + '_Invoice_' + invNo + '.png';
-        link.href = canvas.toDataURL('image/png');
+        link.download = serviceType.replace(' ', '_') + '_Invoice_' + invNo + '.jpg';
+        link.href = imgData;
+        
+        document.body.appendChild(link);
         link.click();
-    };
+        document.body.removeChild(link);
+        document.body.removeChild(billWrapper);
+    }).catch(error => {
+        console.error("Export failed:", error);
+        if (document.body.contains(billWrapper)) document.body.removeChild(billWrapper);
+    });
 }
+    
     
 // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
