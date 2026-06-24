@@ -1248,9 +1248,9 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 </div>
      
                         </div>
-
-<button type="button" onclick="downloadAsJPG('solar-calc-block', 'Solar_Cleaning_Bill')" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg transition-all transform active:scale-95 flex items-center justify-center space-x-2">
-    <i class="fas fa-image text-xl"></i> <span>Download Bill Statement as Image</span>
+<button type="button" onclick="downloadNewInvoice('Solar')" class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white p-4 rounded-2xl shadow-lg font-bold flex items-center justify-center space-x-2">
+    <i class="fas fa-image text-xl"></i>
+    <span>Download Bill Statement as Image</span>
 </button>
                         
                         <button onclick="sendBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
@@ -1342,16 +1342,10 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
                             <p class="text-[10px] text-slate-600">*Premium high-pressure washer cleaning with deep glossy finishing</p>
                         </div>
 
-<button type="button" onclick="downloadAsJPG('car-calc-block', 'Car_Wash_Bill')" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg transition-all transform active:scale-95 flex items-center justify-center space-x-2">
-    <i class="fas fa-image text-xl"></i> <span>Download Bill Statement as Image</span>
+<button type="button" onclick="downloadNewInvoice('Car Wash')" class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white p-4 rounded-2xl shadow-lg font-bold flex items-center justify-center space-x-2">
+    <i class="fas fa-image text-xl"></i>
+    <span>Download Bill Statement as Image</span>
 </button>
-
-    <i class="fas fa-image text-xl"></i> <span>Download Bill Statement as Image</span>
-</button>
-        
-    <i class="fas fa-file-image"></i> Download Bill Statement as Image
-</button>
-        
         
 
                         <button onclick="sendCarWashBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-95 text-white text-center font-bold py-4 rounded-xl transition flex items-center justify-center gap-2 shadow-lg text-lg">
@@ -1426,11 +1420,10 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
                 <p class="text-[10px] text-slate-400">*Premium chemical wash & multi-stage disinfection included.</p>
             </div>
 
-<button type="button" onclick="downloadAsJPG('tank-calc-block', 'Water_Tank_Bill')" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg transition-all transform active:scale-95 flex items-center justify-center space-x-2">
-    <i class="fas fa-image text-xl"></i> <span>Download Bill Statement as Image</span>
+<button type="button" onclick="downloadNewInvoice('Water Tank')" class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white p-4 rounded-2xl shadow-lg font-bold flex items-center justify-center space-x-2">
+    <i class="fas fa-image text-xl"></i>
+    <span>Download Bill Statement as Image</span>
 </button>
-            
-            
             
                 
            <button type="button" onclick="sendTankBooking()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg">
@@ -1885,139 +1878,93 @@ function sendWhatsAppReminder(phone, lastDate, panels) {
     }
 }
 
-function downloadAsJPG(containerId, fileName) {
-    let custName = "";
-    let custPhone = "";
-    let custAddress = "";
-    let totalCostText = "0";
-    let specificationsHTML = "";
+function downloadNewInvoice(serviceType) {
+    let custName = "", custPhone = "", custAddress = "", bookingDate = "";
+    let qty = "1", price = "0", serviceDesc = "";
 
-    // 1. SOLAR CALCULATOR DATA FETCH
-    if (containerId === 'solar-calc-block' || containerId === 'solar') {
+    // 1. DATA FETCHING BASED ON SERVICE
+    if (serviceType === 'Solar') {
         custName = document.getElementById('cust-name')?.value || document.getElementById('solar-cust-name')?.value || "Valued Customer";
         custPhone = document.getElementById('cust-phone')?.value || document.getElementById('solar-cust-phone')?.value || "N/A";
         custAddress = document.getElementById('cust-address')?.value || document.getElementById('solar-cust-address')?.value || "Sahiwal Region";
-        totalCostText = document.getElementById('solar-cost-val')?.innerText || document.getElementById('total-cost')?.innerText || "0";
-        
-        const platesCount = document.getElementById('solar-qty-val')?.innerText || document.getElementById('plates-qty')?.value || "0";
-        const brand = document.getElementById('solar-brand-select')?.value || document.querySelector("select[name='Brand1']").value || "Standard";
-        const inverter = document.getElementById('inverter-brand-select')?.value || document.querySelector("select[name='Inverter1']").value || "Standard";
-        const systemSize = document.getElementById('system-size-select')?.value || "3 KW";
-
-        specificationsHTML = `
-            <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Service Type:</span> <span style="font-weight: 600; color: #3b82f6;">Solar Panel Cleaning</span></div>
-            <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Total Panels:</span> <span style="font-weight: bold; color: #ffffff;">${platesCount} Plates</span></div>
-            <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Panel Brand:</span> <span style="color: #f43f5e; font-weight: 600;">${brand}</span></div>
-            <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Inverter Brand:</span> <span style="color: #e2e8f0; font-weight: 600;">${inverter}</span></div>
-            <div style="display: flex; justify-content: space-between;"><span style="color: #94a3b8;">System Size:</span> <span style="color: #06b6d4; font-weight: 600;">${systemSize}</span></div>
-        `;
-    } 
-    // 2. CAR WASH CALCULATOR DATA FETCH
-    else if (containerId === 'car-calc-block' || containerId === 'car') {
-        custName = document.getElementById('carwash-cust-name')?.value || document.getElementById('car-cust-name')?.value || "Valued Customer";
-        custPhone = document.getElementById('carwash-cust-phone')?.value || document.getElementById('car-cust-phone')?.value || "N/A";
-        custAddress = document.getElementById('carwash-cust-address')?.value || document.getElementById('car-cust-address')?.value || "Sahiwal Region";
-        totalCostText = document.getElementById('car-cost-val')?.innerText || document.getElementById('car-total-price')?.innerText || "0";
-        
-        const carType = document.getElementById('car-type-select')?.value || "Vehicle";
-        
-        specificationsHTML = `
-            <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Service Type:</span> <span style="font-weight: 600; color: #3b82f6;">Premium Car Wash</span></div>
-            <div style="display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Vehicle Type:</span> <span style="font-weight: bold; color: #ffffff;">${carType}</span></div>
-        `;
-    } 
-    // 3. WATER TANK CALCULATOR DATA FETCH
-    else {
+        bookingDate = document.getElementById('booking-date')?.value || new Date().toLocaleDateString('en-GB');
+        qty = document.getElementById('solar-qty-val')?.innerText || "1";
+        price = document.getElementById('solar-cost-val')?.innerText || document.getElementById('total-price')?.innerText || "0";
+        serviceDesc = "Solar Panel Wash Services";
+    } else if (serviceType === 'Car Wash') {
+        custName = document.getElementById('carwash-cust-name')?.value || "Valued Customer";
+        custPhone = document.getElementById('carwash-cust-phone')?.value || "N/A";
+        custAddress = document.getElementById('carwash-cust-address')?.value || "Sahiwal Region";
+        bookingDate = document.getElementById('carwash-booking-date')?.value || new Date().toLocaleDateString('en-GB');
+        qty = document.getElementById('carwash-qty')?.value || "1";
+        price = document.getElementById('car-cost-val')?.innerText || document.getElementById('car-total-price')?.innerText || "0";
+        serviceDesc = "Premium Car Detailing / Wash";
+    } else if (serviceType === 'Water Tank') {
         custName = document.getElementById('tank-cust-name')?.value || "Valued Customer";
         custPhone = document.getElementById('tank-cust-phone')?.value || "N/A";
         custAddress = document.getElementById('tank-cust-address')?.value || "Sahiwal Region";
-        totalCostText = document.getElementById('tank-total-price')?.innerText || "0";
-        
-        const capacity = document.getElementById('tank-capacity-select')?.value || "Standard Size";
-        const tankQty = document.getElementById('tank-qty')?.value || "1";
-        
-        specificationsHTML = `
-            <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Service Type:</span> <span style="font-weight: 600; color: #3b82f6;">Water Tank Cleaning</span></div>
-            <div style="margin-bottom: 10px; display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Tank Capacity:</span> <span style="font-weight: bold; color: #ffffff;">${capacity}</span></div>
-            <div style="display: flex; justify-content: space-between;"><span style="color: #94a3b8;">Total Tanks:</span> <span style="font-weight: bold; color: #ffffff;">${tankQty}</span></div>
-        `;
+        bookingDate = document.getElementById('tank-booking-date')?.value || new Date().toLocaleDateString('en-GB');
+        qty = document.getElementById('tank-qty')?.value || "1";
+        price = document.getElementById('tank-total-price')?.innerText || "0";
+        serviceDesc = "Water Tank Multi-Stage Wash";
     }
 
-    const today = new Date().toLocaleDateString('en-GB');
+    // 2. CANVAS CREATION & DRAWING
+    const img = new Image();
+    img.src = 'invoice-bg.png'; // Jo image aapne upload ki hai
+    img.crossOrigin = 'anonymous';
 
-    // UI Memo Wrapper Design System
-    const billWrapper = document.createElement('div');
-    billWrapper.style.position = 'absolute';
-    billWrapper.style.left = '-9999px';
-    billWrapper.style.top = '0';
-    billWrapper.style.width = '460px';
-    billWrapper.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
-    billWrapper.style.color = '#ffffff';
-    billWrapper.style.fontFamily = "'Segoe UI', Roboto, sans-serif";
-    billWrapper.style.padding = '28px';
-    billWrapper.style.boxSizing = 'border-box';
-    billWrapper.style.border = '1px solid rgba(255, 255, 255, 0.1)';
-    billWrapper.style.borderRadius = '24px';
-
-    billWrapper.innerHTML = `
-        <div style="text-align: center; border-bottom: 2px dashed rgba(59, 130, 246, 0.3); padding-bottom: 20px; margin-bottom: 22px;">
-            <img src="logo.png" alt="MS Solar Logo" style="width: 90px; height: auto; margin-bottom: 10px;">
-            <h2 style="margin: 0; font-size: 22px; font-weight: 800; color: #3b82f6; letter-spacing: 0.5px;">MS SOLAR CLEANING</h2>
-            <p style="margin: 4px 0 0 0; color: #94a3b8; font-size: 11px;">Premium Solar Panel, Water Tank & Car Detailing</p>
-            <div style="margin-top: 6px; display: inline-block; background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); padding: 2px 10px; border-radius: 20px; color: #06b6d4; font-size: 10px; font-weight: 600;">
-                Chichawatni • Sahiwal • Pakpattan • Arifwala
-            </div>
-        </div>
-
-        <div style="background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); padding: 15px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 18px; font-size: 13px;">
-            <div style="font-size: 11px; font-weight: bold; color: #3b82f6; text-transform: uppercase; margin-bottom: 8px;">Customer Details</div>
-            <div style="margin-bottom: 6px;"><strong style="color: #64748b;">Name:</strong> <span style="color: #e2e8f0; font-weight: 600;">${custName}</span></div>
-            <div style="margin-bottom: 6px;"><strong style="color: #64748b;">WhatsApp/Mob:</strong> <span style="color: #e2e8f0;">${custPhone}</span></div>
-            <div style="margin-bottom: 6px;"><strong style="color: #64748b;">Area Location:</strong> <span style="color: #e2e8f0;">${custAddress}</span></div>
-            <div style="margin-bottom: 0;"><strong style="color: #64748b;">Invoice Date:</strong> <span style="color: #e2e8f0;">${today}</span></div>
-        </div>
-
-        <div style="background: rgba(15, 23, 42, 0.5); padding: 15px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 22px; font-size: 13px;">
-            <div style="font-size: 11px; font-weight: bold; color: #06b6d4; text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 5px;">Order Summary</div>
-            ${specificationsHTML}
-        </div>
-
-        <div style="background: rgba(16, 185, 129, 0.1); padding: 16px; border-radius: 14px; border-left: 5px solid #10b981; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(16, 185, 129, 0.2); border-right: 1px solid rgba(16, 185, 129, 0.2); border-bottom: 1px solid rgba(16, 185, 129, 0.2);">
-            <div>
-                <div style="font-size: 14px; font-weight: bold; color: #10b981;">Estimated Net Total</div>
-                <div style="font-size: 9px; color: #64748b; margin-top: 2px;">Eco-friendly setup & chemical wash</div>
-            </div>
-            <div style="font-size: 24px; font-weight: 900; color: #ffffff;">Rs. ${totalCostText}</div>
-        </div>
-
-        <div style="text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 15px; font-size: 11px; color: #94a3b8;">
-            <p style="margin: 0 0 5px 0; font-weight: 600; color: #3b82f6;">Thank you for choosing premium quality!</p>
-            <p style="margin: 2px 0; font-size: 14px; font-weight: bold; color: #ffffff;">📞 0308-4462160</p>
-        </div>
-    `;
-
-    document.body.appendChild(billWrapper);
-
-    html2canvas(billWrapper, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#0f172a'
-    }).then(canvas => {
-        const imgData = canvas.toDataURL('image/jpeg', 0.98);
-        const link = document.createElement('a');
-        link.download = `${fileName}.jpg`;
-        link.href = imgData;
+    img.onload = function () {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
         
-        document.body.appendChild(link);
+        // Original premium image size set kar rahe hain
+        canvas.width = img.width;
+        canvas.height = img.height;
+        
+        // Background draw karein
+        ctx.drawImage(img, 0, 0);
+        
+        // Font styles set karein (Dark Blue color matching design)
+        ctx.fillStyle = '#1e293b';
+        ctx.font = 'bold 24px "Segoe UI", Roboto, sans-serif';
+        
+        // Date & Invoice Number (Top Right Box)
+        ctx.fillText(bookingDate, 550, 282);
+        ctx.fillText("MS-" + Math.floor(1000 + Math.random() * 9000), 550, 252);
+        
+        // Customer Details positions
+        ctx.font = '22px "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(custName, 340, 375);
+        ctx.fillText(custPhone, 340, 412);
+        ctx.fillText(custAddress, 340, 448);
+        ctx.fillText(bookingDate, 340, 485);
+        
+        // Order Summary Table Row Items
+        ctx.font = 'bold 22px "Segoe UI", Roboto, sans-serif';
+        let rowY = 595; // Default position for text row
+        
+        if (serviceType === 'Solar') rowY = 595;
+        else if (serviceType === 'Water Tank') rowY = 655;
+        else if (serviceType === 'Car Wash') rowY = 685;
+        
+        ctx.font = '20px "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(qty, 610, rowY);
+        ctx.fillText("Rs. " + price, 730, rowY);
+        
+        // Grand Total Box
+        ctx.fillStyle = '#ffffff'; // White text for grand total box
+        ctx.font = 'bold 26px "Segoe UI", Roboto, sans-serif';
+        ctx.fillText("Rs. " + price, 730, 822);
+        
+        // Image Download Logic
+        const link = document.createElement('a');
+        link.download = serviceType.replace(' ', '_') + '_Invoice.png';
+        link.href = canvas.toDataURL('image/png');
         link.click();
-        document.body.removeChild(link);
-        document.body.removeChild(billWrapper);
-    }).catch(error => {
-        console.error("Export failed:", error);
-        if (document.body.contains(billWrapper)) document.body.removeChild(billWrapper);
-    });
+    };
 }
+    
     
     
 // ==========================================
