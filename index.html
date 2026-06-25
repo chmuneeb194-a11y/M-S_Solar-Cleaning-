@@ -810,6 +810,11 @@
           <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800">
             <div class="flex justify-between items-center mb-3">
               <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider">💰 Expense & Profit Tracker</h4>
+                        <div class="flex items-center justify-between text-[10px] font-mono bg-slate-950/80 px-2 py-1.5 rounded-lg border border-slate-800/80 mb-3 w-full">
+            <span class="text-slate-400">☁️ CLOUD STATUS:</span>
+            <span id="cloud-sync-status" class="text-amber-400 animate-pulse font-bold">Connecting Sync...</span>
+                        </div>
+                
               <span id="storage-health-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">Storage: Good</span>
             </div>
             
@@ -3197,6 +3202,91 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateSummaryStatsTiles(); 
     if (typeof loadOverdueAlerts === 'function') loadOverdueAlerts(); 
+    // FIREBASE CLOUD DATABASE SYNC ENGINE (REST API)
+const FIREBASE_DB_URL = "https://ms-solar-cleaning-default-rtdb.firebaseio.com/bills.json";
+
+async function syncDataToFirebase() {
+    const statusEl = document.getElementById('cloud-sync-status');
+    if (statusEl) {
+        statusEl.innerText = "Syncing... ⏳";
+        statusEl.className = "text-yellow-400 animate-pulse font-bold";
+    }
+
+    const localData = localStorage.getItem('ms_solar_bills');
+    if (!localData) {
+        if (statusEl) {
+            statusEl.innerText = "No data to sync 📁";
+            statusEl.className = "text-slate-400 font-bold";
+        }
+        return;
+    }
+
+    try {
+        const response = await fetch(FIREBASE_DB_URL, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(JSON.parse(localData))
+        });
+
+        if (response.ok) {
+            if (statusEl) {
+                statusEl.innerText = "Cloud Backed Up Ready ✅";
+                statusEl.className = "text-emerald-400 font-bold";
+            }
+        } else {
+            throw new Error('Sync failed');
+        }
+    } catch (error) {
+        console.error("Firebase Sync Error:", error);
+        if (statusEl) {
+            statusEl.innerText = "Offline Mode (Saved) ⚠️";
+            statusEl.className = "text-rose-400 font-bold";
+        }
+    }
+}
+
+async function loadDataFromFirebase() {
+    const statusEl = document.getElementById('cloud-sync-status');
+    try {
+        const response = await fetch(FIREBASE_DB_URL);
+        if (response.ok) {
+            const cloudData = await response.json();
+            if (cloudData && Object.keys(cloudData).length > 0) {
+                const localData = localStorage.getItem('ms_solar_bills');
+                if (!localData || JSON.parse(localData).length < cloudData.length) {
+                    localStorage.setItem('ms_solar_bills', JSON.stringify(cloudData));
+                    if (typeof updateSummaryStatsTiles === 'function') updateSummaryStatsTiles();
+                    if (typeof loadOverdueAlerts === 'function') loadOverdueAlerts();
+                }
+            }
+            if (statusEl) {
+                statusEl.innerText = "Cloud Active & Synced ☁️";
+                statusEl.className = "text-emerald-400 font-bold";
+            }
+        }
+    } catch (e) {
+        if (statusEl) {
+            statusEl.innerText = "Using Offline Cache 📂";
+            statusEl.className = "text-amber-400 font-bold";
+        }
+    }
+}
+
+// Automatically sync when calculations happen
+const originalCalculateProfit = typeof calculateProfitAndExpenses === 'function' ? calculateProfitAndExpenses : null;
+if (originalCalculateProfit) {
+    window.calculateProfitAndExpenses = function() {
+        originalCalculateProfit();
+        setTimeout(syncDataToFirebase, 1500);
+    };
+}
+
+// Start Syncing on load and set auto interval
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(loadDataFromFirebase, 2500);
+    setInterval(syncDataToFirebase, 45000); // Auto sync back up every 45 seconds
+});
+    
     // CHART.JS ENGINE & GENERATOR
 if (!document.querySelector('script[src*="chart.js"]')) {
     const chartScript = document.createElement('script');
