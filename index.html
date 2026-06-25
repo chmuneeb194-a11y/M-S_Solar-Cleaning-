@@ -3136,6 +3136,15 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         deferredPrompt = e;
         if (installBanner) installBanner.style.display = 'flex';
+                // Naye bande ke aate hi khud-ba-khud install pop-up trigger ho jaye
+        setTimeout(async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+            }
+        }, 1500); // Website khulne ke 1.5 second baad pop-up samne aa jayega
+        
     });
 
     const triggerInstall = async () => {
