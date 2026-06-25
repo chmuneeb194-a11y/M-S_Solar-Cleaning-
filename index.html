@@ -1882,7 +1882,7 @@ function downloadNewInvoice(serviceType) {
     let qty = "1", price = "0";
     let isBlowerChecked = false;
 
-    // 1. DATA EXTRACTION
+    // 1. DATA CORRECTION FROM DOM
     if (serviceType === 'Solar') {
         custName = document.getElementById('solar-cust-name')?.value || document.getElementById('cust-name')?.value || "Valued Customer";
         custPhone = document.getElementById('solar-cust-phone')?.value || document.getElementById('cust-phone')?.value || "N/A";
@@ -1923,19 +1923,22 @@ function downloadNewInvoice(serviceType) {
         price = tankPriceEl ? tankPriceEl.innerText.replace(/[^0-9]/g, '') : "0";
     }
 
-    let invNo = "MS-" + Math.floor(1000 + Math.random() * 9000);
+    // 2. AUTO-INCREMENT INVOICE NUMBER
+    let lastInv = localStorage.getItem('lastInvoiceNo') || "1000";
+    let nextInv = parseInt(lastInv) + 1;
+    localStorage.setItem('lastInvoiceNo', nextInv);
+    let invNo = "MS-" + nextInv;
 
-    // Dynamic Icon Selection based on current service image files
-    let serviceIconImg = "31107.png"; // Default pressure washer image
-    if (serviceType === 'Solar') {
-        serviceIconImg = "31105.png"; // Solar brush image
-    } else if (serviceType === 'Water Tank') {
-        serviceIconImg = "31106.png"; // Water tank image
-    } else if (serviceType === 'Car Wash') {
-        serviceIconImg = "31104.png"; // Car image
-    }
+    // 3. EMBEDDED INLINE ICONS (No external folders needed)
+    const iconSolarBrush = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2323768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="12" rx="2"/><path d="M2 7h20"/><path d="M7 2v5"/><path d="M12 2v5"/><path d="M17 2v5"/><path d="M6 18h12"/><path d="M12 14v4"/><circle cx="6" cy="18" r="1"/><circle cx="10" cy="18" r="1"/><circle cx="14" cy="18" r="1"/><circle cx="18" cy="18" r="1"/></svg>`;
+    const iconCarDetailing = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2323768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M13 17h2"/><path d="M5 11h7"/><path d="M19 12h.01"/></svg>`;
+    const iconWaterTank = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2323768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M2 12h20"/><path d="M12 2v20"/><path d="M12 12m-6 0a6 6 0 1 0 12 0 6 6 0 1 0 -12 0"/></svg>`;
+    const iconPressureWasher = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2323768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><path d="M6 8H3a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3"/><circle cx="14" cy="13" r="3"/><path d="M14 7v3"/><path d="M14 16v3"/></svg>`;
+    
+    // EMBEDDED REAL GREEN WHATSAPP LOGO (SVG BASE64)
+    const iconWhatsApp = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%2325D366" d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.413 9.863-9.832.002-2.623-1.011-5.088-2.854-6.937C16.638 1.885 14.181.861 11.56.861c-5.442 0-9.864 4.414-9.867 9.835-.001 1.73.473 3.42 1.371 4.921l-.993 3.629 3.71-.973zm13.111-5.467c-.29-.145-1.716-.847-1.978-.942-.262-.096-.452-.144-.643.145-.19.289-.738.942-.905 1.134-.167.19-.334.212-.623.066-1.127-.565-1.921-.99-2.684-2.299-.21-.36.21-.334.6-.113.348.199.39.262.585.648.195.385.097.722-.048.1-.145-.289-.643-.578-1.543-.722-.899-.144-1.637.289-2.019.82-.382.53-.382 1.544 0 2.218.382.674 1.147 1.011 2.385.867 1.238-.144 2.019-.942 2.21-.989.191-.047.382-.047.525.046z"/></svg>`;
 
-    // 2. BUILD EXACT GLASS REPLICA
+    // 4. CREATE EXACT HTML WRAPPER WITH ALL LOGOS EMBEDDED
     const billWrapper = document.createElement('div');
     billWrapper.style.position = 'absolute';
     billWrapper.style.left = '-9999px';
@@ -1947,119 +1950,126 @@ function downloadNewInvoice(serviceType) {
     billWrapper.style.display = 'flex';
     billWrapper.style.flexDirection = 'column';
     billWrapper.style.fontFamily = '"Segoe UI", Roboto, sans-serif';
-    billWrapper.style.background = 'radial-gradient(circle at top right, rgba(165,180,252,0.5), rgba(243,244,246,1) 70%)';
+    billWrapper.style.background = 'radial-gradient(circle at top right, rgba(165,180,252,0.4), rgba(243,244,246,1) 75%)';
 
     billWrapper.innerHTML = `
-        <div style="background: rgba(255, 255, 255, 0.45); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 36px; padding: 35px; width: 100%; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 20px 40px rgba(0,0,0,0.05);">
+        <div style="background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 36px; padding: 35px; width: 100%; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 20px 40px rgba(0,0,0,0.03);">
             
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
                     <div style="display: flex; align-items: center; gap: 15px;">
                         <img src="logo.png" style="width: 85px; height: auto;">
                         <div>
-                            <h1 style="margin: 0; font-size: 26px; font-weight: 900; color: #3b4252; letter-spacing: -0.5px; line-height: 1.1;">Ms Solar<br><span style="color:#5e6a82; font-size:22px; font-weight:700;">Cleaning Services</span></h1>
+                            <h1 style="margin: 0; font-size: 26px; font-weight: 900; color: #2e3440; letter-spacing: -0.5px; line-height: 1.1;">Ms Solar<br><span style="color:#4c566a; font-size:22px; font-weight:700;">Cleaning Services</span></h1>
                         </div>
                     </div>
-                    <p style="margin: 12px 0 0 5px; font-size: 13.5px; font-weight: 700; color: #2e3440;">Chichawatni, Sahiwal • Pakpattan • Arifwala</p>
+                    <p style="margin: 12px 0 0 5px; font-size: 13.5px; font-weight: 700; color: #434c5e;">Chichawatni, Sahiwal • Pakpattan • Arifwala</p>
                 </div>
 
                 <div style="text-align: right; width: 320px;">
                     <h2 style="margin: 0 0 12px 0; font-size: 34px; font-weight: 800; color: #2e3440; letter-spacing: 1px;">INVOICE</h2>
-                    <div style="background: #2b4c6f; color: #ffffff; border-radius: 12px; padding: 12px 18px; text-align: left; font-size: 14px; border: 1px solid rgba(255,255,255,0.1);">
+                    <div style="background: #2b4c6f; color: #ffffff; border-radius: 12px; padding: 12px 18px; text-align: left; font-size: 14px;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 4px;">
                             <span>Invoice Number :</span>
-                            <span style="font-weight: 700; color: #81a1c1;">${invNo}</span>
+                            <span style="font-weight: 700; color: #88c0d0;">${invNo}</span>
                         </div>
                         <div style="display: flex; justify-content: space-between; padding-top: 2px;">
                             <span>Date :</span>
-                            <span style="font-weight: 700; color: #81a1c1;">${bookingDate}</span>
+                            <span style="font-weight: 700; color: #88c0d0;">${bookingDate}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div style="margin-top: 10px;">
-                <h3 style="margin: 0 0 12px 0; font-size: 21px; font-weight: 800; color: #2e3440; letter-spacing: 0.5px;">CUSTOMER DETAILS:</h3>
-                
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <div style="display: flex; align-items: center; background: rgba(255,255,255,0.65); border-radius: 20px; padding: 8px 20px; border: 1px solid rgba(255,255,255,0.5);">
-                        <span style="width: 150px; font-weight: 700; color: #4c566a; font-size: 14.5px;">Name:</span>
-                        <span style="color: #2e3440; font-weight: 700; font-size: 15px;">${custName}</span>
+            <div style="display: flex; justify-content: space-between; background: rgba(255, 255, 255, 0.7); border-radius: 16px; padding: 10px 20px; border: 1px solid rgba(255,255,255,0.6); margin-top: 10px; margin-bottom: 5px;">
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #434c5e;">
+                    <img src="${iconSolarBrush}" style="width: 22px; height: 22px;"> Solar Panel Brush
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #434c5e;">
+                    <img src="${iconCarDetailing}" style="width: 22px; height: 22px;"> Car Detailing
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #434c5e;">
+                    <img src="${iconWaterTank}" style="width: 22px; height: 22px;"> Water Tanki
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #434c5e;">
+                    <img src="${iconPressureWasher}" style="width: 22px; height: 22px;"> Pressure Washer
+                </div>
+            </div>
+
+            <div>
+                <h3 style="margin: 0 0 10px 0; font-size: 18px; font-weight: 800; color: #2e3440;">CUSTOMER DETAILS:</h3>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <div style="display: flex; align-items: center; background: rgba(255,255,255,0.7); border-radius: 20px; padding: 6px 18px; border: 1px solid rgba(255,255,255,0.5);">
+                        <span style="width: 140px; font-weight: 700; color: #4c566a; font-size: 14px;">Name:</span>
+                        <span style="color: #2e3440; font-weight: 700; font-size: 14.5px;">${custName}</span>
                     </div>
-                    <div style="display: flex; align-items: center; background: rgba(255,255,255,0.65); border-radius: 20px; padding: 8px 20px; border: 1px solid rgba(255,255,255,0.5);">
-                        <span style="width: 150px; font-weight: 700; color: #4c566a; font-size: 14.5px;">WhatsApp/Mob:</span>
-                        <span style="color: #2e3440; font-weight: 700; font-size: 15px;">${custPhone}</span>
+                    <div style="display: flex; align-items: center; background: rgba(255,255,255,0.7); border-radius: 20px; padding: 6px 18px; border: 1px solid rgba(255,255,255,0.5);">
+                        <span style="width: 140px; font-weight: 700; color: #4c566a; font-size: 14px;">WhatsApp/Mob:</span>
+                        <span style="color: #2e3440; font-weight: 700; font-size: 14.5px;">${custPhone}</span>
                     </div>
-                    <div style="display: flex; align-items: center; background: rgba(255,255,255,0.65); border-radius: 20px; padding: 8px 20px; border: 1px solid rgba(255,255,255,0.5);">
-                        <span style="width: 150px; font-weight: 700; color: #4c566a; font-size: 14.5px;">Area Location:</span>
-                        <span style="color: #2e3440; font-weight: 700; font-size: 15px;">${custAddress}</span>
-                    </div>
-                    <div style="display: flex; align-items: center; background: rgba(255,255,255,0.65); border-radius: 20px; padding: 8px 20px; border: 1px solid rgba(255,255,255,0.5);">
-                        <span style="width: 150px; font-weight: 700; color: #4c566a; font-size: 14.5px;">Order Date:</span>
-                        <span style="color: #2e3440; font-weight: 700; font-size: 15px;">${bookingDate}</span>
+                    <div style="display: flex; align-items: center; background: rgba(255,255,255,0.7); border-radius: 20px; padding: 6px 18px; border: 1px solid rgba(255,255,255,0.5);">
+                        <span style="width: 140px; font-weight: 700; color: #4c566a; font-size: 14px;">Area Location:</span>
+                        <span style="color: #2e3440; font-weight: 700; font-size: 14.5px;">${custAddress}</span>
                     </div>
                 </div>
             </div>
 
-            <div style="margin-top: 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start;">
-                <h3 style="margin: 0 0 12px 0; font-size: 21px; font-weight: 800; color: #2e3440; letter-spacing: 0.5px;">ORDER SUMMARY</h3>
-                
-                <div style="background: rgba(255, 255, 255, 0.5); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.4);">
+            <div style="flex-grow: 1; margin-top: 15px; display: flex; flex-direction: column;">
+                <h3 style="margin: 0 0 10px 0; font-size: 18px; font-weight: 800; color: #2e3440;">ORDER SUMMARY</h3>
+                <div style="background: rgba(255, 255, 255, 0.6); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.5);">
                     <table style="width: 100%; border-collapse: collapse; text-align: left;">
                         <thead>
                             <tr style="background: #23768a; color: #ffffff;">
-                                <th style="padding: 12px 20px; font-size: 15px; font-weight: 700; width: 60%;">Service Description</th>
-                                <th style="padding: 12px 10px; font-size: 15px; font-weight: 700; text-align: center; width: 15%;">Qty</th>
-                                <th style="padding: 12px 20px; font-size: 15px; font-weight: 700; text-align: right; width: 25%;">Price (PKR)</th>
+                                <th style="padding: 10px 20px; font-size: 14px; font-weight: 700;">Service Description</th>
+                                <th style="padding: 10px 10px; font-size: 14px; font-weight: 700; text-align: center; width: 15%;">Qty</th>
+                                <th style="padding: 10px 20px; font-size: 14px; font-weight: 700; text-align: right; width: 25%;">Price (PKR)</th>
                             </tr>
                         </thead>
-                        <tbody style="color: #3b4252; font-size: 14.5px; font-weight: 600;">
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: ${serviceType === 'Solar' ? 'rgba(35,118,138,0.08)' : 'transparent'}; font-weight: ${serviceType === 'Solar' ? '700' : '600'};">
-                                <td style="padding: 14px 20px;">Solar Panel Wash</td>
-                                <td style="padding: 14px 10px; text-align: center;">${serviceType === 'Solar' ? qty : '-'}</td>
-                                <td style="padding: 14px 20px; text-align: right;">${serviceType === 'Solar' ? 'Rs. ' + price : '-'}</td>
+                        <tbody style="color: #3b4252; font-size: 14px; font-weight: 600;">
+                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.05); background: ${serviceType === 'Solar' ? 'rgba(35,118,138,0.06)' : 'transparent'};">
+                                <td style="padding: 12px 20px;">Solar Panel Wash</td>
+                                <td style="padding: 12px 10px; text-align: center;">${serviceType === 'Solar' ? qty : '-'}</td>
+                                <td style="padding: 12px 20px; text-align: right;">${serviceType === 'Solar' ? 'Rs. ' + price : '-'}</td>
                             </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: ${isBlowerChecked ? 'rgba(35,118,138,0.08)' : 'transparent'}; font-weight: ${isBlowerChecked ? '700' : '600'};">
-                                <td style="padding: 14px 20px;">Inverter Services</td>
-                                <td style="padding: 14px 10px; text-align: center;">${isBlowerChecked ? '1' : '-'}</td>
-                                <td style="padding: 14px 20px; text-align: right; color: #23768a;">${isBlowerChecked ? 'Included' : '-'}</td>
+                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.05); background: ${isBlowerChecked ? 'rgba(35,118,138,0.06)' : 'transparent'};">
+                                <td style="padding: 12px 10px; text-align: left; padding-left: 20px;">Inverter Services</td>
+                                <td style="padding: 12px 10px; text-align: center;">${isBlowerChecked ? '1' : '-'}</td>
+                                <td style="padding: 12px 20px; text-align: right; color: #23768a;">${isBlowerChecked ? 'Included' : '-'}</td>
                             </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: ${serviceType === 'Water Tank' ? 'rgba(35,118,138,0.08)' : 'transparent'}; font-weight: ${serviceType === 'Water Tank' ? '700' : '600'};">
-                                <td style="padding: 14px 20px;">Water Tank Wash</td>
-                                <td style="padding: 14px 10px; text-align: center;">${serviceType === 'Water Tank' ? qty : '-'}</td>
-                                <td style="padding: 14px 20px; text-align: right;">${serviceType === 'Water Tank' ? 'Rs. ' + price : '-'}</td>
+                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.05); background: ${serviceType === 'Water Tank' ? 'rgba(35,118,138,0.06)' : 'transparent'};">
+                                <td style="padding: 12px 20px;">Water Tank Wash</td>
+                                <td style="padding: 12px 10px; text-align: center;">${serviceType === 'Water Tank' ? qty : '-'}</td>
+                                <td style="padding: 12px 20px; text-align: right;">${serviceType === 'Water Tank' ? 'Rs. ' + price : '-'}</td>
                             </tr>
-                            <tr style="background: ${serviceType === 'Car Wash' ? 'rgba(35,118,138,0.08)' : 'transparent'}; font-weight: ${serviceType === 'Car Wash' ? '700' : '600'};">
-                                <td style="padding: 14px 20px;">Car Wash</td>
-                                <td style="padding: 14px 10px; text-align: center;">${serviceType === 'Car Wash' ? qty : '-'}</td>
-                                <td style="padding: 14px 20px; text-align: right;">${serviceType === 'Car Wash' ? 'Rs. ' + price : '-'}</td>
+                            <tr style="background: ${serviceType === 'Car Wash' ? 'rgba(35,118,138,0.06)' : 'transparent'};">
+                                <td style="padding: 12px 20px;">Car Wash</td>
+                                <td style="padding: 12px 10px; text-align: center;">${serviceType === 'Car Wash' ? qty : '-'}</td>
+                                <td style="padding: 12px 20px; text-align: right;">${serviceType === 'Car Wash' ? 'Rs. ' + price : '-'}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; margin-bottom: 15px;">
-                <div style="background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(255, 255, 255, 0.9); border-radius: 24px; width: 190px; height: 130px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
-                    <img src="${serviceIconImg}" style="max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 12px;">
-                </div>
-
-                <div style="background: #28979e; color: #ffffff; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; padding: 12px 25px; width: 340px; box-shadow: 0 4px 10px rgba(40,151,158,0.25); height: fit-content;">
-                    <span style="font-size: 15px; font-weight: 800; letter-spacing: 0.5px;">GRAND TOTAL (PKR):</span>
-                    <span style="font-size: 21px; font-weight: 900;">Rs. ${price}</span>
+            <div style="display: flex; justify-content: flex-end; margin-top: 10px; margin-bottom: 10px;">
+                <div style="background: #28979e; color: #ffffff; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; width: 320px;">
+                    <span style="font-size: 14px; font-weight: 800;">GRAND TOTAL (PKR):</span>
+                    <span style="font-size: 20px; font-weight: 900;">Rs. ${price}</span>
                 </div>
             </div>
 
-            <div style="border-top: 1px solid rgba(0,0,0,0.08); padding-top: 18px; text-align: center;">
-                <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 10px;">
-                    <div style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.05); border-radius: 20px; padding: 6px 20px; display: flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 700; color: #2e3440;">
-                        <span style="color:#25d366;">🟢</span> 0308-4462160 <span style="color:#7b889b; font-weight:600; font-size:13px; margin-left:4px;">Muneeb Sarwar</span>
+            <div style="border-top: 1px solid rgba(0,0,0,0.06); padding-top: 15px; text-align: center;">
+                <div style="display: flex; justify-content: center; gap: 25px; margin-bottom: 8px;">
+                    <div style="background: rgba(255,255,255,0.8); border-radius: 20px; padding: 5px 18px; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #2e3440; border: 1px solid rgba(0,0,0,0.04);">
+                        <img src="${iconWhatsApp}" style="width: 18px; height: 18px;">
+                        0308-4462160 <span style="color:#7b889b; font-weight:600; font-size:12px;">Muneeb Sarwar</span>
                     </div>
-                    <div style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.05); border-radius: 20px; padding: 6px 20px; display: flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 700; color: #2e3440;">
-                        <span style="color:#25d366;">🟢</span> 0308-7274525 <span style="color:#7b889b; font-weight:600; font-size:13px; margin-left:4px;">Safdar</span>
+                    <div style="background: rgba(255,255,255,0.8); border-radius: 20px; padding: 5px 18px; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #2e3440; border: 1px solid rgba(0,0,0,0.04);">
+                        <img src="${iconWhatsApp}" style="width: 18px; height: 18px;">
+                        0308-7274525 <span style="color:#7b889b; font-weight:600; font-size:12px;">Safdar</span>
                     </div>
                 </div>
-                <p style="margin: 0; font-size: 13.5px; font-weight: 700; color: #4c566a;">Thank you for your business! We look forward to serving you again. ❤️</p>
+                <p style="margin: 0; font-size: 13px; font-weight: 700; color: #4c566a;">Thank you for your business! We look forward to serving you again. ❤️</p>
             </div>
 
         </div>
@@ -2067,15 +2077,16 @@ function downloadNewInvoice(serviceType) {
 
     document.body.appendChild(billWrapper);
 
-    // 3. GENERATE HIGH-QUALITY RESOLUTION IMAGE
+    // 5. CAPTURE HD PNG
     setTimeout(() => {
         html2canvas(billWrapper, {
-            scale: 2.5, // Crisp layout mapping
+            scale: 2.5,
             useCORS: true,
+            allowTaint: true,
             logging: false,
-            backgroundColor: null // transparent canvas wrapper rendering
+            backgroundColor: null
         }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
+            const imgData = canvas.toDataURL('image/png', 1.0);
             const link = document.createElement('a');
             link.download = serviceType.replace(' ', '_') + '_Invoice_' + invNo + '.png';
             link.href = imgData;
@@ -2085,7 +2096,7 @@ function downloadNewInvoice(serviceType) {
             document.body.removeChild(link);
             document.body.removeChild(billWrapper);
         }).catch(error => {
-            console.error("Invoice generation error:", error);
+            console.error("Error generating invoice:", error);
             if (document.body.contains(billWrapper)) document.body.removeChild(billWrapper);
         });
     }, 300);
