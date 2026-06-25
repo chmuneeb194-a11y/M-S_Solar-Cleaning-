@@ -2081,7 +2081,7 @@ function checkReengagements() {
     }
 }
 
-function sendWhatsUpReminder(phone, lastDate, panels) {
+function sendWhatsAppReminder(phone, lastDate, panels) {
     try {
         const currentRate = localStorage.getItem('ms_solar_panel_rate') || '80';
         const rateReason = localStorage.getItem('ms_solar_rate_reason') || '';
