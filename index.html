@@ -2034,13 +2034,12 @@ function checkStorageHealth() {
     
 // POINT 22: Review Link Booster
 function triggerReviewBooster() {
-    // Apne Google ya Facebook ka review link yahan lagayein
-    const reviewLink = "https://g.page/r/your-profile-link/review"; 
-    const message = `Assalam-o-Alaikum! MS Solar Cleaning Services istemal karne ka shukriya. Agar aapko hamara kaam pasand aya, toh meherbani karke niche diye gaye link par click karke hami 5-star review dein: ${reviewLink}`;
-    
+    const reviewLink = "https://g.page/r/CSf8udSb99Y_EBM/review";
+    const message = "Assalam-o-Alaikum! MS Solar Cleaning Services istemal karne ka shukriya. Agar aapko hamara kaam pasand aya, toh meherbani karke niche diye gaye link par click karke hami 5-star review dein:\n" + reviewLink;
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+    window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
 }
+    
 
 // POINT 20 & 21: Follow-Ups & Calendar Sync Dashboard
 function checkReengagements() {
