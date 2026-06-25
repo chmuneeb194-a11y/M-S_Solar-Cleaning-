@@ -3107,67 +3107,93 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     </script>
-            <script>
-  let deferredPrompt;
-  const installBanner = document.getElementById('pwa-install-banner');
-  const installBtn = document.getElementById('pwa-install-btn');
+<script>
+// ========================================================
+// AUTOMATION ENGINE BY MUNEEB BHAI
+// ========================================================
+let deferredPrompt;
 
-  // Service Worker Registration
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/M-S_Solar-Cleaning-/sw.js')
-        .then(reg => console.log('Service Worker Registered!', reg))
-        .catch(err => console.log('Service Worker Log Error:', err));
-    });
-  }
-
-  // Browser se install ka signal pakadna
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBanner) {
-      installBanner.style.display = 'flex';
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Auto-Fill Current Date
+    const dateField = document.getElementById('admin-date');
+    if (dateField) {
+        const today = new Date();
+        dateField.value = today.toISOString().split('T')[0];
     }
-  });
 
- const navInstallBtn = document.getElementById('nav-install-btn');
-if (navInstallBtn) {
-    navInstallBtn.addEventListener('click', async () => {
+    // 2. Global Rate & UI Sync Automation
+    const savedRate = localStorage.getItem('ms_solar_panel_rate') || '70';
+    if (document.getElementById('global-panel-rate')) document.getElementById('global-panel-rate').value = savedRate;
+    if (document.getElementById('dynamic-text-rate')) document.getElementById('dynamic-text-rate').innerText = savedRate;
+    if (document.getElementById('custom-panel-rate')) document.getElementById('custom-panel-rate').value = savedRate;
+
+    // 3. PWA Install App Buttons Connection (Three Line Menu + Screen Banner)
+    const installBanner = document.getElementById('pwa-install-banner');
+    const installBtn = document.getElementById('pwa-install-btn');       
+    const navInstallBtn = document.getElementById('nav-install-btn');   
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (installBanner) installBanner.style.display = 'flex';
+    });
+
+    const triggerInstall = async () => {
         if (deferredPrompt) {
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to the install prompt: ${outcome}`);
             deferredPrompt = null;
-            if (installBanner) {
-                installBanner.style.display = 'none';
-            }
+            if (installBanner) installBanner.style.display = 'none';
+        } else {
+            alert("App already installed or not supported!");
         }
+    };
+
+    if (installBtn) installBtn.addEventListener('click', triggerInstall);
+    if (navInstallBtn) navInstallBtn.addEventListener('click', triggerInstall);
+
+    window.addEventListener('appinstalled', () => {
+        if (installBanner) installBanner.style.display = 'none';
+        deferredPrompt = null;
+        alert("🎉 MS Solar App successfully installed!");
     });
+
+    updateSummaryStatsTiles(); 
+    if (typeof loadOverdueAlerts === 'function') loadOverdueAlerts();       
+});
+
+// 4. STATS TILES & LIVE EXPENSE TO PROFIT CALCULATOR
+function updateSummaryStatsTiles() {
+    try {
+        let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+        let totalPanels = 0, totalRevenue = 0, overdueCount = 0;
+        const today = new Date();
+
+        savedBills.forEach(bill => {
+            let panels = parseInt(bill.totalWashedPanels) || 0;
+            totalPanels += panels;
+            totalRevenue += (bill.service === 'solar') ? (panels * (parseFloat(localStorage.getItem('ms_solar_panel_rate')) || 70)) : panels;
+
+            const diffDays = Math.floor(Math.abs(today - new Date(bill.date)) / (1000 * 60 * 60 * 24));
+            if (diffDays >= 15) overdueCount++;
+        });
+
+        let fuel = parseFloat(document.getElementById('admin-expense-amount')?.value || 0);
+        let labour = parseFloat(document.getElementById('admin-labour-amount')?.value || 0);
+        let netProfit = totalRevenue - (fuel + labour);
+
+        if (document.getElementById('tile-total-panels')) document.getElementById('tile-total-panels').innerText = totalPanels.toLocaleString();
+        if (document.getElementById('tile-active-reminders')) document.getElementById('tile-active-reminders').innerText = overdueCount;
+        if (document.getElementById('tile-net-profit')) document.getElementById('tile-net-profit').innerText = `Rs. ${netProfit.toLocaleString()}`;
+    } catch (e) { console.error(e); }
 }
 
- // Jab customer "Install" button par click kare
-  if (installBtn) {
-    installBtn.addEventListener('click', async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response to the install prompt: ${outcome}`);
-        deferredPrompt = null;
-        if (installBanner) {
-          installBanner.style.display = 'none';
-        }
-      }
-    });
-  }
-
-  // Agar app pehle se installed ho to banner nahi dikhega
-  window.addEventListener('appinstalled', () => {
-    if (installBanner) {
-      installBanner.style.display = 'none';
-    }
-    deferredPrompt = null;
-    console.log('PWA was installed');
-  });
+const expInp = document.getElementById('admin-expense-amount');
+const labInp = document.getElementById('admin-labour-amount');
+if (expInp) expInp.addEventListener('input', updateSummaryStatsTiles);
+if (labInp) labInp.addEventListener('input', updateSummaryStatsTiles);
+</script>
+    
 <script>
 function moveTankSlider(value) {
     // Gandi tanki wali image ko crop karne ke liye
