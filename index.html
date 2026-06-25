@@ -1877,6 +1877,7 @@ function sendWhatsAppReminder(phone, lastDate, panels) {
         console.error("Error dispatching dynamic WhatsApp reminder: ", error);
     }
 }
+
 function downloadNewInvoice(serviceType) {
     let custName = "", custPhone = "", custAddress = "", bookingDate = "";
     let qty = "1", price = "0";
@@ -1929,12 +1930,48 @@ function downloadNewInvoice(serviceType) {
     localStorage.setItem('lastInvoiceNo', nextInv);
     let invNo = "MS-" + nextInv;
 
-    // 3. INLINE SVG STRINGS (Bina img tag ke, taake render crash na ho)
-    const svgSolarBrush = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#23768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="2" y="2" width="20" height="12" rx="2"/><path d="M2 7h20M7 2v5M12 2v5M17 2v5M6 18h12M12 14v4"/><circle cx="6" cy="18" r="1"/><circle cx="10" cy="18" r="1"/><circle cx="14" cy="16" r="1"/></svg>`;
-    const svgCarDetailing = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#23768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M13 17h2M5 11h7M19 12h.01"/></svg>`;
-    const svgWaterTank = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#23768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2v20"/></svg>`;
-    const svgPressureWasher = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#23768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><rect x="8" y="4" width="13" height="16" rx="2"/><path d="M6 8h-3a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3v1"/><circle cx="14" cy="13" r="3"/></svg>`;
-    const svgWhatsApp = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" style="display:block;"><path fill="#25D366" d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946DLjA2IDUuMzQ4IDUuMzk3LjAxIDEyLjAwOC4wMWMzLjIwMi4wMDEgNi4yMTIgMS4yNDYgOC40NzcgMy41MTMgMi4yNjYgMi4yNjggMy41MDcgNS4yOCAzLjUwNSA4LjQ4NC0uMDA0IDYuNjU3LTUuMzQgMTEuOTk3LTExLjk1MyAxMS0xMS45OTctMi4wMDUtLjAwMS0zLjk3My0uNTAyLTUuNzE3LTEuNDU2TDAgMjR6bTYuNTktNC44NDZjMS42Ljk1IDMuMTg4IDEuNDQ5IDQuODI1IDEuNDUxIDUuNDM2IDAgOS44Ni00LjQxMyA5Ljg2My05LjgzMi4wMDItMi42MjMtMS4wMTEtNS4wODgtMi44NTQtNi45MzdDMTYuNjM4IDEuODg1IDE0LjE4MS44NjEgMTEuNTYuODYxYy01LjQ0MiAwLTkuODY0IDQuNDE0LTkuODY3IDkuODM1LS4wMDEgMS43My40NzMgMy40MiAxLjM3MSA0LjkyMWwtLjk5MyAzLjYyOSAzLjcxLS45NzN6bTEzLjExMS01LjQ2N2MtLjI5LS4xNDUtMS43MTYtLWg3LTEuOTc4LS45NDItLjI2Mi0uMDk2LS40NTItLjE0NC0uNjQzLjE0NS0uMTkuMjg5LS43MzguOTQyLS45MDUgMS4xMzQtLjE2Ny4xOS0uMzM0LjIxMi0uNjIzLjA2Ni0xLjEyNy0uNTY1LTEuOTIxLS45OS0yLjY4NC0yLjI5OS0uMjEtLjM2LjIxLS4zMzQuNi0uMTEzLjM0OC4xOTkuMzkuMjYyLjU4NS42NDguMTk1LjM4NS4wOTcuNzIyLS4wNC4xbC4xNDUtLjI4OS0uNjQzLS41NzgtMS41NDMtLjcyMi0uODk5LS4xNDQtMS42MzcuMjg5LTIuMDE5LjgyLS4zODIuNTMtLjM4MiAxLjU0NCAwIDIuMjE4LjM4Mi42NzQgMS4xNDcgMS4wMTEgMi4zODUuODY3IDEuMjM4LS4xNDQgMi4wMTktLjk0MiAyLjIxLS45ODkuMTkxLS4wNDcuMzgyLS4wNDcuNTI1LjA0NnoiLz></svg>`;
+    // 3. BRANDED INLINE SVG ICONS (As per uploaded images)
+    const svgSolarBrush = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#23768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+        <path d="M3 15L11 3H13L21 15H3Z" stroke-width="1.5"/>
+        <path d="M7 15L11 3M17 15L13 3M4.5 11H19.5" stroke-width="1"/>
+        <path d="M19 5L5 19" stroke="#28979e" stroke-width="2.5"/>
+        <path d="M4 17L3 20L6 19" stroke="#28979e"/>
+        <path d="M20 3C20 4 19 5 18 5C17 5 16 4 16 3C16 2 18 1 18 1C18 1 20 2 20 3Z" fill="#28979e" stroke="none"/>
+    </svg>`;
+
+    const svgCarDetailing = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#23768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+        <path d="M2 15h2c.6 0 1-.4 1-1v-2c0-.8.6-1.5 1.4-1.7L9 9.1C9.6 8.4 10.4 8 11.3 8h4.4c.7 0 1.3.4 1.6 1l1.8 3.5c.5.2.9.7.9 1.3v1.2c0 .6.4 1 1 1h1"/>
+        <circle cx="7" cy="15" r="2.5" stroke-width="2"/>
+        <circle cx="17" cy="15" r="2.5" stroke-width="2"/>
+        <path d="M9.5 15h5M5 11h13M2 13h2M11 8l-1 3h5l-1-3"/>
+    </svg>`;
+
+    const svgWaterTank = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#23768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+        <rect x="5" y="5" width="14" height="15" rx="3"/>
+        <ellipse cx="12" cy="4" rx="4" ry="1.5"/>
+        <path d="M5 9h14M5 13h14M5 17h14"/>
+        <circle cx="16" cy="15" r="4.5" fill="#ffffff" stroke="#28979e" stroke-width="1.5"/>
+        <path d="M14 17l4-4M15 17.5l3.5-3.5" stroke="#28979e" stroke-width="1"/>
+    </svg>`;
+
+    const svgPressureWasher = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#23768a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;">
+        <rect x="7" y="6" width="10" height="14" rx="2"/>
+        <path d="M10 6V3h4v3"/>
+        <circle cx="6" cy="18" r="2"/>
+        <circle cx="18" cy="18" r="2"/>
+        <path d="M4 7h2v5H4z" fill="none"/>
+        <path d="M5 5v11M5 13c0 2 2 4 4 4h3" stroke-width="1.5"/>
+        <path d="M3 4L2 3M2 5h1M3 7L2 8" stroke-width="1"/>
+    </svg>`;
+
+    const svgWhatsApp = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" style="display:block;">
+        <path fill="#25D366" d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.01 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.441 5.436 0 9.86-4.413 9.863-9.832.002-2.623-1.011-5.088-2.854-6.937C16.638 1.885 14.181.86 11.56.86c-5.442 0-9.864 4.414-9.867 9.835-.001 1.73.473 3.42 1.371 4.921l-.993 3.629 3.71-.973zm13.111-5.467c-.29-.145-1.716-.847-1.978-.942-.262-.096-.452-.144-.643.145-.19.289-.738.942-.905 1.134-.167.19-.334.212-.623.066-1.127-.565-1.921-.99-2.684-2.299-.21-.36.21-.334.6-.113.348.199.39.262.585.648.195.385.097.722-.04.1l-.145-.289-.643-.578-1.543-.722-.899-.144-1.637.289-2.019.82-.382.53-.382 1.544 0 2.218.382.674 1.147 1.011 2.385.867 1.238-.144 2.019-.942 2.21-.989.191-.047.382-.047.525.046z"/>
+    </svg>`;
 
     // 4. CREATE EXACT HTML WRAPPER
     const billWrapper = document.createElement('div');
@@ -2100,7 +2137,6 @@ function downloadNewInvoice(serviceType) {
     }, 300);
 }
     
-
 // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
 // ==========================================
