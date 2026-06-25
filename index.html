@@ -3202,6 +3202,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateSummaryStatsTiles(); 
     if (typeof loadOverdueAlerts === 'function') loadOverdueAlerts(); 
+        if (typeof loadDataFromFirebase === 'function') loadDataFromFirebase();
+    
     // FIREBASE CLOUD DATABASE SYNC ENGINE (REST API)
 const FIREBASE_DB_URL = "https://ms-solar-cleaning-default-rtdb.firebaseio.com/bills.json";
 
