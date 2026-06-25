@@ -2080,17 +2080,8 @@ function checkReengagements() {
     if (calendarList) {
         calendarList.innerHTML = calendarHTML;
     }
-
-    alert(`Pending Re-engagement Follow-ups found: ${followUpCount} customers past their due date!`);
 }
 
-// Auto-load on system open
-setTimeout(() => {
-    if (typeof checkReengagements === 'function') {
-        checkReengagements();
-    }
-}, 1000);
-    
 function sendWhatsUpReminder(phone, lastDate, panels) {
     try {
         const currentRate = localStorage.getItem('ms_solar_panel_rate') || '80';
