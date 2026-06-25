@@ -1929,13 +1929,7 @@ function downloadNewInvoice(serviceType) {
     localStorage.setItem('lastInvoiceNo', nextInv);
     let invNo = "MS-" + nextInv;
 
-    // 3. WHATSAPP LOGO FIXED (Clean SVG)
-    const svgWhatsApp = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" style="display:block; fill:#25D366;">
-        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.01 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.717-1.456L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.441 5.436 0 9.86-4.413 9.863-9.832.002-2.623-1.011-5.088-2.854-6.937C16.638 1.885 14.181.86 11.56.86c-5.442 0-9.864 4.414-9.867 9.835-.001 1.73.473 3.42 1.371 4.921l-.993 3.629 3.71-.973zm13.111-5.467c-.29-.145-1.716-.847-1.978-.942-.262-.096-.452-.144-.643.145-.19.289-.738.942-.905 1.134-.167.19-.334.212-.623.066-1.127-.565-1.921-.99-2.684-2.299-.21-.36.21-.334.6-.113.348.199.39.262.585.648.195.385.097.722-.04.1l-.145-.289-.643-.578-1.543-.722-.899-.144-1.637.289-2.019.82-.382.53-.382 1.544 0 2.218.382.674 1.147 1.011 2.385.867 1.238-.144 2.019-.942 2.21-.989.191-.047.382-.047.525.046z"/>
-    </svg>`;
-
-    // 4. CREATE EXACT HTML WRAPPER
+    // 3. CREATE EXACT HTML WRAPPER
     const billWrapper = document.createElement('div');
     billWrapper.style.position = 'absolute';
     billWrapper.style.left = '-9999px';
@@ -2058,11 +2052,11 @@ function downloadNewInvoice(serviceType) {
             <div style="border-top: 1px solid rgba(0,0,0,0.06); padding-top: 15px; text-align: center;">
                 <div style="display: flex; justify-content: center; gap: 25px; margin-bottom: 8px;">
                     <div style="background: rgba(255,255,255,0.8); border-radius: 20px; padding: 5px 18px; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #2e3440; border: 1px solid rgba(0,0,0,0.04);">
-                        ${svgWhatsApp}
+                        <img src="whatsapp.png" style="width: 18px; height: 18px; object-fit: contain; display: block;">
                         0308-4462160 <span style="color:#7b889b; font-weight:600; font-size:12px;">Muneeb Sarwar</span>
                     </div>
                     <div style="background: rgba(255,255,255,0.8); border-radius: 20px; padding: 5px 18px; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #2e3440; border: 1px solid rgba(0,0,0,0.04);">
-                        ${svgWhatsApp}
+                        <img src="whatsapp.png" style="width: 18px; height: 18px; object-fit: contain; display: block;">
                         0308-7274525 <span style="color:#7b889b; font-weight:600; font-size:12px;">Safdar</span>
                     </div>
                 </div>
@@ -2074,7 +2068,7 @@ function downloadNewInvoice(serviceType) {
 
     document.body.appendChild(billWrapper);
 
-    // 5. CAPTURE HD PNG
+    // 4. CAPTURE HD PNG
     setTimeout(() => {
         html2canvas(billWrapper, {
             scale: 2.5,
@@ -2097,7 +2091,7 @@ function downloadNewInvoice(serviceType) {
             if (document.body.contains(billWrapper)) document.body.removeChild(billWrapper);
         });
     }, 300);
-                }
+}
     
 // ==========================================
 // HAMBURGER MENU SYSTEM FUNCTIONS
