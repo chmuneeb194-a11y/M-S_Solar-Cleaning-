@@ -785,6 +785,12 @@
     </div>
     <p class="text-xs text-slate-400 mb-4">Muneeb bhai, niche un customers ki automatic list hai jinki wash ko 15 din se upar ho chuke hain. Aap ek click par unhein WhatsApp reminder bhej sakte hain:</p>
         <!-- RESPONSIVE CARDS CONTAINER FOR MOBILE -->
+            <!-- MASTER BULK REMINDER BUTTON -->
+        <button onclick="sendBulkReminders()" class="w-full mb-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all transform active:scale-95">
+            <i class="fab fa-whatsapp text-lg"></i>
+            <span>🚀 SEND BULK REMINDERS (1-CLICK LIST)</span>
+        </button>
+    
     <div id="overdue-alerts-list" class="grid grid-cols-1 gap-3 text-slate-200">
         <!-- JavaScript automatically scan karke yahan pyare cards add karega -->
     </div>
@@ -792,6 +798,13 @@
 </div>
           <!-- NEW ADMIN ADVANCED FEATURES (POINTS 18, 19, 20, 21, 22) -->
         <div class="mt-8 pt-6 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <!-- LIVE BUSINESS ANALYTICS GRAPH -->
+        <div class="col-span-1 md:col-span-2 bg-slate-900/40 p-4 rounded-xl border border-slate-800 mb-2">
+            <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-3">📈 Monthly Income & Revenue Chart</h4>
+            <div style="width: 100%; height: 200px; position: relative;">
+                <canvas id="businessAnalyticsChart"></canvas>
+            </div>
+        </div>
             
 
           <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800">
@@ -3183,7 +3196,72 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     updateSummaryStatsTiles(); 
-    if (typeof loadOverdueAlerts === 'function') loadOverdueAlerts();       
+    if (typeof loadOverdueAlerts === 'function') loadOverdueAlerts(); 
+    // CHART.JS ENGINE & GENERATOR
+if (!document.querySelector('script[src*="chart.js"]')) {
+    const chartScript = document.createElement('script');
+    chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+    chartScript.onload = () => { renderBusinessChart(); };
+    document.head.appendChild(chartScript);
+}
+
+function renderBusinessChart() {
+    const ctx = document.getElementById('businessAnalyticsChart');
+    if (!ctx) return;
+
+    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+    const monthlyData = {};
+
+    savedBills.forEach(bill => {
+        if (!bill.date) return;
+        const monthName = new Date(bill.date).toLocaleString('default', { month: 'long', year: 'numeric' });
+        let panels = parseInt(bill.totalWashedPanels) || 0;
+        let rate = parseFloat(localStorage.getItem('ms_solar_panel_rate')) || 70;
+        let revenue = (bill.service === 'solar') ? (panels * rate) : panels;
+
+        if (!monthlyData[monthName]) monthlyData[monthName] = { revenue: 0 };
+        monthlyData[monthName].revenue += revenue;
+    });
+
+    const labels = Object.keys(monthlyData);
+    const revenueData = labels.map(m => monthlyData[m].revenue);
+
+    if (window.myBusinessChartInstance) {
+        window.myBusinessChartInstance.destroy();
+    }
+
+    window.myBusinessChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Total Income (Rs.)',
+                data: revenueData,
+                backgroundColor: 'rgba(245, 158, 11, 0.6)',
+                borderColor: 'rgba(245, 158, 11, 1)',
+                borderWidth: 1.5,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8', font: { size: 10 } } },
+                x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 10 } } }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
+}
+
+// Hook into existing function to auto refresh chart
+const oldUpdateTiles = updateSummaryStatsTiles;
+updateSummaryStatsTiles = function() {
+    oldUpdateTiles();
+    if (typeof Chart !== 'undefined') renderBusinessChart();
+};
+    
 });
 
 // 4. STATS TILES & LIVE EXPENSE TO PROFIT CALCULATOR
@@ -3216,6 +3294,60 @@ const expInp = document.getElementById('admin-expense-amount');
 const labInp = document.getElementById('admin-labour-amount');
 if (expInp) expInp.addEventListener('input', updateSummaryStatsTiles);
 if (labInp) labInp.addEventListener('input', updateSummaryStatsTiles);
+    // ADVANCED BULK REMINDER SMART ENGINE
+function sendBulkReminders() {
+    const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+    const today = new Date();
+    const overdueCustomers = savedBills.filter(bill => {
+        const diffDays = Math.floor(Math.abs(today - new Date(bill.date)) / (1000 * 60 * 60 * 24));
+        return diffDays >= 15;
+    });
+
+    if (overdueCustomers.length === 0) {
+        alert("Muneeb bhai, filhal koi bhi customer 15 din se upar overdue nahi hai! 👍");
+        return;
+    }
+
+    let currentIndex = 0;
+
+    function launchNext() {
+        if (currentIndex >= overdueCustomers.length) {
+            alert("Mubarak ho Muneeb bhai! Saare overdue customers ke reminders bhej diye gaye hain. 🎉");
+            return;
+        }
+
+        const customer = overdueCustomers[currentIndex];
+        const rawPhone = customer.phone ? customer.phone.trim() : "";
+        let formattedPhone = rawPhone.replace(/[^0-9]/g, "");
+        
+        if (formattedPhone.startsWith("0")) {
+            formattedPhone = "92" + formattedPhone.substring(1);
+        } else if (!formattedPhone.startsWith("92")) {
+            formattedPhone = "92" + formattedPhone;
+        }
+
+        const message = `Assalam-o-Alaikum! MS Solar Cleaning Services ki taraf se reminder. Aapke solar panels ko wash huay 15 din se zayada ho chuke hain. Behtar efficiency ke liye jald wash karwayen. Shukriya! ☀️✨`;
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=${formattedPhone}&text=${encodeURIComponent(message)}`;
+        
+        window.open(whatsappUrl, '_blank');
+        currentIndex++;
+
+        if (currentIndex < overdueCustomers.length) {
+            setTimeout(() => {
+                if (confirm(`Agle overdue customer (${overdueCustomers[currentIndex].name || "Next"}) ka WhatsApp kholein?`)) {
+                    launchNext();
+                }
+            }, 1000);
+        } else {
+            alert("Saare reminders mukammal ho gaye! ✅");
+        }
+    }
+
+    if (confirm(`Total ${overdueCustomers.length} overdue customers mile hain. Bulk Reminder process shuru karein?`)) {
+        launchNext();
+    }
+}
+    
 </script>
     
 <script>
