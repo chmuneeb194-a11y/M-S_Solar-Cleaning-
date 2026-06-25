@@ -768,12 +768,6 @@
           <!-- NEW ADMIN ADVANCED FEATURES (POINTS 18, 19, 20, 21, 22) -->
         <div class="mt-8 pt-6 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            <!-- POINT 18 & 27: Maintenance & Media Report -->
-            <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800">
-                <h4 class="text-sm font-bold text-slate-300 uppercase mb-3">🛠️ Inspection & Media Report (Point 18)</h4>
-                <input type="text" id="admin-inspection-note" placeholder="e.g. Solar plate par scratch hai" class="w-full bg-slate-900 text-white border border-slate-800 p-2 rounded mb-2 text-xs">
-                <input type="text" id="admin-media-links" placeholder="Before/After Image Links (comma separated)" class="w-full bg-slate-900 text-white border border-slate-800 p-2 rounded text-xs">
-            </div>
 
           <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800">
             <div class="flex justify-between items-center mb-3">
@@ -806,7 +800,7 @@
             
             <!-- POINT 21: Next Wash Due Date Calendar -->
             <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800">
-                <h4 class="text-sm font-bold text-slate-300 uppercase mb-3">📅 Next Wash Schedule Calendar (Point 21)</h4>
+                <h4 class="text-sm font-bold text-slate-300 uppercase mb-3">📅 Next Wash Schedule Calendar </h4>
                 <div id="calendar-schedule-list" class="text-xs text-slate-400">
                     No upcoming schedules loaded.
                 </div>
@@ -815,8 +809,8 @@
             <!-- POINT 20 & 22: Re-engagement & Review Booster Controls -->
             <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800">
                 <h4 class="text-sm font-bold text-slate-300 uppercase mb-3">🚀 Follow-Up & Review Booster</h4>
-                <button onclick="triggerReviewBooster()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-3 rounded text-xs mb-2">Generate Review Link (Point 22)</button>
-                <button onclick="checkReengagements()" class="w-full bg-slate-800 hover:bg-slate-750 text-yellow-500 font-bold py-2 px-3 rounded text-xs">Check Pending Follow-Ups (Point 20)</button>
+                <button onclick="triggerReviewBooster()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-3 rounded text-xs mb-2">Generate Review Link </button>
+                <button onclick="checkReengagements()" class="w-full bg-slate-800 hover:bg-slate-750 text-yellow-500 font-bold py-2 px-3 rounded text-xs">Check Pending Follow-Ups </button>
             </div>
 
         </div>
@@ -1955,9 +1949,6 @@ document.addEventListener('DOMContentLoaded', () => {
         calculateBill();
     }
 });
-   // ==========================================
-// ADVANCED FEATURES LOGIC (POINTS 18, 19, 20, 21, 22)
-// ==========================================
 
 // POINT 19: Expense & Profit Margin Tracker
 function calculateProfitAndExpenses() {
@@ -2038,8 +2029,7 @@ function triggerReviewBooster() {
     const message = "Assalam-o-Alaikum! MS Solar Cleaning Services istemal karne ka shukriya. Agar aapko hamara kaam pasand aya, toh meherbani karke niche diye gaye link par click karke hami 5-star review dein:\n" + reviewLink;
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
-}
-    
+}  
 
 // POINT 20 & 21: Follow-Ups & Calendar Sync Dashboard
 function checkReengagements() {
