@@ -403,20 +403,7 @@
     </div>
 
     <!-- 3. Webhook Status Tracker (Hidden Indicator for Admin Panel Integration) -->
-    <div id="webhook-log-status" class="hidden" data-status="ready" data-url="https://api.ms-solar.internal/webhook"></div>
-
-    <!-- 4. Web Push Notification Custom Prompt Banner (Top Alert) -->
-    <div id="push-notification-banner" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 bg-slate-900 border border-emerald-500 text-white px-6 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-4 max-w-sm w-full">
-        <div class="text-xl">🔕</div>
-        <div class="flex-1 text-xs">
-            <p class="font-bold">Order Alerts On Karein!</p>
-            <p class="text-slate-400">Naye orders aur chat leads ke notification direct screen par pane ke liye allow karein.</p>
-        </div>
-        <div class="flex gap-2">
-            <button id="push-allow-btn" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold">Allow</button>
-            <button id="push-close-btn" class="text-slate-400 hover:text-white text-xs">Later</button>
-        </div>
-    </div>
+    <div id="webhook-log-status" class="hidden" data-status="ready" data-url="https://api.ms-solar.internal/webhook"></div>  
 </div>
 <!-- ==========================================
      END: AI CHATBOT, WEBHOOK & PUSH NOTIFICATION UI 
@@ -485,6 +472,21 @@
             </div>
 
             <nav class="space-y-2">
+                <!-- Inside Mobile Menu Notification Option -->
+<div id="push-notification-banner" class="hidden mx-4 my-3 p-3 bg-slate-800 border border-emerald-600 rounded-xl flex flex-col gap-2">
+    <div class="flex items-center gap-2">
+        <span class="text-lg">🔕</span>
+        <div class="text-left">
+            <p class="text-xs font-bold text-white">Order Alerts On Karein</p>
+            <p class="text-[10px] text-slate-400">Instant lead alerts ke liye allow karein.</p>
+        </div>
+    </div>
+    <div class="flex gap-2 justify-end">
+        <button id="push-close-btn" class="text-[11px] text-slate-400 hover:text-white px-2 py-1">Later</button>
+        <button id="push-allow-btn" class="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold px-3 py-1 rounded-lg">Allow</button>
+    </div>
+</div>
+                
                 <button type="button" onclick="scrollToSection('solar-calc-block')" class="w-full flex items-center space-x-3 p-2.5 rounded-xl font-bold text-slate-100 bg-slate-800/40 border border-transparent hover:border-blue-500/30 hover:bg-blue-950/20 text-left transition">
                     <span class="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-sm"><i class="fas fa-bolt"></i></span>
                     <span class="text-xs sm:text-sm">⚡ Solar Solutions Setup</span>
@@ -602,6 +604,17 @@
                 </p>
                 <!-- POINT 1: Facebook Link and Buttons Container -->
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8 mb-8 w-full max-w-lg mx-auto md:mx-0">
+  <!-- Fixed Section Se Normal Kiya Hua WhatsApp Booking Bar -->
+<div class="relative w-full my-4 bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex justify-between items-center shadow-xl">
+    <div class="flex items-center gap-2">
+        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+        <span class="text-xs sm:text-sm font-bold text-slate-200 tracking-wide">MS SOLAR BOOKING OPEN</span>
+    </div>
+    <a href="https://wa.me/923084462121?text=Hi%20MS%2520Solar%20Cleaning" target="_blank" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm px-4 py-2 rounded-xl transition-all shadow-md">
+        <i class="fab fa-whatsapp text-base"></i>
+        <span>Booking Now</span>
+    </a>
+</div>
     
     <!-- Calculator -->
     <a href="#calculator-section" class="bg-gradient-to-r from-yellow-400 to-amber-500 hover:scale-[1.02] active:scale-95 text-slate-950 font-bold px-5 py-3.5 rounded-2xl transition-all shadow-lg text-center text-sm">
@@ -620,9 +633,7 @@
         <i class="fab fa-tiktok text-cyan-400"></i> Follow on TikTok
     </a>
 </div>
-                
-                
-                     
+                               
             <!-- POINT 6: Project Video & Team Image Container -->
             <div class="md:col-span-5 flex flex-col items-center gap-6 scroll-reveal">
                 <div class="relative p-2 bg-white/20 backdrop-blur-2xl rounded-3xl shadow-2xl max-w-[340px] w-full border border-white/40">
@@ -662,7 +673,7 @@
                 </div>
             </div>
             <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white dark:border-slate-700 px-4 py-2 rounded-2xl text-center shadow-sm min-w-[120px]">
-                <span class="block text-xl font-black text-blue-600 dark:text-blue-400">38°C</span>
+                <span class="block text-xl font-black text-blue-600 dark:text-blue-400">45°C</span>
                 <span class="text-[9px] uppercase tracking-widest font-bold text-slate-400" data-en="Sahiwal Region" data-ur="ساہیوال ریجن">Sahiwal Region</span>
             </div>
         </div>
@@ -1727,23 +1738,7 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
         <div class="border-slate-900 my-6 max-w-xl mx-auto"></div>
         <p class="text-xs text-slate-500">© 2026 M S Solar Cleaning. All Rights Reserved. Heavy Precision Technical Work.</p>
     </footer>
-    <!-- Bottom Fixed Fast Operations Desk Bar -->
-<!-- Premium Glassmorphism Bottom Fixed Booking Bar -->
-<div class="fixed bottom-0 left-0 w-full backdrop-blur-md bg-slate-900/80 border-t border-slate-800/80 flex justify-between items-center px-5 py-3.5 z-[9999] shadow-[0_-8px_30px_rgba(0,0,0,0.4)]">
-    <div class="flex items-center gap-2">
-        <span class="flex h-2 w-2 relative">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-        </span>
-        <span class="text-xs sm:text-sm font-bold tracking-wide text-slate-200">
-            MS SOLAR BOOKING OPEN
-        </span>
-    </div>
-    <a href="https://wa.me/923084462121" target="_blank" class="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm px-4 py-2 rounded-xl transition-all duration-300 shadow-[0_4px_14px_rgba(16,185,129,0.3)] hover:scale-[1.02] active:scale-[0.98]">
-        <i class="fab fa-whatsapp text-base sm:text-lg"></i>
-        <span>Booking Now</span>
-    </a>
-</div>
+    
 <!-- ================================================================= -->
 <!-- 1. PDF GENERATION LIBRARY & JAVASCRIPT FUNCTIONS                 -->
 <!-- ================================================================= -->
