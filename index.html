@@ -1867,20 +1867,18 @@ async function updateWeather() {
         console.log("7-Day Forecast system error:", error);
     }
 }
-
-// Compact Card structure helper function
+// Ultra-Compact Card structure helper function
 function createForecastCard(dayName, icon, temp, condition) {
     return `
-        <div class="flex-shrink-0 snap-center w-[64px] bg-slate-900/90 border border-slate-800/60 rounded-lg p-1.5 flex flex-col items-center justify-center text-center shadow-sm">
-            <span class="text-[10px] font-medium text-slate-400">${dayName}</span>
-            <span class="text-base my-0.5">${icon}</span>
-            <span class="text-xs font-bold text-white">${temp}°C</span>
-            <span class="text-[8px] text-slate-500 tracking-tighter mt-0.5 scale-90">${condition}</span>
+        <div class="flex-shrink-0 snap-center w-[54px] bg-slate-900/90 border border-slate-800/40 rounded-lg p-1 flex flex-col items-center justify-center text-center shadow-sm">
+            <span class="text-[9px] font-medium text-slate-400 uppercase tracking-tighter">${dayName}</span>
+            <span class="text-sm my-0.5">${icon}</span>
+            <span class="text-[11px] font-bold text-white leading-none">${temp}°</span>
+            <span class="text-[7px] text-slate-500 tracking-tighter mt-0.5 max-w-full truncate scale-90">${condition}</span>
         </div>
     `;
 }
-
-
+    
 updateWeather();
     
     // =========================================================
@@ -2021,7 +2019,22 @@ function checkHistory() {
 }
 
 
-
+<!-- WhatsApp Invoice Generator Row Button inside Admin List -->
+<div onclick="openInvoiceModal()" class="group flex items-center justify-between border border-emerald-500/20 bg-gradient-to-r from-slate-900/80 to-slate-900/40 backdrop-blur-md p-3 rounded-xl cursor-pointer hover:border-emerald-500/40 hover:from-slate-900/90 hover:to-slate-800/60 transition-all duration-300 shadow-md hover:shadow-emerald-500/5 my-2">
+    <div class="flex items-center gap-3">
+        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+            <i class="fab fa-whatsapp text-lg"></i>
+        </div>
+        <div>
+            <h4 class="text-xs font-bold text-white tracking-wide">WhatsApp Invoice</h4>
+            <p class="text-[10px] text-slate-400">Create & send premium customer bills</p>
+        </div>
+    </div>
+    <div class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-800/50 text-slate-400 group-hover:text-emerald-400 group-hover:bg-slate-800 transition-colors">
+        <i class="fas fa-chevron-right text-[10px]"></i>
+    </div>
+</div>
+    
 // ========================================================
 // CARBON COUNTER LIVE LOGIC (POINT 4)
 // ========================================================
