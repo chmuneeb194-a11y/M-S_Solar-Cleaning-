@@ -561,52 +561,52 @@
         </div>
     </div>
 </div>
+
+</nav>
+
+<!-- Admin Invoice Modal Backdrop & Form Container -->
+<div id="admin-invoice-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+    <div class="border border-slate-700/50 p-6 rounded-2xl w-full max-w-md bg-slate-900 text-white shadow-2xl relative">
+        <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
+            <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
+                <i class="fas fa-file-invoice-dollar"></i> Generate Invoice
+            </h3>
+            <button onclick="document.getElementById('admin-invoice-modal').classList.add('hidden')" class="text-slate-400 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-        
-            </nav>
-        </div>
-        <div id="admin-invoice-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-            <div class="border border-slate-700/50 p-6 rounded-2xl w-full max-w-md bg-slate-900 text-white shadow-2xl relative">
-                <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
-                    <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
-                        <i class="fas fa-file-invoice-dollar"></i> Generate Invoice
-                    </h3>
-                    <button onclick="document.getElementById('admin-invoice-modal').classList.add('hidden')" class="text-slate-400 hover:text-white font-bold text-xl">&times;</button>
+        <div class="space-y-3 text-sm">
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">Customer Name</label>
+                <input type="text" id="inv-cust-name" placeholder="Muneeb Sarwar" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white">
+            </div>
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">WhatsApp Number</label>
+                <input type="text" id="inv-cust-phone" placeholder="923001234567" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white">
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Solar Plates</label>
+                    <input type="number" id="inv-cust-plates" placeholder="12" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white">
                 </div>
-                <div class="space-y-3 text-sm">
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Customer Name</label>
-                        <input type="text" id="inv-cust-name" placeholder="Muneeb Sarwar" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">WhatsApp Number</label>
-                        <input type="text" id="inv-cust-phone" placeholder="923001234567" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
-                    </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">Solar Plates</label>
-                            <input type="number" id="inv-cust-plates" placeholder="12" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1">Rate per Plate</label>
-                            <input type="number" id="inv-cust-rate" value="80" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
-                        </div>
-                    </div>
-                    <button onclick="sendWhatsAppInvoice()" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium p-2.5 rounded-xl flex items-center justify-center gap-2 transition-all mt-4">
-                        <i class="fab fa-whatsapp text-lg"></i> Send Invoice via WhatsApp
-                    </button>
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Rate per Plate</label>
+                    <input type="number" id="inv-cust-rate" value="80" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white">
                 </div>
             </div>
-        </div>
-
-        <div class="mt-auto pt-4 border-t border-slate-800 flex items-center justify-between gap-2 bg-slate-900 p-2 rounded-xl">
-            <button type="button" onclick="toggleDarkMode()" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-lg hover:bg-slate-800 text-sm">
-                <i class="fas fa-moon text-yellow-400"></i>
-                <span id="theme-text">Dark Mode</span>
+            <button onclick="sendWhatsAppInvoice()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 rounded-lg flex items-center justify-center gap-2 mt-4 transition-colors">
+                <i class="fab fa-whatsapp text-lg"></i> Send Invoice via WhatsApp
             </button>
-            <button type="button" onclick="typeof toggleLanguage !== 'undefined' ? toggleLanguage() : (typeof changeLanguage !== 'undefined' ? changeLanguage() : null)" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-lg hover:bg-slate-800 text-sm">
-                <i class="fas fa-globe text-emerald-500"></i>
-                <span id="lang-text">Urdu</span>
+        </div>
+    </div>
+</div>
+
+<div class="mt-auto pt-4 border-t border-slate-800 flex items-center justify-between gap-2 bg-slate-900 p-2 rounded-xl">
+    <button type="button" onclick="toggleDarkMode()" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-lg hover:bg-slate-800 transition-colors">
+        <i class="fas fa-moon text-yellow-400"></i>
+        <span id="theme-text">Dark Mode</span>
+    </button>
+    
             </button>
         </div>
 </div>
