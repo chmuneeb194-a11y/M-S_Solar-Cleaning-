@@ -548,7 +548,8 @@
 
 <!-- Admin Dashboard Premium Button -->
 <div class="mt-3 w-full">
-  <div onclick="unlockAdminPortal()" class="group flex items-center justify-between border border-amber-500/20 bg-gradient-to-r from-slate-900/80 to-slate-900/40 backdrop-blur-md p-3 rounded-xl cursor-pointer hover:border-amber-500/40 hover:from-slate-900/90 hover:to-slate-800/60 transition-all duration-300 shadow-md hover:shadow-amber-500/5">
+<div onclick="unlockAdminPortal(); openInvoiceModal();" class="group flex items-center justify-between border border-amber-500/20 bg-gradient-to-r from-slate-900/80 to-slate-900/40 backdrop-blur-md p-3 rounded-xl cursor-pointer hover:border-amber-500/40 hover:from-slate-900/90 hover:to-slate-800/60 transition-all duration-300 shadow-md hover:shadow-amber-500/5">
+    
     <div class="flex items-center gap-3">
       <!-- Icon Container with Glow -->
       <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 group-hover:bg-amber-500/20 group-hover:text-amber-300 transition-all duration-300 shadow-sm">
@@ -573,7 +574,46 @@
             </nav>
         </div>
 
-        <div class="mt-auto pt-4 border-t border-slate-800 flex items-center justify-between gap-2 bg-slate-900">
+        <div class="mt-auto pt-4 border-t border-slate-800 f<!-- Account Login & WhatsApp Invoice Modal Container -->
+<div id="admin-invoice-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px);">
+    <div class="ios-glass border border-slate-700/50 p-6 rounded-2xl w-full max-w-md bg-slate-900/90 text-white shadow-2xl">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
+            <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
+                <i class="fas fa-file-invoice-dollar"></i> Generate Invoice
+            </h3>
+            <button onclick="document.getElementById('admin-invoice-modal').classList.add('hidden')" class="text-slate-400 hover:text-white font-bold">&times;</button>
+        </div>
+
+        <!-- Form Fields -->
+        <div class="space-y-3 text-sm">
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">Customer Name</label>
+                <input type="text" id="inv-cust-name" placeholder="Muneeb Sarwar" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+            </div>
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">WhatsApp Number (with country code)</label>
+                <input type="text" id="inv-cust-phone" placeholder="923001234567" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Solar Plates</label>
+                    <input type="number" id="inv-cust-plates" placeholder="12" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Rate per Plate</label>
+                    <input type="number" id="inv-cust-rate" value="80" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+                </div>
+            </div>
+            
+            <!-- Action Button -->
+            <button onclick="sendWhatsAppInvoice()" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium p-2.5 rounded-xl flex items-center justify-center gap-2 transition-all mt-4 shadow-lg shadow-green-900/30">
+                <i class="fab fa-whatsapp text-lg"></i> Send Invoice via WhatsApp
+            </button>
+        </div>
+    </div>
+        </div>
+        lex items-center justify-between gap-2 bg-slate-900">
             <button type="button" onclick="toggleDarkMode()" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-800 font-semibold text-xs text-slate-300 transition active:scale-95">
                 <i class="fas fa-moon text-yellow-400"></i>
                 <span id="theme-text">Dark Mode</span>
@@ -1806,6 +1846,45 @@ async function updateWeather() {
     }
 }
 updateWeather();
+    // =========================================================
+// AUTOMATED WHATSAPP INVOICE GENERATOR (POINT 11)
+// =========================================================
+function openInvoiceModal() {
+    const modal = document.getElementById('admin-invoice-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+    }
+}
+
+function sendWhatsAppInvoice() {
+    const name = document.getElementById('inv-cust-name').value.trim();
+    const phone = document.getElementById('inv-cust-phone').value.trim();
+    const plates = document.getElementById('inv-cust-plates').value.trim();
+    const rate = document.getElementById('inv-cust-rate').value.trim();
+
+    if (!name || !phone || !plates || !rate) {
+        alert("Meherbani karke saari details darj karein!");
+        return;
+    }
+
+    const totalBill = plates * rate;
+    
+    // Professional Message Layout
+    const message = `⚡ *M-S SOLAR CLEANING SERVICE* ⚡%0A` +
+                    `----------------------------------------%0A` +
+                    `*Customer Name:* ${name}%0A` +
+                    `*Total Solar Plates:* ${plates}%0A` +
+                    `*Rate per Plate:* Rs. ${rate}%0A` +
+                    `----------------------------------------%0A` +
+                    `*Total Service Bill:* *Rs. ${totalBill}*%0A` +
+                    `----------------------------------------%0A` +
+                    `Thank you for choosing M-S Solar Cleaning! ❤️%0A` +
+                    `_Sahiwal's Premium Maintenance Service_`;
+
+    // WhatsApp URL trigger
+    const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+}
     
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
