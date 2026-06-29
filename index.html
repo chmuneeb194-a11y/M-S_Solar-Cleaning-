@@ -563,17 +563,6 @@
                 
             </nav>
         </div>
-
-        <div class="mt-auto pt-4 border-t border-slate-800 flex items-center justify-between gap-2 bg-slate-900">
-            <button type="button" onclick="toggleDarkMode()" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-800 font-semibold text-xs text-slate-300 transition active:scale-95">
-                <i class="fas fa-moon text-yellow-400"></i>
-                <span id="theme-text">Dark Mode</span>
-            </button>
-            <button type="button" onclick="typeof toggleLanguage !== 'undefined' ? toggleLanguage() : (typeof changeLanguage !== 'undefined' ? changeLanguage() : (typeof switchLanguage !== 'undefined' ? switchLanguage() : alert('Language function name is different in script')))" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-800 font-semibold text-xs text-slate-300 transition active:scale-95">
-                <i class="fas fa-globe text-emerald-500"></i>
-                <span id="lang-text">اردو</span>
-            </button>
-        </div>
     </div>
 </div>
     
@@ -1937,11 +1926,10 @@ function sendWhatsAppInvoice() {
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
 // ========================================================
-function unlockAdminPortal() {
-    const password = prompt("Smart Admin Portal unlock karne ke liye password darj karein:");
-    if (password === "Chmuneeb@1992") {
-        const adminSection = document.getElementById('secret-admin-section');
-        
+if (adminSection) {
+    adminSection.classList.remove('hidden');
+    adminSection.scrollIntoView({ behavior: 'smooth' });
+}
         const menuToggleBtn = document.querySelector('[onclick="toggleMenu()"]');
         if (menuToggleBtn) {
             menuToggleBtn.click();
