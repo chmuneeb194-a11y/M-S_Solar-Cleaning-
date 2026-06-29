@@ -1898,11 +1898,19 @@ function unlockAdminPortal() {
             if (mobileMenu) mobileMenu.classList.add('hidden');
         }
 
-        if (adminSection) {
-            adminSection.classList.remove('hidden');
-            alert("Welcome Muneeb Bhai! Admin Portal kamyabi se unlock ho gaya hai.");
-            adminSection.scrollIntoView({ behavior: 'smooth' });
-        }
+if (adminSection) {
+    adminSection.classList.remove('hidden');
+    alert("Welcome Muneeb Bhai! Admin Portal kamyabi se unlock ho gaya hai.");
+    
+    // Invoice modal ko auto open karne ke liye line
+    const modal = document.getElementById('admin-invoice-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+    }
+
+    adminSection.scrollIntoView({ behavior: 'smooth' });
+}
+        
 
         // SINGLE CODE: Admin section ke ilawa baki saare sections ko aik sath hide karna
         document.querySelectorAll('section').forEach(section => {
