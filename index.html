@@ -1807,15 +1807,23 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 
 <script>
     
-    // ========================================================
-// WHATSAPP INVOICE MODAL OPEN & TRIGGER SYSTEM
+// ========================================================
+// WHATSAPP INVOICE MODAL OPEN WITH POP-UP DESIGN FIX
 // ========================================================
 function openInvoiceModal() {
     const invoiceModal = document.getElementById('admin-invoice-modal');
     if (invoiceModal) {
+        // Alert ko khatam kar ke direct modal ko show kar rahe hain
         invoiceModal.classList.remove('hidden');
-    } else {
-        alert("Invoice Generator Control module inside admin panel activated successfully.");
+        invoiceModal.style.display = 'flex'; // Agar hidden class ke sath display blocked ho
+    }
+}
+
+// Modal ko cross (X) button par click karne se band karne ke liye logic
+function closeInvoiceModal() {
+    const invoiceModal = document.getElementById('admin-invoice-modal');
+    if (invoiceModal) {
+        invoiceModal.classList.add('hidden');
     }
 }
 
