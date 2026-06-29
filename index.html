@@ -829,59 +829,6 @@
 </div>
             
             <p class="text-xs text-slate-400 mb-6">Muneeb bhai, yahan se aap customer ka phone number aur total panels save kar sakte hain jo auto-sync ho jayega.</p>
-    <!-- ================================================================= -->
-<!-- PREMIUM WHATSAPP INVOICE GENERATOR MODAL POPUP -->
-<!-- ================================================================= -->
-<div id="admin-invoice-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-    <div class="relative w-full max-w-md bg-[#111827] border border-slate-800 rounded-3xl p-6 shadow-2xl transform transition-all">
-        
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-6">
-            <div class="flex items-center gap-2">
-                <i class="fas fa-file-invoice-dollar text-amber-500 text-lg"></i>
-                <h3 class="text-base font-bold text-slate-100 tracking-wide">Generate Invoice</h3>
-            </div>
-            <!-- Close Cross Button -->
-            <button onclick="closeInvoiceModal()" class="text-slate-400 hover:text-white transition-colors">
-                <i class="fas fa-times text-sm"></i>
-            </button>
-        </div>
-
-        <!-- Form Body -->
-        <div class="space-y-4">
-            <!-- Customer Name Input -->
-            <div>
-                <label class="block text-xs font-medium text-slate-400 mb-1.5">Customer Name</label>
-                <input type="text" id="inv-cust-name" placeholder="Muneeb Sarwar" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:border-amber-500/50 focus:outline-none transition-all" />
-            </div>
-
-            <!-- WhatsApp Number Input -->
-            <div>
-                <label class="block text-xs font-medium text-slate-400 mb-1.5">WhatsApp Number</label>
-                <input type="text" id="inv-cust-phone" placeholder="923001234567" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:border-amber-500/50 focus:outline-none transition-all" />
-            </div>
-
-            <!-- Grid for Plates and Rate -->
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Solar Plates</label>
-                    <input type="number" id="inv-cust-plates" placeholder="12" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:border-amber-500/50 focus:outline-none transition-all" />
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Rate per Plate</label>
-                    <input type="number" id="inv-cust-rate" placeholder="80" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:border-amber-500/50 focus:outline-none transition-all" />
-                </div>
-            </div>
-
-            <!-- Submit WhatsApp Button -->
-            <button onclick="sendWhatsAppInvoice()" class="w-full mt-2 flex items-center justify-center gap-2 bg-[#00b047] hover:bg-[#00963c] text-white font-semibold p-3.5 rounded-xl shadow-lg shadow-emerald-900/20 transition-all transform active:scale-[0.98]">
-                <i class="fab fa-whatsapp text-lg"></i>
-                <span class="text-sm">Send Invoice via WhatsApp</span>
-            </button>
-        </div>
-
-    </div>
-</div>
             
                     <!-- SUMMARY STATS TILES (WIDGETS) -->
         <div class="grid grid-cols-3 gap-2 mb-6">
@@ -949,7 +896,61 @@
 <button onclick="downloadBackupFile()" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-emerald-400 font-bold px-6 py-2 rounded-xl text-sm transition-all border border-emerald-800 ml-0 sm:ml-2 mt-2 sm:mt-0">
     <i class="fas fa-file-download mr-1"></i> Download File Backup
 </button>
-                    <!-- GLOBAL RATE & REASON UPDATER (POINT 9 ADVANCE) -->
+        <!-- ================================================================= -->
+<!-- PREMIUM WHATSAPP INVOICE GENERATOR MODAL POPUP -->
+<!-- ================================================================= -->
+<div id="admin-invoice-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+    <div class="relative w-full max-w-md bg-[#111827] border border-slate-800 rounded-3xl p-6 shadow-2xl transform transition-all">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-file-invoice-dollar text-amber-500 text-lg"></i>
+                <h3 class="text-base font-bold text-slate-100 tracking-wide">Generate Invoice</h3>
+            </div>
+            <!-- Close Cross Button -->
+            <button onclick="closeInvoiceModal()" class="text-slate-400 hover:text-white transition-colors">
+                <i class="fas fa-times text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Form Body -->
+        <div class="space-y-4">
+            <!-- Customer Name Input -->
+            <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1.5">Customer Name</label>
+                <input type="text" id="inv-cust-name" placeholder="Muneeb Sarwar" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:border-amber-500/50 focus:outline-none transition-all" />
+            </div>
+
+            <!-- WhatsApp Number Input -->
+            <div>
+                <label class="block text-xs font-medium text-slate-400 mb-1.5">WhatsApp Number</label>
+                <input type="text" id="inv-cust-phone" placeholder="923001234567" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:border-amber-500/50 focus:outline-none transition-all" />
+            </div>
+
+            <!-- Grid for Plates and Rate -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Solar Plates</label>
+                    <input type="number" id="inv-cust-plates" placeholder="12" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:border-amber-500/50 focus:outline-none transition-all" />
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1.5">Rate per Plate</label>
+                    <input type="number" id="inv-cust-rate" placeholder="80" class="w-full bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:border-amber-500/50 focus:outline-none transition-all" />
+                </div>
+            </div>
+
+            <!-- Submit WhatsApp Button -->
+            <button onclick="sendWhatsAppInvoice()" class="w-full mt-2 flex items-center justify-center gap-2 bg-[#00b047] hover:bg-[#00963c] text-white font-semibold p-3.5 rounded-xl shadow-lg shadow-emerald-900/20 transition-all transform active:scale-[0.98]">
+                <i class="fab fa-whatsapp text-lg"></i>
+                <span class="text-sm">Send Invoice via WhatsApp</span>
+            </button>
+        </div>
+
+    </div>
+</div>
+                   
+            <!-- GLOBAL RATE & REASON UPDATER (POINT 9 ADVANCE) -->
     <div class="mt-4 p-4 bg-slate-900/40 rounded-xl border border-slate-800/80 flex flex-col gap-3">
         <div class="flex items-center justify-between gap-3 border-b border-slate-800/50 pb-2">
             <div class="flex flex-col text-left">
