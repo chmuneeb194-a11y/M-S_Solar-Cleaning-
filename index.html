@@ -612,7 +612,23 @@
                 <span id="lang-text">Urdu</span>
             </button>
         </div>
+    <!-- WhatsApp Invoice Generator Row Button inside Admin List -->
+    <div onclick="openInvoiceModal()" class="group flex items-center justify-between border border-emerald-500/20 bg-gradient-to-r from-slate-900/80 to-slate-900/40 backdrop-blur-md p-3 rounded-xl cursor-pointer hover:border-emerald-500/40 hover:from-slate-900/90 hover:to-slate-800/60 transition-all duration-300 shadow-md hover:shadow-emerald-500/5 my-2">
+        <div class="flex items-center gap-3">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                <i class="fab fa-whatsapp text-lg"></i>
+            </div>
+            <div>
+                <h4 class="text-xs font-bold text-white tracking-wide">WhatsApp Invoice</h4>
+                <p class="text-[10px] text-slate-400">Create & send premium customer bills</p>
+            </div>
+        </div>
+        <div class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-800/50 text-slate-400 group-hover:text-emerald-400 group-hover:bg-slate-800 transition-colors">
+            <i class="fas fa-chevron-right text-[10px]"></i>
+        </div>
     </div>
+    </div>
+    
 </div>
 <!-- Sleek Google-Style Weekly Forecast -->
 <div id="weather-forecast-container" class="my-5 mx-auto max-w-md px-4" style="display: none;">
@@ -1940,17 +1956,8 @@ function unlockAdminPortal() {
 if (adminSection) {
     adminSection.classList.remove('hidden');
     alert("Welcome Muneeb Bhai! Admin Portal kamyabi se unlock ho gaya hai.");
-    
-    // Invoice modal ko auto open karne ke liye line
-    const modal = document.getElementById('admin-invoice-modal');
-    if (modal) {
-        modal.classList.remove('hidden');
-    }
-
     adminSection.scrollIntoView({ behavior: 'smooth' });
 }
-        
-
         // SINGLE CODE: Admin section ke ilawa baki saare sections ko aik sath hide karna
         document.querySelectorAll('section').forEach(section => {
             if (section.id !== 'secret-admin-section') {
@@ -2018,23 +2025,6 @@ function checkHistory() {
     }
 }
 
-
-<!-- WhatsApp Invoice Generator Row Button inside Admin List -->
-<div onclick="openInvoiceModal()" class="group flex items-center justify-between border border-emerald-500/20 bg-gradient-to-r from-slate-900/80 to-slate-900/40 backdrop-blur-md p-3 rounded-xl cursor-pointer hover:border-emerald-500/40 hover:from-slate-900/90 hover:to-slate-800/60 transition-all duration-300 shadow-md hover:shadow-emerald-500/5 my-2">
-    <div class="flex items-center gap-3">
-        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
-            <i class="fab fa-whatsapp text-lg"></i>
-        </div>
-        <div>
-            <h4 class="text-xs font-bold text-white tracking-wide">WhatsApp Invoice</h4>
-            <p class="text-[10px] text-slate-400">Create & send premium customer bills</p>
-        </div>
-    </div>
-    <div class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-800/50 text-slate-400 group-hover:text-emerald-400 group-hover:bg-slate-800 transition-colors">
-        <i class="fas fa-chevron-right text-[10px]"></i>
-    </div>
-</div>
-    
 // ========================================================
 // CARBON COUNTER LIVE LOGIC (POINT 4)
 // ========================================================
