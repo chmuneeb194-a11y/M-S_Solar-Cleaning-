@@ -540,48 +540,47 @@
                         <i class="fas fa-chevron-right text-xs text-slate-400"></i>
                     </button>
                 </div>
+
+<!-- Admin Dashboard Premium Button -->
 <div class="mt-3 w-full">
-    <div onclick="unlockAdminPortal();" class="group flex items-center justify-between border border-amber-500/20 bg-gradient-to-r from-slate-900/80 to-slate-900/40 backdrop-blur-md p-2.5 rounded-2xl cursor-pointer hover:border-amber-500/40 hover:from-slate-900/90 hover:to-slate-800/60 transition-all duration-300 shadow-md hover:shadow-amber-500/5">
-        <div class="flex items-center gap-3">
-            <div class="flex h-8 w-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 shadow-inner">
-                <i class="fas fa-user-shield text-sm animate-pulse"></i>
-            </div>
-            <div class="text-left">
-                <h4 class="text-xs font-bold text-slate-300 group-hover:text-amber-400 transition-colors duration-300 tracking-wide">Admin Dashboard</h4>
-                <p class="text-[9px] text-slate-500 group-hover:text-slate-400 transition-colors duration-300">Authorized Personnel Only</p>
-            </div>
-        </div>
-        <div class="flex items-center gap-2">
-            <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
-            </span>
-            <i class="fas fa-chevron-right text-[10px] text-slate-600 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all"></i>
-        </div>
+  <div onclick="unlockAdminPortal()" class="group flex items-center justify-between border border-amber-500/20 bg-gradient-to-r from-slate-900/80 to-slate-900/40 backdrop-blur-md p-3 rounded-xl cursor-pointer hover:border-amber-500/40 hover:from-slate-900/90 hover:to-slate-800/60 transition-all duration-300 shadow-md hover:shadow-amber-500/5">
+    <div class="flex items-center gap-3">
+      <!-- Icon Container with Glow -->
+      <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 group-hover:bg-amber-500/20 group-hover:text-amber-300 transition-all duration-300 shadow-sm">
+        <i class="fas fa-user-shield text-sm animate-pulse"></i>
+      </div>
+      <div class="text-left">
+        <h4 class="text-xs font-bold text-slate-300 group-hover:text-amber-400 transition-colors duration-300 tracking-wide">Admin Dashboard</h4>
+        <p class="text-[9px] text-slate-500 group-hover:text-slate-400 transition-colors duration-300">Authorized Personnel Only</p>
+      </div>
     </div>
+    <!-- Status Indicator with Pulse Glow -->
+    <div class="flex items-center gap-2">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
+      </span>
+      <i class="fas fa-chevron-right text-[10px] text-slate-600 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all duration-300"></i>
+    </div>
+  </div>
 </div>
                 
-<div class="mt-auto pt-4 border-t border-slate-800 flex items-center justify-between gap-2 bg-slate-900 p-2 rounded-xl">
-    <button type="button" onclick="toggleDarkMode()" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-lg hover:bg-slate-800 transition-colors">
-        <i class="fas fa-moon text-yellow-400"></i>
-        <span id="theme-text">Dark Mode</span>
-    </button>
-    
+            </nav>
+        </div>
+
+        <div class="mt-auto pt-4 border-t border-slate-800 flex items-center justify-between gap-2 bg-slate-900">
+            <button type="button" onclick="toggleDarkMode()" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-800 font-semibold text-xs text-slate-300 transition active:scale-95">
+                <i class="fas fa-moon text-yellow-400"></i>
+                <span id="theme-text">Dark Mode</span>
+            </button>
+            <button type="button" onclick="typeof toggleLanguage !== 'undefined' ? toggleLanguage() : (typeof changeLanguage !== 'undefined' ? changeLanguage() : (typeof switchLanguage !== 'undefined' ? switchLanguage() : alert('Language function name is different in script')))" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-800 font-semibold text-xs text-slate-300 transition active:scale-95">
+                <i class="fas fa-globe text-emerald-500"></i>
+                <span id="lang-text">اردو</span>
             </button>
         </div>
-</div>
-<!-- Sleek Google-Style Weekly Forecast -->
-<div id="weather-forecast-container" class="my-5 mx-auto max-w-md px-4" style="display: none;">
-    <div class="flex items-center gap-2 mb-2 px-1">
-        <span class="inline-block w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-        <h4 class="text-xs font-bold text-slate-400 tracking-wider uppercase">Sahiwal 5-Day Weather Forecast</h4>
     </div>
+</div>
     
-    <!-- Horizontal Scrollable Container -->
-    <div id="forecast-scroll-box" class="flex gap-3 overflow-x-auto pb-3 pt-1 scrollbar-none snap-x snap-mandatory">
-        <!-- Live Days Dynamic Data Yahan Load Hoga -->
-    </div>
-</div>
     
 
     <section id="home" class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 overflow-hidden">
@@ -695,7 +694,13 @@
                     <p class="text-xs text-slate-700 dark:text-slate-300 font-bold" data-en="High solar irradiation index active. Keep setups clean to prevent cell degradation risks." data-ur="دھول اور زیادہ درجہ حرارت ریکارڈ۔ پینلز صاف رکھیں تاکہ کارکردگی بہتر رہے۔">Optimal generation weather conditions. Keep panels washed to avoid thermal dust burning losses.</p>
                 </div>
             </div>
-       
+            <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white dark:border-slate-700 px-4 py-2 rounded-2xl text-center shadow-sm min-w-[120px]">
+                <span class="block text-xl font-black text-blue-600 dark:text-blue-400">45°C</span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-slate-400" data-en="Sahiwal Region" data-ur="ساہیوال ریجن">Sahiwal Region</span>
+            </div>
+        </div>
+    </section>
+
 <!-- SECTION 3: ECO-FRIENDLY CARBON COUNTER (TOP FULL WIDTH) -->
 <section class="py-10 bg-emerald-950/20 border-y border-emerald-800/40 backdrop-blur-md relative z-30">
     <div class="container mx-auto max-w-3xl px-4">
@@ -955,22 +960,6 @@
                 
             </div>
         </div>
-            <!-- Premium WhatsApp Invoice Row inside Admin Portal -->
-        <div onclick="openInvoiceModal()" class="group flex items-center justify-between border border-emerald-500/20 bg-gradient-to-r from-slate-900/80 to-slate-900/40 backdrop-blur-md p-3 rounded-xl cursor-pointer hover:border-emerald-500/40 hover:from-slate-900/90 hover:to-slate-800/60 transition-all duration-300 shadow-md hover:shadow-emerald-500/5 mt-4 mb-2">
-            <div class="flex items-center gap-3">
-                <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
-                    <i class="fab fa-whatsapp text-lg"></i>
-                </div>
-                <div class="text-left">
-                    <h4 class="text-xs font-bold text-white tracking-wide">WhatsApp Invoice Generator</h4>
-                    <p class="text-[10px] text-slate-400">Create & send premium customer bills instantly</p>
-                </div>
-            </div>
-            <div class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-800/50 text-slate-400 group-hover:text-emerald-400 group-hover:bg-slate-800 transition-colors">
-                <i class="fas fa-chevron-right text-[10px]"></i>
-            </div>
-        </div>
-    
     </div>
 </section>
 
@@ -1778,93 +1767,14 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
-// =========================================================
-// GOOGLE-STYLE FULL 7-DAY WEATHER FORECAST SYSTEM
-// =========================================================
-async function updateWeather() {
-    const apiKey = 'A4bfd6e78605c0f4561339639a2d575f';
-    const city = 'Sahiwal';
-    const container = document.getElementById('weather-forecast-container');
-    const scrollBox = document.getElementById('forecast-scroll-box');
-
-    if (!container || !scrollBox) return;
-
-    try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`);
-        const data = await response.json();
-
-        if (data.list) {
-            container.style.display = 'block';
-            scrollBox.innerHTML = ''; // Purana data clear karein
-
-            // 1. Pehle 5 din ka live data filter karein (12:00 PM ka trend)
-            const dailyData = data.list.filter(item => item.dt_txt.includes("12:00:00"));
-            
-            let lastTemp = 35; // Fallback temperature
-            let lastCondition = 'Clear';
-            let lastDate = new Date();
-
-            // Live 5 Days Loop
-            dailyData.forEach(day => {
-                const dateObj = new Date(day.dt * 1000);
-                const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
-                lastTemp = Math.round(day.main.temp);
-                lastCondition = day.weather[0].main;
-                lastDate = dateObj;
-
-                let icon = '☀️';
-                if (lastCondition === 'Rain' || lastCondition === 'Thunderstorm') icon = '🌧️';
-                else if (lastCondition === 'Clouds') icon = '☁️';
-
-                scrollBox.innerHTML += createForecastCard(dayName, icon, lastTemp, lastCondition);
-            });
-
-            // 2. SMART BYPASS: Agle 2 din khud generate karke POORA HAFTA (7 Days) complete karein
-            for (let i = 1; i <= 2; i++) {
-                const nextDate = new Date(lastDate);
-                nextDate.setDate(lastDate.getDate() + i);
-                const dayName = nextDate.toLocaleDateString('en-US', { weekday: 'short' });
-                
-                // Thodi si variation generate karte hain real look ke liye (+1 ya -1 degree)
-                const smartTemp = lastTemp + (i % 2 === 0 ? 1 : -1); 
-                
-                let icon = '☀️';
-                if (lastCondition === 'Rain' || lastCondition === 'Thunderstorm') icon = '🌧️';
-                else if (lastCondition === 'Clouds') icon = '☁️';
-
-                scrollBox.innerHTML += createForecastCard(dayName, icon, smartTemp, lastCondition);
-            }
-        }
-    } catch (error) {
-        console.log("7-Day Forecast system error:", error);
-    }
-}
-// Ultra-Compact Card structure helper function
-function createForecastCard(dayName, icon, temp, condition) {
-    return `
-        <div class="flex-shrink-0 snap-center w-[54px] bg-slate-900/90 border border-slate-800/40 rounded-lg p-1 flex flex-col items-center justify-center text-center shadow-sm">
-            <span class="text-[9px] font-medium text-slate-400 uppercase tracking-tighter">${dayName}</span>
-            <span class="text-sm my-0.5">${icon}</span>
-            <span class="text-[11px] font-bold text-white leading-none">${temp}°</span>
-            <span class="text-[7px] text-slate-500 tracking-tighter mt-0.5 max-w-full truncate scale-90">${condition}</span>
-        </div>
-    `;
-}
-    
-updateWeather();
-    
-
-// =============================================================
+// ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
-// =============================================================
+// ========================================================
 function unlockAdminPortal() {
     const password = prompt("Smart Admin Portal unlock karne ke liye password darj karein:");
-    if (password === null) return; // Agar cancel karein toh kuch na ho
-
     if (password === "Chmuneeb@1992") {
         const adminSection = document.getElementById('secret-admin-section');
         
-        // Mobile menu ko automatically band karne ke liye logic
         const menuToggleBtn = document.querySelector('[onclick="toggleMenu()"]');
         if (menuToggleBtn) {
             menuToggleBtn.click();
@@ -1877,63 +1787,25 @@ function unlockAdminPortal() {
             adminSection.classList.remove('hidden');
             alert("Welcome Muneeb Bhai! Admin Portal kamyabi se unlock ho gaya hai.");
             adminSection.scrollIntoView({ behavior: 'smooth' });
-
-            // Admin section ke ilawa baki saare sections ko aik sath hide karna
-            document.querySelectorAll('section').forEach(section => {
-                if (section.id !== 'secret-admin-section') {
-                    section.style.display = 'none';
-                }
-            });
-
-            // Footer ko bhi hide karna
-            const footer = document.querySelector('footer');
-            if (footer) footer.style.display = 'none';
         }
-    } else {
+
+        // SINGLE CODE: Admin section ke ilawa baki saare sections ko aik sath hide karna
+        document.querySelectorAll('section').forEach(section => {
+            if (section.id !== 'secret-admin-section') {
+                section.style.display = 'none';
+            }
+        });
+        
+        // Agar header ya footer alag se hain toh unko bhi hide karna
+        const footer = document.querySelector('footer');
+        if (footer) footer.style.display = 'none';
+
+    } else if (password !== null) {
         alert("Galat Password! Aapko Admin Portal kholne ki ijaazat nahi hai.");
     }
 }
-        
-    // =========================================================
-// AUTOMATED WHATSAPP INVOICE GENERATOR (POINT 11)
-// =========================================================
-function openInvoiceModal() {
-    const modal = document.getElementById('admin-invoice-modal');
-    if (modal) {
-        modal.classList.remove('hidden');
-    }
-}
-
-function sendWhatsAppInvoice() {
-    const name = document.getElementById('inv-cust-name').value.trim();
-    const phone = document.getElementById('inv-cust-phone').value.trim();
-    const plates = document.getElementById('inv-cust-plates').value.trim();
-    const rate = document.getElementById('inv-cust-rate').value.trim();
-
-    if (!name || !phone || !plates || !rate) {
-        alert("Meherbani karke saari details darj karein!");
-        return;
-    }
-
-    const totalBill = plates * rate;
     
-    // Professional Message Layout
-    const message = `⚡ *M-S SOLAR CLEANING SERVICE* ⚡%0A` +
-                    `----------------------------------------%0A` +
-                    `*Customer Name:* ${name}%0A` +
-                    `*Total Solar Plates:* ${plates}%0A` +
-                    `*Rate per Plate:* Rs. ${rate}%0A` +
-                    `----------------------------------------%0A` +
-                    `*Total Service Bill:* *Rs. ${totalBill}*%0A` +
-                    `----------------------------------------%0A` +
-                    `Thank you for choosing M-S Solar Cleaning! ❤️%0A` +
-                    `_Sahiwal's Premium Maintenance Service_`;
 
-    // WhatsApp URL trigger
-    const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
-    window.open(whatsappUrl, '_blank');
-            }
-    
 // ========================================================
 // MAINTENANCE HISTORY TRACKER FUNCTION (POINT 3)
 // ========================================================
@@ -1983,6 +1855,8 @@ function checkHistory() {
         console.error("Tracker Error: ", error);
     }
 }
+
+
 
 // ========================================================
 // CARBON COUNTER LIVE LOGIC (POINT 4)
