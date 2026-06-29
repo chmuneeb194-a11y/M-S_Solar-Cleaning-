@@ -365,11 +365,6 @@
     </style>
 </head>
 <body class="font-sans text-slate-800 antialiased dark:text-slate-200">
-    <!-- Weather Alert Banner -->
-<div id="weather-banner" class="weather-alert" style="display: none; padding: 10px; text-align: center; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.2); color: white;">
-    <span id="weather-text">Checking Sahiwal Weather...</span>
-</div>
-    
     <!-- ==========================================
      START: AI CHATBOT, WEBHOOK & PUSH NOTIFICATION UI 
      ========================================== -->
@@ -573,59 +568,57 @@
                 
             </nav>
         </div>
-
-        <div class="mt-auto pt-4 border-t border-slate-800 f<!-- Account Login & WhatsApp Invoice Modal Container -->
-<div id="admin-invoice-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px);">
-    <div class="ios-glass border border-slate-700/50 p-6 rounded-2xl w-full max-w-md bg-slate-900/90 text-white shadow-2xl">
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
-            <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
-                <i class="fas fa-file-invoice-dollar"></i> Generate Invoice
-            </h3>
-            <button onclick="document.getElementById('admin-invoice-modal').classList.add('hidden')" class="text-slate-400 hover:text-white font-bold">&times;</button>
-        </div>
-
-        <!-- Form Fields -->
-        <div class="space-y-3 text-sm">
-            <div>
-                <label class="block text-xs text-slate-400 mb-1">Customer Name</label>
-                <input type="text" id="inv-cust-name" placeholder="Muneeb Sarwar" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
-            </div>
-            <div>
-                <label class="block text-xs text-slate-400 mb-1">WhatsApp Number (with country code)</label>
-                <input type="text" id="inv-cust-phone" placeholder="923001234567" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-                <div>
-                    <label class="block text-xs text-slate-400 mb-1">Solar Plates</label>
-                    <input type="number" id="inv-cust-plates" placeholder="12" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+        <div id="admin-invoice-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+            <div class="border border-slate-700/50 p-6 rounded-2xl w-full max-w-md bg-slate-900 text-white shadow-2xl relative">
+                <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
+                    <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
+                        <i class="fas fa-file-invoice-dollar"></i> Generate Invoice
+                    </h3>
+                    <button onclick="document.getElementById('admin-invoice-modal').classList.add('hidden')" class="text-slate-400 hover:text-white font-bold text-xl">&times;</button>
                 </div>
-                <div>
-                    <label class="block text-xs text-slate-400 mb-1">Rate per Plate</label>
-                    <input type="number" id="inv-cust-rate" value="80" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+                <div class="space-y-3 text-sm">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Customer Name</label>
+                        <input type="text" id="inv-cust-name" placeholder="Muneeb Sarwar" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">WhatsApp Number</label>
+                        <input type="text" id="inv-cust-phone" placeholder="923001234567" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Solar Plates</label>
+                            <input type="number" id="inv-cust-plates" placeholder="12" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Rate per Plate</label>
+                            <input type="number" id="inv-cust-rate" value="80" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+                        </div>
+                    </div>
+                    <button onclick="sendWhatsAppInvoice()" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium p-2.5 rounded-xl flex items-center justify-center gap-2 transition-all mt-4">
+                        <i class="fab fa-whatsapp text-lg"></i> Send Invoice via WhatsApp
+                    </button>
                 </div>
             </div>
-            
-            <!-- Action Button -->
-            <button onclick="sendWhatsAppInvoice()" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium p-2.5 rounded-xl flex items-center justify-center gap-2 transition-all mt-4 shadow-lg shadow-green-900/30">
-                <i class="fab fa-whatsapp text-lg"></i> Send Invoice via WhatsApp
-            </button>
         </div>
-    </div>
-        </div>
-        lex items-center justify-between gap-2 bg-slate-900">
-            <button type="button" onclick="toggleDarkMode()" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-800 font-semibold text-xs text-slate-300 transition active:scale-95">
+
+        <div class="mt-auto pt-4 border-t border-slate-800 flex items-center justify-between gap-2 bg-slate-900 p-2 rounded-xl">
+            <button type="button" onclick="toggleDarkMode()" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-lg hover:bg-slate-800 text-sm">
                 <i class="fas fa-moon text-yellow-400"></i>
                 <span id="theme-text">Dark Mode</span>
             </button>
-            <button type="button" onclick="typeof toggleLanguage !== 'undefined' ? toggleLanguage() : (typeof changeLanguage !== 'undefined' ? changeLanguage() : (typeof switchLanguage !== 'undefined' ? switchLanguage() : alert('Language function name is different in script')))" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-xl bg-slate-800 font-semibold text-xs text-slate-300 transition active:scale-95">
+            <button type="button" onclick="typeof toggleLanguage !== 'undefined' ? toggleLanguage() : (typeof changeLanguage !== 'undefined' ? changeLanguage() : null)" class="flex-1 flex items-center justify-center gap-2 p-2 rounded-lg hover:bg-slate-800 text-sm">
                 <i class="fas fa-globe text-emerald-500"></i>
-                <span id="lang-text">اردو</span>
+                <span id="lang-text">Urdu</span>
             </button>
         </div>
     </div>
 </div>
-    
+
+<div id="weather-banner" class="flex justify-center items-center gap-2 text-sm text-slate-300 font-medium my-3" style="display: none;">
+    <span id="weather-icon">☀️</span>
+    <span id="weather-text">Sahiwal: Loading...</span>
+</div>
     
 
     <section id="home" class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 overflow-hidden">
@@ -1816,10 +1809,11 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 // AI LIVE WEATHER FORECAST FOR SAHIWAL (POINT 20)
 // =========================================================
 async function updateWeather() {
-    const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Yahan apni free API key lagayein
+    const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; 
     const city = 'Sahiwal';
     const banner = document.getElementById('weather-banner');
     const text = document.getElementById('weather-text');
+    const icon = document.getElementById('weather-icon');
 
     if (!banner || !text) return;
 
@@ -1828,24 +1822,26 @@ async function updateWeather() {
         const data = await response.json();
 
         if (data.weather && data.weather[0]) {
+            banner.style.display = 'flex'; // Flex loading taake icon aur text line mein rahein
             const condition = data.weather[0].main;
             const temp = Math.round(data.main.temp);
 
             if (condition === 'Rain' || condition === 'Thunderstorm' || condition === 'Drizzle') {
-                banner.style.display = 'block';
-                banner.style.backgroundColor = 'rgba(220, 38, 38, 0.8)'; // Red alert look
-                text.innerHTML = `⚠️ Sahiwal Weather: ${condition} (${temp}°C) ka imkaan hai! Panels ki efficiency bachane ke liye abhi wash book karein.`;
+                icon.innerHTML = '⚠️';
+                text.innerHTML = `Sahiwal: ${temp}°C (${condition}) - Plates saaf karwane ka behtareen waqt hai!`;
+                text.className = "text-red-400 font-bold animate-pulse";
             } else {
-                banner.style.display = 'block';
-                banner.style.backgroundColor = 'rgba(15, 23, 42, 0.6)'; // Smooth dark premium look
-                text.innerHTML = `☀️ Sahiwal Live: ${temp}°C | Panels saaf rakhne se 25% tak zyada electricity banti hai.`;
+                icon.innerHTML = '☀️';
+                text.innerHTML = `Sahiwal Live: ${temp}°C | Panels saaf rakhne se fully efficiency milti hai.`;
+                text.className = "text-slate-300";
             }
         }
     } catch (error) {
-        console.log("Weather fetch error:", error);
+        console.log("Weather error");
     }
 }
 updateWeather();
+    
     // =========================================================
 // AUTOMATED WHATSAPP INVOICE GENERATOR (POINT 11)
 // =========================================================
