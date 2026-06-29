@@ -615,9 +615,21 @@
     </div>
 </div>
 
-<div id="weather-banner" class="flex justify-center items-center gap-2 text-sm text-slate-300 font-medium my-3" style="display: none;">
-    <span id="weather-icon">☀️</span>
-    <span id="weather-text">Sahiwal: Loading...</span>
+<!-- Premium AI Live Weather Card -->
+<div id="weather-card" class="my-6 mx-auto max-w-sm border border-slate-800 bg-slate-900/60 backdrop-blur-md p-5 rounded-2xl text-center shadow-lg" style="display: none;">
+    <div class="flex items-center justify-center gap-3 mb-3">
+        <span id="weather-icon-main" class="text-3xl animate-bounce">☀️</span>
+        <div class="text-left">
+            <h4 class="text-xs font-bold tracking-wider text-amber-500 uppercase">Sahiwal Local Weather Alert</h4>
+            <p id="weather-alert-desc" class="text-xs text-slate-400 mt-0.5 leading-relaxed">Optimal generation weather conditions. Keep panels washed to avoid thermal dust burning losses.</p>
+        </div>
+    </div>
+    
+    <!-- Premium Temp Display -->
+    <div class="inline-block border border-slate-700/50 bg-slate-950/40 px-6 py-3 rounded-xl min-w-[140px] mt-2 shadow-inner">
+        <span id="weather-temp-live" class="block text-3xl font-extrabold text-blue-400 tracking-tight">--°C</span>
+        <span class="block text-[10px] text-slate-500 tracking-wider uppercase font-semibold mt-0.5">Sahiwal Region</span>
+    </div>
 </div>
     
 
@@ -1806,38 +1818,49 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 
 <script>
 // =========================================================
-// AI LIVE WEATHER FORECAST (POINT 20) WITH LIVE API KEY
+// PREMIUM LIVE WEATHER CORE LOGIC WITH DETAILS
 // =========================================================
 async function updateWeather() {
     const apiKey = 'A4bfd6e78605c0f4561339639a2d575f'; 
     const city = 'Sahiwal';
-    const banner = document.getElementById('weather-banner');
-    const text = document.getElementById('weather-text');
-    const icon = document.getElementById('weather-icon');
+    const card = document.getElementById('weather-card');
+    const tempDisplay = document.getElementById('weather-temp-live');
+    const descDisplay = document.getElementById('weather-alert-desc');
+    const iconDisplay = document.getElementById('weather-icon-main');
 
-    if (!banner || !text) return;
+    if (!card || !tempDisplay || !descDisplay || !iconDisplay) return;
 
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
         const data = await response.json();
 
         if (data.weather && data.weather[0]) {
-            banner.style.display = 'flex'; // Box show karein jab data mil jaye
+            card.style.display = 'block'; // Card ko show karein
+            
             const condition = data.weather[0].main;
+            const detailedDesc = data.weather[0].description; // Clear sky, broken clouds, etc.
             const temp = Math.round(data.main.temp);
 
+            // Live Temperature Set karein
+            tempDisplay.innerHTML = `${temp}°C`;
+
+            // Weather conditions ke mutabiq status badlein
             if (condition === 'Rain' || condition === 'Thunderstorm' || condition === 'Drizzle') {
-                icon.innerHTML = '⚠️';
-                text.innerHTML = `Sahiwal: ${temp}°C (${condition}) - Plates saaf karwane ka behtareen waqt hai!`;
-                text.className = "text-red-400 font-bold animate-pulse";
+                iconDisplay.innerHTML = '⚠️';
+                tempDisplay.className = "block text-3xl font-extrabold text-red-400 tracking-tight";
+                descDisplay.innerHTML = `Sahiwal Weather: ${detailedDesc.toUpperCase()}. Barsat ka imkan hai! Solar plates saaf karwane aur generation bachane ka behtareen waqt hai.`;
+            } else if (condition === 'Clouds') {
+                iconDisplay.innerHTML = '☁️';
+                tempDisplay.className = "block text-3xl font-extrabold text-amber-400 tracking-tight";
+                descDisplay.innerHTML = `Sahiwal Weather: ${detailedDesc.toUpperCase()}. Badal chaye hue hain, mitti aur dhoond ki wajah se panels ki efficiency down ho sakti hai.`;
             } else {
-                icon.innerHTML = '☀️';
-                text.innerHTML = `Sahiwal Live: ${temp}°C | Panels saaf rakhne se fully efficiency milti hai.`;
-                text.className = "text-slate-300 font-medium";
+                iconDisplay.innerHTML = '☀️';
+                tempDisplay.className = "block text-3xl font-extrabold text-blue-400 tracking-tight";
+                descDisplay.innerHTML = `Sahiwal Weather: Clear condition. Optimal generation window. Keep panels fully washed to avoid dust losses.`;
             }
         }
     } catch (error) {
-        console.log("Weather error:", error);
+        console.log("Weather fetch error:", error);
     }
 }
 updateWeather();
