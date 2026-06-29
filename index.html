@@ -1893,13 +1893,17 @@ function sendWhatsAppInvoice() {
     window.open(whatsappUrl, '_blank');
 }
     
-// ========================================================
+// =============================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
-// ========================================================
-if (adminSection) {
-    adminSection.classList.remove('hidden');
-    adminSection.scrollIntoView({ behavior: 'smooth' });
-}
+// =============================================================
+function unlockAdminPortal() {
+    const password = prompt("Smart Admin Portal unlock karne ke liye password darj karein:");
+    if (password === null) return; // Agar cancel karein toh kuch na ho
+
+    if (password === "Chmuneeb@1992") {
+        const adminSection = document.getElementById('secret-admin-section');
+        
+        // Mobile menu ko automatically band karne ke liye logic
         const menuToggleBtn = document.querySelector('[onclick="toggleMenu()"]');
         if (menuToggleBtn) {
             menuToggleBtn.click();
@@ -1908,28 +1912,27 @@ if (adminSection) {
             if (mobileMenu) mobileMenu.classList.add('hidden');
         }
 
-if (adminSection) {
-    adminSection.classList.remove('hidden');
-    alert("Welcome Muneeb Bhai! Admin Portal kamyabi se unlock ho gaya hai.");
-    adminSection.scrollIntoView({ behavior: 'smooth' });
-}
-        // SINGLE CODE: Admin section ke ilawa baki saare sections ko aik sath hide karna
-        document.querySelectorAll('section').forEach(section => {
-            if (section.id !== 'secret-admin-section') {
-                section.style.display = 'none';
-            }
-        });
-        
-        // Agar header ya footer alag se hain toh unko bhi hide karna
-        const footer = document.querySelector('footer');
-        if (footer) footer.style.display = 'none';
+        if (adminSection) {
+            adminSection.classList.remove('hidden');
+            alert("Welcome Muneeb Bhai! Admin Portal kamyabi se unlock ho gaya hai.");
+            adminSection.scrollIntoView({ behavior: 'smooth' });
 
-    } else if (password !== null) {
+            // Admin section ke ilawa baki saare sections ko aik sath hide karna
+            document.querySelectorAll('section').forEach(section => {
+                if (section.id !== 'secret-admin-section') {
+                    section.style.display = 'none';
+                }
+            });
+
+            // Footer ko bhi hide karna
+            const footer = document.querySelector('footer');
+            if (footer) footer.style.display = 'none';
+        }
+    } else {
         alert("Galat Password! Aapko Admin Portal kholne ki ijaazat nahi hai.");
     }
 }
     
-
 // ========================================================
 // MAINTENANCE HISTORY TRACKER FUNCTION (POINT 3)
 // ========================================================
