@@ -1805,11 +1805,11 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
-    // =========================================================
-// AI LIVE WEATHER FORECAST FOR SAHIWAL (POINT 20)
+// =========================================================
+// AI LIVE WEATHER FORECAST (POINT 20) WITH LIVE API KEY
 // =========================================================
 async function updateWeather() {
-    const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; 
+    const apiKey = 'A4bfd6e78605c0f4561339639a2d575f'; 
     const city = 'Sahiwal';
     const banner = document.getElementById('weather-banner');
     const text = document.getElementById('weather-text');
@@ -1822,7 +1822,7 @@ async function updateWeather() {
         const data = await response.json();
 
         if (data.weather && data.weather[0]) {
-            banner.style.display = 'flex'; // Flex loading taake icon aur text line mein rahein
+            banner.style.display = 'flex'; // Box show karein jab data mil jaye
             const condition = data.weather[0].main;
             const temp = Math.round(data.main.temp);
 
@@ -1833,11 +1833,11 @@ async function updateWeather() {
             } else {
                 icon.innerHTML = '☀️';
                 text.innerHTML = `Sahiwal Live: ${temp}°C | Panels saaf rakhne se fully efficiency milti hai.`;
-                text.className = "text-slate-300";
+                text.className = "text-slate-300 font-medium";
             }
         }
     } catch (error) {
-        console.log("Weather error");
+        console.log("Weather error:", error);
     }
 }
 updateWeather();
