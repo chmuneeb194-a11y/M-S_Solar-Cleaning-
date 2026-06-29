@@ -1853,46 +1853,7 @@ function createForecastCard(dayName, icon, temp, condition) {
     
 updateWeather();
     
-    // =========================================================
-// AUTOMATED WHATSAPP INVOICE GENERATOR (POINT 11)
-// =========================================================
-function openInvoiceModal() {
-    const modal = document.getElementById('admin-invoice-modal');
-    if (modal) {
-        modal.classList.remove('hidden');
-    }
-}
 
-function sendWhatsAppInvoice() {
-    const name = document.getElementById('inv-cust-name').value.trim();
-    const phone = document.getElementById('inv-cust-phone').value.trim();
-    const plates = document.getElementById('inv-cust-plates').value.trim();
-    const rate = document.getElementById('inv-cust-rate').value.trim();
-
-    if (!name || !phone || !plates || !rate) {
-        alert("Meherbani karke saari details darj karein!");
-        return;
-    }
-
-    const totalBill = plates * rate;
-    
-    // Professional Message Layout
-    const message = `⚡ *M-S SOLAR CLEANING SERVICE* ⚡%0A` +
-                    `----------------------------------------%0A` +
-                    `*Customer Name:* ${name}%0A` +
-                    `*Total Solar Plates:* ${plates}%0A` +
-                    `*Rate per Plate:* Rs. ${rate}%0A` +
-                    `----------------------------------------%0A` +
-                    `*Total Service Bill:* *Rs. ${totalBill}*%0A` +
-                    `----------------------------------------%0A` +
-                    `Thank you for choosing M-S Solar Cleaning! ❤️%0A` +
-                    `_Sahiwal's Premium Maintenance Service_`;
-
-    // WhatsApp URL trigger
-    const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
-    window.open(whatsappUrl, '_blank');
-}
-    
 // =============================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
 // =============================================================
@@ -1932,6 +1893,46 @@ function unlockAdminPortal() {
         alert("Galat Password! Aapko Admin Portal kholne ki ijaazat nahi hai.");
     }
 }
+        
+    // =========================================================
+// AUTOMATED WHATSAPP INVOICE GENERATOR (POINT 11)
+// =========================================================
+function openInvoiceModal() {
+    const modal = document.getElementById('admin-invoice-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+    }
+}
+
+function sendWhatsAppInvoice() {
+    const name = document.getElementById('inv-cust-name').value.trim();
+    const phone = document.getElementById('inv-cust-phone').value.trim();
+    const plates = document.getElementById('inv-cust-plates').value.trim();
+    const rate = document.getElementById('inv-cust-rate').value.trim();
+
+    if (!name || !phone || !plates || !rate) {
+        alert("Meherbani karke saari details darj karein!");
+        return;
+    }
+
+    const totalBill = plates * rate;
+    
+    // Professional Message Layout
+    const message = `⚡ *M-S SOLAR CLEANING SERVICE* ⚡%0A` +
+                    `----------------------------------------%0A` +
+                    `*Customer Name:* ${name}%0A` +
+                    `*Total Solar Plates:* ${plates}%0A` +
+                    `*Rate per Plate:* Rs. ${rate}%0A` +
+                    `----------------------------------------%0A` +
+                    `*Total Service Bill:* *Rs. ${totalBill}*%0A` +
+                    `----------------------------------------%0A` +
+                    `Thank you for choosing M-S Solar Cleaning! ❤️%0A` +
+                    `_Sahiwal's Premium Maintenance Service_`;
+
+    // WhatsApp URL trigger
+    const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+            }
     
 // ========================================================
 // MAINTENANCE HISTORY TRACKER FUNCTION (POINT 3)
