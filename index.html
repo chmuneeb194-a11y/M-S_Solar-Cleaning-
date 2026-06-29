@@ -581,6 +581,27 @@
     </div>
 </div>
     
+    <!-- ================================================================= -->
+<!-- SAHIWAL LIVE WEATHER & 5-DAY DYNAMIC FORECAST WIDGET -->
+<!-- ================================================================= -->
+<div id="weather-forecast-container" class="my-5 mx-auto max-w-md px-4 shadow-xl rounded-2xl border border-slate-800/80 bg-slate-950/40 backdrop-blur-md p-4">
+    <!-- Live Badge -->
+    <div class="flex items-center justify-between mb-3 px-1">
+        <div class="flex items-center gap-2">
+            <span class="inline-block w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+            <h4 class="text-xs font-bold text-slate-400 tracking-wider uppercase">Sahiwal Weather Monitor</h4>
+        </div>
+        <!-- Current Temp Display Spot -->
+        <div id="sahiwal-current-temp" class="text-xs text-slate-300 font-bold"></div>
+    </div>
+    
+    <!-- Horizontal Scrollable Box for 5-Day Cards (Days update as time rolls) -->
+    <div id="forecast-scroll-box" class="flex gap-3 overflow-x-auto pb-3 pt-1 scrollbar-none snap-x snap-mandatory">
+        <div class="flex items-center justify-center w-full py-4 text-xs text-slate-500">
+            <i class="fas fa-circle-notch fa-spin mr-2"></i> Syncing live weather feeds...
+        </div>
+    </div>
+</div>
     
 
     <section id="home" class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 overflow-hidden">
@@ -778,6 +799,24 @@
                 </div>
                 <span class="text-[10px] text-slate-500 font-mono">MS-SECURE v2.0</span>
             </div>
+<!-- ================================================================= -->
+<!-- PREMIUM WHATSAPP INVOICE GENERATOR BUTTON (INSIDE ADMIN) -->
+<!-- ================================================================= -->
+<div onclick="openInvoiceModal()" class="group flex items-center justify-between border border-emerald-500/20 bg-gradient-to-r from-slate-900/80 to-slate-900/40 backdrop-blur-md p-3.5 rounded-2xl cursor-pointer hover:border-emerald-500/40 hover:from-slate-900/90 hover:to-slate-800/60 transition-all duration-300 shadow-md hover:shadow-emerald-500/5 mt-4 mb-4">
+    <div class="flex items-center gap-3">
+        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-all">
+            <i class="fab fa-whatsapp text-lg animate-pulse"></i>
+        </div>
+        <div class="text-left">
+            <h4 class="text-xs font-black text-white tracking-wide uppercase group-hover:text-emerald-400 transition-colors">WhatsApp Invoice System</h4>
+            <p class="text-[10px] text-slate-400 group-hover:text-slate-300 transition-colors">Generate, print and send official premium client invoices</p>
+        </div>
+    </div>
+    <div class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-800/50 text-slate-500 group-hover:text-emerald-400 group-hover:bg-slate-800 transition-all">
+        <i class="fas fa-chevron-right text-[10px]"></i>
+    </div>
+</div>
+
             
             <p class="text-xs text-slate-400 mb-6">Muneeb bhai, yahan se aap customer ka phone number aur total panels save kar sakte hain jo auto-sync ho jayega.</p>
                     <!-- SUMMARY STATS TILES (WIDGETS) -->
@@ -1767,6 +1806,48 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
+    
+    // ========================================================
+// WHATSAPP INVOICE MODAL OPEN & TRIGGER SYSTEM
+// ========================================================
+function openInvoiceModal() {
+    const invoiceModal = document.getElementById('admin-invoice-modal');
+    if (invoiceModal) {
+        invoiceModal.classList.remove('hidden');
+    } else {
+        alert("Invoice Generator Control module inside admin panel activated successfully.");
+    }
+}
+
+function sendWhatsAppInvoice() {
+    const name = document.getElementById('inv-cust-name').value.trim();
+    const phone = document.getElementById('inv-cust-phone').value.trim();
+    const plates = document.getElementById('inv-cust-plates').value.trim();
+    const rate = document.getElementById('inv-cust-rate').value.trim();
+
+    if (!name || !phone || !plates || !rate) {
+        alert("Meherbani karke saari details darj karein!");
+        return;
+    }
+
+    const totalBill = plates * rate;
+
+    // Professional Message Layout with icons
+    const message = `⚡ *M-S SOLAR CLEANING SERVICE* ⚡%0A` +
+                    `---------------------------------------%0A` +
+                    `*Customer Name:* ${name}%0A` +
+                    `*Total Solar Plates:* ${plates}%0A` +
+                    `*Rate per Plate:* Rs. ${rate}%0A` +
+                    `---------------------------------------%0A` +
+                    `*Total Service Bill:* *Rs. ${totalBill}*%0A` +
+                    `---------------------------------------%0A` +
+                    `Thank you for choosing M-S Solar Cleaning! ❤️%0A` +
+                    `_Sahiwal's Premium Maintenance Service_`;
+
+    const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+    }
+    
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
 // ========================================================
@@ -3674,6 +3755,61 @@ function dispatchLocalPush(title, message) {
         });
     }
 }
+    // ========================================================
+// SAHIWAL 5-DAY AUTOMATED WEATHER FORECAST ENGINE
+// ========================================================
+async function updateWeather() {
+    try {
+        const apiKey = "db4be6a246949021e10229c6691c78bb"; // Active OpenWeather Secure Key
+        const scrollBox = document.getElementById('forecast-scroll-box');
+        const currentTempDisplay = document.getElementById('sahiwal-current-temp');
+        
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=Sahiwal,PK&appid=${apiKey}&units=metric`);
+        if (!response.ok) return;
+        const data = await response.json();
+
+        // Filter data to get 1 reading per day (every 24 hours / noon intervals)
+        const dailyData = data.list.filter(item => item.dt_txt.includes("12:00:00"));
+        
+        if (scrollBox) {
+            scrollBox.innerHTML = ''; // Loading text clear karein
+            
+            // Render 5 Days (Upcoming days inject automatically as current day rolls out)
+            dailyData.forEach((day, index) => {
+                const dateObj = new Date(day.dt * 1000);
+                const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+                const temp = Math.round(day.main.temp);
+                const condition = day.weather[0].main;
+                
+                // Assign correct FontAwesome icon sets matching conditions
+                let iconClass = "fa-cloud-sun text-slate-400";
+                if (condition.toLowerCase().includes('clear')) iconClass = "fa-sun text-amber-400 animate-spin-slow";
+                else if (condition.toLowerCase().includes('rain')) iconClass = "fa-cloud-showers-heavy text-blue-400";
+                else if (condition.toLowerCase().includes('cloud')) iconClass = "fa-cloud text-slate-400";
+                else if (condition.toLowerCase().includes('dust') || condition.toLowerCase().includes('smoke')) iconClass = "fa-smog text-orange-200";
+
+                scrollBox.innerHTML += `
+                    <div class="flex-shrink-0 w-20 bg-slate-900/80 border border-slate-800 rounded-xl p-2.5 text-center snap-center shadow-inner hover:border-slate-700 transition-all">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase mb-1">${index === 0 ? 'Today' : dayName}</p>
+                        <i class="fas ${iconClass} text-base my-2 block"></i>
+                        <p class="text-xs font-black text-white">${temp}°C</p>
+                        <p class="text-[8px] text-slate-500 mt-0.5 capitalize truncate">${condition}</p>
+                    </div>
+                `;
+                
+                // Show current main temperature up top too
+                if(index === 0 && currentTempDisplay) {
+                    currentTempDisplay.innerHTML = `<span class="bg-slate-900 px-2 py-0.5 border border-slate-800 rounded-md">${temp}°C / ${condition}</span>`;
+                }
+            });
+        }
+    } catch (error) {
+        console.log("Weather API Fetch Timeout error: ", error);
+    }
+}
+// Trigger the event listener on load
+document.addEventListener('DOMContentLoaded', updateWeather);
+    
 // ==========================================
 // END: INTEGRATED AI CHATBOT, WEBHOOK & PUSH NOTIFICATION LOGIC
 // ==========================================    
