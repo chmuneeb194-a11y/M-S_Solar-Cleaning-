@@ -799,24 +799,45 @@
                 </div>
                 <span class="text-[10px] text-slate-500 font-mono">MS-SECURE v2.0</span>
             </div>
-<!-- ================================================================= -->
-<!-- PREMIUM WHATSAPP INVOICE GENERATOR BUTTON (INSIDE ADMIN) -->
-<!-- ================================================================= -->
-<div onclick="openInvoiceModal()" class="group flex items-center justify-between border border-emerald-500/20 bg-gradient-to-r from-slate-900/80 to-slate-900/40 backdrop-blur-md p-3.5 rounded-2xl cursor-pointer hover:border-emerald-500/40 hover:from-slate-900/90 hover:to-slate-800/60 transition-all duration-300 shadow-md hover:shadow-emerald-500/5 mt-4 mb-4">
-    <div class="flex items-center gap-3">
-        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-all">
-            <i class="fab fa-whatsapp text-lg animate-pulse"></i>
+<!-- Account Login & WhatsApp Invoice Modal Container -->
+<div id="admin-invoice-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px);">
+    <div class="ios-glass border border-slate-700/50 p-6 rounded-2xl w-full max-w-md bg-slate-900/90 text-white shadow-2xl">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
+            <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
+                <i class="fas fa-file-invoice-dollar"></i> Generate Invoice
+            </h3>
+            <button onclick="document.getElementById('admin-invoice-modal').classList.add('hidden')" class="text-slate-400 hover:text-white font-bold">&times;</button>
         </div>
-        <div class="text-left">
-            <h4 class="text-xs font-black text-white tracking-wide uppercase group-hover:text-emerald-400 transition-colors">WhatsApp Invoice System</h4>
-            <p class="text-[10px] text-slate-400 group-hover:text-slate-300 transition-colors">Generate, print and send official premium client invoices</p>
+
+        <!-- Form Fields -->
+        <div class="space-y-3 text-sm">
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">Customer Name</label>
+                <input type="text" id="inv-cust-name" placeholder="Muneeb Sarwar" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+            </div>
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">WhatsApp Number (with country code)</label>
+                <input type="text" id="inv-cust-phone" placeholder="923001234567" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Solar Plates</label>
+                    <input type="number" id="inv-cust-plates" placeholder="12" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Rate per Plate</label>
+                    <input type="number" id="inv-cust-rate" value="80" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-white focus:outline-none focus:border-amber-500">
+                </div>
+            </div>
+            
+            <!-- Action Button -->
+            <button onclick="sendWhatsAppInvoice()" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium p-2.5 rounded-xl flex items-center justify-center gap-2 transition-all mt-4 shadow-lg shadow-green-900/30">
+                <i class="fab fa-whatsapp text-lg"></i> Send Invoice via WhatsApp
+            </button>
         </div>
-    </div>
-    <div class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-800/50 text-slate-500 group-hover:text-emerald-400 group-hover:bg-slate-800 transition-all">
-        <i class="fas fa-chevron-right text-[10px]"></i>
     </div>
 </div>
-
             
             <p class="text-xs text-slate-400 mb-6">Muneeb bhai, yahan se aap customer ka phone number aur total panels save kar sakte hain jo auto-sync ho jayega.</p>
                     <!-- SUMMARY STATS TILES (WIDGETS) -->
@@ -881,10 +902,6 @@
           <button onclick="saveCustomerToDatabase()" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-yellow-400 font-bold py-2 px-4 rounded text-xs transition duration-200 flex items-center justify-center gap-1">
             <i class="fas fa-save mr-1"></i> Save To Browser Memory
           </button>
-          <button onclick="downloadBackupFile()" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-emerald-400 font-bold py-2 px-4 rounded text-xs border border-slate-800 transition duration-200 flex items-center justify-center gap-1">
-            <i class="fas fa-file-download mr-1"></i> Download File Backup
-          </button>
-        </div>
             
 <button onclick="downloadBackupFile()" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-emerald-400 font-bold px-6 py-2 rounded-xl text-sm transition-all border border-emerald-800 ml-0 sm:ml-2 mt-2 sm:mt-0">
     <i class="fas fa-file-download mr-1"></i> Download File Backup
