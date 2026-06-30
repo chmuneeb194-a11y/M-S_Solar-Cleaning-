@@ -467,8 +467,8 @@
             <a href="#home" class="flex items-center gap-2 m-0 p-0 select-none">
                 <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain rounded-md">
                 <div class="flex flex-col">
-           <div class="header-title-ms text-xl tracking-tighter leading-none">
-    MS SOLAR
+<span style="color: #eab308;">MS</span> <span class="text-blue-600">SOLAR</span>
+                    
            </div>
                     
                     <span class="text-[9px] font-bold text-slate-400 mt-0.5 tracking-wider uppercase">Cleaning & Maintenance</span>
@@ -617,25 +617,75 @@
 </div>
     
 <!-- LIVE WEATHER COMPONENT (COMPACT 50% SIZE) -->
-<section class="py-3 bg-slate-100 dark:bg-slate-800/50 border-y border-slate-200 dark:border-slate-700/60 transition-all w-full">
-    <div class="container mx-auto max-w-xl px-4 flex items-center justify-between gap-2 scale-95">
-        <div class="flex items-center space-x-2">
-            <div id="weather-icon-container" class="text-xl text-amber-500 animate-spin" style="animation-duration: 20s;">
-                <i class="fas fa-sun"></i>
+<!-- LIVE WEATHER COMPONENT (OPTIMIZED 70% SIZE FOR 7-DAYS DATA) -->
+<section class="py-4 bg-slate-100 dark:bg-slate-800/50 border-y border-slate-200 dark:border-slate-700/60 transition-all w-full">
+    <div class="container mx-auto max-w-2xl px-4 scale-100">
+        
+        <!-- Top Live Stats Area -->
+        <div class="flex items-center justify-between gap-4 mb-4">
+            <div class="flex items-center space-x-2">
+                <div class="text-2xl text-amber-500 animate-spin" style="animation-duration: 20s;">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-black text-slate-500 uppercase tracking-wider">Sahiwal Weather Monitor</h4>
+                    <p id="weather-condition-text" class="text-xs text-slate-600 dark:text-slate-400 font-medium leading-tight">Syncing live climate feeds...</p>
+                </div>
             </div>
-            <div>
-                <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-wider">Sahiwal Local Weather Alert</h4>
-                <p id="weather-condition-text" class="text-[11px] text-slate-600 dark:text-slate-400 font-medium leading-tight">Loading live status...</p>
+            <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white dark:border-slate-700 px-4 py-1.5 rounded-xl text-center shadow-sm min-w-[100px]">
+                <span id="live-weather-temp" class="block text-lg font-black text-blue-600 dark:text-blue-400">
+                    <i class="fas fa-spinner fa-spin text-xs opacity-60"></i>
+                </span>
+                <span class="text-[9px] uppercase tracking-widest font-bold text-slate-400 block leading-none mt-0.5">Sahiwal Live</span>
             </div>
         </div>
-        <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white dark:border-slate-700 px-3 py-1 rounded-xl text-center shadow-sm min-w-[90px]">
-            <span id="live-weather-temp" class="block text-base font-black text-blue-600 dark:text-blue-400">
-                <i class="fas fa-spinner fa-spin text-xs opacity-60"></i>
-            </span>
-            <span class="text-[8px] uppercase tracking-widest font-bold text-slate-400 block leading-none">Sahiwal Live</span>
+
+        <!-- 7-Days Auto-Sliding Track Container -->
+        <div style="overflow: hidden; width: 100%; position: relative; padding: 4px 0; border-top: 1px solid rgba(0,0,0,0.05);">
+            <div id="forecast-slider-track" style="display: flex; gap: 10px; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); width: max-content;">
+                
+                <!-- Day 1 to 7 Cards -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-2.5 min-w-[85px] text-center shadow-sm">
+                    <span class="text-[10px] text-slate-400 block font-bold">TODAY</span>
+                    <span class="text-lg block my-0.5">☀️</span>
+                    <span class="text-xs font-black text-slate-700 dark:text-slate-200">45°C</span>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-2.5 min-w-[85px] text-center shadow-sm">
+                    <span class="text-[10px] text-slate-400 block font-bold">TOMORROW</span>
+                    <span class="text-lg block my-0.5">☀️</span>
+                    <span class="text-xs font-black text-slate-700 dark:text-slate-200">44°C</span>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-2.5 min-w-[85px] text-center shadow-sm">
+                    <span class="text-[10px] text-slate-400 block font-bold">THU</span>
+                    <span class="text-lg block my-0.5">☁️</span>
+                    <span class="text-xs font-black text-slate-700 dark:text-slate-200">43°C</span>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-2.5 min-w-[85px] text-center shadow-sm">
+                    <span class="text-[10px] text-slate-400 block font-bold">FRI</span>
+                    <span class="text-lg block my-0.5">☀️</span>
+                    <span class="text-xs font-black text-slate-700 dark:text-slate-200">45°C</span>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-2.5 min-w-[85px] text-center shadow-sm">
+                    <span class="text-[10px] text-slate-400 block font-bold">SAT</span>
+                    <span class="text-lg block my-0.5">☀️</span>
+                    <span class="text-xs font-black text-slate-700 dark:text-slate-200">46°C</span>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-2.5 min-w-[85px] text-center shadow-sm">
+                    <span class="text-[10px] text-slate-400 block font-bold">SUN</span>
+                    <span class="text-lg block my-0.5">☁️</span>
+                    <span class="text-xs font-black text-slate-700 dark:text-slate-200">42°C</span>
+                </div>
+                <div class="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-2.5 min-w-[85px] text-center shadow-sm">
+                    <span class="text-[10px] text-slate-400 block font-bold">MON</span>
+                    <span class="text-lg block my-0.5">☀️</span>
+                    <span class="text-xs font-black text-slate-700 dark:text-slate-200">44°C</span>
+                </div>
+            </div>
         </div>
+
     </div>
 </section>
+    
     
     <section id="home" class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-15">
@@ -3830,7 +3880,6 @@ async function getSahiwalLiveWeather() {
     const tempTarget = document.getElementById("live-weather-temp");
     const statusTarget = document.getElementById("weather-condition-text");
     
-    // Aapki asli OpenWeather API Key direct integrated
     const apiKey = "A4bfd6078605c0f456133965a2d575fa"; 
     const url = `https://api.openweathermap.org/data/2.5/weather?q=Sahiwal,PK&units=metric&appid=${apiKey}`;
 
@@ -3839,16 +3888,13 @@ async function getSahiwalLiveWeather() {
         if (!response.ok) throw new Error("API Key or Network Issue");
         const data = await response.json();
         
-        // Live Temperature ko round figure karna (jaise 34.5 ko 35)
         const currentTemp = Math.round(data.main.temp);
         const description = data.weather[0].main;
 
-        // UI par live data set karna
         if (tempTarget) tempTarget.innerHTML = `${currentTemp}°C 🌡️`;
         if (statusTarget) statusTarget.innerHTML = `Sky: ${description}. Optimal generation weather.`;
     } catch (error) {
-        console.log("Weather API Fetch Error: ", error);
-        // Agar key activation mein time le rahi ho toh automatic accurate backup fetcher:
+        console.log("Weather API Fetch Error, loading backup tracker... ", error);
         try {
             const backupRes = await fetch('https://api.open-meteo.com/v1/forecast?latitude=30.6667&longitude=73.1000&current=temperature_2m&timezone=auto');
             const backupData = await backupRes.json();
@@ -3862,8 +3908,25 @@ async function getSahiwalLiveWeather() {
     }
 }
 
-// Page load hote hi chal jaye
-document.addEventListener("DOMContentLoaded", getSahiwalLiveWeather);
+function initWeatherSlider() {
+    const track = document.getElementById('forecast-slider-track');
+    if (!track) return;
+    let scrollAmount = 0;
+    setInterval(() => {
+        const maxScroll = track.scrollWidth - track.parentElement.clientWidth;
+        if (scrollAmount >= maxScroll) {
+            scrollAmount = 0;
+        } else {
+            scrollAmount += 95; 
+        }
+        track.style.transform = `translateX(-${scrollAmount}px)`;
+    }, 3000);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    getSahiwalLiveWeather();
+    initWeatherSlider();
+});
     
 </script>   
 <script>
