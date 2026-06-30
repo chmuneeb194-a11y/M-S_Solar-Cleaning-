@@ -28,6 +28,39 @@
     </script>
     
     <style>
+        .header-title-ms {
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #ffffff 0%, #b5c6e0 50%, #7da2db 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 
+        0px 1px 0px #4d6d9a,
+        0px 2px 0px #3b5577,
+        0px 3px 0px #293d56,
+        0px 4px 5px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+.header-title-ms::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: skewX(-25deg);
+    animation: chromeShine 4s infinite;
+}
+@keyframes chromeShine {
+    0% { left: -100%; }
+    20% { left: 150%; }
+    100% { left: 150%; }
+}
+        
         @keyframes pulse-soft {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.95; transform: scale(1.005); }
@@ -433,9 +466,10 @@
             <a href="#home" class="flex items-center gap-2 m-0 p-0 select-none">
                 <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain rounded-md">
                 <div class="flex flex-col">
-                    <div class="text-xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
-                        <span>MS </span><span class="text-blue-600"> SOLAR</span>
-                    </div>
+           <div class="header-title-ms text-xl tracking-tighter leading-none">
+    MS SOLAR
+           </div>
+                    
                     <span class="text-[9px] font-bold text-slate-400 mt-0.5 tracking-wider uppercase">Cleaning & Maintenance</span>
                 </div>
             </a>
