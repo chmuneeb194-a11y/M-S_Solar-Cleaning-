@@ -394,39 +394,43 @@
     .tank-slider-input:focus {
         outline: none; 
 /* =======================================================
-   MS SOLAR MASTER CSS: FLUID WASH & REVIEWS FIX
+   MS SOLAR MASTER: FORCE-ANIMATION FIX
    ======================================================= */
-
-/* 1. JET WASH FULL BACKGROUND ANIMATION STYLES */
-.ms-full-bg-stream {
-    position: fixed;
-    left: 0;
-    w-full;
-    z-index: 99999;
-    top: -40vh;
-    height: 40vh;
-    background: linear-gradient(to bottom, rgba(14, 165, 233, 0.6) 0%, rgba(2, 132, 199, 0.8) 60%, rgba(255, 255, 255, 0.95) 100%);
-    filter: drop-shadow(0 25px 35px rgba(2, 132, 199, 0.5));
+#ms-intro-dust-cleaner {
+    position: fixed !important;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 99999 !important;
     pointer-events: none;
+    overflow: hidden;
 }
 
-@keyframes fullPageWaterWash {
-    0% { top: -40vh; opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { top: 120vh; opacity: 0; }
+.ms-full-bg-stream {
+    position: absolute;
+    top: -100vh;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to bottom, rgba(14, 165, 233, 0.7) 0%, rgba(2, 132, 199, 0.9) 60%, #fff 100%);
+    filter: drop-shadow(0 0 20px rgba(2, 132, 199, 0.8));
+    transition: none;
+}
+
+@keyframes runWash {
+    0% { top: -100vh; opacity: 1; }
+    100% { top: 100vh; opacity: 1; }
 }
 
 .run-full-wash {
-    animation: fullPageWaterWash 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+    animation: runWash 1.2s cubic-bezier(0.2, 0.8, 0.3, 1) forwards !important;
+}
+
+#ms-dust-storm {
+    transition: opacity 1s ease-in-out;
 }
 
 .dust-wash-clear {
-    backdrop-filter: blur(0px) !important;
     opacity: 0 !important;
-    filter: opacity(0) !important;
-    transition: all 1.2s ease-in-out;
-}
+    }
+        
 
 /* 2. GOOGLE REVIEWS ABSOLUTE HEIGHT CONTROL & TEXT VISIBILITY */
 #reviews-fixed-grid {
@@ -4135,27 +4139,29 @@ document.addEventListener("DOMContentLoaded", function () {
     updateSlider();
 
 
-    // 2. FULL-PAGE BACKGROUND CONTROLS (ANDHI-PANI AUTOMATION)
+<script>
+document.addEventListener("DOMContentLoaded", function () {
     const mainWrapper = document.getElementById("ms-intro-dust-cleaner");
     const dustStorm = document.getElementById("ms-dust-storm");
     const waterWiper = document.getElementById("ms-water-wiper");
 
     if (mainWrapper && dustStorm && waterWiper) {
+        // Animation ko force start karein
         setTimeout(() => {
             waterWiper.classList.add("run-full-wash");
-        }, 500);
+        }, 300);
 
+        // Mitti/Andhi ko saaf karein
         setTimeout(() => {
             dustStorm.classList.add("dust-wash-clear");
-        }, 850);
+        }, 700);
 
+        // Layer ko hata dein
         setTimeout(() => {
-            mainWrapper.remove();
-        }, 2500);
+            mainWrapper.style.display = 'none';
+        }, 2000);
     }
 });
-    
 </script>
-
 </body>
 </html>
