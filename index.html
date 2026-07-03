@@ -393,66 +393,53 @@
     }
     .tank-slider-input:focus {
         outline: none; 
-/* Andhi / Dust Storm Fade Out */
-/* Custom fluid style inject */
-.ms-fluid-stream {
-    top: -25vh; 
-    height: 25vh; 
-    background: linear-gradient(to bottom, rgba(34,211,238,0.9) 0%, rgba(29,78,216,0.95) 70%, rgba(255,255,255,1) 100%); 
-    filter: drop-shadow(0 20px 30px rgba(29,78,216,0.8));
+/* =======================================================
+   BACKGROUND FLUID INTRO & REVIEW CRUSHING STYLE FIXES
+   ======================================================= */
+
+/* 1. JET WASH BACKGROUND STYLING */
+.ms-fluid-background-stream {
+    top: -30vh;
+    height: 30vh;
+    background: linear-gradient(to bottom, rgba(14, 165, 233, 0.7) 0%, rgba(2, 132, 199, 0.85) 70%, rgba(255, 255, 255, 0.95) 100%);
+    filter: drop-shadow(0 15px 25px rgba(2, 132, 199, 0.6));
 }
 
-/* Accelerated Mud Dissolve styling */
 .dust-wash-clear {
     backdrop-filter: blur(0px) !important;
     filter: opacity(0) !important;
-    transform: scale(1.02);
 }
 
-/* High Speed Fluid Motion Keyframes */
-@keyframes highPressureWaterRinse {
-    0% {
-        top: -25vh;
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        top: 100vh;
-        opacity: 0;
-    }
+@keyframes bgWaterRinseFlow {
+    0% { top: -30vh; opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { top: 100vh; opacity: 0; }
 }
 
-.animate-pressure-wash {
-    height: 25vh !important;
-    animation: highPressureWaterRinse 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+.animate-bg-wash {
+    height: 30vh !important;
+    animation: bgWaterRinseFlow 1.3s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
 }
-        /* ==========================================
-   FORCE FIX FOR DEFORMED LONG GOOGLE REVIEW CARDS
-   ========================================== */
-/* Slider ki parent slides ko zabardasti compact height par lana */
-.slick-track, .slick-list, .swiper-wrapper, .swiper-slide {
+
+/* 2. ULTIMATE REVIEWS HEIGHT KILLER (No More Long Distorted Cards) */
+.swiper-container, .swiper-wrapper, .swiper-slide, .slick-track, .slick-list {
     height: auto !important;
-    min-height: min-content !important;
+    min-height: 0 !important;
 }
 
-/* Aapke review cards ko unke inner content ke size ka banana */
+/* Force card to adapt exactly to text content length */
 #reviews-grid-block .ios-glass,
-[id*="review"] .ios-glass,
-[class*="review-card"] {
+.review-card, 
+[class*="review-card"],
+[id*="review"] {
     height: auto !important;
-    max-height: max-content !important;
     min-height: auto !important;
-    padding-bottom: 24px !important; /* Nichli space ko control karne ke liye */
-}
-
-/* Agar pure block ke bahaar koi slider framework forced container laga ho */
-.review-slider-container {
-    height: auto !important;
+    max-height: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding-bottom: 20px !important;
 }
         
     </style>
@@ -465,15 +452,11 @@
 <!-- ==========================================
      MS SOLAR PREMIUM ACCELERATED JET WASH INTRO
      ========================================== -->
-<div id="ms-intro-dust-cleaner" class="fixed inset-0 z-[99999] pointer-events-none overflow-hidden bg-transparent select-none">
+<div id="ms-intro-dust-cleaner" class="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-transparent select-none">
+    <div id="ms-dust-storm" class="absolute inset-0 bg-[#4a3319] bg-opacity-40 backdrop-blur-md transition-all duration-[1200ms]"></div>
     
-    <!-- Ultra Realistic Mud Overlay Filter -->
-    <div id="ms-dust-storm" class="absolute inset-0 bg-[#4a3319] bg-opacity-75 backdrop-blur-xl transition-all duration-[1000ms] pointer-events-auto"></div>
-    
-    <!-- Accelerated Visible Blue Water Stream Sheet -->
-    <div id="ms-water-wiper" class="absolute left-0 w-full z-20 pointer-events-none opacity-0 ms-fluid-stream">
-        <!-- Visual Pressure Edge -->
-        <div class="absolute bottom-0 left-0 w-full h-4 bg-white opacity-90 blur-[1px]"></div>
+    <div id="ms-water-wiper" class="absolute left-0 w-full z-10 opacity-0 ms-fluid-background-stream">
+        <div class="absolute bottom-0 left-0 w-full h-3 bg-white opacity-80 blur-[2px]"></div>
     </div>
 </div>
     
@@ -4272,29 +4255,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const waterWiper = document.getElementById("ms-water-wiper");
 
     if (mainWrapper && dustStorm && waterWiper) {
-        // 1. Initial 1.2 second hold taake customer ko dust feel ho
+        // Paani ka background flow start hoga
         setTimeout(() => {
-            // 2. Clear visible water spray down motion trigger
-            waterWiper.classList.add("animate-pressure-wash");
-        }, 1200);
+            waterWiper.classList.add("animate-bg-wash");
+        }, 600);
 
-        // 3. Jaise hi stream screen ke bech pounchegi (1.45s par), mitti break down ho kar dissolve ho jayegi
+        // Mitti bech mein dissolve hona shuru hogi
         setTimeout(() => {
             dustStorm.classList.add("dust-wash-clear");
-            // Click permissions restore karne ke liye pointer-events block khol dein
-            dustStorm.style.pointerEvents = "none";
-        }, 1450);
+        }, 900);
 
-        // 4. Exactly 2.4 seconds par completely invisible out aur memory clear
+        // Memory se background layer clear
         setTimeout(() => {
-            mainWrapper.style.transition = "opacity 400ms";
-            mainWrapper.style.opacity = "0";
-            setTimeout(() => {
-                mainWrapper.remove();
-            }, 400);
-        }, 2400);
+            mainWrapper.remove();
+        }, 2200);
     }
 });
+    
     
 </script>   
 <script>
