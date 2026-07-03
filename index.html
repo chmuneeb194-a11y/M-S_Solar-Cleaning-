@@ -4179,19 +4179,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// 2. FULL-PAGE BACKGROUND CONTROLS (ANDHI-PANI AUTOMATION)
+// =================================================================
+// ANDHI-PANI AUTOMATION MASTER LOGIC (FIXED BRACKETS)
+// =================================================================
 window.addEventListener('load', () => {
     const container = document.getElementById('clean-effect-container');
     if (container) {
+        // Exact 3 second tak dust (mitti) rahegi
         setTimeout(() => {
             container.classList.add('clearing');
         }, 3000);
 
+        // Exact 5.5 second par jet wash pani sab saaf kar dega
         setTimeout(() => {
             container.classList.add('done');
         }, 5500);
     }
 });
+// =================================================================
     
 </script>
 </body>
