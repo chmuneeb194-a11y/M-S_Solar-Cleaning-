@@ -4137,6 +4137,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("resize", updateSlider);
     updateSlider();
+
+
+    // 2. FULL-PAGE BACKGROUND CONTROLS (ANDHI-PANI AUTOMATION)
+    const mainWrapper = document.getElementById("ms-intro-dust-cleaner");
+    const dustStorm = document.getElementById("ms-dust-storm");
+    const waterWiper = document.getElementById("ms-water-wiper");
+
+    if (mainWrapper && dustStorm && waterWiper) {
+        setTimeout(() => {
+            waterWiper.classList.add("run-full-wash");
+        }, 500);
+
+        setTimeout(() => {
+            dustStorm.classList.add("dust-wash-clear");
+        }, 850);
+
+        setTimeout(() => {
+            mainWrapper.remove();
+        }, 2500);
+    }
+});
+    
 </script>
 </body>
 </html>
