@@ -4140,50 +4140,51 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", function () {
     // 1. REVIEWS AUTOMATIC CAROUSEL LOGIC
     const track = document.getElementById("reviews-slider-track");
-    let cards = Array.from(track.children);
-    let currentIndex = 0;
+    if (track && track.children.length > 0) {
+        let cards = Array.from(track.children);
+        let currentIndex = 0;
 
-    function getCardsPerView() {
-        if (window.innerWidth >= 1024) return 3;
-        if (window.innerWidth >= 768) return 2;
-        return 1;
-    }
-
-    function updateSlider() {
-        const cardsPerView = getCardsPerView();
-        const cardWidth = cards[0].getBoundingClientRect().width;
-        const maxIndex = cards.length - cardsPerView;
-        
-        if (currentIndex > maxIndex) {
-            currentIndex = 0; // Loop wapas shuru par le aaye
+        function getCardsPerView() {
+            if (window.innerWidth >= 1024) return 3;
+            if (window.innerWidth >= 768) return 2;
+            return 1;
         }
-        
-        track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-    }
 
-    // Har 3.5 seconds baad slide change hogi
-    setInterval(() => {
-        currentIndex++;
+        function updateSlider() {
+            const cardsPerView = getCardsPerView();
+            const cardWidth = cards[0].getBoundingClientRect().width;
+            const maxIndex = cards.length - cardsPerView;
+            
+            if (currentIndex > maxIndex) {
+                currentIndex = 0;
+            }
+            track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+        }
+
+        setInterval(() => {
+            currentIndex++;
+            updateSlider();
+        }, 3500);
+
+        window.addEventListener("resize", updateSlider);
         updateSlider();
-    }, 3500);
+    }
+});
 
-    window.addEventListener("resize", updateSlider);
-    updateSlider();
-
-
-    // 2. FULL-PAGE BACKGROUND CONTROLS (ANDHI-PANI AUTOMATION)
+// 2. FULL-PAGE BACKGROUND CONTROLS (ANDHI-PANI AUTOMATION)
 window.addEventListener('load', () => {
     const container = document.getElementById('clean-effect-container');
-    
-    // 3 second tak dust chalegi
-    setTimeout(() => {
-        container.classList.add('clearing');
-    }, 3000);
+    if (container) {
+        // 3 second tak dust chalegi
+        setTimeout(() => {
+            container.classList.add('clearing');
+        }, 3000);
 
-    // 6 second baad effect khatam
-    setTimeout(() => {
-        container.classList.add('done');
-    }, 6000);
+        // 6 second baad effect khatam ho kar container gayab ho jayega
+        setTimeout(() => {
+            container.classList.add('done');
+        }, 6000);
+    }
 });
     
 </script>
