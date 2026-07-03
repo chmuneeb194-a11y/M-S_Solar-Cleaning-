@@ -393,18 +393,36 @@
     }
     .tank-slider-input:focus {
         outline: none; 
-        /* Custom Animations for Dust-Wash Intro */
-@keyframes wiperSlideDown {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100vh); }
-}
-.animate-wiper {
-    animation: wiperSlideDown 1.8s cubic-bezier(0.42, 0, 0.58, 1) forwards;
-}
-#ms-intro-dust-cleaner.clear-reveal {
+/* Andhi / Dust Storm Fade Out */
+.dust-fade-out {
     backdrop-filter: blur(0px) !important;
-    background-color: transparent !important;
-    opacity: 0;
+    opacity: 0 !important;
+    transition: all 1.2s ease-in-out;
+}
+
+/* High Pressure Washer Jet Stream Animation */
+@keyframes pressureWashAction {
+    0% {
+        transform: translateY(-100%) scaleY(1);
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+        transform: translateY(0%) scaleY(1.5);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(50vh) scaleY(2);
+        background: rgba(59, 130, 246, 0.9);
+    }
+    100% {
+        transform: translateY(100vh) scaleY(1);
+        opacity: 0;
+    }
+}
+
+.animate-pressure-wash {
+    animation: pressureWashAction 1.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
 }
         
     </style>
@@ -414,28 +432,21 @@
     
 </head>
 <body class="font-sans text-slate-800 antialiased dark:text-slate-200">
-    <!-- ==========================================
-    <!-- ==========================================
-     MS SOLAR AUTOMATIC DUST-WASH INTRO LAYER
+<!-- ==========================================
+     MS SOLAR CINEMATIC DUST-STORM & WATER WASH INTRO
      ========================================== -->
-<div id="ms-intro-dust-cleaner" class="fixed inset-0 z-[99999] flex items-center justify-center bg-slate-900/40 backdrop-blur-[6px] pointer-events-auto transition-all duration-1000 overflow-hidden">
-    <div class="absolute inset-0 bg-amber-950/20 mix-blend-multiply opacity-80 pointer-events-none"></div>
-    <div id="ms-water-wiper" class="absolute top-0 left-0 w-full h-[15vh] bg-gradient-to-b from-blue-400/80 via-blue-500/50 to-transparent blur-sm shadow-[0_10px_30px_rgba(59,130,246,0.5)] -translate-y-full pointer-events-none"></div>
-    <div id="ms-intro-badge" class="relative z-10 scale-95 opacity-0 transition-all duration-700 bg-white/20 dark:bg-slate-900/40 backdrop-blur-md px-8 py-5 rounded-3xl border border-white/20 shadow-2xl text-center max-w-xs mx-4">
-        <div class="text-amber-500 text-3xl mb-2 animate-pulse">
-            <i class="fas fa-wind"></i>
-        </div>
-        <h4 class="text-white text-lg font-black tracking-wide uppercase" data-en="Restoring Efficiency" data-ur="صفائی جاری ہے...">
-            Restoring Efficiency
-        </h4>
-        <p class="text-slate-200 text-xs mt-1" data-en="Making it Chamakdar" data-ur="چمکدار بنایا جا رہا ہے">
-            Making it Chamakdar
-        </p>
-    </div>
-</div>
+<div id="ms-intro-dust-cleaner" class="fixed inset-0 z-[99999] bg-stone-800/10 pointer-events-auto overflow-hidden transition-opacity duration-700">
+    <!-- 1. ANDHI EFFECT: Real dynamic brown dust layer -->
+    <div id="ms-dust-storm" class="absolute inset-0 bg-gradient-to-tr from-amber-950/70 via-stone-700/60 to-amber-900/70 backdrop-blur-[12px] transition-all duration-1000"></div>
     
-     START: AI CHATBOT, WEBHOOK & PUSH NOTIFICATION UI 
+    <!-- 2. PRESSURE WASHER EFFECT: High speed water jet stream overlay -->
+    <div id="ms-pressure-wash-jet" class="absolute inset-0 bg-gradient-to-b from-transparent via-blue-400/80 to-transparent opacity-0 pointer-events-none"></div>
+</div>
+
+<!-- ==========================================
+     START: AI CHATBOT, WEBHOOK & PUSH NOTIFICATION UI
      ========================================== -->
+    
 <div id="ai-system-wrapper" class="fixed bottom-6 right-6 z-50 font-sans">
     
     <!-- 1. AI Chatbot Floating Circle Button -->
@@ -4219,44 +4230,33 @@ document.addEventListener("DOMContentLoaded", function () {
 // ==========================================
 // END: GOOGLE REVIEWS AUTO CAROUSEL LOGIC
 // ==========================================
-// MS Solar 5-Second Automatic Dust-Wash Sequence (Har Refresh Par Lazmi Chalega)
+// MS Solar Real Dust Storm & Pressure Washer Execution (Har Refresh Par Chalega)
 document.addEventListener("DOMContentLoaded", function () {
-    const introContainer = document.getElementById("ms-intro-dust-cleaner");
-    const wiper = document.getElementById("ms-water-wiper");
-    const badge = document.getElementById("ms-intro-badge");
+    const mainWrapper = document.getElementById("ms-intro-dust-cleaner");
+    const dustStorm = document.getElementById("ms-dust-storm");
+    const waterJet = document.getElementById("ms-pressure-wash-jet");
 
-    // 1. Page load hote hi central badge transition ke sath samne aaye
-    setTimeout(() => {
-        if(badge) {
-            badge.classList.remove("scale-95", "opacity-0");
-            badge.classList.add("scale-100", "opacity-100");
-        }
-    }, 300);
+    if (mainWrapper && dustStorm && waterJet) {
+        // 1. Pehle 2.5 seconds tak andhi/mitti screen par freeze rahegi
+        setTimeout(() => {
+            // 2. High-pressure water jet trigger hoga
+            waterJet.classList.add("animate-pressure-wash");
+        }, 2500);
 
-    // 2. Theek 3 seconds baad water wiper niche slide hona shuru ho
-    setTimeout(() => {
-        if(wiper) wiper.classList.add("animate-wiper");
-        
-        // Wiper chalte hi text badge fade-out ho jaye
-        if(badge) {
-            badge.classList.add("scale-95", "opacity-0");
-        }
-    }, 3000);
+        // 3. Theek jab water jet darmiyan mein pounche (3.2 seconds par), mitti ghayab hona shuru ho jaye
+        setTimeout(() => {
+            dustStorm.classList.add("dust-fade-out");
+        }, 3200);
 
-    // 3. 4.2 seconds par mitti aur blur khatam (fade out) hona shuru ho
-    setTimeout(() => {
-        if(introContainer) introContainer.classList.add("clear-reveal");
-    }, 4200);
-
-    // 4. Exactly 5th second par layer background se mukammal remove ho jaye taake UI par click ho sake
-    setTimeout(() => {
-        if(introContainer) {
-            introContainer.style.display = "none";
-            introContainer.remove();
-        }
-    }, 5000);
+        // 4. Exactly 4.5 seconds par background layer clear ho kar khatam taake UI interactive ho jaye
+        setTimeout(() => {
+            mainWrapper.style.opacity = "0";
+            setTimeout(() => {
+                mainWrapper.remove();
+            }, 700);
+        }, 4500);
+    }
 });
-    
     
 </script>   
 <script>
