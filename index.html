@@ -396,40 +396,39 @@
 /* =======================================================
    MS SOLAR MASTER: FORCE-ANIMATION FIX
    ======================================================= */
-#ms-intro-dust-cleaner {
-    position: fixed !important;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    z-index: 99999 !important;
-    pointer-events: none;
+#clean-effect-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 9999;
     overflow: hidden;
 }
 
-.ms-full-bg-stream {
+/* Dust Effect */
+#dust-particles {
     position: absolute;
-    top: -100vh;
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(to bottom, rgba(14, 165, 233, 0.7) 0%, rgba(2, 132, 199, 0.9) 60%, #fff 100%);
-    filter: drop-shadow(0 0 20px rgba(2, 132, 199, 0.8));
-    transition: none;
+    width: 100%; height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    animation: dustStorm 5s infinite;
+    opacity: 0.6;
 }
 
-@keyframes runWash {
-    0% { top: -100vh; opacity: 1; }
-    100% { top: 100vh; opacity: 1; }
+/* Water Pressure Animation */
+#water-pressure {
+    position: absolute;
+    top: -100%; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(200,230,255,0.8) 50%);
+    transition: top 2s ease-out;
 }
 
-.run-full-wash {
-    animation: runWash 1.2s cubic-bezier(0.2, 0.8, 0.3, 1) forwards !important;
+@keyframes dustStorm {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(20px); }
+    100% { transform: translateX(0); }
 }
 
-#ms-dust-storm {
-    transition: opacity 1s ease-in-out;
-}
-
-.dust-wash-clear {
-    opacity: 0 !important;
-    }
+.clearing #dust-particles { animation: fadeOut 2s forwards; }
+.clearing #water-pressure { top: 0; }
+.done { display: none; }
         
 
 /* 2. GOOGLE REVIEWS ABSOLUTE HEIGHT CONTROL & TEXT VISIBILITY */
@@ -466,14 +465,9 @@
 <!-- ==========================================
      MS SOLAR PREMIUM ACCELERATED JET WASH INTRO
      ========================================== -->
-<body class="font-sans text-slate-800 antialiased dark:text-slate-200 relative min-h-screen">
-
-<div id="ms-intro-dust-cleaner" class="fixed inset-0 pointer-events-none overflow-hidden bg-transparent select-none" style="z-index: -1;">
-    <div id="ms-dust-storm" class="absolute inset-0 bg-[#4a3319] bg-opacity-35 backdrop-blur-md transition-all duration-[1200ms]"></div>
-    
-    <div id="ms-water-wiper" class="absolute left-0 w-full opacity-0 ms-full-bg-stream" style="z-index: 1;">
-        <div class="absolute bottom-0 left-0 w-full h-6 bg-white opacity-90 blur-[2px]"></div>
-    </div>
+<div id="clean-effect-container">
+    <div id="dust-particles"></div>
+    <div id="water-pressure"></div>
 </div>
     
 
@@ -4178,23 +4172,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // 2. FULL-PAGE BACKGROUND CONTROLS (ANDHI-PANI AUTOMATION)
-    const mainWrapper = document.getElementById("ms-intro-dust-cleaner");
-    const dustStorm = document.getElementById("ms-dust-storm");
-    const waterWiper = document.getElementById("ms-water-wiper");
+window.addEventListener('load', () => {
+    const container = document.getElementById('clean-effect-container');
+    
+    // 3 second tak dust chalegi
+    setTimeout(() => {
+        container.classList.add('clearing');
+    }, 3000);
 
-    if (mainWrapper && dustStorm && waterWiper) {
-        setTimeout(() => {
-            waterWiper.classList.add("run-full-wash");
-        }, 500);
-
-        setTimeout(() => {
-            dustStorm.classList.add("dust-wash-clear");
-        }, 850);
-
-        setTimeout(() => {
-            mainWrapper.remove();
-        }, 2500);
-    }
+    // 6 second baad effect khatam
+    setTimeout(() => {
+        container.classList.add('done');
+    }, 6000);
 });
     
 </script>
