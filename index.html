@@ -394,35 +394,65 @@
     .tank-slider-input:focus {
         outline: none; 
 /* Andhi / Dust Storm Fade Out */
-.dust-fade-out {
-    backdrop-filter: blur(0px) !important;
-    opacity: 0 !important;
-    transition: all 1.2s ease-in-out;
+/* Custom fluid style inject */
+.ms-fluid-stream {
+    top: -25vh; 
+    height: 25vh; 
+    background: linear-gradient(to bottom, rgba(34,211,238,0.9) 0%, rgba(29,78,216,0.95) 70%, rgba(255,255,255,1) 100%); 
+    filter: drop-shadow(0 20px 30px rgba(29,78,216,0.8));
 }
 
-/* High Pressure Washer Jet Stream Animation */
-@keyframes pressureWashAction {
+/* Accelerated Mud Dissolve styling */
+.dust-wash-clear {
+    backdrop-filter: blur(0px) !important;
+    filter: opacity(0) !important;
+    transform: scale(1.02);
+}
+
+/* High Speed Fluid Motion Keyframes */
+@keyframes highPressureWaterRinse {
     0% {
-        transform: translateY(-100%) scaleY(1);
+        top: -25vh;
         opacity: 0;
     }
-    30% {
+    10% {
         opacity: 1;
-        transform: translateY(0%) scaleY(1.5);
     }
-    60% {
+    90% {
         opacity: 1;
-        transform: translateY(50vh) scaleY(2);
-        background: rgba(59, 130, 246, 0.9);
     }
     100% {
-        transform: translateY(100vh) scaleY(1);
+        top: 100vh;
         opacity: 0;
     }
 }
 
 .animate-pressure-wash {
-    animation: pressureWashAction 1.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    height: 25vh !important;
+    animation: highPressureWaterRinse 1.1s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+        /* ==========================================
+   FORCE FIX FOR DEFORMED LONG GOOGLE REVIEW CARDS
+   ========================================== */
+/* Slider ki parent slides ko zabardasti compact height par lana */
+.slick-track, .slick-list, .swiper-wrapper, .swiper-slide {
+    height: auto !important;
+    min-height: min-content !important;
+}
+
+/* Aapke review cards ko unke inner content ke size ka banana */
+#reviews-grid-block .ios-glass,
+[id*="review"] .ios-glass,
+[class*="review-card"] {
+    height: auto !important;
+    max-height: max-content !important;
+    min-height: auto !important;
+    padding-bottom: 24px !important; /* Nichli space ko control karne ke liye */
+}
+
+/* Agar pure block ke bahaar koi slider framework forced container laga ho */
+.review-slider-container {
+    height: auto !important;
 }
         
     </style>
@@ -433,15 +463,20 @@
 </head>
 <body class="font-sans text-slate-800 antialiased dark:text-slate-200">
 <!-- ==========================================
-     MS SOLAR CINEMATIC DUST-STORM & WATER WASH INTRO
+     MS SOLAR PREMIUM ACCELERATED JET WASH INTRO
      ========================================== -->
-<div id="ms-intro-dust-cleaner" class="fixed inset-0 z-[99999] bg-stone-800/10 pointer-events-auto overflow-hidden transition-opacity duration-700">
-    <!-- 1. ANDHI EFFECT: Real dynamic brown dust layer -->
-    <div id="ms-dust-storm" class="absolute inset-0 bg-gradient-to-tr from-amber-950/70 via-stone-700/60 to-amber-900/70 backdrop-blur-[12px] transition-all duration-1000"></div>
+<div id="ms-intro-dust-cleaner" class="fixed inset-0 z-[99999] pointer-events-none overflow-hidden bg-transparent select-none">
     
-    <!-- 2. PRESSURE WASHER EFFECT: High speed water jet stream overlay -->
-    <div id="ms-pressure-wash-jet" class="absolute inset-0 bg-gradient-to-b from-transparent via-blue-400/80 to-transparent opacity-0 pointer-events-none"></div>
+    <!-- Ultra Realistic Mud Overlay Filter -->
+    <div id="ms-dust-storm" class="absolute inset-0 bg-[#4a3319] bg-opacity-75 backdrop-blur-xl transition-all duration-[1000ms] pointer-events-auto"></div>
+    
+    <!-- Accelerated Visible Blue Water Stream Sheet -->
+    <div id="ms-water-wiper" class="absolute left-0 w-full z-20 pointer-events-none opacity-0 ms-fluid-stream">
+        <!-- Visual Pressure Edge -->
+        <div class="absolute bottom-0 left-0 w-full h-4 bg-white opacity-90 blur-[1px]"></div>
+    </div>
 </div>
+    
 
 <!-- ==========================================
      START: AI CHATBOT, WEBHOOK & PUSH NOTIFICATION UI
@@ -4230,31 +4265,34 @@ document.addEventListener("DOMContentLoaded", function () {
 // ==========================================
 // END: GOOGLE REVIEWS AUTO CAROUSEL LOGIC
 // ==========================================
-// MS Solar Real Dust Storm & Pressure Washer Execution (Har Refresh Par Chalega)
+// MS Solar High-Velocity Fluid Animation Sequence (Har Refresh Par)
 document.addEventListener("DOMContentLoaded", function () {
     const mainWrapper = document.getElementById("ms-intro-dust-cleaner");
     const dustStorm = document.getElementById("ms-dust-storm");
-    const waterJet = document.getElementById("ms-pressure-wash-jet");
+    const waterWiper = document.getElementById("ms-water-wiper");
 
-    if (mainWrapper && dustStorm && waterJet) {
-        // 1. Pehle 2.5 seconds tak andhi/mitti screen par freeze rahegi
+    if (mainWrapper && dustStorm && waterWiper) {
+        // 1. Initial 1.2 second hold taake customer ko dust feel ho
         setTimeout(() => {
-            // 2. High-pressure water jet trigger hoga
-            waterJet.classList.add("animate-pressure-wash");
-        }, 2500);
+            // 2. Clear visible water spray down motion trigger
+            waterWiper.classList.add("animate-pressure-wash");
+        }, 1200);
 
-        // 3. Theek jab water jet darmiyan mein pounche (3.2 seconds par), mitti ghayab hona shuru ho jaye
+        // 3. Jaise hi stream screen ke bech pounchegi (1.45s par), mitti break down ho kar dissolve ho jayegi
         setTimeout(() => {
-            dustStorm.classList.add("dust-fade-out");
-        }, 3200);
+            dustStorm.classList.add("dust-wash-clear");
+            // Click permissions restore karne ke liye pointer-events block khol dein
+            dustStorm.style.pointerEvents = "none";
+        }, 1450);
 
-        // 4. Exactly 4.5 seconds par background layer clear ho kar khatam taake UI interactive ho jaye
+        // 4. Exactly 2.4 seconds par completely invisible out aur memory clear
         setTimeout(() => {
+            mainWrapper.style.transition = "opacity 400ms";
             mainWrapper.style.opacity = "0";
             setTimeout(() => {
                 mainWrapper.remove();
-            }, 700);
-        }, 4500);
+            }, 400);
+        }, 2400);
     }
 });
     
