@@ -394,15 +394,20 @@
     .tank-slider-input:focus {
         outline: none; 
 /* =======================================================
-   MS SOLAR MASTER CSS: BACKGROUND INTRO & FIXED REVIEW GRID
+   MS SOLAR MASTER CSS: FLUID WASH & REVIEWS FIX
    ======================================================= */
 
 /* 1. JET WASH FULL BACKGROUND ANIMATION STYLES */
 .ms-full-bg-stream {
+    position: fixed;
+    left: 0;
+    w-full;
+    z-index: 99999;
     top: -40vh;
     height: 40vh;
     background: linear-gradient(to bottom, rgba(14, 165, 233, 0.6) 0%, rgba(2, 132, 199, 0.8) 60%, rgba(255, 255, 255, 0.95) 100%);
     filter: drop-shadow(0 25px 35px rgba(2, 132, 199, 0.5));
+    pointer-events: none;
 }
 
 @keyframes fullPageWaterWash {
@@ -413,34 +418,39 @@
 }
 
 .run-full-wash {
-    height: 40vh !important;
     animation: fullPageWaterWash 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
 }
 
 .dust-wash-clear {
     backdrop-filter: blur(0px) !important;
+    opacity: 0 !important;
     filter: opacity(0) !important;
     transition: all 1.2s ease-in-out;
 }
 
-/* 2. GOOGLE REVIEWS STRICT HEIGHT LOCK (No More Long Cards) */
-#reviews-fixed-grid, .reviews-fixed-grid {
+/* 2. GOOGLE REVIEWS ABSOLUTE HEIGHT CONTROL & TEXT VISIBILITY */
+#reviews-fixed-grid {
+    display: grid !important;
     height: auto !important;
-    min-height: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
-#reviews-fixed-grid div, 
-.review-card, 
-[class*="review-card"], 
-[id*="review"] {
-    height: auto !important;
-    min-height: auto !important;
-    max-height: none !important;
+.review-card-fixed {
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
+    height: auto !important;
+    min-height: 220px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
-        
+
+.review-card-fixed * {
+    opacity: 1 !important;
+    color: inherit !important;
+    visibility: visible !important;
+}
         
     </style>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -1885,82 +1895,7 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
   </div>
 </div>
  <!-- START: GOOGLE REVIEWS CAROUSEL SECTION -->
-<div class="container mx-auto px-4 py-8">
-    <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-white mb-2">Our Customers <span class="text-sky-400">Love Us!</span></h2>
-        <div class="flex justify-center items-center gap-2 text-xl text-amber-400 font-bold">
-            <span>4.9</span>
-            <div class="flex text-amber-400">★★★★★</div>
-            <span class="text-xs text-slate-400 font-normal">(Google Reviews)</span>
-        </div>
-    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="reviews-fixed-grid">
-        
-        <div class="bg-slate-900/60 border border-slate-800 backdrop-blur-md p-6 rounded-2xl flex flex-col justify-between h-auto">
-            <div>
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">M</div>
-                        <div>
-                            <h4 class="font-bold text-white text-sm">Muhammad Ali</h4>
-                            <p class="text-xs text-slate-400">Local Guide • Sahiwal</p>
-                        </div>
-                    </div>
-                    <span class="text-red-500 font-bold text-lg">G</span>
-                </div>
-                <div class="text-amber-400 text-sm mb-3">★★★★★</div>
-                <p class="text-slate-300 text-xs italic leading-relaxed">
-                    "Bhai kamal ki service hai! Mere solar panels par mitti jami hui thi jiske wajah se efficiency bohot kam thi. MS Solar team ne aa kar aesi safai ki ke panels bilkul chamakdar ho gaye."
-                </p>
-            </div>
-            <div class="text-right mt-4">
-                <span class="text-[10px] text-slate-500">A week ago</span>
-            </div>
-        </div>
-
-        </div>
-</div>
-            
-                Our Customers <span class="text-blue-600 dark:text-blue-400">Love Us!</span>
-            </h2>
-            <div class="flex justify-center items-center gap-2 text-yellow-500 text-xl font-bold">
-                <span>4.9</span>
-                <div class="flex gap-0.5">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <span class="text-sm text-slate-500 dark:text-slate-400 font-normal">(Google Reviews)</span>
-            </div>
-        </div>
-
-        <!-- Carousel Container -->
-        <div class="relative w-full overflow-hidden mb-10">
-            <!-- Review Track -->
-            <div id="review-track" class="flex transition-transform duration-700 ease-in-out cursor-grab active:cursor-grabbing">
-                
-                <!-- Review 1 -->
-                <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 px-3">
-                    <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl shadow-md border border-slate-100 dark:border-slate-700 h-full flex flex-col justify-between backdrop-blur-sm">
-                        <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">M</div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 dark:text-white text-sm">Muhammad Ali</h4>
-                                        <p class="text-xs text-slate-400">Local Guide • Sahiwal</p>
-                                    </div>
-                                </div>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="w-5 h-5">
-                            </div>
-                            <div class="flex text-yellow-400 text-xs mb-3">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
-                            <p class="text-slate-600 dark:text-slate-300 text-sm italic">"Bhai kamal ki service hai! Mere solar panels par mitti jami hui thi jiske wajah se efficiency bohot kam thi. MS Solar team ne aa kar aesi safai ki ke panels bilkul chamakdar ho gaye."</p>
-                        </div>
                         <div class="text-xs text-slate-400 mt-4 text-right">A week ago</div>
                     </div>
                 </div>
@@ -2011,87 +1946,85 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 <!-- ==========================================
      GOOGLE REVIEWS SECTION (PREMIUM MATCHED UI)
      ========================================== -->
-<section id="reviews-grid-block" class="py-16 px-4 bg-transparent">
-    <div class="container mx-auto max-w-6xl">
+<section class="py-12 bg-slate-950/40 relative z-20">
+    <div class="container mx-auto px-4 max-w-6xl">
         
-        <div class="text-center mb-12">
-            <span class="text-xs font-black uppercase tracking-widest text-blue-600 bg-blue-100 dark:bg-blue-900/40 dark:text-blue-300 px-3 py-1.5 rounded-full border border-white/40 shadow-sm inline-block">
-                <i class="fab fa-google text-blue-500 mr-1.5"></i> Google Reviews
-            </span>
-            <h3 class="text-2xl sm:text-3xl font-black mt-3 text-slate-900 dark:text-white" data-en="What Sahiwal Solar Owners Say" data-ur="ساہیوال کے کسٹمرز کی رائے">
-                What Sahiwal Solar Owners Say
-            </h3>
-            <div class="inline-flex items-center gap-2 mt-3 px-3 py-1 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                <span class="text-sm font-black text-slate-800 dark:text-white">4.9</span>
-                <div class="flex text-amber-500 text-[10px]">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wide border-l border-slate-300 dark:border-slate-600 pl-2">Verified</span>
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-extrabold text-white mb-2">
+                Our Customers <span class="text-sky-400">Love Us!</span>
+            </h2>
+            <div class="flex justify-center items-center gap-2 text-xl text-amber-400 font-bold">
+                <span>4.9</span>
+                <div class="flex text-amber-400">★★★★★</div>
+                <span class="text-xs text-slate-400 font-normal">(Google Reviews)</span>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="reviews-fixed-grid">
             
-            <div class="ios-glass p-6 rounded-3xl border border-white/20 shadow-xl flex flex-col justify-between h-auto min-h-[220px] relative overflow-hidden group">
-                <div class="absolute top-4 right-4 text-slate-300 dark:text-slate-700/50 group-hover:text-blue-500/20 transition-colors">
-                    <i class="fab fa-google text-xl"></i>
-                </div>
+            <div class="bg-slate-900/80 border border-slate-800 backdrop-blur-md p-6 rounded-2xl review-card-fixed">
                 <div>
-                    <div class="flex text-amber-500 text-xs mb-3">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-base">M</div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Muhammad Ali</h4>
+                                <p class="text-[11px] text-slate-400">Local Guide • Sahiwal</p>
+                            </div>
+                        </div>
+                        <span class="text-red-500 font-black text-xl">G</span>
                     </div>
-                    <p class="text-xs sm:text-sm font-medium leading-relaxed italic text-slate-600 dark:text-slate-300">
-                        "Highly recommended MS Solar Cleaning Services! Mere solar panels par mitti jami hui thi jiske wajah se efficiency bohot kam ho gayi thi. Inki team ne aa kar aesi safai ki ke panels bilkul chamakdar ho gaye aur solar ka backup bhi behtar ho gaya."
+                    <div class="text-amber-400 text-xs mb-3">★★★★★</div>
+                    <p class="text-slate-300 text-xs leading-relaxed italic">
+                        "Bhai kamal ki service hai! Mere solar panels par mitti jami hui thi jiske wajah se efficiency bohot kam thi. MS Solar team ne aa kar aesi safai ki ke panels bilkul chamakdar ho gaye."
                     </p>
                 </div>
-                <div class="mt-6 pt-3 border-t border-slate-200/40 dark:border-slate-700/40 flex items-center justify-between">
-                    <div>
-                        <h4 class="text-xs font-black tracking-tight text-slate-900 dark:text-white">Muhammad Ali</h4>
-                        <p class="text-[10px] text-slate-400">Local Guide • Sahiwal</p>
-                    </div>
-                    <span class="text-[9px] font-bold text-emerald-500 uppercase bg-emerald-500/10 px-2 py-0.5 rounded-md">Verified</span>
+                <div class="text-right mt-4 pt-2 border-t border-slate-800/50">
+                    <span class="text-[10px] text-slate-500">A week ago</span>
                 </div>
             </div>
 
-            <div class="ios-glass p-6 rounded-3xl border border-white/20 shadow-xl flex flex-col justify-between h-auto min-h-[220px] relative overflow-hidden group">
-                <div class="absolute top-4 right-4 text-slate-300 dark:text-slate-700/50 group-hover:text-blue-500/20 transition-colors">
-                    <i class="fab fa-google text-xl"></i>
-                </div>
+            <div class="bg-slate-900/80 border border-slate-800 backdrop-blur-md p-6 rounded-2xl review-card-fixed">
                 <div>
-                    <div class="flex text-amber-500 text-xs mb-3">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-base">S</div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Safeer Ahmad</h4>
+                                <p class="text-[11px] text-slate-400">Customer • Chichawatni</p>
+                            </div>
+                        </div>
+                        <span class="text-red-500 font-black text-xl">G</span>
                     </div>
-                    <p class="text-xs sm:text-sm font-medium leading-relaxed italic text-slate-600 dark:text-slate-300">
-                        "Best solar cleaning service in Sahiwal region! Inki team bohot professional hai aur bilkul time par aayi. Pura setup advanced equipments ke sath saaf kiya aur rates bhi bohot munasib hain. Strongly recommended!"
+                    <div class="text-amber-400 text-xs mb-3">★★★★★</div>
+                    <p class="text-slate-300 text-xs leading-relaxed italic">
+                        "Highly recommended! Inka pressure washer setup kamal ka hai aur staff bohot professional hai. Panels chamakdar ho gaye hain."
                     </p>
                 </div>
-                <div class="mt-6 pt-3 border-t border-slate-200/40 dark:border-slate-700/40 flex items-center justify-between">
-                    <div>
-                        <h4 class="text-xs font-black tracking-tight text-slate-900 dark:text-white">Dr. Asif</h4>
-                        <p class="text-[10px] text-slate-400">Scheme No. 2</p>
-                    </div>
-                    <span class="text-[9px] font-bold text-emerald-500 uppercase bg-emerald-500/10 px-2 py-0.5 rounded-md">Verified</span>
+                <div class="text-right mt-4 pt-2 border-t border-slate-800/50">
+                    <span class="text-[10px] text-slate-500">3 days ago</span>
                 </div>
             </div>
 
-            <div class="ios-glass p-6 rounded-3xl border border-white/20 shadow-xl flex flex-col justify-between h-auto min-h-[220px] relative overflow-hidden group">
-                <div class="absolute top-4 right-4 text-slate-300 dark:text-slate-700/50 group-hover:text-blue-500/20 transition-colors">
-                    <i class="fab fa-google text-xl"></i>
-                </div>
+            <div class="bg-slate-900/80 border border-slate-800 backdrop-blur-md p-6 rounded-2xl review-card-fixed">
                 <div>
-                    <div class="flex text-amber-500 text-xs mb-3">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-base">M</div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Muneeb Ur Rehman</h4>
+                                <p class="text-[11px] text-slate-400">Owner • Sahiwal Region</p>
+                            </div>
+                        </div>
+                        <span class="text-red-500 font-black text-xl">G</span>
                     </div>
-                    <p class="text-xs sm:text-sm font-medium leading-relaxed italic text-slate-600 dark:text-slate-300">
-                        "Superb experience with MS Solar! Panel washing ke baad plates bilkul brand new lag rahi hain aur unki charging performance mein wazih farq aaya hai. Agar aap bhi Chichawatni ya Arifwala mein hain to in se lazmi service lein. 10/10!"
+                    <div class="text-amber-400 text-xs mb-3">★★★★★</div>
+                    <p class="text-slate-300 text-xs leading-relaxed italic">
+                        "Sahiwal, Pakpattan, aur Arifwala mein solar cleaning ki sab se behtareen aur automatic service. No compromise on quality!"
                     </p>
                 </div>
-                <div class="mt-6 pt-3 border-t border-slate-200/40 dark:border-slate-700/40 flex items-center justify-between">
-                    <div>
-                        <h4 class="text-xs font-black tracking-tight text-slate-900 dark:text-white">Kamran M.</h4>
-                        <p class="text-[10px] text-slate-400">Farid Town</p>
-                    </div>
-                    <span class="text-[9px] font-bold text-emerald-500 uppercase bg-emerald-500/10 px-2 py-0.5 rounded-md">Verified</span>
+                <div class="text-right mt-4 pt-2 border-t border-slate-800/50">
+                    <span class="text-[10px] text-slate-500">Just now</span>
                 </div>
             </div>
 
@@ -4282,31 +4215,30 @@ document.addEventListener("DOMContentLoaded", function () {
 // ==========================================
 // END: GOOGLE REVIEWS AUTO CAROUSEL LOGIC
 // ==========================================
-<!-- MS SOLAR AUTOMATIC FULL-PAGE BACKGROUND CONTROLS -->
-document.addEventListener("DOMContentLoaded", function() {
+<script>
+document.addEventListener("DOMContentLoaded", function () {
     const mainWrapper = document.getElementById("ms-intro-dust-cleaner");
     const dustStorm = document.getElementById("ms-dust-storm");
     const waterWiper = document.getElementById("ms-water-wiper");
 
     if (mainWrapper && dustStorm && waterWiper) {
-        // 1. Paani ka flow start hoga
-        setTimeout(function() {
+        // 1. Paani chalega upar se neeche
+        setTimeout(() => {
             waterWiper.classList.add("run-full-wash");
         }, 500);
 
-        // 2. Mitti saaf hogi
-        setTimeout(function() {
+        // 2. Mitti saaf ho kar translucent ho jayegi
+        setTimeout(() => {
             dustStorm.classList.add("dust-wash-clear");
         }, 850);
 
-        // 3. Background layer clear hogi
-        setTimeout(function() {
+        // 3. Layer remove ho jayegi taake website functional ho jaye
+        setTimeout(() => {
             mainWrapper.remove();
-        }, 2500);
+        }, 2200);
     }
 });
 </script>
 
 </body>
 </html>
-                
