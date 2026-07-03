@@ -394,44 +394,44 @@
     .tank-slider-input:focus {
         outline: none; 
 /* =======================================================
-   BACKGROUND FLUID INTRO & REVIEW CRUSHING STYLE FIXES
+   MS SOLAR MASTER CSS: BACKGROUND INTRO & FIXED REVIEW GRID
    ======================================================= */
 
-/* 1. JET WASH BACKGROUND STYLING */
-.ms-fluid-background-stream {
-    top: -30vh;
-    height: 30vh;
-    background: linear-gradient(to bottom, rgba(14, 165, 233, 0.7) 0%, rgba(2, 132, 199, 0.85) 70%, rgba(255, 255, 255, 0.95) 100%);
-    filter: drop-shadow(0 15px 25px rgba(2, 132, 199, 0.6));
+/* 1. JET WASH FULL BACKGROUND ANIMATION STYLES */
+.ms-full-bg-stream {
+    top: -40vh;
+    height: 40vh;
+    background: linear-gradient(to bottom, rgba(14, 165, 233, 0.6) 0%, rgba(2, 132, 199, 0.8) 60%, rgba(255, 255, 255, 0.95) 100%);
+    filter: drop-shadow(0 25px 35px rgba(2, 132, 199, 0.5));
+}
+
+@keyframes fullPageWaterWash {
+    0% { top: -40vh; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 120vh; opacity: 0; }
+}
+
+.run-full-wash {
+    height: 40vh !important;
+    animation: fullPageWaterWash 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
 }
 
 .dust-wash-clear {
     backdrop-filter: blur(0px) !important;
     filter: opacity(0) !important;
+    transition: all 1.2s ease-in-out;
 }
 
-@keyframes bgWaterRinseFlow {
-    0% { top: -30vh; opacity: 0; }
-    15% { opacity: 1; }
-    85% { opacity: 1; }
-    100% { top: 100vh; opacity: 0; }
-}
-
-.animate-bg-wash {
-    height: 30vh !important;
-    animation: bgWaterRinseFlow 1.3s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
-}
-
-/* 2. ULTIMATE REVIEWS HEIGHT KILLER (No More Long Distorted Cards) */
-.swiper-container, .swiper-wrapper, .swiper-slide, .slick-track, .slick-list {
+/* 2. GOOGLE REVIEWS STRICT HEIGHT LOCK (No More Long Cards) */
+#reviews-fixed-grid, .reviews-fixed-grid {
     height: auto !important;
     min-height: 0 !important;
 }
 
-/* Force card to adapt exactly to text content length */
-#reviews-grid-block .ios-glass,
+#reviews-fixed-grid div, 
 .review-card, 
-[class*="review-card"],
+[class*="review-card"], 
 [id*="review"] {
     height: auto !important;
     min-height: auto !important;
@@ -439,8 +439,8 @@
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
-    padding-bottom: 20px !important;
 }
+        
         
     </style>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -452,11 +452,13 @@
 <!-- ==========================================
      MS SOLAR PREMIUM ACCELERATED JET WASH INTRO
      ========================================== -->
-<div id="ms-intro-dust-cleaner" class="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-transparent select-none">
-    <div id="ms-dust-storm" class="absolute inset-0 bg-[#4a3319] bg-opacity-40 backdrop-blur-md transition-all duration-[1200ms]"></div>
+<body class="font-sans text-slate-800 antialiased dark:text-slate-200 relative min-h-screen">
+
+<div id="ms-intro-dust-cleaner" class="fixed inset-0 pointer-events-none overflow-hidden bg-transparent select-none" style="z-index: -1;">
+    <div id="ms-dust-storm" class="absolute inset-0 bg-[#4a3319] bg-opacity-35 backdrop-blur-md transition-all duration-[1200ms]"></div>
     
-    <div id="ms-water-wiper" class="absolute left-0 w-full z-10 opacity-0 ms-fluid-background-stream">
-        <div class="absolute bottom-0 left-0 w-full h-3 bg-white opacity-80 blur-[2px]"></div>
+    <div id="ms-water-wiper" class="absolute left-0 w-full opacity-0 ms-full-bg-stream" style="z-index: 1;">
+        <div class="absolute bottom-0 left-0 w-full h-6 bg-white opacity-90 blur-[2px]"></div>
     </div>
 </div>
     
@@ -1883,11 +1885,43 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
   </div>
 </div>
  <!-- START: GOOGLE REVIEWS CAROUSEL SECTION -->
-<section id="google-reviews" class="py-16 bg-slate-50 dark:bg-slate-900 overflow-hidden relative">
-    <div class="max-w-6xl mx-auto px-4">
-        <!-- Section Heading -->
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-slate-800 dark:text-white mb-3">
+<div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-white mb-2">Our Customers <span class="text-sky-400">Love Us!</span></h2>
+        <div class="flex justify-center items-center gap-2 text-xl text-amber-400 font-bold">
+            <span>4.9</span>
+            <div class="flex text-amber-400">★★★★★</div>
+            <span class="text-xs text-slate-400 font-normal">(Google Reviews)</span>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="reviews-fixed-grid">
+        
+        <div class="bg-slate-900/60 border border-slate-800 backdrop-blur-md p-6 rounded-2xl flex flex-col justify-between h-auto">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">M</div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">Muhammad Ali</h4>
+                            <p class="text-xs text-slate-400">Local Guide • Sahiwal</p>
+                        </div>
+                    </div>
+                    <span class="text-red-500 font-bold text-lg">G</span>
+                </div>
+                <div class="text-amber-400 text-sm mb-3">★★★★★</div>
+                <p class="text-slate-300 text-xs italic leading-relaxed">
+                    "Bhai kamal ki service hai! Mere solar panels par mitti jami hui thi jiske wajah se efficiency bohot kam thi. MS Solar team ne aa kar aesi safai ki ke panels bilkul chamakdar ho gaye."
+                </p>
+            </div>
+            <div class="text-right mt-4">
+                <span class="text-[10px] text-slate-500">A week ago</span>
+            </div>
+        </div>
+
+        </div>
+</div>
+            
                 Our Customers <span class="text-blue-600 dark:text-blue-400">Love Us!</span>
             </h2>
             <div class="flex justify-center items-center gap-2 text-yellow-500 text-xl font-bold">
@@ -4248,43 +4282,34 @@ document.addEventListener("DOMContentLoaded", function () {
 // ==========================================
 // END: GOOGLE REVIEWS AUTO CAROUSEL LOGIC
 // ==========================================
-// MS Solar High-Velocity Fluid Animation Sequence (Har Refresh Par)
+<!-- =======================================================
+     MS SOLAR AUTOMATIC FULL-PAGE BACKGROUND CONTROLS
+     ======================================================= -->
+<script>
 document.addEventListener("DOMContentLoaded", function () {
     const mainWrapper = document.getElementById("ms-intro-dust-cleaner");
     const dustStorm = document.getElementById("ms-dust-storm");
     const waterWiper = document.getElementById("ms-water-wiper");
 
     if (mainWrapper && dustStorm && waterWiper) {
-        // Paani ka background flow start hoga
+        // 1. Pehle 0.5s par background mein pressure washer ka paani top se bottom chalega
         setTimeout(() => {
-            waterWiper.classList.add("animate-bg-wash");
-        }, 600);
+            waterWiper.classList.add("run-full-wash");
+        }, 500);
 
-        // Mitti bech mein dissolve hona shuru hogi
+        // 2. Jaise hi paani bech mein pounche (0.85s), piche jami andhi/mitti dhul kar saaf ho jaye
         setTimeout(() => {
             dustStorm.classList.add("dust-wash-clear");
-        }, 900);
+        }, 850);
 
-        // Memory se background layer clear
+        // 3. Poora process mukammal hone par memory se background wrapper clear
         setTimeout(() => {
             mainWrapper.remove();
-        }, 2200);
+        }, 2500);
     }
 });
-    
-    
-</script>   
-<script>
-function moveTankSlider(value) {
-    // Gandi tanki wali image ko crop karne ke liye
-    document.getElementById('tank-before-image').style.clipPath = "polygon(0 0, " + value + "% 0, " + value + "% 100%, 0 100%)";
-    
-    // Slider ki line ko move karne ke liye
-    document.getElementById('tank-slider-line').style.left = value + "%";
-    
-    // Slider ke button ko move karne ke liye
-    document.getElementById('tank-slider-button').style.left = value + "%";
-}
 </script>
+
 </body>
 </html>
+                
