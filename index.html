@@ -4282,28 +4282,25 @@ document.addEventListener("DOMContentLoaded", function () {
 // ==========================================
 // END: GOOGLE REVIEWS AUTO CAROUSEL LOGIC
 // ==========================================
-<!-- =======================================================
-     MS SOLAR AUTOMATIC FULL-PAGE BACKGROUND CONTROLS
-     ======================================================= -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+<!-- MS SOLAR AUTOMATIC FULL-PAGE BACKGROUND CONTROLS -->
+document.addEventListener("DOMContentLoaded", function() {
     const mainWrapper = document.getElementById("ms-intro-dust-cleaner");
     const dustStorm = document.getElementById("ms-dust-storm");
     const waterWiper = document.getElementById("ms-water-wiper");
 
     if (mainWrapper && dustStorm && waterWiper) {
-        // 1. Pehle 0.5s par background mein pressure washer ka paani top se bottom chalega
-        setTimeout(() => {
+        // 1. Paani ka flow start hoga
+        setTimeout(function() {
             waterWiper.classList.add("run-full-wash");
         }, 500);
 
-        // 2. Jaise hi paani bech mein pounche (0.85s), piche jami andhi/mitti dhul kar saaf ho jaye
-        setTimeout(() => {
+        // 2. Mitti saaf hogi
+        setTimeout(function() {
             dustStorm.classList.add("dust-wash-clear");
         }, 850);
 
-        // 3. Poora process mukammal hone par memory se background wrapper clear
-        setTimeout(() => {
+        // 3. Background layer clear hogi
+        setTimeout(function() {
             mainWrapper.remove();
         }, 2500);
     }
