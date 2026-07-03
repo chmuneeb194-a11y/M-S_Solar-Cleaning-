@@ -393,6 +393,20 @@
     }
     .tank-slider-input:focus {
         outline: none; 
+        /* Custom Animations for Dust-Wash Intro */
+@keyframes wiperSlideDown {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+.animate-wiper {
+    animation: wiperSlideDown 1.8s cubic-bezier(0.42, 0, 0.58, 1) forwards;
+}
+#ms-intro-dust-cleaner.clear-reveal {
+    backdrop-filter: blur(0px) !important;
+    background-color: transparent !important;
+    opacity: 0;
+}
+        
     </style>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
@@ -401,6 +415,25 @@
 </head>
 <body class="font-sans text-slate-800 antialiased dark:text-slate-200">
     <!-- ==========================================
+    <!-- ==========================================
+     MS SOLAR AUTOMATIC DUST-WASH INTRO LAYER
+     ========================================== -->
+<div id="ms-intro-dust-cleaner" class="fixed inset-0 z-[99999] flex items-center justify-center bg-slate-900/40 backdrop-blur-[6px] pointer-events-auto transition-all duration-1000 overflow-hidden">
+    <div class="absolute inset-0 bg-amber-950/20 mix-blend-multiply opacity-80 pointer-events-none"></div>
+    <div id="ms-water-wiper" class="absolute top-0 left-0 w-full h-[15vh] bg-gradient-to-b from-blue-400/80 via-blue-500/50 to-transparent blur-sm shadow-[0_10px_30px_rgba(59,130,246,0.5)] -translate-y-full pointer-events-none"></div>
+    <div id="ms-intro-badge" class="relative z-10 scale-95 opacity-0 transition-all duration-700 bg-white/20 dark:bg-slate-900/40 backdrop-blur-md px-8 py-5 rounded-3xl border border-white/20 shadow-2xl text-center max-w-xs mx-4">
+        <div class="text-amber-500 text-3xl mb-2 animate-pulse">
+            <i class="fas fa-wind"></i>
+        </div>
+        <h4 class="text-white text-lg font-black tracking-wide uppercase" data-en="Restoring Efficiency" data-ur="صفائی جاری ہے...">
+            Restoring Efficiency
+        </h4>
+        <p class="text-slate-200 text-xs mt-1" data-en="Making it Chamakdar" data-ur="چمکدار بنایا جا رہا ہے">
+            Making it Chamakdar
+        </p>
+    </div>
+</div>
+    
      START: AI CHATBOT, WEBHOOK & PUSH NOTIFICATION UI 
      ========================================== -->
 <div id="ai-system-wrapper" class="fixed bottom-6 right-6 z-50 font-sans">
@@ -4186,7 +4219,57 @@ document.addEventListener("DOMContentLoaded", function () {
 // ==========================================
 // END: GOOGLE REVIEWS AUTO CAROUSEL LOGIC
 // ==========================================
-        
+      // MS Solar 5-Second Automatic Dust-Wash Sequence
+document.addEventListener("DOMContentLoaded", function () {
+    // Baar baar refresh par user tang na ho, isliye sessionStorage check
+    if (!sessionStorage.getItem("ms_intro_played")) {
+        const introContainer = document.getElementById("ms-intro-dust-cleaner");
+        const wiper = document.getElementById("ms-water-wiper");
+        const badge = document.getElementById("ms-intro-badge");
+
+        // 1. Initial micro-delay ke baad central text pop-up ho
+        setTimeout(() => {
+            if(badge) {
+                badge.classList.remove("scale-95", "opacity-0");
+                badge.classList.add("scale-100", "opacity-100");
+            }
+        }, 300);
+
+        // 2. Theek 3rd second par water wiper chalna shuru ho
+        setTimeout(() => {
+            if(wiper) wiper.classList.add("animate-wiper");
+            
+            // Wiper ke chalte hi central badge gayab ho jaye
+            if(badge) {
+                badge.classList.add("scale-95", "opacity-0");
+            }
+        }, 3000);
+
+        // 3. 4.2 seconds par background blur aur mitti saaf hona shuru ho
+        setTimeout(() => {
+            if(introContainer) introContainer.classList.add("clear-reveal");
+        }, 4200);
+
+        // 4. Exactly 5th second par pura wrapper element background se hamesha ke liye remove ho jaye
+        setTimeout(() => {
+            if(introContainer) {
+                introContainer.style.display = "none";
+                introContainer.remove();
+            }
+            // Tag set taake is session mein dobara intro na chale
+            sessionStorage.setItem("ms_intro_played", "true");
+        }, 5000);
+
+    } else {
+        // Agar intro pehle chal chuka hai toh foran gayab rakhein
+        const introContainer = document.getElementById("ms-intro-dust-cleaner");
+        if (introContainer) {
+            introContainer.style.display = "none";
+            introContainer.remove();
+        }
+    }
+});
+    
 </script>   
 <script>
 function moveTankSlider(value) {
