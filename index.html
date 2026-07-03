@@ -4137,31 +4137,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("resize", updateSlider);
     updateSlider();
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const mainWrapper = document.getElementById("ms-intro-dust-cleaner");
-    const dustStorm = document.getElementById("ms-dust-storm");
-    const waterWiper = document.getElementById("ms-water-wiper");
-
-    if (mainWrapper && dustStorm && waterWiper) {
-        // Animation ko force start karein
-        setTimeout(() => {
-            waterWiper.classList.add("run-full-wash");
-        }, 300);
-
-        // Mitti/Andhi ko saaf karein
-        setTimeout(() => {
-            dustStorm.classList.add("dust-wash-clear");
-        }, 700);
-
-        // Layer ko hata dein
-        setTimeout(() => {
-            mainWrapper.style.display = 'none';
-        }, 2000);
-    }
-});
 </script>
 </body>
 </html>
