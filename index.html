@@ -1894,61 +1894,14 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
     <img src="toyota-corolla-shine.jpg" alt="Toyota Corolla Shine" class="w-full h-full object-cover hover:scale-105 transition duration-300">
   </div>
 </div>
- <!-- START: GOOGLE REVIEWS CAROUSEL SECTION -->
 
-                        <div class="text-xs text-slate-400 mt-4 text-right">A week ago</div>
-                    </div>
-                </div>
-
-                <!-- Review 2 -->
-                <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 px-3">
-                    <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl shadow-md border border-slate-100 dark:border-slate-700 h-full flex flex-col justify-between backdrop-blur-sm">
-                        <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">Z</div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 dark:text-white text-sm">Zeeshan Ahmed</h4>
-                                        <p class="text-xs text-slate-400">Chichawatni</p>
-                                    </div>
-                                </div>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="w-5 h-5">
-                            </div>
-                            <div class="flex text-yellow-400 text-xs mb-3">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
-                            <p class="text-slate-600 dark:text-slate-300 text-sm italic">"Water tank cleaning bohot hi professional tareeqe se ki. Chemical wash ke baad pani bilkul saaf aa raha hai. Highly recommended services in Sahiwal region!"</p>
-                        </div>
-                        <div class="text-xs text-slate-400 mt-4 text-right">2 weeks ago</div>
-                    </div>
-                </div>
-
-                <!-- Review 3 -->
-                <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 px-3">
-                    <div class="bg-white dark:bg-slate-800/80 p-6 rounded-2xl shadow-md border border-slate-100 dark:border-slate-700 h-full flex flex-col justify-between backdrop-blur-sm">
-                        <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">A</div>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 dark:text-white text-sm">Asad Raza</h4>
-                                        <p class="text-xs text-slate-400">Arifwala</p>
-                                    </div>
-                                </div>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="w-5 h-5">
-                            </div>
-                            <div class="flex text-yellow-400 text-xs mb-3">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
-                            <p class="text-slate-600 dark:text-slate-300 text-sm italic">"Doorstep car wash ki service use ki hai. Cleaners ke paas apni har cheez mojud thi aur car ko bilkul brand new look de di. Price bhi bohot reasonable hai."</p>
-                        </div>
-                        <div class="text-xs text-slate-400 mt-4 text-right">1 month ago</div>
-<!-- ==========================================
-     GOOGLE REVIEWS SECTION (PREMIUM MATCHED UI)
-     ========================================== -->
-<section class="py-12 bg-slate-950/40 relative z-20">
+<!-- =================================================================
+     START: AUTOMATIC GOOGLE REVIEWS CAROUSEL HTML SECTION
+     ================================================================= -->
+<section class="py-12 bg-slate-950/40 relative z-20 overflow-hidden">
     <div class="container mx-auto px-4 max-w-6xl">
         
+        <!-- Header -->
         <div class="text-center mb-10">
             <h2 class="text-3xl font-extrabold text-white mb-2">
                 Our Customers <span class="text-sky-400">Love Us!</span>
@@ -1960,79 +1913,100 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="reviews-fixed-grid">
-            
-            <div class="bg-slate-900/80 border border-slate-800 backdrop-blur-md p-6 rounded-2xl review-card-fixed">
-                <div>
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-base">M</div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Muhammad Ali</h4>
-                                <p class="text-[11px] text-slate-400">Local Guide • Sahiwal</p>
+        <!-- Sliding Track Container -->
+        <div class="relative w-full overflow-hidden" style="min-height: 240px;">
+            <div id="reviews-slider-track" class="flex transition-transform duration-700 ease-in-out w-full">
+                
+                <!-- CARD 1: Muhammad Ali -->
+                <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 px-3">
+                    <div class="bg-slate-900/90 border border-slate-800 backdrop-blur-md p-6 rounded-2xl flex flex-col justify-between h-[220px]">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-base">M</div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-sm">Muhammad Ali</h4>
+                                        <p class="text-[11px] text-slate-400">Local Guide • Sahiwal</p>
+                                    </div>
+                                </div>
+                                <span class="text-red-500 font-black text-xl">G</span>
                             </div>
+                            <div class="text-amber-400 text-xs mb-2">★★★★★</div>
+                            <p class="text-slate-300 text-xs leading-relaxed italic">
+                                "Bhai kamal ki service hai! Mere solar panels par mitti jami hui thi jiske wajah se efficiency bohot kam thi. MS Solar team ne aa kar aesi safai ki ke panels bilkul chamakdar ho gaye."
+                            </p>
                         </div>
-                        <span class="text-red-500 font-black text-xl">G</span>
+                        <div class="text-right pt-2 border-t border-slate-800/50">
+                            <span class="text-[10px] text-slate-500">A week ago</span>
+                        </div>
                     </div>
-                    <div class="text-amber-400 text-xs mb-3">★★★★★</div>
-                    <p class="text-slate-300 text-xs leading-relaxed italic">
-                        "Bhai kamal ki service hai! Mere solar panels par mitti jami hui thi jiske wajah se efficiency bohot kam thi. MS Solar team ne aa kar aesi safai ki ke panels bilkul chamakdar ho gaye."
-                    </p>
                 </div>
-                <div class="text-right mt-4 pt-2 border-t border-slate-800/50">
-                    <span class="text-[10px] text-slate-500">A week ago</span>
-                </div>
-            </div>
 
-            <div class="bg-slate-900/80 border border-slate-800 backdrop-blur-md p-6 rounded-2xl review-card-fixed">
-                <div>
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-base">S</div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Safeer Ahmad</h4>
-                                <p class="text-[11px] text-slate-400">Customer • Chichawatni</p>
+                <!-- CARD 2: Safeer Ahmad -->
+                <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 px-3">
+                    <div class="bg-slate-900/90 border border-slate-800 backdrop-blur-md p-6 rounded-2xl flex flex-col justify-between h-[220px]">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-base">S</div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-sm">Safeer Ahmad</h4>
+                                        <p class="text-[11px] text-slate-400">Customer • Chichawatni</p>
+                                    </div>
+                                </div>
+                                <span class="text-red-500 font-black text-xl">G</span>
                             </div>
+                            <div class="text-amber-400 text-xs mb-2">★★★★★</div>
+                            <p class="text-slate-300 text-xs leading-relaxed italic">
+                                "Highly recommended! Inka pressure washer setup kamal ka hai aur staff bohot professional hai. Panels chamakdar ho gaye hain."
+                            </p>
                         </div>
-                        <span class="text-red-500 font-black text-xl">G</span>
+                        <div class="text-right pt-2 border-t border-slate-800/50">
+                            <span class="text-[10px] text-slate-500">3 days ago</span>
+                        </div>
                     </div>
-                    <div class="text-amber-400 text-xs mb-3">★★★★★</div>
-                    <p class="text-slate-300 text-xs leading-relaxed italic">
-                        "Highly recommended! Inka pressure washer setup kamal ka hai aur staff bohot professional hai. Panels chamakdar ho gaye hain."
-                    </p>
                 </div>
-                <div class="text-right mt-4 pt-2 border-t border-slate-800/50">
-                    <span class="text-[10px] text-slate-500">3 days ago</span>
-                </div>
-            </div>
 
-            <div class="bg-slate-900/80 border border-slate-800 backdrop-blur-md p-6 rounded-2xl review-card-fixed">
-                <div>
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-base">M</div>
-                            <div>
-                                <h4 class="font-bold text-white text-sm">Muneeb Ur Rehman</h4>
-                                <p class="text-[11px] text-slate-400">Owner • Sahiwal Region</p>
+                <!-- CARD 3: Muneeb Ur Rehman -->
+                <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 px-3">
+                    <div class="bg-slate-900/90 border border-slate-800 backdrop-blur-md p-6 rounded-2xl flex flex-col justify-between h-[220px]">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-base">M</div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-sm">Muneeb Ur Rehman</h4>
+                                        <p class="text-[11px] text-slate-400">Owner • Sahiwal Region</p>
+                                    </div>
+                                </div>
+                                <span class="text-red-500 font-black text-xl">G</span>
                             </div>
+                            <div class="text-amber-400 text-xs mb-2">★★★★★</div>
+                            <p class="text-slate-300 text-xs leading-relaxed italic">
+                                "Sahiwal, Pakpattan, aur Arifwala mein solar cleaning ki sab se behtareen aur automatic service. No compromise on quality!"
+                            </p>
                         </div>
-                        <span class="text-red-500 font-black text-xl">G</span>
+                        <div class="text-right pt-2 border-t border-slate-800/50">
+                            <span class="text-[10px] text-slate-500">Just now</span>
+                        </div>
                     </div>
-                    <div class="text-amber-400 text-xs mb-3">★★★★★</div>
-                    <p class="text-slate-300 text-xs leading-relaxed italic">
-                        "Sahiwal, Pakpattan, aur Arifwala mein solar cleaning ki sab se behtareen aur automatic service. No compromise on quality!"
-                    </p>
                 </div>
-                <div class="text-right mt-4 pt-2 border-t border-slate-800/50">
-                    <span class="text-[10px] text-slate-500">Just now</span>
-                </div>
-            </div>
 
+            </div>
         </div>
+
+        <!-- Google Profile Button -->
+        <div class="text-center mt-8">
+            <a href="https://g.co/kgs/D3YvXwA" target="_blank" class="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-bold py-2.5 px-6 rounded-full text-xs transition duration-300 shadow-lg shadow-sky-500/20">
+                <span class="font-black text-sm">G</span> Write a Review on Google
+            </a>
+        </div>
+
     </div>
 </section>
-                        
-<!-- END: GOOGLE REVIEWS CAROUSEL SECTION -->
+<!-- =================================================================
+     END: AUTOMATIC GOOGLE REVIEWS CAROUSEL HTML SECTION
+     ================================================================= -->
             
         </div>
     </section>
@@ -4128,116 +4102,59 @@ document.addEventListener("DOMContentLoaded", () => {
 // START: GOOGLE REVIEWS AUTO CAROUSEL LOGIC
 // ==========================================
 document.addEventListener("DOMContentLoaded", function () {
-    const track = document.getElementById("review-track");
-    const dotsContainer = document.getElementById("carousel-dots");
-    
-    if (!track || !dotsContainer) return;
-
-    const cards = Array.from(track.children);
+    // 1. REVIEWS AUTOMATIC CAROUSEL LOGIC
+    const track = document.getElementById("reviews-slider-track");
+    let cards = Array.from(track.children);
     let currentIndex = 0;
-    let cardsPerView = getCardsPerView();
-    let maxIndex = cards.length - cardsPerView;
 
-    // Responsive views adjust karne ke liye
     function getCardsPerView() {
-        if (window.innerWidth >= 1024) return 3; // Desktop
-        if (window.innerWidth >= 768) return 2;  // Tablet
-        return 1;                                // Mobile
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 768) return 2;
+        return 1;
     }
 
-    // Dots create karne ka function
-    function createDots() {
-        dotsContainer.innerHTML = "";
-        maxIndex = cards.length - getCardsPerView();
-        if (maxIndex < 0) maxIndex = 0;
-        
-        for (let i = 0; i <= maxIndex; i++) {
-            const dot = document.createElement("button");
-            dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-blue-600 w-6' : 'bg-slate-300 dark:bg-slate-600'}`;
-            dot.addEventListener("click", () => {
-                currentIndex = i;
-                updateSlider();
-                resetTimer();
-            });
-            dotsContainer.appendChild(dot);
-        }
-    }
-
-    // Slider update logic
     function updateSlider() {
-        cardsPerView = getCardsPerView();
+        const cardsPerView = getCardsPerView();
         const cardWidth = cards[0].getBoundingClientRect().width;
-        track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+        const maxIndex = cards.length - cardsPerView;
         
-        // Active dot update karein
-        const dots = Array.from(dotsContainer.children);
-        dots.forEach((dot, index) => {
-            if (index === currentIndex) {
-                dot.classList.add("bg-blue-600", "w-6");
-                dot.classList.remove("bg-slate-300", "dark:bg-slate-600");
-            } else {
-                dot.classList.remove("bg-blue-600", "w-6");
-                dot.classList.add("bg-slate-300", "dark:bg-slate-600");
-            }
-        });
-    }
-
-    // Auto Slide Timer (3 Seconds interval)
-    let autoSlideInterval = setInterval(nextSlide, 3500);
-
-    function nextSlide() {
-        maxIndex = cards.length - getCardsPerView();
-        if (currentIndex >= maxIndex) {
-            currentIndex = 0; // Wapas pehle par le jao
-        } else {
-            currentIndex++;
+        if (currentIndex > maxIndex) {
+            currentIndex = 0; // Loop wapas shuru par le aaye
         }
-        updateSlider();
+        
+        track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
     }
 
-    function resetTimer() {
-        clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(nextSlide, 3500);
-    }
-
-    // Window resize handle karein taake layout break na ho
-    window.addEventListener("resize", () => {
-        cardsPerView = getCardsPerView();
-        createDots();
-        if (currentIndex > maxIndex) currentIndex = maxIndex;
+    // Har 3.5 seconds baad slide change hogi
+    setInterval(() => {
+        currentIndex++;
         updateSlider();
-    });
+    }, 3500);
 
-    // Pehli dafa run karne ke liye
-    createDots();
+    window.addEventListener("resize", updateSlider);
     updateSlider();
-});
-// ==========================================
-// END: GOOGLE REVIEWS AUTO CAROUSEL LOGIC
-// ==========================================
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+
+
+    // 2. FULL-PAGE BACKGROUND CONTROLS (ANDHI-PANI AUTOMATION)
     const mainWrapper = document.getElementById("ms-intro-dust-cleaner");
     const dustStorm = document.getElementById("ms-dust-storm");
     const waterWiper = document.getElementById("ms-water-wiper");
 
     if (mainWrapper && dustStorm && waterWiper) {
-        // 1. Paani chalega upar se neeche
         setTimeout(() => {
             waterWiper.classList.add("run-full-wash");
         }, 500);
 
-        // 2. Mitti saaf ho kar translucent ho jayegi
         setTimeout(() => {
             dustStorm.classList.add("dust-wash-clear");
         }, 850);
 
-        // 3. Layer remove ho jayegi taake website functional ho jaye
         setTimeout(() => {
             mainWrapper.remove();
-        }, 2200);
+        }, 2500);
     }
 });
+    
 </script>
 
 </body>
