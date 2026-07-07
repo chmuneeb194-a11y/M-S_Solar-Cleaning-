@@ -2190,31 +2190,37 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
-// ==========================================
-// MS SECURE 4.0 - ADVANCED LEDGER SYSTEM (FULL PRODUCTION)
-// ==========================================
+// ==========================================================================
+// MS SECURE 4.0 - PREMIUM FULL SCALE PRODUCTION SCRIPT
+// ==========================================================================
 
-// 1. لائیو ڈیٹا اسٹرکچر لوڈ کرنا
+// 1. گلوبل ڈیٹا اسٹرکچر لوڈ کرنا
 let adminLedger = JSON.parse(localStorage.getItem('ms_admin_ledger')) || {
     completedOrders: [],
     pendingOrders: [],
-    globalRate: 70,
-    rateReason: ""
+    globalRate: 80,
+    rateReason: "",
+    bikeAvg: 15,       // بائیک ایوریج لاک کرنے کے لیے
+    petrolPrice: 270   // پیٹرول پرائس لاک کرنے کے لیے
 };
 
-// پیج لوڈ ہوتے ہی سسٹم کو ایکٹیو کرنا
+// پیج لوڈ ہوتے ہی سسٹم رن کرنا
 document.addEventListener("DOMContentLoaded", function() {
-    // 🌟 کیلنڈر فیلڈ میں خودکار طور پر آج کی تاریخ سیٹ کرنا
+    // کیلنڈر میں آج کی تاریخ لگانا
     const dateInput = document.getElementById("inv-cust-date");
     if (dateInput && !dateInput.value) {
         dateInput.value = new Date().toISOString().split('T')[0];
     }
     
+    // 🌟 پوائنٹ 1: محفوظ شدہ فیول اور پیٹرول ویلیوز ان پٹ میں واپس لانا
+    if(document.getElementById("bike-avg-input")) document.getElementById("bike-avg-input").value = adminLedger.bikeAvg;
+    if(document.getElementById("petrol-price-input")) document.getElementById("petrol-price-input").value = adminLedger.petrolPrice;
+
     calculateSmartFuel();
     renderAdminDashboard();
 });
 
-// سروس تبدیل ہونے پر لیبلز کو آٹو چینج کرنا
+// سروس تبدیل ہونے پر لیبلز بدلنا
 function updateServiceLabels() {
     const type = document.getElementById("inv-service-type").value;
     const qtyLbl = document.getElementById("lbl-dynamic-qty");
@@ -2241,7 +2247,6 @@ function updateServiceLabels() {
     autoCalculateGross();
 }
 
-// لائیو گراس ریونیو ڈسپلے
 function autoCalculateGross() {
     const qty = parseFloat(document.getElementById("inv-cust-plates").value) || 0;
     const rate = parseFloat(document.getElementById("inv-cust-rate").value) || 0;
@@ -2251,12 +2256,17 @@ function autoCalculateGross() {
     return gross;
 }
 
-// بائیک اسمارٹ فیول کیلکولیٹر
+// اسمارٹ فیول کیلکولیٹر اور ویلیو لاکنگ
 function calculateSmartFuel() {
     const avg = parseFloat(document.getElementById("bike-avg-input").value) || 15;
     const price = parseFloat(document.getElementById("petrol-price-input").value) || 270;
     const km = parseFloat(document.getElementById("bike-km-input").value) || 0;
     
+    // 🌟 پوائنٹ 1: جب بھی صارف ان پٹ بدلے، اسے سٹیٹ میں لاک کریں
+    adminLedger.bikeAvg = avg;
+    adminLedger.petrolPrice = price;
+    saveToStorage();
+
     if (km > 0) {
         const fuelCost = Math.round((km / avg) * price);
         const expenseInput = document.getElementById("admin-expense-amount");
@@ -2264,7 +2274,7 @@ function calculateSmartFuel() {
     }
 }
 
-// آرڈر انیشلائز کرنا اور پائپ لائن میں ڈالنا
+// آرڈر پائپ لائن میں شامل کرنا
 function addOrderToPending() {
     const name = document.getElementById("inv-cust-name").value.trim();
     const phone = document.getElementById("inv-cust-phone").value.trim();
@@ -2275,13 +2285,11 @@ function addOrderToPending() {
     const fuel = parseFloat(document.getElementById("admin-expense-amount").value) || 0;
     const labour = parseFloat(document.getElementById("admin-labour-amount").value) || 0;
     
-    // 🌟 کیلنڈر سے تاریخ حاصل کرنا (اگر خالی ہو تو آج کی تاریخ بیک اپ)
     const dateInput = document.getElementById("inv-cust-date");
-    const selectedDate = (dateInput && dateInput.value) ? dateInput.value : new Date().toLocaleDateString();
+    const selectedDate = (dateInput && dateInput.value) ? dateInput.value : new Date().toISOString().split('T')[0];
 
-    // 🌟 فکسڈ ویلیڈیشن لاجک: کسٹمر نام اور مقدار لازمی ہونی چاہیے (ریٹ کار/ٹینکی کا الگ ہو سکتا ہے)
     if (!name || qty <= 0) {
-        alert("منیب بھائی! کسٹمر کا نام اور کوانٹٹی (پلیٹس/کار/ٹینکی کی تعداد) لازمی درج کریں۔");
+        alert("منیب بھائی! کسٹمر کا نام اور کوانٹٹی لازمی درج کریں۔");
         return;
     }
 
@@ -2301,33 +2309,29 @@ function addOrderToPending() {
         gross: gross,
         netProfit: netProfit,
         status: "Pending",
-        date: selectedDate // 🌟 اب یہ کسٹم کیلنڈر کی تاریخ سیو کرے گا
+        date: selectedDate
     };
 
     adminLedger.pendingOrders.unshift(newOrder);
     saveToStorage();
     renderAdminDashboard();
 
-    // ان پٹس کو صاف کرنا (جیسا آپ کا پرانا کوڈ کر رہا تھا)
+    // ان پٹ فیلڈز صاف کرنا
     document.getElementById("inv-cust-name").value = "";
     document.getElementById("inv-cust-phone").value = "";
     document.getElementById("inv-cust-advance").value = "";
     document.getElementById("inv-cust-plates").value = "";
     document.getElementById("bike-km-input").value = "";
     document.getElementById("admin-labour-amount").value = "";
-    calculateSmartFuel();
     
     alert("🚀 آرڈر کامیابی سے پائپ لائن لائیو اسٹریم میں شامل کر دیا گیا ہے!");
 }
 
-// آرڈر کو پینڈنگ سے کمپلیٹ (Done) کرنا
+// آرڈر Done کرنا
 function markOrderAsDone(orderId) {
     const orderIndex = adminLedger.pendingOrders.findIndex(o => o.id === orderId);
     if (orderIndex > -1) {
-        // 🌟 میموری میں اسٹیٹس اپڈیٹ رہے گا تاکہ پائپ لائن میں شو ہوتا رہے
         adminLedger.pendingOrders[orderIndex].status = "Completed";
-        
-        // فائنل لیجر کا حصہ بنانے کے لیے مکمل لسٹ میں کاپی کریں
         let orderCopy = { ...adminLedger.pendingOrders[orderIndex] };
         adminLedger.completedOrders.push(orderCopy);
         
@@ -2347,21 +2351,14 @@ function deleteOrder(orderId) {
     }
 }
 
-// لوکل اسٹوریج سیو لاک
 function saveToStorage() {
     localStorage.setItem('ms_admin_ledger', JSON.stringify(adminLedger));
 }
 
-// پورے ڈیش بورڈ کی لائیو رینڈرنگ (HTML اپڈیٹ کرنا)
+// 🌟 ڈیش بورڈ، اوور ڈیو الرٹس اور لائیو چارٹ رینڈرنگ
 function renderAdminDashboard() {
-    // ٹوٹل کیلکولیشنز
-    let totalUnits = 0;
-    let grossCashflow = 0;
-    let totalFuel = 0;
-    let totalLabour = 0;
-    let netLiquidProfit = 0;
+    let totalUnits = 0, grossCashflow = 0, totalFuel = 0, totalLabour = 0, netLiquidProfit = 0;
 
-    // 🌟 فائنل کارڈز کے لیے صرف کمپلیٹڈ آرڈرز کا ڈیٹا پلس ہوگا
     adminLedger.completedOrders.forEach(o => {
         totalUnits += o.qty;
         grossCashflow += o.gross;
@@ -2373,100 +2370,198 @@ function renderAdminDashboard() {
     const profitMargin = grossCashflow > 0 ? ((netLiquidProfit / grossCashflow) * 100).toFixed(1) : "0.0";
     const avgRate = totalUnits > 0 ? (grossCashflow / totalUnits).toFixed(2) : "0.00";
 
-    // 🌟 آئی ڈیز میچنگ اور ڈیٹا پشنگ
     if(document.getElementById("net-profit-margin-display")) document.getElementById("net-profit-margin-display").innerText = profitMargin + "%";
     if(document.getElementById("avg-rate-display")) document.getElementById("avg-rate-display").innerText = "Rs " + parseFloat(avgRate).toLocaleString();
     if(document.getElementById("total-units-display")) document.getElementById("total-units-display").innerText = totalUnits + " Units";
     if(document.getElementById("gross-cashflow-display")) document.getElementById("gross-cashflow-display").innerText = "Rs " + grossCashflow.toLocaleString();
-    
-    // 🌟 لائیو فیول اپڈیٹ
     if(document.getElementById("lbl-fuel")) document.getElementById("lbl-fuel").innerText = "Rs " + totalFuel.toLocaleString();
     
-    // 🌟 پارٹنر شیئر کا نام اور ویلیو لائیو اپڈیٹ
-    const labourTitleBlock = document.getElementById("lbl-labour") ? document.getElementById("lbl-labour").previousElementSibling : null;
-    if (labourTitleBlock) labourTitleBlock.innerText = "PARTNER SHARE / WAGES";
     if(document.getElementById("lbl-labour")) document.getElementById("lbl-labour").innerText = "Rs " + totalLabour.toLocaleString();
-    
     if(document.getElementById("net-profit-display")) document.getElementById("net-profit-display").innerText = "Rs " + netLiquidProfit.toLocaleString();
 
-    // 🌟 پائپ لائن لائیو اسٹریم لسٹ بنانا (پینڈنگ اوپر، ڈن نیچے اور میموری لاک)
+    // پائپ لائن لسٹنگ رینڈر کرنا
     const listContainer = document.getElementById("pending-orders-list");
     if (listContainer) {
         listContainer.innerHTML = "";
-        
         if (adminLedger.pendingOrders.length === 0) {
             listContainer.innerHTML = `<p class="text-[11px] text-slate-500 text-center py-4 font-mono">No active stream orders in pipeline.</p>`;
         } else {
-            // پینڈنگ پہلے اور کمپلیٹڈ بعد میں دکھانے کے لیے سورتنگ (تاکہ ڈن والے نیچے چلے جائیں)
             const sortedOrders = [...adminLedger.pendingOrders].sort((a, b) => (a.status === 'Completed' ? 1 : -1));
-            
             sortedOrders.forEach(o => {
                 const isDone = o.status === "Completed";
                 const card = document.createElement("div");
-                card.className = `p-3 rounded-2xl border ${isDone ? 'bg-slate-900/40 border-emerald-500/20 opacity-70' : 'bg-slate-950 border-white/[0.05]'} flex items-center justify-between gap-2 transition-all mb-2`;
+                card.className = `p-3 rounded-2xl border ${isDone ? 'bg-slate-900/40 border-white/[0.02] opacity-70' : 'bg-slate-950 border-white/[0.05]'} flex items-center justify-between gap-2 mb-2`;
                 
                 card.innerHTML = `
                     <div class="text-left">
                         <div class="flex items-center gap-2">
                             <span class="text-xs font-bold text-white">${o.name} <span class="text-[9px] text-slate-500 font-normal">(${o.date})</span></span>
-                            <span class="text-[9px] font-mono px-2 py-0.5 rounded ${isDone ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">${o.type}</span>
+                            <span class="text-[9px] font-mono px-2 py-0.5 rounded ${isDone ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}">${o.type}</span>
                         </div>
                         <p class="text-[9px] text-slate-400 font-mono mt-0.5">${o.qty} Units @ Rs ${o.rate} | Advance: Rs ${o.advance}</p>
                     </div>
                     <div class="flex items-center gap-1.5">
-                        ${isDone ? 
-                            `<span class="text-[10px] font-bold text-emerald-400 font-sans"><i class="fas fa-check-circle"></i> Done</span>` : 
-                            `<button onclick="markOrderAsDone('${o.id}')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-2.5 py-1 rounded-lg text-[10px] uppercase transition-all">Done</button>`
-                        }
-                        <button onclick="deleteOrder('${o.id}')" class="bg-rose-950/40 hover:bg-rose-900/60 text-rose-400 p-1.5 rounded-lg border border-rose-500/10 transition-all text-[10px]">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>
-                `;
+                        ${isDone ? `<span class="text-[10px] font-bold text-emerald-400"><i class="fas fa-check-circle"></i> Done</span>` : `<button onclick="markOrderAsDone('${o.id}')" class="bg-emerald-500 text-slate-950 font-bold px-2.5 py-1 rounded-lg text-[10px]">Done</button>`}
+                        <button onclick="deleteOrder('${o.id}')" class="text-rose-400 p-1.5 rounded-lg border border-rose-500/10 text-[10px]"><i class="fas fa-trash-alt"></i></button>
+                    </div>`;
                 listContainer.appendChild(card);
             });
         }
     }
 
-    // 🌟 پرافٹ چارٹ گراف لائیو رینڈرنگ
-    drawProfitChart(netLiquidProfit);
+    // 🌟 پوائنٹ 2: 15-DAYS OVERDUE ALERTS AND WHATSAPP REMINDERS LOGIC
+    checkOverdueAlerts();
+
+    // 🌟 پوائنٹ 4: لائیو ویو پرافٹ چارٹ (ڈیز بریک ڈاؤن کے ساتھ)
+    drawAdvancedChart();
 }
 
-// چارٹ کی ایس وی جی لائن ڈرا کرنا
-function drawProfitChart(currentProfit) {
-    const chartPath = document.getElementById("chart-path");
-    if (chartPath) {
-        // منافع کے حساب سے گراف کی اونچائی طے کرنا
-        const maxScale = 20000; 
-        const heightMultiplier = Math.min(currentProfit / maxScale, 1);
-        const targetY = 100 - (heightMultiplier * 80); 
-        
-        // سموتھ لائن چارٹ کی ڈرائنگ لاک
-        chartPath.setAttribute("d", `M 0 100 Q 200 ${targetY - 10} 400 ${targetY}`);
+// 🌟 ریمینڈر اور اوور ڈیو کیلکولیشن فنکشن
+function checkOverdueAlerts() {
+    const alertBox = document.querySelector(".border-emerald-500\\/20") || document.getElementById("overdue-alert-container");
+    if (!alertBox) return;
+
+    let overdueHTML = "";
+    const today = new Date();
+
+    adminLedger.completedOrders.forEach(o => {
+        const washDate = new Date(o.date);
+        const timeDiff = today.getTime() - washDate.getTime();
+        const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+
+        // اگر واش کو 15 دن سے اوپر ہو چکے ہیں
+        if (daysDiff >= 15) {
+            // پروفیشنل واٹس ایپ میسج بنانا
+            const message = encodeURIComponent(`السلام علیکم کسٹمر محترم! آپ کے سولر پینل کی سروس (MS Solar Cleaning) کو ہوئے ${daysDiff} دن ہو چکے ہیں۔ مٹی اور دھول کی وجہ سے پینل کی کارکردگی کم ہو سکتی ہے۔ دوبارہ واش شیڈول کرنے کے لیے ہم سے رابطہ کریں۔ منیب سرور - 0300XXXXXXX`);
+            const whatsappLink = `https://wa.me/${o.phone ? o.phone.replace(/[^0-9]/g, "") : ''}?text=${message}`;
+
+            overdueHTML += `
+                <div class="p-3 mb-2 rounded-xl bg-rose-950/20 border border-rose-500/30 flex justify-between items-center animate-pulse">
+                    <div>
+                        <p class="text-xs font-bold text-white">${o.name} <span class="text-[10px] text-rose-400">(${daysDiff} Days Overdue)</span></p>
+                        <p class="text-[9px] text-slate-400">Last Wash: ${o.date} | Phone: ${o.phone || 'N/A'}</p>
+                    </div>
+                    <a href="${whatsappLink}" target="_blank" class="bg-amber-500 text-slate-950 font-bold px-2 py-1 rounded text-[10px] flex items-center gap-1">
+                        <i class="fab fa-whatsapp"></i> Remind
+                    </a>
+                </div>`;
+        }
+    });
+
+    if (overdueHTML !== "") {
+        alertBox.innerHTML = `
+            <p class="text-xs font-bold text-rose-400 mb-2"><i class="fas fa-exclamation-triangle"></i> 15-DAYS OVERDUE ALERTS (ACTION REQUIRED)</p>
+            ${overdueHTML}`;
+    } else {
+        alertBox.innerHTML = `
+            <div class="text-center py-2 text-emerald-400 text-xs">
+                🎉 Muneeb bhai, Sab perfect hai! Kisi bhi customer ki wash overdue nahi hai.
+            </div>`;
     }
 }
 
-// فائنل لیجر کمپائل کرنا (ڈاؤن لوڈ نوٹیفیکیشن)
+// 🌟 پوائنٹ 4: ایڈوانسڈ لائیو چارٹ ڈرائنگ (7-Days BreakDown)
+function drawAdvancedChart() {
+    const chartPath = document.getElementById("chart-path");
+    if (!chartPath) return;
+
+    // پچھلے 7 دنوں کا منافع جمع کرنا
+    let dayProfits = [0, 0, 0, 0, 0, 0, 0];
+    const today = new Date();
+
+    adminLedger.completedOrders.forEach(o => {
+        const orderDate = new Date(o.date);
+        const diffTime = Math.abs(today - orderDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) - 1;
+        if (diffDays >= 0 && diffDays < 7) {
+            dayProfits[6 - diffDays] += o.netProfit;
+        }
+    });
+
+    const maxProfit = Math.max(...dayProfits, 5000);
+    let points = [];
+    
+    // SVG کوآرڈینیٹس بنانا (X کی فکسڈ چوڑائی 400 ہے)
+    for (let i = 0; i < 7; i++) {
+        const x = (i * (400 / 6));
+        const y = 100 - ((dayProfits[i] / maxProfit) * 80); // مکسیمم اونچائی لاک رکھنا
+        points.push(`${x},${y}`);
+    }
+
+    // پاتھ ڈیفائن کرنا
+    chartPath.setAttribute("d", `M ${points.join(" L ")}`);
+}
+
+// 🌟 پوائنٹ 3: ڈاؤن لوڈ پروفیشنل ویژول ایچ ٹی ایم ایل لیجر (HD Dark Theme)
 function saveStatementToGallery() {
     if (adminLedger.completedOrders.length === 0) {
         alert("منیب بھائی! ابھی کوئی بھی آرڈر 'Done' نہیں ہوا، ڈیٹا خالی ہے۔");
         return;
     }
-    
-    let txtContent = "=== MS SOLAR CLEANING & CAR WASH - FINANCIAL LEDGER ===\n\n";
+
+    let rowsHTML = "";
     adminLedger.completedOrders.forEach((o, i) => {
-        txtContent += `${i+1}. Date: ${o.date} | Customer: ${o.name} | Service: ${o.type}\n`;
-        txtContent += `   Total Units: ${o.qty} | Revenue: Rs ${o.gross} | Fuel: Rs ${o.fuel} | Partner Share: Rs ${o.labour}\n`;
-        txtContent += `   Net Profit: Rs ${o.netProfit}\n------------------------------------------------\n`;
+        rowsHTML += `
+            <tr style="border-bottom: 1px solid #1e293b;">
+                <td style="padding: 12px; font-weight: bold; color: #38bdf8;">#${i+1}</td>
+                <td style="padding: 12px; font-weight: bold; color: #fff;">${o.name}<br><span style="font-size: 10px; color: #94a3b8;">${o.phone || ''}</span></td>
+                <td style="padding: 12px; color: #e2e8f0;">${o.date}</td>
+                <td style="padding: 12px;"><span style="background: #1e3a8a; color: #93c5fd; padding: 2px 6px; rounded: 4px; font-size: 11px;">${o.type}</span></td>
+                <td style="padding: 12px; text-align: center; color: #fff;">${o.qty}</td>
+                <td style="padding: 12px; text-align: right; color: #10b981; font-weight: bold;">Rs ${o.gross.toLocaleString()}</td>
+                <td style="padding: 12px; text-align: right; color: #f43f5e;">Rs ${o.fuel}</td>
+                <td style="padding: 12px; text-align: right; color: #fbbf24;">Rs ${o.labour}</td>
+                <td style="padding: 12px; text-align: right; color: #34d399; font-weight: bold; font-size: 15px;">Rs ${o.netProfit.toLocaleString()}</td>
+            </tr>`;
     });
 
-    const blob = new Blob([txtContent], { type: "text/plain;charset=utf-8" });
+    // خوبصورت ڈارک موڈ ایچ ٹی ایم ایل رپورٹ بنانا
+    const fullLayout = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>MS Solar Premium Ledger</title>
+        <meta charset="utf-8">
+    </head>
+    <body style="background-color: #0f172a; font-family: sans-serif; padding: 30px; color: #f8fafc;">
+        <div style="max-width: 900px; margin: auto; background: #1e293b; padding: 25px; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+            <div style="text-align: center; margin-bottom: 25px; border-bottom: 2px solid #334155; padding-bottom: 15px;">
+                <h1 style="color: #38bdf8; margin: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 1px;">MS SOLAR CLEANING & CAR WASH</h1>
+                <p style="color: #94a3b8; margin: 5px 0 0 0; font-size: 14px;">Official Digital Financial Ledger Report</p>
+                <p style="color: #64748b; margin: 2px 0 0 0; font-size: 11px;">Generated on: ${new Date().toLocaleDateString()}</p>
+            </div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                <thead>
+                    <tr style="background: #0f172a; color: #94a3b8; text-align: left; font-size: 11px; text-transform: uppercase;">
+                        <th style="padding: 12px;">SR</th>
+                        <th style="padding: 12px;">Customer Details</th>
+                        <th style="padding: 12px;">Date</th>
+                        <th style="padding: 12px;">Service</th>
+                        <th style="padding: 12px; text-align: center;">Qty</th>
+                        <th style="padding: 12px; text-align: right;">Gross</th>
+                        <th style="padding: 12px; text-align: right;">Fuel</th>
+                        <th style="padding: 12px; text-align: right;">Partner Share</th>
+                        <th style="padding: 12px; text-align: right;">Net Profit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rowsHTML}
+                </tbody>
+            </table>
+            <div style="margin-top: 25px; text-align: right; padding-top: 15px; border-top: 2px solid #334155; font-size: 12px; color: #94a3b8;">
+                <p style="margin: 0;">MS SECURE 4.0 Smart Accounting Crypt Engine</p>
+            </div>
+        </div>
+    </body>
+    </html>`;
+
+    const blob = new Blob([fullLayout], { type: "text/html;charset=utf-8" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `MS_Solar_Ledger_${new Date().toISOString().slice(0,10)}.txt`;
+    link.download = `MS_Premium_Ledger_${new Date().toISOString().slice(0,10)}.html`;
     link.click();
     
-    alert("📥 منیب بھائی، فائنل لیجر ٹیکسٹ فائل کامیابی سے ڈاؤن لوڈ ہو گئی ہے!");
+    alert("📥 منیب بھائی، پریمیم ایچ ٹی ایم ایل لیجر فائل کامیابی سے ڈاؤن لوڈ ہو گئی ہے! اسے اوپن کر کے فل ایچ ڈی اسکرین شاٹ لے لیں۔");
 }
 
 // پورا ڈیش بورڈ ڈیٹا ری سیٹ کرنا
@@ -2474,6 +2569,8 @@ function resetSystemLedger() {
     if (confirm("وارننگ! کیا آپ واقعی پورا فائنل لیجر اور پائپ لائن ڈیٹا صاف کرنا چاہتے ہیں؟")) {
         adminLedger.completedOrders = [];
         adminLedger.pendingOrders = [];
+        adminLedger.bikeAvg = 15;
+        adminLedger.petrolPrice = 270;
         saveToStorage();
         renderAdminDashboard();
         alert("🔄 ڈیش بورڈ ڈیٹا مکمل طور پر ری سیٹ کر دیا گیا ہے۔");
@@ -2482,7 +2579,7 @@ function resetSystemLedger() {
 
 // گلوبل ریٹ اپڈیٹ کرنا
 function saveGlobalRate() {
-    const rate = parseFloat(document.getElementById("global-panel-rate").value) || 70;
+    const rate = parseFloat(document.getElementById("global-panel-rate").value) || 80;
     const reason = document.getElementById("global-rate-reason").value.trim();
     
     adminLedger.globalRate = rate;
