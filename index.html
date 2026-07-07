@@ -933,7 +933,6 @@
         </div>
     </div>
 </section>
-
 <section id="secret-admin-section" class="hidden py-10 bg-slate-950 border-t border-slate-900 relative z-30">
     <div class="container mx-auto max-w-2xl px-4 space-y-6">
         
@@ -953,83 +952,71 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <span id="storage-health-badge" class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1"></span> Storage: Verified
+                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1"></span> Storage: Live Link
                     </span>
-                </div>
-            </div>
-
-            <div class="mb-6 bg-slate-900/40 border border-white/[0.04] p-3 rounded-2xl relative z-10">
-                <div class="flex justify-between text-[10px] font-mono text-slate-400 mb-1.5">
-                    <span>SYSTEM STORAGE BUFFER</span>
-                    <span id="storage-percent-text" class="text-emerald-400">5% Used</span>
-                </div>
-                <div class="w-full bg-slate-950/80 rounded-full h-2 p-[2px] border border-white/[0.03] overflow-hidden">
-                    <div id="storage-meter-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" style="width: 5%"></div>
                 </div>
             </div>
 
             <div class="space-y-4 mb-5 p-4 bg-white/[0.02] rounded-3xl border border-white/[0.05] relative z-10">
                 <div class="flex items-center justify-between">
-                    <span class="text-[10px] text-emerald-400 font-black tracking-widest uppercase">01 / Customer Dossier</span>
+                    <span class="text-[10px] text-emerald-400 font-black tracking-widest uppercase">01 / Customer Details</span>
                     <span id="gross-revenue-display" class="text-xs font-mono font-bold bg-emerald-500/10 text-emerald-300 px-2 py-0.5 rounded-md border border-emerald-500/10">Rs 0.00</span>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="w-full">
                         <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Customer Name</label>
-                        <input type="text" id="inv-cust-name" placeholder="Customer Name" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all shadow-inner" />
+                        <input type="text" id="inv-cust-name" placeholder="Customer Name" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
                     </div>
-                    <div>
+                    <div class="w-full">
                         <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">WhatsApp Gateway</label>
-                        <input type="text" id="inv-cust-phone" placeholder="e.g., 923084462121" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all shadow-inner" />
+                        <input type="text" id="inv-cust-phone" placeholder="e.g., 03084462121" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
                     </div>
                 </div>
 
-                <div class="grid grid-cols-3 gap-3">
-                    <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Plates Count</label>
-                        <input type="number" id="inv-cust-plates" oninput="autoCalculateGross()" placeholder="0" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-2.5 py-2.5 text-xs text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all shadow-inner" />
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="w-full">
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Select Service Type</label>
+                        <select id="inv-service-type" class="w-full bg-slate-950 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all">
+                            <option value="Solar">Solar Panel Cleaning</option>
+                            <option value="Car">Car Washing Service</option>
+                            <option value="WaterTank">Water Tank Cleaning</option>
+                        </select>
                     </div>
-                    <div>
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Rate / Plate (Rs)</label>
-                        <input type="number" id="inv-cust-rate" oninput="autoCalculateGross()" placeholder="0" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-2.5 py-2.5 text-xs text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none transition-all shadow-inner" />
-                    </div>
-                    <div>
+                    <div class="w-full">
                         <label class="block text-[9px] font-bold text-amber-400 uppercase tracking-wider mb-1.5">Advance Paid (Rs)</label>
-                        <input type="number" id="inv-cust-advance" placeholder="0" class="w-full bg-slate-950/60 border border-amber-500/20 rounded-xl px-2.5 py-2.5 text-xs text-amber-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 focus:outline-none transition-all shadow-inner" />
+                        <input type="number" id="inv-cust-advance" placeholder="0" class="w-full bg-slate-950/60 border border-amber-500/20 rounded-xl px-3 py-2.5 text-xs text-amber-300 focus:border-amber-500 focus:outline-none transition-all" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="w-full">
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Quantity / Items / Plates</label>
+                        <input type="number" id="inv-cust-plates" oninput="autoCalculateGross()" placeholder="e.g., 24 plates or 1 car" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
+                    </div>
+                    <div class="w-full">
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Rate per Unit (Rs)</label>
+                        <input type="number" id="inv-cust-rate" oninput="autoCalculateGross()" placeholder="80" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
                     </div>
                 </div>
             </div>
 
             <div class="space-y-4 mb-6 p-4 bg-white/[0.02] rounded-3xl border border-white/[0.05] relative z-10">
                 <span class="text-[10px] text-amber-400 font-black tracking-widest uppercase block">02 / Logistics Expenses</span>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="w-full">
                         <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Fuel Overhead (Rs)</label>
-                        <input type="number" id="admin-expense-amount" placeholder="0" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all shadow-inner" />
+                        <input type="number" id="admin-expense-amount" placeholder="0" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
                     </div>
-                    <div>
+                    <div class="w-full">
                         <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Labour Wages / Dehari (Rs)</label>
-                        <input type="number" id="admin-labour-amount" placeholder="0" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all shadow-inner" />
+                        <input type="number" id="admin-labour-amount" placeholder="0" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
                     </div>
-                </div>
-
-                <div class="p-3 bg-gradient-to-r from-amber-500/5 to-orange-500/5 rounded-2xl border border-amber-500/10 flex items-center justify-between gap-3 shadow-sm">
-                    <div class="flex flex-col">
-                        <span class="text-[9px] text-amber-400 font-black tracking-widest uppercase flex items-center gap-1">
-                            <span class="w-1 h-1 rounded-full bg-amber-400 animate-ping"></span> AI Voice Assistant v2.6
-                        </span>
-                        <span id="voice-helper-text" class="text-[9px] text-slate-500 font-sans mt-0.5">Tap mic and say: "Fuel 400 Labour 1200"</span>
-                    </div>
-                    <button id="ai-voice-btn" onclick="startVoiceEntry(event)" type="button" class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center text-slate-950 shadow-lg active:scale-95 transition-all">
-                        <i class="fas fa-microphone text-xs" id="voice-mic-icon"></i>
-                    </button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 gap-2 relative z-10">
-                <button onclick="addOrderToPending()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold py-3 px-4 rounded-xl text-xs transition-all duration-300 flex items-center justify-center gap-2 shadow-lg uppercase active:scale-[0.99]">
+            <div class="w-full relative z-10">
+                <button onclick="addOrderToPending()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold py-3.5 px-4 rounded-xl text-xs transition-all duration-300 flex items-center justify-center gap-2 shadow-lg uppercase active:scale-[0.99]">
                     <i class="fab fa-whatsapp text-sm"></i> Initialize Order & Push Invoice
                 </button>
             </div>
@@ -1038,18 +1025,15 @@
         <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
             <div class="flex items-center gap-2 mb-4 relative z-10">
                 <div class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
-                <h3 class="text-xs font-black text-slate-300 tracking-widest uppercase font-sans">Pipeline Live Streams</h3>
+                <h3 class="text-xs font-black text-slate-300 tracking-widest uppercase font-sans">Pipeline Live Streams (Pending Orders)</h3>
             </div>
-            
-            <div id="pending-orders-list" class="space-y-3 max-h-64 overflow-y-auto pr-1 relative z-10">
-                <p class="text-slate-600 text-[10px] font-mono text-center py-4 bg-slate-950/30 rounded-xl border border-white/[0.02]">Pipeline clear. Inject order parameters above.</p>
-            </div>
+            <div id="pending-orders-list" class="space-y-3 max-h-64 overflow-y-auto pr-1 relative z-10"></div>
         </div>
 
         <div class="rounded-[2.5rem] border border-white/[0.06] bg-[#0d1117]/90 backdrop-blur-xl p-6 shadow-2xl relative overflow-hidden">
             <div id="profit-display-box" class="font-mono text-xs text-slate-300 space-y-3 relative z-10">
                 <div class="text-center text-emerald-400 text-[10px] uppercase font-black tracking-widest border-b border-white/[0.05] pb-2 mb-3">
-                    Financial Ledger Ecosystem
+                    Financial Ledger Ecosystem (Completed Orders Only)
                 </div>
                 
                 <div class="grid grid-cols-2 gap-3 mb-1">
@@ -1058,15 +1042,15 @@
                         <span id="lbl-profit-margin" class="text-base font-extrabold text-teal-300 mt-1">0.0%</span>
                     </div>
                     <div class="bg-gradient-to-br from-slate-950/80 to-slate-900/40 p-3 rounded-2xl border border-white/[0.03] flex flex-col justify-between">
-                        <span class="text-[9px] text-amber-400 font-bold tracking-wider uppercase">🏷️ AVG RATE / PLATE</span>
+                        <span class="text-[9px] text-amber-400 font-bold tracking-wider uppercase">🏷️ AVG RATE / UNIT</span>
                         <span id="lbl-avg-rate" class="text-base font-extrabold text-amber-300 mt-1">Rs 0.00</span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-2 bg-slate-950/40 p-3 rounded-2xl border border-white/[0.02]">
                     <div class="space-y-2 border-r border-white/[0.04] pr-2">
-                        <span class="text-[9px] text-slate-500 block">CLEANED DOMAIN</span>
-                        <span id="lbl-total-plates" class="text-sm font-bold text-white block">0 Plates</span>
+                        <span class="text-[9px] text-slate-500 block">TOTAL WORK UNITS</span>
+                        <span id="lbl-total-plates" class="text-sm font-bold text-white block">0 Units</span>
                     </div>
                     <div class="space-y-2 pl-2">
                         <span class="text-[9px] text-slate-500 block">GROSS CASHFLOW</span>
@@ -1093,11 +1077,11 @@
                     <span id="lbl-net-profit" class="text-xl font-extrabold text-emerald-400 tracking-tight">Rs 0</span>
                 </div>
                 
-                <div class="grid grid-cols-2 gap-2 pt-2">
-                    <button onclick="saveStatementToGallery()" class="bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold py-2.5 rounded-xl text-xs border border-white/[0.06] transition-all flex items-center justify-center gap-2 active:scale-[0.99] font-sans">
+                <div class="grid grid-cols-2 gap-3 pt-2 font-sans">
+                    <button onclick="saveStatementToGallery()" class="bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold py-2.5 rounded-xl text-xs border border-white/[0.06] transition-all flex items-center justify-center gap-2 active:scale-[0.99]">
                         <i class="fas fa-arrow-alt-circle-down text-emerald-400"></i> Compile Ledger
-                </button>
-                    <button onclick="resetSystemLedger()" class="bg-rose-950/30 hover:bg-rose-900/40 text-rose-400 font-bold py-2.5 rounded-xl text-xs border border-rose-500/20 transition-all flex items-center justify-center gap-2 active:scale-[0.99] font-sans">
+                    </button>
+                    <button onclick="resetSystemLedger()" class="bg-rose-950/30 hover:bg-rose-900/40 text-rose-400 font-bold py-2.5 rounded-xl text-xs border border-rose-500/20 transition-all flex items-center justify-center gap-2 active:scale-[0.99]">
                         <i class="fas fa-sync-alt text-rose-400"></i> Reset Dashboard
                     </button>
                 </div>
@@ -1106,17 +1090,21 @@
 
         <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
             <h3 class="text-xs font-black text-slate-400 tracking-widest uppercase mb-3 font-sans">Real-time Verified Profit Chart</h3>
-            <div class="relative w-full h-44 bg-slate-950/80 rounded-2xl p-4 border border-white/[0.03] flex items-center justify-center shadow-inner overflow-hidden">
-                <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:14px_24px]"></div>
-                <span class="text-slate-600 text-[9px] font-mono tracking-wider relative z-10 uppercase flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-slate-700 animate-pulse"></span> Metrics Engine Offline / Awaiting Finalizations
-                </span>
+            <div class="relative w-full bg-slate-950/80 rounded-2xl p-4 border border-white/[0.03] flex flex-col items-center justify-center shadow-inner">
+                <svg id="live-profit-svg" class="w-full h-32 text-emerald-400" viewBox="0 0 400 100" preserveAspectRatio="none">
+                    <path id="chart-path" d="M 0 100 Q 200 100 400 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="transition-all duration-700"></path>
+                </svg>
+                <div class="flex justify-between w-full text-[8px] font-mono text-slate-500 mt-2">
+                    <span>START</span>
+                    <span>MID PROGRESSION</span>
+                    <span>CURRENT TOP</span>
+                </div>
             </div>
         </div>
 
     </div>
 </section>
-
+    
             <!-- GLOBAL RATE & REASON UPDATER (POINT 9 ADVANCE) -->
     <div class="mt-4 p-4 bg-slate-900/40 rounded-xl border border-slate-800/80 flex flex-col gap-3">
         <div class="flex items-center justify-between gap-3 border-b border-slate-800/50 pb-2">
@@ -2153,18 +2141,16 @@ function closeInvoiceModal() {
         invoiceModal.classList.add('hidden');
     }
 }
-
 // =================================================================
-// MS SECURE 3.0 - ULTRA PREMIUM SINGLE-WINDOW CORE LOGIC
+// MS SECURE 3.0 - MASTER ENGINE WITH AUTO-HOOK INJECTION
 // =================================================================
 
-// 1. AUTO REVENUE & LIVE DISPLAY REAL-TIME EVALUATOR
+// 1. REAL-TIME MATH EVALUATOR
 function autoCalculateGross() {
     const plates = parseFloat(document.getElementById('inv-cust-plates').value) || 0;
     const rate = parseFloat(document.getElementById('inv-cust-rate').value) || 0;
     const gross = plates * rate;
     
-    // Top Mini Gross Display Hub Live Update
     const grossDisplay = document.getElementById('gross-revenue-display');
     if (grossDisplay) {
         grossDisplay.innerText = `Rs ${gross.toLocaleString()}`;
@@ -2172,150 +2158,214 @@ function autoCalculateGross() {
     return gross;
 }
 
-// 2. LIVE ORDER LIFECYCLE INTERCEPTION & INVOICE GATEWAY
+// 2. BACK-DOOR AUTO CONNECT LAYER FOR FRONTEND CUSTOMER FORM
+// (Yeh function customer k bill generate karne par chalega aur data yahan phenkega)
+function injectCustomerBillToPipeline(custName, custPhone, serviceName, totalUnits, unitRate) {
+    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+    
+    const autoRecord = {
+        name: custName,
+        phone: custPhone,
+        service: serviceName || 'Solar',
+        totalWashedPanels: totalUnits || 0,
+        rate: unitRate || 80,
+        advancePaid: 0,
+        fuelExpense: 0,
+        labourExpense: 0,
+        date: new Date().toISOString().split('T')[0],
+        status: 'Pending'
+    };
+
+    savedBills.push(autoRecord);
+    localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
+    
+    renderLivePipelineQueue();
+    compileSystemLedgerMatrix();
+}
+
+// 3. INITIALIZE ORDER VIA ADMIN MANUAL ENTRY
 function addOrderToPending() {
     const name = document.getElementById('inv-cust-name').value.trim();
     const phone = document.getElementById('inv-cust-phone').value.trim();
+    const service = document.getElementById('inv-service-type').value;
     const plates = parseFloat(document.getElementById('inv-cust-plates').value) || 0;
-    const rate = parseFloat(document.getElementById('inv-cust-rate').value) || 0;
+    const rate = parseFloat(document.getElementById('inv-cust-rate').value) || 80;
     const advance = parseFloat(document.getElementById('inv-cust-advance').value) || 0;
     const fuel = parseFloat(document.getElementById('admin-expense-amount').value) || 0;
     const labour = parseFloat(document.getElementById('admin-labour-amount').value) || 0;
 
-    if (!name || !phone || plates <= 0 || rate <= 0) {
-        alert("Muneeb Bhai, customer records, plates count aur rate lazmi darj karein!");
+    if (!name || !phone || plates <= 0) {
+        alert("Muneeb Bhai, Name, Phone aur Quantity lazmi darj karein!");
         return;
     }
 
     const totalBill = plates * rate;
     const remainingBalance = totalBill - advance;
 
-    // Local Storage Data Assembly Structuring
     let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
     
     const newRecord = {
         name: name,
         phone: phone,
-        service: 'Solar',
+        service: service,
         totalWashedPanels: plates,
         rate: rate,
         advancePaid: advance,
         fuelExpense: fuel,
         labourExpense: labour,
         date: new Date().toISOString().split('T')[0],
-        status: remainingBalance <= 0 ? 'Completed' : 'Booked'
+        status: 'Pending'
     };
 
     savedBills.push(newRecord);
     localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
 
-    // Instant Visual Re-rendering Engine
     renderLivePipelineQueue();
     compileSystemLedgerMatrix();
-    if (typeof checkStorageHealth === 'function') checkStorageHealth();
 
-    // Premium Formatted WhatsApp Message Stream
-    const message = `*⚡ M-S SOLAR CLEANING SERVICES* %0A` +
+    // WhatsApp Message
+    const message = `*⚡ M-S ${service.toUpperCase()} CLEANING SERVICES* %0A` +
                     `--------------------------------------%0A` +
                     `*Customer Name:* ${name}%0A` +
-                    `*Total Solar Plates:* ${plates}%0A` +
-                    `*Rate per Plate:* Rs. ${rate}%0A` +
+                    `*Service:* ${service}%0A` +
+                    `*Total Units/Plates:* ${plates}%0A` +
+                    `*Rate:* Rs. ${rate}%0A` +
                     `--------------------------------------%0A` +
-                    `*Total Service Bill:* Rs. ${totalBill.toLocaleString()}%0A` +
-                    `*Advance Amount Paid:* Rs. ${advance.toLocaleString()}%0A` +
-                    `*Remaining Net Balance:* Rs. ${remainingBalance.toLocaleString()}%0A` +
+                    `*Total Bill:* Rs. ${totalBill.toLocaleString()}%0A` +
+                    `*Advance Paid:* Rs. ${advance.toLocaleString()}%0A` +
+                    `*Remaining Balance:* Rs. ${remainingBalance.toLocaleString()}%0A` +
                     `--------------------------------------%0A` +
-                    `Thank you for choosing M-S Solar Cleaning! ❤️%0A` +
-                    `_Sahiwal's Premium Maintenance Service_`;
+                    `Thank you for choosing M-S Services! ❤️`;
 
     const cleanPhone = phone.replace(/[^0-9]/g, '');
     const finalPhone = cleanPhone.startsWith('0') ? '92' + cleanPhone.substring(1) : (cleanPhone.startsWith('92') ? cleanPhone : '92' + cleanPhone);
-    
-    const whatsappUrl = `https://wa.me/${finalPhone}?text=${message}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(`https://wa.me/${finalPhone}?text=${message}`, '_blank');
 
-    // Smooth UI Inputs Refresher
+    // Reset fields
     document.getElementById('inv-cust-name').value = '';
     document.getElementById('inv-cust-phone').value = '';
     document.getElementById('inv-cust-plates').value = '';
-    document.getElementById('inv-cust-rate').value = '';
     document.getElementById('inv-cust-advance').value = '';
     document.getElementById('admin-expense-amount').value = '';
     document.getElementById('admin-labour-amount').value = '';
     document.getElementById('gross-revenue-display').innerText = 'Rs 0.00';
 }
 
-// 3. PIPELINE STREAM RENDER ENGINE
+// 4. PIPELINE STREAM RENDER ENGINE
 function renderLivePipelineQueue() {
     const listContainer = document.getElementById('pending-orders-list');
     if (!listContainer) return;
 
     let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-    
-    if (savedBills.length === 0) {
-        listContainer.innerHTML = `<p class="text-slate-600 text-[10px] font-mono text-center py-4 bg-slate-950/30 rounded-xl border border-white/[0.02]">Pipeline clear. Inject order parameters above.</p>`;
+    const pendingOrders = savedBills.filter(bill => bill.status === 'Pending');
+
+    if (pendingOrders.length === 0) {
+        listContainer.innerHTML = `<p class="text-slate-600 text-[10px] font-mono text-center py-4 bg-slate-950/30 rounded-xl border border-white/[0.02]">Pipeline clear. Tamam orders complete hain.</p>`;
         return;
     }
 
     listContainer.innerHTML = '';
-    // Latest orders display first on view node
     savedBills.slice().reverse().forEach((bill, index) => {
+        if (bill.status !== 'Pending') return;
+        
         const actualIndex = savedBills.length - 1 - index;
         const gross = (bill.totalWashedPanels || 0) * (bill.rate || 80);
-        const adv = bill.advancePaid || 0;
-        const bal = gross - adv;
+        const bal = gross - (bill.advancePaid || 0);
 
         const card = document.createElement('div');
-        card.className = "bg-slate-950/60 p-3 rounded-2xl border border-white/[0.04] flex items-center justify-between gap-2 shadow-inner";
+        card.className = "bg-slate-950/60 p-4 rounded-2xl border border-white/[0.04] flex items-center justify-between gap-3 shadow-inner animate-fade-in";
         card.innerHTML = `
             <div class="space-y-0.5">
-                <span class="text-xs font-black text-white block">${bill.name}</span>
-                <span class="text-[9px] text-slate-400 font-mono block">${bill.totalWashedPanels} Plates @ Rs ${bill.rate}</span>
-                <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 inline-block mt-1">Bal: Rs ${bal}</span>
+                <div class="flex items-center gap-1.5">
+                    <span class="text-xs font-black text-white block">${bill.name}</span>
+                    <span class="text-[8px] uppercase px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/10">${bill.service}</span>
+                </div>
+                <span class="text-[9px] text-slate-400 font-mono block">${bill.totalWashedPanels} Qty @ Rs ${bill.rate}</span>
+                <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 inline-block mt-1">Baqi Balance: Rs ${bal.toLocaleString()}</span>
             </div>
-            <button onclick="purgePipelineNode(${actualIndex})" class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white flex items-center justify-center transition-all">
-                <i class="fas fa-trash-alt text-[10px]"></i>
-            </button>
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <button onclick="markOrderAsComplete(${actualIndex})" class="h-8 px-2.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-slate-950 flex items-center gap-1.5 text-[10px] font-bold transition-all border border-emerald-500/20">
+                    <i class="fas fa-check-circle text-xs"></i> Complete
+                </button>
+                <button onclick="purgePipelineNode(${actualIndex})" class="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white flex items-center justify-center transition-all border border-rose-500/10">
+                    <i class="fas fa-trash-alt text-[10px]"></i>
+                </button>
+            </div>
         `;
         listContainer.appendChild(card);
     });
 }
 
-// 4. FINANCIAL STATEMENT COMPILER ENGINE
+// 5. MARK ORDER AS COMPLETE
+function markOrderAsComplete(index) {
+    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+    if (confirm("Muneeb Bhai, kya yeh order mukammal ho chuka ha?")) {
+        savedBills[index].status = 'Completed';
+        localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
+        
+        renderLivePipelineQueue();
+        compileSystemLedgerMatrix();
+    }
+}
+
+// 6. FINANCIAL STATEMENT COMPILER & PURE SVG CHART ENGINE
 function compileSystemLedgerMatrix() {
     let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
     
-    let totalPlates = 0;
+    let totalUnits = 0;
     let grossCashflow = 0;
     let totalFuel = 0;
     let totalLabour = 0;
+    let profitHistory = [0];
 
     savedBills.forEach(bill => {
-        const panels = parseInt(bill.totalWashedPanels) || 0;
+        if (bill.status !== 'Completed') return; 
+
+        const units = parseInt(bill.totalWashedPanels) || 0;
         const rate = parseFloat(bill.rate) || 80;
+        const fuel = parseFloat(bill.fuelExpense) || 0;
+        const lab = parseFloat(bill.labourExpense) || 0;
         
-        totalPlates += panels;
-        grossCashflow += (panels * rate);
-        totalFuel += parseFloat(bill.fuelExpense) || 0;
-        totalLabour += parseFloat(bill.labourExpense) || 0;
+        totalUnits += units;
+        const currentGross = units * rate;
+        grossCashflow += currentGross;
+        totalFuel += fuel;
+        totalLabour += lab;
+
+        const netForThisBill = currentGross - (fuel + lab);
+        profitHistory.push(profitHistory[profitHistory.length - 1] + netForThisBill);
     });
 
     const totalExpenses = totalFuel + totalLabour;
     const netProfit = grossCashflow - totalExpenses;
     const profitMargin = grossCashflow > 0 ? ((netProfit / grossCashflow) * 100).toFixed(1) : '0.0';
-    const avgRate = totalPlates > 0 ? (grossCashflow / totalPlates).toFixed(2) : '0.00';
+    const avgRate = totalUnits > 0 ? (grossCashflow / totalUnits).toFixed(2) : '0.00';
 
-    // DOM Safe Node Injector Routine
     if(document.getElementById('lbl-profit-margin')) document.getElementById('lbl-profit-margin').innerText = `${profitMargin}%`;
     if(document.getElementById('lbl-avg-rate')) document.getElementById('lbl-avg-rate').innerText = `Rs ${parseFloat(avgRate).toLocaleString()}`;
-    if(document.getElementById('lbl-total-plates')) document.getElementById('lbl-total-plates').innerText = `${totalPlates.toLocaleString()} Plates`;
+    if(document.getElementById('lbl-total-plates')) document.getElementById('lbl-total-plates').innerText = `${totalUnits.toLocaleString()} Units`;
     if(document.getElementById('lbl-gross')) document.getElementById('lbl-gross').innerText = `Rs ${grossCashflow.toLocaleString()}`;
     if(document.getElementById('lbl-fuel')) document.getElementById('lbl-fuel').innerText = `Rs ${totalFuel.toLocaleString()}`;
     if(document.getElementById('lbl-labour')) document.getElementById('lbl-labour').innerText = `Rs ${totalLabour.toLocaleString()}`;
     if(document.getElementById('lbl-net-profit')) document.getElementById('lbl-net-profit').innerText = `Rs ${netProfit.toLocaleString()}`;
+
+    // SVG Real-Time Chart Line Painter
+    const chartPath = document.getElementById('chart-path');
+    if (chartPath && profitHistory.length > 1) {
+        const maxProfit = Math.max(...profitHistory) || 1000;
+        const widthBetweenPoints = 400 / (profitHistory.length - 1);
+        let pathData = `M 0 100`;
+
+        profitHistory.forEach((profit, i) => {
+            const x = i * widthBetweenPoints;
+            const y = 100 - ((profit / maxProfit) * 80); // Calculate node height ratio safely
+            pathData += ` L ${x} ${y}`;
+        });
+        chartPath.setAttribute('d', pathData);
+    }
 }
 
-// 5. PURGE SINGLE NODE FROM PIPELINE
+// 7. PURGE SINGLE NODE FROM PIPELINE
 function purgePipelineNode(index) {
     if (confirm("Muneeb Bhai, kya aap is record ko hamesha k liye delete karna chahte hain?")) {
         let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
@@ -2324,24 +2374,21 @@ function purgePipelineNode(index) {
         
         renderLivePipelineQueue();
         compileSystemLedgerMatrix();
-        if (typeof checkStorageHealth === 'function') checkStorageHealth();
     }
 }
 
-// 6. SYSTEM RESET DEPLOYMENT HARDWARE CONTROL
+// 8. SYSTEM RESET DEPLOYMENT HARDWARE CONTROL
 function resetSystemLedger() {
-    if (confirm("⚠️ WARNING: Muneeb Bhai, kya aap poora dashboard reset kar k saari memory clear karna chahte hain?")) {
+    if (confirm("⚠️ WARNING: Muneeb Bhai, saari memory clear karni ha?")) {
         localStorage.removeItem('ms_solar_bills');
         renderLivePipelineQueue();
         compileSystemLedgerMatrix();
-        if (typeof checkStorageHealth === 'function') checkStorageHealth();
-        alert("Dashboard kamyabi se reset ho gaya hai!");
+        alert("Dashboard reset ho gaya!");
     }
 }
 
-// 7. LEDGER RUNTIME GALLERY PRINTER
 function saveStatementToGallery() {
-    alert("Ledger Ecosystem Compiled! Data sync complete with browser system storage cache.");
+    alert("Ledger Ecosystem Compiled! Data sync complete.");
 }
 
 // Auto Hook Initialize on Screen System Boot
@@ -2349,8 +2396,9 @@ document.addEventListener("DOMContentLoaded", () => {
     renderLivePipelineQueue();
     compileSystemLedgerMatrix();
 });
-    
-    
+        
+
+
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
 // ========================================================
@@ -2989,6 +3037,9 @@ function downloadNewInvoice(serviceType) {
             link.click();
             document.body.removeChild(link);
             document.body.removeChild(billWrapper);
+            if (typeof injectCustomerBillToPipeline === 'function') {
+    injectCustomerBillToPipeline(custName, custPhone, serviceType, qty, parseFloat(price) || 0);
+            }
         }).catch(error => {
             console.error("Error generating invoice:", error);
             if (document.body.contains(billWrapper)) document.body.removeChild(billWrapper);
