@@ -2422,7 +2422,6 @@ function renderAdminDashboard() {
 // 🌟 ریمینڈر اور اوور ڈیو کیلکولیشن فنکشن
 // 🌟 ریمینڈر اور اوور ڈیو کیلکولیشن فنکشن (صرف ایڈمن پینل کے لیے فکسڈ)
 function checkOverdueAlerts() {
-    // یہاں ہم نے آئی ڈی کو مخصوص کر دیا ہے تاکہ یہ باہر ہوم پیج کے کنٹینر کو نہ چھیڑے
     const alertBox = document.getElementById("admin-overdue-alert-container");
     if (!alertBox) return;
 
@@ -2434,19 +2433,33 @@ function checkOverdueAlerts() {
         const timeDiff = today.getTime() - washDate.getTime();
         const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
 
-        // اگر واش کو 15 دن یا اس سے اوپر ہو چکے ہیں
+        // 15 din ya us se upar overdue wale customers
         if (daysDiff >= 15) {
-            const message = encodeURIComponent(`السلام علیکم کسٹمر محترم! آپ کے سولر پینل کی سروس (MS Solar Cleaning) کو ہوئے ${daysDiff} دن ہو چکے ہیں۔ مٹی اور دھول کی وجہ سے پینل کی کارکردگی کم ہو سکتی ہے۔ دوبارہ واش شیڈول کرنے کے لیے ہم سے رابطہ کریں۔ منیب سرور - 0300XXXXXXX`);
-            const whatsappLink = `https://wa.me/${o.phone ? o.phone.replace(/[^0-9]/g, "") : ''}?text=${message}`;
+            // Premium Professional Breakdown Message for WhatsApp
+            const businessMsg = `✨ *MS SOLAR CLEANING & MAINTENANCE* ✨
+----------------------------------------
+*Dear Customer,*
+Apki solar plates service ko *${daysDiff} Days* ho chuke hain. Mitti aur dhool ki wajah سے panels ki generation breakdown (kam) ho sakti hai.
+
+*Service Details:*
+👤 *Customer:* ${o.name}
+📅 *Last Wash:* ${o.date}
+⚡ *Service Type:* ${o.type}
+
+Kindly apna next wash schedule confirm karne k liye haseen raabta karein taake apki solar efficiency barkarar rahe.
+Thank you!
+*Muneeb Sarwar*`;
+
+            const whatsappLink = `https://wa.me/${o.phone ? o.phone.replace(/[^0-9]/g, "") : ''}?text=${encodeURIComponent(businessMsg)}`;
 
             overdueHTML += `
                 <div class="p-3 mb-2 rounded-xl bg-rose-950/20 border border-rose-500/30 flex justify-between items-center">
                     <div>
                         <p class="text-xs font-bold text-white">${o.name} <span class="text-[10px] text-rose-400">(${daysDiff} Days Overdue)</span></p>
-                        <p class="text-[9px] text-slate-400">Last Wash: ${o.date} | Phone: ${o.phone || 'N/A'}</p>
+                        <p class="text-[9px] text-slate-400">Last Service: ${o.date} | Contact: ${o.phone || 'N/A'}</p>
                     </div>
-                    <a href="${whatsappLink}" target="_blank" class="bg-amber-500 text-slate-950 font-bold px-2 py-1 rounded text-[10px] flex items-center gap-1">
-                        <i class="fab fa-whatsapp"></i> Remind
+                    <a href="${whatsappLink}" target="_blank" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-3 py-1 rounded-lg text-[10px] flex items-center gap-1 transition-all">
+                        <i class="fab fa-whatsapp"></i> SEND REMINDER
                     </a>
                 </div>`;
         }
@@ -2454,12 +2467,12 @@ function checkOverdueAlerts() {
 
     if (overdueHTML !== "") {
         alertBox.innerHTML = `
-            <p class="text-xs font-bold text-rose-400 mb-2"><i class="fas fa-exclamation-triangle"></i> 15-DAYS OVERDUE ALERTS (URGENT FOLLOW-UPS)</p>
+            <p class="text-xs font-bold text-rose-400 mb-2 font-mono"><i class="fas fa-exclamation-triangle"></i> 15-DAYS OVERDUE SYSTEM ALERTS</p>
             ${overdueHTML}`;
     } else {
         alertBox.innerHTML = `
-            <div class="text-center py-2 text-emerald-400 text-xs">
-                🎉 Muneeb bhai, Sab perfect hai! Kisi bhi customer ki wash overdue nahi hai.
+            <div class="text-center py-2 text-emerald-400 text-xs font-mono">
+                🎉 Muneeb bhai, system clean! No overdue washes detected.
             </div>`;
     }
 }
@@ -2470,32 +2483,72 @@ function drawAdvancedChart() {
     const chartPath = document.getElementById("chart-path");
     if (!chartPath) return;
 
-    // پچھلے 7 دنوں کا منافع جمع کرنا
-    let dayProfits = [0, 0, 0, 0, 0, 0, 0];
+    // Aj ki date se pichle 4 dino ka data compile karna
+    let dayLabels = [];
+    let dayProfits = [0, 0, 0, 0];
     const today = new Date();
 
+    for (let i = 3; i >= 0; i--) {
+        let d = new Date();
+        d.setDate(today.getDate() - i);
+        dayLabels.push(d.toISOString().split('T')[0]); // YYYY-MM-DD formating
+    }
+
+    // Har date ka net profit jama karna
     adminLedger.completedOrders.forEach(o => {
-        const orderDate = new Date(o.date);
-        const diffTime = Math.abs(today - orderDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) - 1;
-        if (diffDays >= 0 && diffDays < 7) {
-            dayProfits[6 - diffDays] += o.netProfit;
+        // o.date format ko match karna
+        let orderDateStr = o.date;
+        if(orderDateStr.includes('/')) {
+            // Agar format DD/MM/YYYY hai to treat karein
+            let parts = orderDateStr.split('/');
+            if(parts[0].length === 4) orderDateStr = `${parts[0]}-${parts[1].padStart(2,'0')}-${parts[2].padStart(2,'0')}`;
+        }
+        
+        let idx = dayLabels.indexOf(orderDateStr);
+        if (idx > -1) {
+            dayProfits[idx] += parseFloat(o.netProfit) || 0;
         }
     });
 
+    // SVG graphics update karna
     const maxProfit = Math.max(...dayProfits, 5000);
     let points = [];
-    
-    // SVG کوآرڈینیٹس بنانا (X کی فکسڈ چوڑائی 400 ہے)
-    for (let i = 0; i < 7; i++) {
-        const x = (i * (400 / 6));
-        const y = 100 - ((dayProfits[i] / maxProfit) * 80); // مکسیمم اونچائی لاک رکھنا
+    for (let i = 0; i < 4; i++) {
+        const x = (i * (400 / 3));
+        const y = 100 - ((dayProfits[i] / maxProfit) * 80);
         points.push(`${x},${y}`);
     }
-
-    // پاتھ ڈیفائن کرنا
     chartPath.setAttribute("d", `M ${points.join(" L ")}`);
-}
+
+    // 🌟 CHART DATA DETAILS BREAKDOWN BELOW CHART
+    // Ye code chart wale box k niche live text breakdown render karega
+    let detailsContainer = document.getElementById("chart-data-details");
+    if (!detailsContainer) {
+        // Agar container nahi bana to chart section k andar dynamic create karein
+        const chartBox = chartPath.closest('.rounded-2xl') || chartPath.parentElement.parentElement;
+        detailsContainer = document.createElement("div");
+        detailsContainer.id = "chart-data-details";
+        detailsContainer.className = "mt-3 pt-3 border-t border-white/[0.05] grid grid-cols-2 gap-2 text-left";
+        chartBox.appendChild(detailsContainer);
+    }
+
+    // Live HTML pushing for specific days data
+    detailsContainer.innerHTML = dayLabels.map((date, idx) => {
+        let displayLabel = "Today";
+        if (idx === 2) displayLabel = "Yesterday";
+        if (idx < 2) {
+            let d = new Date(date);
+            displayLabel = d.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' });
+        }
+        return `
+            <div class="bg-slate-950/60 p-2 rounded-xl border border-white/[0.02]">
+                <p class="text-[9px] text-slate-500 font-mono">${date} (${displayLabel})</p>
+                <p class="text-xs font-bold ${dayProfits[idx] > 0 ? 'text-emerald-400' : 'text-slate-400'} font-sans">Rs ${dayProfits[idx].toLocaleString()}</p>
+            </div>
+        `;
+    }).join("");
+         }
+    
 
 // 🌟 پوائنٹ 3: ڈاؤن لوڈ پروفیشنل ویژول ایچ ٹی ایم ایل لیجر (HD Dark Theme)
 function saveStatementToGallery() {
