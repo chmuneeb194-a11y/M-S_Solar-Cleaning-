@@ -952,7 +952,7 @@
                         <i class="fas fa-bolt text-slate-950 text-sm"></i>
                     </div>
                     <div>
-                        <h3 class="text-sm font-extrabold text-white tracking-wider uppercase">MS SECURE 3.0</h3>
+                        <h3 class="text-sm font-extrabold text-white tracking-wider uppercase">MS SECURE 4.0</h3>
                         <p class="text-[9px] text-slate-400 font-mono">Operations & Ledger Command</p>
                     </div>
                 </div>
@@ -1016,11 +1016,11 @@
                 <div class="grid grid-cols-3 gap-2 p-3 bg-slate-950/60 border border-white/[0.04] rounded-2xl mb-2">
                     <div>
                         <label class="block text-[8px] font-bold text-slate-400 uppercase mb-1">Bike Avg (KM/L)</label>
-                        <input type="number" id="bike-avg-input" oninput="calculateSmartFuel()" value="15" class="w-full bg-slate-900 border border-white/[0.06] rounded-lg p-1.5 text-xs font-mono text-white text-center focus:outline-none focus:border-amber-500" />
+                        <input type="number" id="bike-avg-input" oninput="calculateSmartFuel()" class="w-full bg-slate-900 border border-white/[0.06] rounded-lg p-1.5 text-xs font-mono text-white text-center focus:outline-none focus:border-amber-500" />
                     </div>
                     <div>
                         <label class="block text-[8px] font-bold text-slate-400 uppercase mb-1">Petrol Price (Rs)</label>
-                        <input type="number" id="petrol-price-input" oninput="calculateSmartFuel()" value="270" class="w-full bg-slate-900 border border-white/[0.06] rounded-lg p-1.5 text-xs font-mono text-white text-center focus:outline-none focus:border-amber-500" />
+                        <input type="number" id="petrol-price-input" oninput="calculateSmartFuel()" class="w-full bg-slate-900 border border-white/[0.06] rounded-lg p-1.5 text-xs font-mono text-white text-center focus:outline-none focus:border-amber-500" />
                     </div>
                     <div>
                         <label class="block text-[8px] font-bold text-amber-400 uppercase mb-1">Today Dist.(KM)</label>
@@ -1076,22 +1076,26 @@
                 <div class="grid grid-cols-2 gap-3 mb-1">
                     <div class="bg-gradient-to-br from-slate-950/80 to-slate-900/40 p-3 rounded-2xl border border-white/[0.03] flex flex-col justify-between">
                         <span class="text-[9px] text-teal-400 font-bold tracking-wider uppercase">⚡ NET PROFIT MARGIN</span>
-                        <span id="lbl-profit-margin" class="text-base font-extrabold text-teal-300 mt-1">0.0%</span>
+                        <!-- 🌟 آئی ڈی فکسڈ -->
+                        <span id="net-profit-margin-display" class="text-base font-extrabold text-teal-300 mt-1">0.0%</span>
                     </div>
                     <div class="bg-gradient-to-br from-slate-950/80 to-slate-900/40 p-3 rounded-2xl border border-white/[0.03] flex flex-col justify-between">
                         <span class="text-[9px] text-amber-400 font-bold tracking-wider uppercase">🏷️ AVG RATE / UNIT</span>
-                        <span id="lbl-avg-rate" class="text-base font-extrabold text-amber-300 mt-1">Rs 0.00</span>
+                        <!-- 🌟 آئی ڈی فکسڈ -->
+                        <span id="avg-rate-display" class="text-base font-extrabold text-amber-300 mt-1">Rs 0.00</span>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-2 bg-slate-950/40 p-3 rounded-2xl border border-white/[0.02]">
                     <div class="space-y-2 border-r border-white/[0.04] pr-2">
                         <span class="text-[9px] text-slate-500 block">TOTAL WORK UNITS</span>
-                        <span id="lbl-total-plates" class="text-sm font-bold text-white block">0 Units</span>
+                        <!-- 🌟 آئی ڈی فکسڈ -->
+                        <span id="total-units-display" class="text-sm font-bold text-white block">0 Units</span>
                     </div>
                     <div class="space-y-2 pl-2">
                         <span class="text-[9px] text-slate-500 block">GROSS CASHFLOW</span>
-                        <span id="lbl-gross" class="text-sm font-bold text-emerald-400 block">Rs 0</span>
+                        <!-- 🌟 آئی ڈی فکسڈ -->
+                        <span id="gross-cashflow-display" class="text-sm font-bold text-emerald-400 block">Rs 0</span>
                     </div>
                 </div>
 
@@ -1111,7 +1115,8 @@
                         <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">NET LIQUID PROFIT</span>
                         <p class="text-[9px] text-slate-500 mt-0.5">All operating costs deducted</p>
                     </div>
-                    <span id="lbl-net-profit" class="text-xl font-extrabold text-emerald-400 tracking-tight">Rs 0</span>
+                    <!-- 🌟 آئی ڈی فکسڈ -->
+                    <span id="net-profit-display" class="text-xl font-extrabold text-emerald-400 tracking-tight">Rs 0</span>
                 </div>
                 
                 <div class="grid grid-cols-2 gap-3 pt-2 font-sans">
@@ -1166,10 +1171,11 @@
                 </div>
             </div>
         </div>
-                        <!-- ------------------------------------------ -->
+
+        <!-- ------------------------------------------ -->
         <!-- SUB-SECTION F: PREMIUM OVERDUE ALERT DASHBOARD -->
         <!-- ------------------------------------------ -->
-        <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
+                <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
             <div class="absolute -right-20 -bottom-20 h-40 w-40 rounded-full bg-red-500/5 blur-[60px] pointer-events-none"></div>
             <div class="flex items-center gap-2 mb-3">
                 <i class="fas fa-exclamation-triangle text-red-500 text-sm animate-pulse"></i>
@@ -1199,12 +1205,7 @@
                 No upcoming schedules loaded.
             </div>
         </div>
-                </button>
-                <button onclick="checkReengagements()" class="bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold py-3 px-4 rounded-xl text-xs border border-white/[0.06] transition-all active:scale-[0.99] uppercase">
-                    Check Pending Follow-Ups
-                </button>
-            </div>
-</div>
+
         <!-- ------------------------------------------ -->
         <!-- SUB-SECTION H: RE-ENGAGEMENT & REVIEW BOOSTER -->
         <!-- ------------------------------------------ -->
@@ -1216,6 +1217,13 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button onclick="triggerReviewBooster()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-xl text-xs transition-all active:scale-[0.99] uppercase shadow-md shadow-blue-900/20">
                     Generate Review Link
+                </button>
+                <button onclick="triggerPendingFollowUps()" class="bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold py-3 px-4 rounded-xl text-xs border border-white/[0.06] transition-all active:scale-[0.99] uppercase">
+                    Check Pending Follow-Ups
+                </button>
+            </div>
+        </div>
+
     </div>
 </section>
 <!-- ========================================== -->
