@@ -1193,8 +1193,11 @@
                 <span>🚀 Send Bulk Reminders (1-Click List)</span>
             </button>
         
-            <div id="overdue-alerts-list" class="grid grid-cols-1 gap-3 text-slate-200 max-h-64 overflow-y-auto pr-1">
-                <!-- JavaScript automatically populates checked/unchecked cards here -->
+<!-- ایڈمن پینل کے اندر موجود الرٹ باکس کی آئی ڈی یہ ہونی چاہیے -->
+<div id="admin-overdue-alert-container" class="p-4 rounded-2xl border border-white/[0.05] bg-slate-950 mb-4">
+    <!-- جاوا اسکرپٹ کا ڈیٹا یہاں رینڈر ہوگا -->
+</div>
+                    
             </div>
         </div>
 
@@ -2417,8 +2420,10 @@ function renderAdminDashboard() {
 }
 
 // 🌟 ریمینڈر اور اوور ڈیو کیلکولیشن فنکشن
+// 🌟 ریمینڈر اور اوور ڈیو کیلکولیشن فنکشن (صرف ایڈمن پینل کے لیے فکسڈ)
 function checkOverdueAlerts() {
-    const alertBox = document.querySelector(".border-emerald-500\\/20") || document.getElementById("overdue-alert-container");
+    // یہاں ہم نے آئی ڈی کو مخصوص کر دیا ہے تاکہ یہ باہر ہوم پیج کے کنٹینر کو نہ چھیڑے
+    const alertBox = document.getElementById("admin-overdue-alert-container");
     if (!alertBox) return;
 
     let overdueHTML = "";
@@ -2429,14 +2434,13 @@ function checkOverdueAlerts() {
         const timeDiff = today.getTime() - washDate.getTime();
         const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
 
-        // اگر واش کو 15 دن سے اوپر ہو چکے ہیں
+        // اگر واش کو 15 دن یا اس سے اوپر ہو چکے ہیں
         if (daysDiff >= 15) {
-            // پروفیشنل واٹس ایپ میسج بنانا
             const message = encodeURIComponent(`السلام علیکم کسٹمر محترم! آپ کے سولر پینل کی سروس (MS Solar Cleaning) کو ہوئے ${daysDiff} دن ہو چکے ہیں۔ مٹی اور دھول کی وجہ سے پینل کی کارکردگی کم ہو سکتی ہے۔ دوبارہ واش شیڈول کرنے کے لیے ہم سے رابطہ کریں۔ منیب سرور - 0300XXXXXXX`);
             const whatsappLink = `https://wa.me/${o.phone ? o.phone.replace(/[^0-9]/g, "") : ''}?text=${message}`;
 
             overdueHTML += `
-                <div class="p-3 mb-2 rounded-xl bg-rose-950/20 border border-rose-500/30 flex justify-between items-center animate-pulse">
+                <div class="p-3 mb-2 rounded-xl bg-rose-950/20 border border-rose-500/30 flex justify-between items-center">
                     <div>
                         <p class="text-xs font-bold text-white">${o.name} <span class="text-[10px] text-rose-400">(${daysDiff} Days Overdue)</span></p>
                         <p class="text-[9px] text-slate-400">Last Wash: ${o.date} | Phone: ${o.phone || 'N/A'}</p>
@@ -2450,7 +2454,7 @@ function checkOverdueAlerts() {
 
     if (overdueHTML !== "") {
         alertBox.innerHTML = `
-            <p class="text-xs font-bold text-rose-400 mb-2"><i class="fas fa-exclamation-triangle"></i> 15-DAYS OVERDUE ALERTS (ACTION REQUIRED)</p>
+            <p class="text-xs font-bold text-rose-400 mb-2"><i class="fas fa-exclamation-triangle"></i> 15-DAYS OVERDUE ALERTS (URGENT FOLLOW-UPS)</p>
             ${overdueHTML}`;
     } else {
         alertBox.innerHTML = `
@@ -2459,6 +2463,7 @@ function checkOverdueAlerts() {
             </div>`;
     }
 }
+    
 
 // 🌟 پوائنٹ 4: ایڈوانسڈ لائیو چارٹ ڈرائنگ (7-Days BreakDown)
 function drawAdvancedChart() {
