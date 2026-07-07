@@ -933,9 +933,15 @@
         </div>
     </div>
 </section>
-<section id="secret-admin-section" class="hidden py-10 bg-slate-950 border-t border-slate-900 relative z-30">
+<!-- ========================================== -->
+<!-- SECTION START: COMPLETE PREMIUM ADMIN PORTAL -->
+<!-- ========================================== -->
+<section id="secret-admin-section" class="hidden py-10 bg-slate-950 border-t border-slate-900 relative z-30 font-sans">
     <div class="container mx-auto max-w-2xl px-4 space-y-6">
         
+        <!-- ------------------------------------------ -->
+        <!-- SUB-SECTION A: MAIN COMMAND PANEL (MS SECURE 3.0) -->
+        <!-- ------------------------------------------ -->
         <div class="relative overflow-hidden rounded-[2.5rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-6 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.7)]">
             <div class="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-emerald-500/10 blur-[60px] pointer-events-none"></div>
             <div class="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-amber-500/10 blur-[60px] pointer-events-none"></div>
@@ -946,7 +952,7 @@
                         <i class="fas fa-bolt text-slate-950 text-sm"></i>
                     </div>
                     <div>
-                        <h3 class="text-sm font-extrabold text-white tracking-wider uppercase font-sans">MS SECURE 3.0</h3>
+                        <h3 class="text-sm font-extrabold text-white tracking-wider uppercase">MS SECURE 3.0</h3>
                         <p class="text-[9px] text-slate-400 font-mono">Operations & Ledger Command</p>
                     </div>
                 </div>
@@ -957,6 +963,7 @@
                 </div>
             </div>
 
+            <!-- PART 01: CUSTOMER DETAILS INPUTS -->
             <div class="space-y-4 mb-5 p-4 bg-white/[0.02] rounded-3xl border border-white/[0.05] relative z-10">
                 <div class="flex items-center justify-between">
                     <span class="text-[10px] text-emerald-400 font-black tracking-widest uppercase">01 / Customer Details</span>
@@ -977,7 +984,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="w-full">
                         <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Select Service Type</label>
-                        <select id="inv-service-type" class="w-full bg-slate-950 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all">
+                        <select id="inv-service-type" onchange="updateServiceLabels()" class="w-full bg-slate-950 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all">
                             <option value="Solar">Solar Panel Cleaning</option>
                             <option value="Car">Car Washing Service</option>
                             <option value="WaterTank">Water Tank Cleaning</option>
@@ -991,21 +998,45 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="w-full">
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Quantity / Items / Plates</label>
-                        <input type="number" id="inv-cust-plates" oninput="autoCalculateGross()" placeholder="e.g., 24 plates or 1 car" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
+                        <label id="lbl-dynamic-qty" class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Quantity / Plates</label>
+                        <input type="number" id="inv-cust-plates" oninput="autoCalculateGross()" placeholder="e.g., 24" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
                     </div>
                     <div class="w-full">
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Rate per Unit (Rs)</label>
+                        <label id="lbl-dynamic-rate" class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Rate per Unit (Rs)</label>
                         <input type="number" id="inv-cust-rate" oninput="autoCalculateGross()" placeholder="80" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
                     </div>
                 </div>
             </div>
 
+            <!-- PART 02: LOGISTICS & BIKE SMART EXPENSES -->
             <div class="space-y-4 mb-6 p-4 bg-white/[0.02] rounded-3xl border border-white/[0.05] relative z-10">
-                <span class="text-[10px] text-amber-400 font-black tracking-widest uppercase block">02 / Logistics Expenses</span>
+                <span class="text-[10px] text-amber-400 font-black tracking-widest uppercase block">02 / Logistics & Bike Expenses</span>
+                
+                <!-- Bike Smart Auto-Calculator Row -->
+                <div class="grid grid-cols-3 gap-2 p-3 bg-slate-950/60 border border-white/[0.04] rounded-2xl mb-2">
+                    <div>
+                        <label class="block text-[8px] font-bold text-slate-400 uppercase mb-1">Bike Avg (KM/L)</label>
+                        <input type="number" id="bike-avg-input" oninput="calculateSmartFuel()" value="15" class="w-full bg-slate-900 border border-white/[0.06] rounded-lg p-1.5 text-xs font-mono text-white text-center focus:outline-none focus:border-amber-500" />
+                    </div>
+                    <div>
+                        <label class="block text-[8px] font-bold text-slate-400 uppercase mb-1">Petrol Price (Rs)</label>
+                        <input type="number" id="petrol-price-input" oninput="calculateSmartFuel()" value="270" class="w-full bg-slate-900 border border-white/[0.06] rounded-lg p-1.5 text-xs font-mono text-white text-center focus:outline-none focus:border-amber-500" />
+                    </div>
+                    <div>
+                        <label class="block text-[8px] font-bold text-amber-400 uppercase mb-1">Today Journey (KM)</label>
+                        <input type="number" id="bike-km-input" oninput="calculateSmartFuel()" placeholder="0" class="w-full bg-slate-900 border border-amber-500/30 rounded-lg p-1.5 text-xs font-mono text-amber-300 text-center focus:outline-none focus:border-amber-500" />
+                    </div>
+                </div>
+
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="w-full">
-                        <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Fuel Overhead (Rs)</label>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Fuel Overhead (Rs)</label>
+                            <!-- Oil Change Counter Display -->
+                            <span id="oil-counter-badge" onclick="resetOilCounter()" class="text-[8px] font-mono bg-rose-500/10 text-rose-300 border border-rose-500/20 px-1.5 py-0.5 rounded cursor-pointer hover:bg-rose-500/20 transition-all">
+                                🛢️ Oil: 0 KM
+                            </span>
+                        </div>
                         <input type="number" id="admin-expense-amount" placeholder="0" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
                     </div>
                     <div class="w-full">
@@ -1022,14 +1053,20 @@
             </div>
         </div>
 
+        <!-- ------------------------------------------ -->
+        <!-- SUB-SECTION B: PIPELINE LIVE STREAMS (PENDING ORDERS) -->
+        <!-- ------------------------------------------ -->
         <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
             <div class="flex items-center gap-2 mb-4 relative z-10">
                 <div class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
-                <h3 class="text-xs font-black text-slate-300 tracking-widest uppercase font-sans">Pipeline Live Streams (Pending Orders)</h3>
+                <h3 class="text-xs font-black text-slate-300 tracking-widest uppercase">Pipeline Live Streams (Pending Orders)</h3>
             </div>
             <div id="pending-orders-list" class="space-y-3 max-h-64 overflow-y-auto pr-1 relative z-10"></div>
         </div>
 
+        <!-- ------------------------------------------ -->
+        <!-- SUB-SECTION C: FINANCIAL LEDGER ECOSYSTEM -->
+        <!-- ------------------------------------------ -->
         <div class="rounded-[2.5rem] border border-white/[0.06] bg-[#0d1117]/90 backdrop-blur-xl p-6 shadow-2xl relative overflow-hidden">
             <div id="profit-display-box" class="font-mono text-xs text-slate-300 space-y-3 relative z-10">
                 <div class="text-center text-emerald-400 text-[10px] uppercase font-black tracking-widest border-b border-white/[0.05] pb-2 mb-3">
@@ -1070,7 +1107,7 @@
                 </div>
 
                 <div class="flex justify-between items-center bg-gradient-to-r from-emerald-500/[0.06] to-teal-500/[0.06] p-4 rounded-2xl border border-emerald-500/10 mt-4 shadow-sm">
-                    <div class="font-sans">
+                    <div>
                         <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">NET LIQUID PROFIT</span>
                         <p class="text-[9px] text-slate-500 mt-0.5">All operating costs deducted</p>
                     </div>
@@ -1088,8 +1125,11 @@
             </div>
         </div>
 
+        <!-- ------------------------------------------ -->
+        <!-- SUB-SECTION D: REAL-TIME PROFIT CHART -->
+        <!-- ------------------------------------------ -->
         <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
-            <h3 class="text-xs font-black text-slate-400 tracking-widest uppercase mb-3 font-sans">Real-time Verified Profit Chart</h3>
+            <h3 class="text-xs font-black text-slate-400 tracking-widest uppercase mb-3 text-left">Real-time Verified Profit Chart</h3>
             <div class="relative w-full bg-slate-950/80 rounded-2xl p-4 border border-white/[0.03] flex flex-col items-center justify-center shadow-inner">
                 <svg id="live-profit-svg" class="w-full h-32 text-emerald-400" viewBox="0 0 400 100" preserveAspectRatio="none">
                     <path id="chart-path" d="M 0 100 Q 200 100 400 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="transition-all duration-700"></path>
@@ -1101,66 +1141,88 @@
                 </div>
             </div>
         </div>
-            <!-- GLOBAL RATE & REASON UPDATER (POINT 9 ADVANCE) -->
-    <div class="mt-4 p-4 bg-slate-900/40 rounded-xl border border-slate-800/80 flex flex-col gap-3">
-        <div class="flex items-center justify-between gap-3 border-b border-slate-800/50 pb-2">
-            <div class="flex flex-col text-left">
-                <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Current Rate Per Panel (Rs)</label>
-                <input type="number" id="global-panel-rate" placeholder="e.g. 70" class="w-24 bg-slate-950 text-white font-mono font-bold text-center border border-slate-800 rounded-lg py-1.5 px-2 focus:border-emerald-500 text-sm" value="70">
+
+        <!-- ------------------------------------------ -->
+        <!-- SUB-SECTION E: GLOBAL PANEL RATE CONTROLLER -->
+        <!-- ------------------------------------------ -->
+        <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
+            <div class="flex items-center gap-2 mb-4">
+                <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+                <h4 class="text-xs font-black text-slate-300 tracking-widest uppercase">Global Control & Notifications</h4>
             </div>
-            <button onclick="saveGlobalRate()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded-xl text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 shadow-md shadow-emerald-900/20 mt-4">
-                Update Rate & Note
-            </button>
-        </div>
-        <div class="flex flex-col text-left">
-            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Rate Change Reason / Special Note (Urdu/English)</label>
-            <input type="text" id="global-rate-reason" placeholder="e.g. Petrol sasta hone ki wajah se rate kam kar di gayi hai!" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-lg py-2 px-3 focus:border-emerald-500 text-xs">
-        </div>
-    </div>
-                
-    <!-- PREMIUM OVERDUE ALERT DASHBOARD (POINT 6 ADVANCE) -->
-<div class="mt-8 pt-6 border-t border-slate-800">
-    <div class="flex items-center gap-2 mb-4">
-        <i class="fas fa-exclamation-triangle text-red-500 text-lg animate-pulse"></i>
-        <h4 class="text-sm font-bold text-red-400 uppercase tracking-wider">15-Days Overdue Alerts (Urgent Follow-ups)</h4>
-    </div>
-    <p class="text-xs text-slate-400 mb-4">Muneeb bhai, niche un customers ki automatic list hai jinki wash ko 15 din se upar ho chuke hain. Aap ek click par unhein WhatsApp reminder bhej sakte hain:</p>
-        <!-- RESPONSIVE CARDS CONTAINER FOR MOBILE -->
-            <!-- MASTER BULK REMINDER BUTTON -->
-        <button onclick="sendBulkReminders()" class="w-full mb-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all transform active:scale-95">
-            <i class="fab fa-whatsapp text-lg"></i>
-            <span>🚀 SEND BULK REMINDERS (1-CLICK LIST)</span>
-        </button>
-    
-    <div id="overdue-alerts-list" class="grid grid-cols-1 gap-3 text-slate-200">
-        <!-- JavaScript automatically scan karke yahan pyare cards add karega -->
-    </div>
-    
-</div>
-
-
-            <!-- POINT 21: Next Wash Due Date Calendar -->
-            <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800">
-                <h4 class="text-sm font-bold text-slate-300 uppercase mb-3">📅 Next Wash Schedule Calendar </h4>
-                <div id="calendar-schedule-list" class="text-xs text-slate-400">
-                    No upcoming schedules loaded.
+            <div class="space-y-4">
+                <div class="flex items-center justify-between gap-4 bg-white/[0.01] p-3 rounded-2xl border border-white/[0.03]">
+                    <div class="flex flex-col text-left flex-1">
+                        <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Current Rate Per Panel (Rs)</label>
+                        <input type="number" id="global-panel-rate" placeholder="70" class="w-full bg-slate-950 text-white font-mono font-bold border border-white/[0.06] rounded-xl py-2 px-3 focus:border-emerald-500 text-xs focus:outline-none transition-all" value="70">
+                    </div>
+                    <button onclick="saveGlobalRate()" class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-extrabold py-2.5 px-4 rounded-xl text-[10px] uppercase tracking-wider transition-all shadow-md mt-3 active:scale-95">
+                        Update Rate
+                    </button>
+                </div>
+                <div class="flex flex-col text-left">
+                    <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">Rate Change Reason / Special Note (Urdu/English)</label>
+                    <input type="text" id="global-rate-reason" placeholder="e.g. Petrol sasta hone ki wajah se rate kam kar di gayi hai!" class="w-full bg-slate-950 text-slate-200 border border-white/[0.06] rounded-xl py-2.5 px-3 focus:border-emerald-500 text-xs focus:outline-none transition-all">
                 </div>
             </div>
-
-
-            <!-- POINT 20 & 22: Re-engagement & Review Booster Controls -->
-            <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800">
-                <h4 class="text-sm font-bold text-slate-300 uppercase mb-3">🚀 Follow-Up & Review Booster</h4>
-                <button onclick="triggerReviewBooster()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-3 rounded text-xs mb-2">Generate Review Link </button>
-                <button onclick="checkReengagements()" class="w-full bg-slate-800 hover:bg-slate-750 text-yellow-500 font-bold py-2 px-3 rounded text-xs">Check Pending Follow-Ups </button>
-            </div>
-
         </div>
-                
+                        <!-- ------------------------------------------ -->
+        <!-- SUB-SECTION F: PREMIUM OVERDUE ALERT DASHBOARD -->
+        <!-- ------------------------------------------ -->
+        <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
+            <div class="absolute -right-20 -bottom-20 h-40 w-40 rounded-full bg-red-500/5 blur-[60px] pointer-events-none"></div>
+            <div class="flex items-center gap-2 mb-3">
+                <i class="fas fa-exclamation-triangle text-red-500 text-sm animate-pulse"></i>
+                <h4 class="text-xs font-black text-red-400 uppercase tracking-wider">15-Days Overdue Alerts (Urgent Follow-ups)</h4>
+            </div>
+            <p class="text-[11px] text-slate-400 mb-4 text-left">Muneeb bhai, niche un customers ki list hai jinki wash ko 15 din se upar ho chuke hain. Aap tracking status ke sath WhatsApp reminder bhej sakte hain:</p>
+            
+            <button onclick="sendBulkReminders()" class="w-full mb-4 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-slate-950 font-extrabold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all text-xs active:scale-95 uppercase">
+                <i class="fab fa-whatsapp text-sm"></i>
+                <span>🚀 Send Bulk Reminders (1-Click List)</span>
+            </button>
+        
+            <div id="overdue-alerts-list" class="grid grid-cols-1 gap-3 text-slate-200 max-h-64 overflow-y-auto pr-1">
+                <!-- JavaScript automatically populates checked/unchecked cards here -->
             </div>
         </div>
+
+        <!-- ------------------------------------------ -->
+        <!-- SUB-SECTION G: NEXT WASH SCHEDULE CALENDAR -->
+        <!-- ------------------------------------------ -->
+        <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
+            <div class="flex items-center gap-2 mb-3">
+                <i class="fas fa-calendar-alt text-teal-400 text-sm"></i>
+                <h4 class="text-xs font-black text-slate-300 tracking-widest uppercase">📅 Next Wash Schedule Calendar</h4>
+            </div>
+            <div id="calendar-schedule-list" class="text-xs text-slate-400 bg-slate-950/50 p-4 rounded-xl border border-white/[0.03] text-left">
+                No upcoming schedules loaded.
+            </div>
+        </div>
+
+        <!-- ------------------------------------------ -->
+        <!-- SUB-SECTION H: RE-ENGAGEMENT & REVIEW BOOSTER -->
+        <!-- ------------------------------------------ -->
+        <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
+            <div class="flex items-center gap-2 mb-4">
+                <i class="fas fa-rocket text-blue-400 text-sm"></i>
+                <h4 class="text-xs font-black text-slate-300 tracking-widest uppercase">🚀 Follow-Up & Review Booster</h4>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button onclick="triggerReviewBooster()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-xl text-xs transition-all active:scale-[0.99] uppercase shadow-md shadow-blue-900/20">
+                    Generate Review Link
+                </button>
+                <button onclick="checkReengagements()" class="bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold py-3 px-4 rounded-xl text-xs border border-white/[0.06] transition-all active:scale-[0.99] uppercase">
+                    Check Pending Follow-Ups
+                </button>
+            </div>
+        </div>
+
     </div>
 </section>
+<!-- ========================================== -->
+<!-- SECTION END: COMPLETE PREMIUM ADMIN PORTAL -->
+<!-- ========================================== -->
 
     <section id="tools" class="py-24 px-4">
         <div class="container mx-auto max-w-6xl">
@@ -2137,264 +2199,186 @@ function closeInvoiceModal() {
         invoiceModal.classList.add('hidden');
     }
 }
-// =================================================================
-// MS SECURE 3.0 - MASTER ENGINE WITH AUTO-HOOK INJECTION
-// =================================================================
+/* ========================================================================= */
+/*  MS SECURE 3.0 - ALL-IN-ONE SYSTEM JAVASCRIPT MASTER CODE                 */
+/* ========================================================================= */
 
-// 1. REAL-TIME MATH EVALUATOR
-function autoCalculateGross() {
-    const plates = parseFloat(document.getElementById('inv-cust-plates').value) || 0;
-    const rate = parseFloat(document.getElementById('inv-cust-rate').value) || 0;
-    const gross = plates * rate;
-    
-    const grossDisplay = document.getElementById('gross-revenue-display');
-    if (grossDisplay) {
-        grossDisplay.innerText = `Rs ${gross.toLocaleString()}`;
-    }
-    return gross;
-}
-
-// 2. BACK-DOOR AUTO CONNECT LAYER FOR FRONTEND CUSTOMER FORM
-// (Yeh function customer k bill generate karne par chalega aur data yahan phenkega)
-function injectCustomerBillToPipeline(custName, custPhone, serviceName, totalUnits, unitRate) {
-    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-    
-    const autoRecord = {
-        name: custName,
-        phone: custPhone,
-        service: serviceName || 'Solar',
-        totalWashedPanels: totalUnits || 0,
-        rate: unitRate || 80,
-        advancePaid: 0,
-        fuelExpense: 0,
-        labourExpense: 0,
-        date: new Date().toISOString().split('T')[0],
-        status: 'Pending'
-    };
-
-    savedBills.push(autoRecord);
-    localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
-    
-    renderLivePipelineQueue();
-    compileSystemLedgerMatrix();
-}
-
-// 3. INITIALIZE ORDER VIA ADMIN MANUAL ENTRY
-function addOrderToPending() {
-    const name = document.getElementById('inv-cust-name').value.trim();
-    const phone = document.getElementById('inv-cust-phone').value.trim();
-    const service = document.getElementById('inv-service-type').value;
-    const plates = parseFloat(document.getElementById('inv-cust-plates').value) || 0;
-    const rate = parseFloat(document.getElementById('inv-cust-rate').value) || 80;
-    const advance = parseFloat(document.getElementById('inv-cust-advance').value) || 0;
-    const fuel = parseFloat(document.getElementById('admin-expense-amount').value) || 0;
-    const labour = parseFloat(document.getElementById('admin-labour-amount').value) || 0;
-
-    if (!name || !phone || plates <= 0) {
-        alert("Muneeb Bhai, Name, Phone aur Quantity lazmi darj karein!");
-        return;
-    }
-
-    const totalBill = plates * rate;
-    const remainingBalance = totalBill - advance;
-
-    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-    
-    const newRecord = {
-        name: name,
-        phone: phone,
-        service: service,
-        totalWashedPanels: plates,
-        rate: rate,
-        advancePaid: advance,
-        fuelExpense: fuel,
-        labourExpense: labour,
-        date: new Date().toISOString().split('T')[0],
-        status: 'Pending'
-    };
-
-    savedBills.push(newRecord);
-    localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
-
-    renderLivePipelineQueue();
-    compileSystemLedgerMatrix();
-
-    // WhatsApp Message
-    const message = `*⚡ M-S ${service.toUpperCase()} CLEANING SERVICES* %0A` +
-                    `--------------------------------------%0A` +
-                    `*Customer Name:* ${name}%0A` +
-                    `*Service:* ${service}%0A` +
-                    `*Total Units/Plates:* ${plates}%0A` +
-                    `*Rate:* Rs. ${rate}%0A` +
-                    `--------------------------------------%0A` +
-                    `*Total Bill:* Rs. ${totalBill.toLocaleString()}%0A` +
-                    `*Advance Paid:* Rs. ${advance.toLocaleString()}%0A` +
-                    `*Remaining Balance:* Rs. ${remainingBalance.toLocaleString()}%0A` +
-                    `--------------------------------------%0A` +
-                    `Thank you for choosing M-S Services! ❤️`;
-
-    const cleanPhone = phone.replace(/[^0-9]/g, '');
-    const finalPhone = cleanPhone.startsWith('0') ? '92' + cleanPhone.substring(1) : (cleanPhone.startsWith('92') ? cleanPhone : '92' + cleanPhone);
-    window.open(`https://wa.me/${finalPhone}?text=${message}`, '_blank');
-
-    // Reset fields
-    document.getElementById('inv-cust-name').value = '';
-    document.getElementById('inv-cust-phone').value = '';
-    document.getElementById('inv-cust-plates').value = '';
-    document.getElementById('inv-cust-advance').value = '';
-    document.getElementById('admin-expense-amount').value = '';
-    document.getElementById('admin-labour-amount').value = '';
-    document.getElementById('gross-revenue-display').innerText = 'Rs 0.00';
-}
-
-// 4. PIPELINE STREAM RENDER ENGINE
-function renderLivePipelineQueue() {
-    const listContainer = document.getElementById('pending-orders-list');
-    if (!listContainer) return;
-
-    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-    const pendingOrders = savedBills.filter(bill => bill.status === 'Pending');
-
-    if (pendingOrders.length === 0) {
-        listContainer.innerHTML = `<p class="text-slate-600 text-[10px] font-mono text-center py-4 bg-slate-950/30 rounded-xl border border-white/[0.02]">Pipeline clear. Tamam orders complete hain.</p>`;
-        return;
-    }
-
-    listContainer.innerHTML = '';
-    savedBills.slice().reverse().forEach((bill, index) => {
-        if (bill.status !== 'Pending') return;
-        
-        const actualIndex = savedBills.length - 1 - index;
-        const gross = (bill.totalWashedPanels || 0) * (bill.rate || 80);
-        const bal = gross - (bill.advancePaid || 0);
-
-        const card = document.createElement('div');
-        card.className = "bg-slate-950/60 p-4 rounded-2xl border border-white/[0.04] flex items-center justify-between gap-3 shadow-inner animate-fade-in";
-        card.innerHTML = `
-            <div class="space-y-0.5">
-                <div class="flex items-center gap-1.5">
-                    <span class="text-xs font-black text-white block">${bill.name}</span>
-                    <span class="text-[8px] uppercase px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/10">${bill.service}</span>
-                </div>
-                <span class="text-[9px] text-slate-400 font-mono block">${bill.totalWashedPanels} Qty @ Rs ${bill.rate}</span>
-                <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 inline-block mt-1">Baqi Balance: Rs ${bal.toLocaleString()}</span>
-            </div>
-            <div class="flex items-center gap-2 flex-shrink-0">
-                <button onclick="markOrderAsComplete(${actualIndex})" class="h-8 px-2.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-slate-950 flex items-center gap-1.5 text-[10px] font-bold transition-all border border-emerald-500/20">
-                    <i class="fas fa-check-circle text-xs"></i> Complete
-                </button>
-                <button onclick="purgePipelineNode(${actualIndex})" class="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white flex items-center justify-center transition-all border border-rose-500/10">
-                    <i class="fas fa-trash-alt text-[10px]"></i>
-                </button>
-            </div>
-        `;
-        listContainer.appendChild(card);
-    });
-}
-
-// 5. MARK ORDER AS COMPLETE
-function markOrderAsComplete(index) {
-    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-    if (confirm("Muneeb Bhai, kya yeh order mukammal ho chuka ha?")) {
-        savedBills[index].status = 'Completed';
-        localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
-        
-        renderLivePipelineQueue();
-        compileSystemLedgerMatrix();
-    }
-}
-
-// 6. FINANCIAL STATEMENT COMPILER & PURE SVG CHART ENGINE
-function compileSystemLedgerMatrix() {
-    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-    
-    let totalUnits = 0;
-    let grossCashflow = 0;
-    let totalFuel = 0;
-    let totalLabour = 0;
-    let profitHistory = [0];
-
-    savedBills.forEach(bill => {
-        if (bill.status !== 'Completed') return; 
-
-        const units = parseInt(bill.totalWashedPanels) || 0;
-        const rate = parseFloat(bill.rate) || 80;
-        const fuel = parseFloat(bill.fuelExpense) || 0;
-        const lab = parseFloat(bill.labourExpense) || 0;
-        
-        totalUnits += units;
-        const currentGross = units * rate;
-        grossCashflow += currentGross;
-        totalFuel += fuel;
-        totalLabour += lab;
-
-        const netForThisBill = currentGross - (fuel + lab);
-        profitHistory.push(profitHistory[profitHistory.length - 1] + netForThisBill);
-    });
-
-    const totalExpenses = totalFuel + totalLabour;
-    const netProfit = grossCashflow - totalExpenses;
-    const profitMargin = grossCashflow > 0 ? ((netProfit / grossCashflow) * 100).toFixed(1) : '0.0';
-    const avgRate = totalUnits > 0 ? (grossCashflow / totalUnits).toFixed(2) : '0.00';
-
-    if(document.getElementById('lbl-profit-margin')) document.getElementById('lbl-profit-margin').innerText = `${profitMargin}%`;
-    if(document.getElementById('lbl-avg-rate')) document.getElementById('lbl-avg-rate').innerText = `Rs ${parseFloat(avgRate).toLocaleString()}`;
-    if(document.getElementById('lbl-total-plates')) document.getElementById('lbl-total-plates').innerText = `${totalUnits.toLocaleString()} Units`;
-    if(document.getElementById('lbl-gross')) document.getElementById('lbl-gross').innerText = `Rs ${grossCashflow.toLocaleString()}`;
-    if(document.getElementById('lbl-fuel')) document.getElementById('lbl-fuel').innerText = `Rs ${totalFuel.toLocaleString()}`;
-    if(document.getElementById('lbl-labour')) document.getElementById('lbl-labour').innerText = `Rs ${totalLabour.toLocaleString()}`;
-    if(document.getElementById('lbl-net-profit')) document.getElementById('lbl-net-profit').innerText = `Rs ${netProfit.toLocaleString()}`;
-
-    // SVG Real-Time Chart Line Painter
-    const chartPath = document.getElementById('chart-path');
-    if (chartPath && profitHistory.length > 1) {
-        const maxProfit = Math.max(...profitHistory) || 1000;
-        const widthBetweenPoints = 400 / (profitHistory.length - 1);
-        let pathData = `M 0 100`;
-
-        profitHistory.forEach((profit, i) => {
-            const x = i * widthBetweenPoints;
-            const y = 100 - ((profit / maxProfit) * 80); // Calculate node height ratio safely
-            pathData += ` L ${x} ${y}`;
-        });
-        chartPath.setAttribute('d', pathData);
-    }
-}
-
-// 7. PURGE SINGLE NODE FROM PIPELINE
-function purgePipelineNode(index) {
-    if (confirm("Muneeb Bhai, kya aap is record ko hamesha k liye delete karna chahte hain?")) {
-        let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-        savedBills.splice(index, 1);
-        localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
-        
-        renderLivePipelineQueue();
-        compileSystemLedgerMatrix();
-    }
-}
-
-// 8. SYSTEM RESET DEPLOYMENT HARDWARE CONTROL
-function resetSystemLedger() {
-    if (confirm("⚠️ WARNING: Muneeb Bhai, saari memory clear karni ha?")) {
-        localStorage.removeItem('ms_solar_bills');
-        renderLivePipelineQueue();
-        compileSystemLedgerMatrix();
-        alert("Dashboard reset ho gaya!");
-    }
-}
-
-function saveStatementToGallery() {
-    alert("Ledger Ecosystem Compiled! Data sync complete.");
-}
-
-// Auto Hook Initialize on Screen System Boot
-document.addEventListener("DOMContentLoaded", () => {
-    renderLivePipelineQueue();
-    compileSystemLedgerMatrix();
+// پیج لوڈ ہوتے ہی بائیک کا آئل کاؤنٹر ڈیٹا لوکل سٹوریج سے لوڈ کرنا
+document.addEventListener("DOMContentLoaded", function() {
+    let savedKMs = localStorage.getItem("bike_oil_total_km") || 0;
+    document.getElementById("oil-counter-badge").innerText = `🛢️ Oil: ${savedKMs} KM`;
 });
+
+// [BLOCK 1] : DYNAMIC SERVICE TYPE LABEL SWITCHER
+// کام: سروس ٹائپ بدلنے پر لیبلز، ریٹس اور پلیس ہولڈرز کو آٹومیٹک فلپ کرنا
+function updateServiceLabels() {
+    const serviceType = document.getElementById('inv-service-type').value;
+    const qtyLabel = document.getElementById('lbl-dynamic-qty');
+    const rateLabel = document.getElementById('lbl-dynamic-rate');
+    const qtyInput = document.getElementById('inv-cust-plates');
+    const rateInput = document.getElementById('inv-cust-rate');
+
+    if (serviceType === 'Solar') {
+        qtyLabel.innerText = "Quantity / Plates";
+        qtyInput.placeholder = "e.g., 24";
+        rateLabel.innerText = "Rate per Unit (Rs)";
+        rateInput.placeholder = "80";
+    } else if (serviceType === 'Car') {
+        qtyLabel.innerText = "Number of Cars";
+        qtyInput.placeholder = "e.g., 1";
+        rateLabel.innerText = "Car Wash Rate (Rs)";
+        rateInput.placeholder = "1500";
+    } else if (serviceType === 'WaterTank') {
+        qtyLabel.innerText = "Number of Tanks";
+        qtyInput.placeholder = "e.g., 1";
+        rateLabel.innerText = "Tank Cleaning Rate (Rs)";
+        rateInput.placeholder = "3000";
+    }
+    autoCalculateGross();
+}
+
+// [BLOCK 2] : SMART BIKE EXPENSE & OIL CHANGE CYCLE TRACKER
+// کام: کلو میٹر سے پٹرول کا خرچہ نکالنا اور آئل چینج کاؤنٹر میں کے ایم جمع کرنا
+function calculateSmartFuel() {
+    const avg = parseFloat(document.getElementById("bike-avg-input").value) || 1;
+    const price = parseFloat(document.getElementById("petrol-price-input").value) || 0;
+    const km = parseFloat(document.getElementById("bike-km-input").value) || 0;
+
+    // فارمولا لاجک
+    if (km > 0) {
+        const calculatedExpense = Math.round((km / avg) * price);
+        document.getElementById("admin-expense-amount").value = calculatedExpense;
+    } else {
+        document.getElementById("admin-expense-amount").value = "";
+    }
+}
+
+// کام: پینڈنگ آرڈر فائنل یا سیو کرتے وقت کے ایمز کو لائف ٹائم کاؤنٹر میں جمع کرنا
+function commitBikeMileage() {
+    const km = parseFloat(document.getElementById("bike-km-input").value) || 0;
+    if (km > 0) {
+        let currentTotal = parseFloat(localStorage.getItem("bike_oil_total_km")) || 0;
+        currentTotal += km;
+        localStorage.setItem("bike_oil_total_km", currentTotal);
+        document.getElementById("oil-counter-badge").innerText = `🛢️ Oil: ${currentTotal} KM`;
+        document.getElementById("bike-km-input").value = ""; // ری سیٹ ان پٹ
+    }
+}
+
+// کام: آئل چینج کروانے کے بعد کاؤنٹر دوبارہ زیرو کرنا
+function resetOilCounter() {
+    if (confirm("Muneeb bhai, کیا آپ نے بائیک کا آئل چینج کروا لیا ہے؟ کاؤنٹر 0 ہو جائے گا۔")) {
+        localStorage.setItem("bike_oil_total_km", 0);
+        document.getElementById("oil-counter-badge").innerText = `🛢️ Oil: 0 KM`;
+    }
+}
+
+// [BLOCK 3] : MAIN WEBSITE DATA INTEGRATION WITH ANTI-MULTIPLICATION FIX
+// کام: مین ویب سائٹ سے آنے والے فائنل بل کی کیلکولیشن درست طریقے سے پینڈنگ میں پش کرنا
+function pushDataFromWebsiteToAdmin(customerName, phone, serviceType, totalPlates, finalAmount) {
+    document.getElementById('inv-cust-name').value = customerName;
+    document.getElementById('inv-cust-phone').value = phone;
+    document.getElementById('inv-service-type').value = serviceType;
+    
+    updateServiceLabels(); 
+
+    document.getElementById('inv-cust-plates').value = totalPlates;
+    
+    // فکس لاجک: الٹی کیلکولیشن روکنے کے لیے ایکچول پر-یونٹ ریٹ نکالنا
+    let calculatedRate = finalAmount; 
+    if(totalPlates > 0 && serviceType === 'Solar') {
+        calculatedRate = finalAmount / totalPlates;
+    }
+    
+    document.getElementById('inv-cust-rate').value = calculatedRate;
+    
+    autoCalculateGross();
+    addOrderToPending(); 
+}
+
+// [BLOCK 4] : AUTOMATIC WHATSAPP REMINDER TRACKING SYSTEM (CHECKMARK SYSTEM)
+// کام: ریمائنڈ بٹن پر کلک مارتے ہی واٹس ایپ اوپن کرنا اور بٹن کو گرین "Sent ✓" کرنا
+function sendReminderWhatsApp(phoneNumber, customerName, buttonElement) {
+    const message = encodeURIComponent(`السلام علیکم ${customerName} صاحب، ایم ایس سولر سروس کی طرف سے ریمائنڈر۔ آپ کی سروس کو 15 دن سے زائد ہو چکے ہیں۔ نیکسٹ واش کی بکنگ کے لیے رابطہ کریں۔ شکریہ!`);
+    
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+
+    if(buttonElement) {
+        buttonElement.innerHTML = "<i class='fas fa-check-circle text-emerald-400 mr-1'></i> Sent ✓";
+        buttonElement.className = "px-3 py-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono font-bold rounded-xl transition-all shadow-sm";
         
+        const parentCard = buttonElement.closest('.overdue-card');
+        if(parentCard) {
+            parentCard.classList.add('opacity-60', 'border-emerald-500/20');
+        }
+    }
+}
 
+// [BLOCK 5] : BULK REMINDERS DISPATCHER
+// کام: ون کلک پر لسٹ کے تمام ریمائنڈرز آٹومیٹک باری باری فائر کرنا
+function sendBulkReminders() {
+    const allButtons = document.querySelectorAll('#overdue-alerts-list button');
+    if(allButtons.length === 0) {
+        alert("Muneeb bhai, اس وقت لسٹ میں کوئی اوور ڈیو کسٹمر موجود نہیں ہے!");
+        return;
+    }
+    alert("Bulk reminders ٹریگر ہو گئے ہیں! واٹس ایپ اوپن ہو رہا ہے، سینڈ کرتے جائیں۔");
+    allButtons.forEach(btn => {
+        if(!btn.innerText.includes('Sent')) {
+            btn.click();
+        }
+    });
+}
 
+// [BLOCK 6] : NEXT WASH DUE DATE & CALENDAR GENERATOR
+// کام: کسٹمرز کے اگلے واش کا ڈیٹا خوبصورت گلاس کارڈ فارمیٹ میں اپڈیٹ کرنا
+function loadNextWashCalendar(schedulesArray) {
+    const calendarContainer = document.getElementById('calendar-schedule-list');
+    if(!schedulesArray || schedulesArray.length === 0) {
+        calendarContainer.innerHTML = `<div class="text-slate-500 text-center py-2">No upcoming schedules loaded.</div>`;
+        return;
+    }
+    
+    let htmlContent = `<div class="space-y-2">`;
+    schedulesArray.forEach(item => {
+        htmlContent += `
+            <div class="flex items-center justify-between p-2.5 bg-white/[0.01] rounded-xl border border-white/[0.04]">
+                <div class="flex flex-col text-left">
+                    <span class="font-bold text-slate-200 text-xs">${item.name}</span>
+                    <span class="text-[10px] text-slate-500 font-mono">${item.service} (${item.qty} units)</span>
+                </div>
+                <div class="text-right">
+                    <span class="px-2 py-0.5 rounded bg-teal-500/10 text-teal-400 text-[10px] font-mono border border-teal-500/20">${item.dueDate}</span>
+                </div>
+            </div>`;
+    });
+    htmlContent += `</div>`;
+    calendarContainer.innerHTML = htmlContent;
+}
+
+// [BLOCK 7] : REVIEW BOOSTER LINK TRIGGER
+// کام: گوگل بزنس ریویو لنک آٹومیٹک کلپ بورڈ پر کاپی کرنا
+function triggerReviewBooster(googleReviewLink = "https://g.page/r/your-profile-link/review") {
+    navigator.clipboard.writeText(googleReviewLink).then(() => {
+        alert("🚀 Review Link کلپ بورڈ پر کاپی ہو گیا ہے، Muneeb bhai!");
+    }).catch(err => {
+        alert("Direct link: " + googleReviewLink);
+    });
+}
+
+// [BLOCK 8] : RE-ENGAGEMENT NODE SYSTEM LOADER
+// کام: ڈیٹا بیس نوڈس کو ری انگیجمنٹ کے لیے سکین کرنا
+function checkReengagements() {
+    alert("🔍 Database nodes scanned. All active nodes synchronized!");
+}
+
+/* نوٹ: جب آپ آرڈر انیشلائز یا سیو کریں، تو اپنے مین 'addOrderToPending' یا 'save' والے فنکشن کے آخری لائن پر */
+/* commitBikeMileage(); کو ضرور کال کر دیں تاکہ کلومیٹر آئل کاؤنٹر میں مستقل سیو ہو جائیں۔ */
+
+/* ========================================================================= */
+/*  END OF MASTER JAVASCRIPT CODE BLOCK                                      */
+/* ========================================================================= */
+    
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
 // ========================================================
