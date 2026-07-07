@@ -2180,36 +2180,20 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 
 <script>
     
-// ========================================================
-// WHATSAPP INVOICE MODAL OPEN WITH POP-UP DESIGN FIX
-// ========================================================
-function openInvoiceModal() {
-    const invoiceModal = document.getElementById('admin-invoice-modal');
-    if (invoiceModal) {
-        // Alert ko khatam kar ke direct modal ko show kar rahe hain
-        invoiceModal.classList.remove('hidden');
-        invoiceModal.style.display = 'flex'; // Agar hidden class ke sath display blocked ho
-    }
-}
-
-// Modal ko cross (X) button par click karne se band karne ke liye logic
-function closeInvoiceModal() {
-    const invoiceModal = document.getElementById('admin-invoice-modal');
-    if (invoiceModal) {
-        invoiceModal.classList.add('hidden');
-    }
-}
 /* ========================================================================= */
-/*  MS SECURE 3.0 - ALL-IN-ONE SYSTEM JAVASCRIPT MASTER CODE                 */
+/*  MS SECURE 3.0 - COMPLETE & FINAL JAVASCRIPT MASTER CODE                  */
 /* ========================================================================= */
 
-// پیج لوڈ ہوتے ہی بائیک کا آئل کاؤنٹر ڈیٹا لوکل سٹوریج سے لوڈ کرنا
+// 1. پیج لوڈ ہوتے ہی بائیک کا ٹوٹل آئل کاؤنٹر ڈیٹا لوکل سٹوریج سے لوڈ کرنا
 document.addEventListener("DOMContentLoaded", function() {
     let savedKMs = localStorage.getItem("bike_oil_total_km") || 0;
-    document.getElementById("oil-counter-badge").innerText = `🛢️ Oil: ${savedKMs} KM`;
+    const oilBadge = document.getElementById("oil-counter-badge");
+    if(oilBadge) {
+        oilBadge.innerText = `🛢️ Oil: ${savedKMs} KM`;
+    }
 });
 
-// [BLOCK 1] : DYNAMIC SERVICE TYPE LABEL SWITCHER
+// 2. DYNAMIC SERVICE TYPE LABEL SWITCHER
 // کام: سروس ٹائپ بدلنے پر لیبلز، ریٹس اور پلیس ہولڈرز کو آٹومیٹک فلپ کرنا
 function updateServiceLabels() {
     const serviceType = document.getElementById('inv-service-type').value;
@@ -2217,6 +2201,8 @@ function updateServiceLabels() {
     const rateLabel = document.getElementById('lbl-dynamic-rate');
     const qtyInput = document.getElementById('inv-cust-plates');
     const rateInput = document.getElementById('inv-cust-rate');
+
+    if (!qtyLabel || !rateLabel || !qtyInput || !rateInput) return;
 
     if (serviceType === 'Solar') {
         qtyLabel.innerText = "Quantity / Plates";
@@ -2237,69 +2223,174 @@ function updateServiceLabels() {
     autoCalculateGross();
 }
 
-// [BLOCK 2] : SMART BIKE EXPENSE & OIL CHANGE CYCLE TRACKER
-// کام: کلو میٹر سے پٹرول کا خرچہ نکالنا اور آئل چینج کاؤنٹر میں کے ایم جمع کرنا
+// 3. SMART BIKE EXPENSE & OIL TRACKER
+// کام: ڈسٹنس ان پٹ سے پٹرول کا خرچہ آٹو کیلکولیٹ کرنا
 function calculateSmartFuel() {
-    const avg = parseFloat(document.getElementById("bike-avg-input").value) || 1;
-    const price = parseFloat(document.getElementById("petrol-price-input").value) || 0;
-    const km = parseFloat(document.getElementById("bike-km-input").value) || 0;
+    const avgInput = document.getElementById("bike-avg-input");
+    const priceInput = document.getElementById("petrol-price-input");
+    const kmInput = document.getElementById("bike-km-input");
+    const expenseInput = document.getElementById("admin-expense-amount");
 
-    // فارمولا لاجک
+    if (!avgInput || !priceInput || !kmInput || !expenseInput) return;
+
+    const avg = parseFloat(avgInput.value) || 1;
+    const price = parseFloat(priceInput.value) || 0;
+    const km = parseFloat(kmInput.value) || 0;
+
     if (km > 0) {
         const calculatedExpense = Math.round((km / avg) * price);
-        document.getElementById("admin-expense-amount").value = calculatedExpense;
+        expenseInput.value = calculatedExpense;
     } else {
-        document.getElementById("admin-expense-amount").value = "";
+        expenseInput.value = "";
     }
 }
 
-// کام: پینڈنگ آرڈر فائنل یا سیو کرتے وقت کے ایمز کو لائف ٹائم کاؤنٹر میں جمع کرنا
+// کام: آرڈر فائنل ہونے پر کلومیٹرز کو لائف ٹائم آئل کاؤنٹر میں مستقل جمع کرنا
 function commitBikeMileage() {
-    const km = parseFloat(document.getElementById("bike-km-input").value) || 0;
+    const kmInput = document.getElementById("bike-km-input");
+    if (!kmInput) return;
+
+    const km = parseFloat(kmInput.value) || 0;
     if (km > 0) {
         let currentTotal = parseFloat(localStorage.getItem("bike_oil_total_km")) || 0;
         currentTotal += km;
         localStorage.setItem("bike_oil_total_km", currentTotal);
-        document.getElementById("oil-counter-badge").innerText = `🛢️ Oil: ${currentTotal} KM`;
-        document.getElementById("bike-km-input").value = ""; // ری سیٹ ان پٹ
+        
+        const oilBadge = document.getElementById("oil-counter-badge");
+        if(oilBadge) {
+            oilBadge.innerText = `🛢️ Oil: ${currentTotal} KM`;
+        }
     }
 }
 
-// کام: آئل چینج کروانے کے بعد کاؤنٹر دوبارہ زیرو کرنا
+// کام: آئل چینج کروانے کے بعد کاؤنٹر دوبارہ زیرو (0) کرنا
 function resetOilCounter() {
     if (confirm("Muneeb bhai, کیا آپ نے بائیک کا آئل چینج کروا لیا ہے؟ کاؤنٹر 0 ہو جائے گا۔")) {
         localStorage.setItem("bike_oil_total_km", 0);
-        document.getElementById("oil-counter-badge").innerText = `🛢️ Oil: 0 KM`;
+        const oilBadge = document.getElementById("oil-counter-badge");
+        if(oilBadge) {
+            oilBadge.innerText = `🛢️ Oil: 0 KM`;
+        }
     }
 }
 
-// [BLOCK 3] : MAIN WEBSITE DATA INTEGRATION WITH ANTI-MULTIPLICATION FIX
+// 4. MAIN WEBSITE DATA INTEGRATION WITH ANTI-MULTIPLICATION FIX
 // کام: مین ویب سائٹ سے آنے والے فائنل بل کی کیلکولیشن درست طریقے سے پینڈنگ میں پش کرنا
 function pushDataFromWebsiteToAdmin(customerName, phone, serviceType, totalPlates, finalAmount) {
-    document.getElementById('inv-cust-name').value = customerName;
-    document.getElementById('inv-cust-phone').value = phone;
-    document.getElementById('inv-service-type').value = serviceType;
+    const nameInp = document.getElementById('inv-cust-name');
+    const phoneInp = document.getElementById('inv-cust-phone');
+    const typeInp = document.getElementById('inv-service-type');
+    const platesInp = document.getElementById('inv-cust-plates');
+    const rateInp = document.getElementById('inv-cust-rate');
+
+    if(nameInp) nameInp.value = customerName;
+    if(phoneInp) phoneInp.value = phone;
+    if(typeInp) typeInp.value = serviceType;
     
     updateServiceLabels(); 
 
-    document.getElementById('inv-cust-plates').value = totalPlates;
+    if(platesInp) platesInp.value = totalPlates;
     
-    // فکس لاجک: الٹی کیلکولیشن روکنے کے لیے ایکچول پر-یونٹ ریٹ نکالنا
     let calculatedRate = finalAmount; 
     if(totalPlates > 0 && serviceType === 'Solar') {
         calculatedRate = finalAmount / totalPlates;
     }
     
-    document.getElementById('inv-cust-rate').value = calculatedRate;
+    if(rateInp) rateInp.value = calculatedRate;
     
     autoCalculateGross();
     addOrderToPending(); 
 }
 
-// [BLOCK 4] : AUTOMATIC WHATSAPP REMINDER TRACKING SYSTEM (CHECKMARK SYSTEM)
-// کام: ریمائنڈ بٹن پر کلک مارتے ہی واٹس ایپ اوپن کرنا اور بٹن کو گرین "Sent ✓" کرنا
+// 5. MASTER BUTTON: INITIALIZE ORDER, LOCK MILEAGE & DISPATCH WHATSAPP INVOICE
+// کام: بٹن کلک ہونے پر پورا ڈیٹا پینڈنگ لسٹ میں پش کرنا اور کسٹمر کو واٹس ایپ بھیجنا
+function addOrderToPending() {
+    const custName = document.getElementById('inv-cust-name').value.trim();
+    const custPhone = document.getElementById('inv-cust-phone').value.trim();
+    const serviceType = document.getElementById('inv-service-type').value;
+    const qty = parseFloat(document.getElementById('inv-cust-plates').value) || 0;
+    const rate = parseFloat(document.getElementById('inv-cust-rate').value) || 0;
+    const advance = parseFloat(document.getElementById('inv-cust-advance').value) || 0;
+
+    if (!custName || !custPhone) {
+        alert("Muneeb bhai, براہ کرم کسٹمر کا نام اور واٹس ایپ نمبر لازمی لکھیں!");
+        return;
+    }
+
+    const totalBill = qty * rate;
+    const remainingBalance = totalBill - advance;
+
+    // پینڈنگ لسٹ آرڈر کارڈ جنریشن
+    const pendingList = document.getElementById('pending-orders-list');
+    if (pendingList) {
+        const orderId = 'order-' + Date.now();
+        const orderCardHTML = `
+            <div id="${orderId}" class="p-4 bg-white/[0.02] border border-white/[0.05] rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left">
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-white">${custName}</span>
+                        <span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">${serviceType}</span>
+                    </div>
+                    <p class="text-[10px] text-slate-400 font-mono">Units: ${qty} | Total: Rs ${totalBill} | Adv: Rs ${advance}</p>
+                </div>
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                    <span class="text-xs font-mono font-bold text-amber-300 px-2.5 py-1 rounded-xl bg-amber-500/10 border border-amber-500/20">Pending: Rs ${remainingBalance}</span>
+                </div>
+            </div>
+        `;
+        pendingList.insertAdjacentHTML('afterbegin', orderCardHTML);
+    }
+
+    // بائیک کلومیٹر ڈیٹا کو لائف ٹائم کاؤنٹر میں پش کرنا
+    commitBikeMileage();
+
+    // واٹس ایپ ٹیکسٹ انوائس جنریٹر اور ڈسپیسچ لاجک
+    const invoiceMessage = encodeURIComponent(
+`السلام علیکم ${custName} sahib!
+M-S Solar Cleaning & Car Wash Service ki taraf se aap ka invoice initialize kar diya gaya hai.
+
+📋 Service Details:
+• Service Type: ${serviceType}
+• Total Qty/Plates: ${qty}
+• Advance Paid: Rs ${advance}
+• Remaining Balance: Rs ${remainingBalance}
+• Total Final Bill: Rs ${totalBill}
+
+InshAllah waqt par behtareen performance ke sath kaam mukammal kar diya jayega. Shukriya!
+M-S Solar Cleaning Services`
+    );
+
+    // واٹس ایپ اوپن کرنا
+    window.open(`https://wa.me/${custPhone}?text=${invoiceMessage}`, '_blank');
+
+    // فارم ان پٹس فورا ری سیٹ کرنا
+    document.getElementById('inv-cust-name').value = "";
+    document.getElementById('inv-cust-phone').value = "";
+    document.getElementById('inv-cust-plates').value = "";
+    document.getElementById('inv-cust-advance').value = "";
+    if(document.getElementById('bike-km-input')) document.getElementById('bike-km-input').value = "";
+    if(document.getElementById('admin-expense-amount')) document.getElementById('admin-expense-amount').value = "";
+    
+    autoCalculateGross();
+}
+
+// 6. LIVE REVENUE GENERATOR DISPLAY
+function autoCalculateGross() {
+    const qtyInput = document.getElementById('inv-cust-plates');
+    const rateInput = document.getElementById('inv-cust-rate');
+    const display = document.getElementById('gross-revenue-display');
+    
+    if(!qtyInput || !rateInput || !display) return;
+
+    const qty = parseFloat(qtyInput.value) || 0;
+    const rate = parseFloat(rateInput.value) || 0;
+    const total = qty * rate;
+    display.innerText = "Rs " + total.toLocaleString();
+}
+
+// 7. AUTOMATIC WHATSAPP REMINDER TRACKING SYSTEM (CHECKMARK SYSTEM)
 function sendReminderWhatsApp(phoneNumber, customerName, buttonElement) {
-    const message = encodeURIComponent(`السلام علیکم ${customerName} صاحب، ایم ایس سولر سروس کی طرف سے ریمائنڈر۔ آپ کی سروس کو 15 دن سے زائد ہو چکے ہیں۔ نیکسٹ واش کی بکنگ کے لیے رابطہ کریں۔ شکریہ!`);
+    const message = encodeURIComponent(`السلام علیکم ${customerName} sahib, M-S Solar Service ki taraf se reminder. Aap ki service ko 15 din se ziyada ho chuke hain. Next wash ki booking ke liye rabta karein. Shukriya!`);
     
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 
@@ -2314,15 +2405,14 @@ function sendReminderWhatsApp(phoneNumber, customerName, buttonElement) {
     }
 }
 
-// [BLOCK 5] : BULK REMINDERS DISPATCHER
-// کام: ون کلک پر لسٹ کے تمام ریمائنڈرز آٹومیٹک باری باری فائر کرنا
+// 8. BULK REMINDERS DISPATCHER
 function sendBulkReminders() {
     const allButtons = document.querySelectorAll('#overdue-alerts-list button');
     if(allButtons.length === 0) {
-        alert("Muneeb bhai, اس وقت لسٹ میں کوئی اوور ڈیو کسٹمر موجود نہیں ہے!");
+        alert("Muneeb bhai, is waqt list mein koi overdue customer maujood nahi hai!");
         return;
     }
-    alert("Bulk reminders ٹریگر ہو گئے ہیں! واٹس ایپ اوپن ہو رہا ہے، سینڈ کرتے جائیں۔");
+    alert("Bulk reminders trigger ho gaye hain! WhatsApp open ho raha hai.");
     allButtons.forEach(btn => {
         if(!btn.innerText.includes('Sent')) {
             btn.click();
@@ -2330,10 +2420,11 @@ function sendBulkReminders() {
     });
 }
 
-// [BLOCK 6] : NEXT WASH DUE DATE & CALENDAR GENERATOR
-// کام: کسٹمرز کے اگلے واش کا ڈیٹا خوبصورت گلاس کارڈ فارمیٹ میں اپڈیٹ کرنا
+// 9. NEXT WASH SCHEDULE CALENDAR LOADER
 function loadNextWashCalendar(schedulesArray) {
     const calendarContainer = document.getElementById('calendar-schedule-list');
+    if(!calendarContainer) return;
+
     if(!schedulesArray || schedulesArray.length === 0) {
         calendarContainer.innerHTML = `<div class="text-slate-500 text-center py-2">No upcoming schedules loaded.</div>`;
         return;
@@ -2356,29 +2447,42 @@ function loadNextWashCalendar(schedulesArray) {
     calendarContainer.innerHTML = htmlContent;
 }
 
-// [BLOCK 7] : REVIEW BOOSTER LINK TRIGGER
-// کام: گوگل بزنس ریویو لنک آٹومیٹک کلپ بورڈ پر کاپی کرنا
+// 10. REVIEW BOOSTER LINK TRIGGER
 function triggerReviewBooster(googleReviewLink = "https://g.page/r/your-profile-link/review") {
     navigator.clipboard.writeText(googleReviewLink).then(() => {
-        alert("🚀 Review Link کلپ بورڈ پر کاپی ہو گیا ہے، Muneeb bhai!");
+        alert("🚀 Review Link clipboard par copy ho gaya hai, Muneeb bhai!");
     }).catch(err => {
         alert("Direct link: " + googleReviewLink);
     });
 }
 
-// [BLOCK 8] : RE-ENGAGEMENT NODE SYSTEM LOADER
-// کام: ڈیٹا بیس نوڈس کو ری انگیجمنٹ کے لیے سکین کرنا
+// 11. ECOSYSTEM RE-ENGAGEMENT NODE SCANNER
 function checkReengagements() {
     alert("🔍 Database nodes scanned. All active nodes synchronized!");
 }
 
-/* نوٹ: جب آپ آرڈر انیشلائز یا سیو کریں، تو اپنے مین 'addOrderToPending' یا 'save' والے فنکشن کے آخری لائن پر */
-/* commitBikeMileage(); کو ضرور کال کر دیں تاکہ کلومیٹر آئل کاؤنٹر میں مستقل سیو ہو جائیں۔ */
+// 12. WHATSAPP INVOICE MODAL OPEN/CLOSE POP-UP LOGIC
+// کام: انوائس پاپ اپ پینل کو اسکرین پر اوپن اور کلوز کرنا (بریکٹ فکسڈ)
+function openInvoiceModal() {
+    const invoiceModal = document.getElementById('admin-invoice-modal');
+    if (invoiceModal) {
+        invoiceModal.classList.remove('hidden');
+        invoiceModal.style.display = 'flex'; 
+    }
+}
+
+function closeInvoiceModal() {
+    const invoiceModal = document.getElementById('admin-invoice-modal');
+    if (invoiceModal) {
+        invoiceModal.classList.add('hidden');
+    }
+}
 
 /* ========================================================================= */
 /*  END OF MASTER JAVASCRIPT CODE BLOCK                                      */
 /* ========================================================================= */
-    
+        
+
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
 // ========================================================
