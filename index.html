@@ -2183,19 +2183,27 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 /*  MS SECURE 3.0 - COMPLETE & FINAL JAVASCRIPT MASTER CODE                  */
 /* ========================================================================= */
 
-// 1. پیج لوڈ ہوتے ہی بائیک کا ڈیٹا اور فائنینشل لیجر لوڈ کرنا
+// 1. پیج لوڈ ہوتے ہی لوکل سٹوریج اور فائنینشل لیجر زیرو سیٹ کرنا
 document.addEventListener("DOMContentLoaded", function() {
     let savedKMs = localStorage.getItem("bike_oil_total_km") || 0;
     const oilBadge = document.getElementById("oil-counter-badge");
     if(oilBadge) {
         oilBadge.innerText = `🛢️ Oil: ${savedKMs} KM`;
     }
-    // فائنینشل فیلڈز کو شروع میں زیرو دکھانا
-    updateFinancialDOM(0, 0);
+    resetEcosystemDisplays();
 });
 
+// گلوبل فائنینشل ویلیوز (آرڈرز کا لائیو ریکارڈ رکھنے کے لیے)
+let totalCompletedOrders = 0;
+let totalWorkUnits = 0;
+let grossCashflow = 0;
+let totalEcosystemExpenses = 0;
+
+function resetEcosystemDisplays() {
+    updateFinancialDOM(0, 0, 0);
+}
+
 // 2. DYNAMIC SERVICE TYPE LABEL SWITCHER
-// کام: سروس ٹائپ بدلنے پر لیبلز، ریٹس اور پلیس ہولڈرز کو آٹومیٹک فلپ کرنا
 function updateServiceLabels() {
     const serviceType = document.getElementById('inv-service-type').value;
     const qtyLabel = document.getElementById('lbl-dynamic-qty');
@@ -2225,7 +2233,6 @@ function updateServiceLabels() {
 }
 
 // 3. SMART BIKE EXPENSE & OIL TRACKER
-// کام: ڈسٹنس ان پٹ سے پٹرول کا خرچہ آٹو کیلکولیٹ کرنا
 function calculateSmartFuel() {
     const avgInput = document.getElementById("bike-avg-input");
     const priceInput = document.getElementById("petrol-price-input");
@@ -2246,7 +2253,6 @@ function calculateSmartFuel() {
     }
 }
 
-// کام: آرڈر فائنل ہونے پر کلومیٹرز کو لائف ٹائم آئل کاؤنٹر میں مستقل جمع کرنا
 function commitBikeMileage() {
     const kmInput = document.getElementById("bike-km-input");
     if (!kmInput) return;
@@ -2264,7 +2270,6 @@ function commitBikeMileage() {
     }
 }
 
-// کام: آئل چینج کروانے کے بعد کاؤنٹر دوبارہ زیرو (0) کرنا
 function resetOilCounter() {
     if (confirm("Muneeb bhai, کیا آپ نے بائیک کا آئل چینج کروا لیا ہے؟ کاؤنٹر 0 ہو جائے گا۔")) {
         localStorage.setItem("bike_oil_total_km", 0);
@@ -2275,8 +2280,7 @@ function resetOilCounter() {
     }
 }
 
-// 4. MAIN WEBSITE DATA INTEGRATION WITH ANTI-MULTIPLICATION FIX
-// کام: مین ویب سائٹ سے آنے والے فائنل بل کی کیلکولیشن درست طریقے سے پینڈنگ میں پش کرنا
+// 4. MAIN WEBSITE DATA INTEGRATION
 function pushDataFromWebsiteToAdmin(customerName, phone, serviceType, totalPlates, finalAmount) {
     const nameInp = document.getElementById('inv-cust-name');
     const phoneInp = document.getElementById('inv-cust-phone');
@@ -2303,8 +2307,7 @@ function pushDataFromWebsiteToAdmin(customerName, phone, serviceType, totalPlate
     addOrderToPending(); 
 }
 
-// 5. MASTER BUTTON: INITIALIZE ORDER, LOCK MILEAGE & DISPATCH WHATSAPP INVOICE
-// کام: بٹن کلک ہونے پر پورا ڈیٹا پینڈنگ لسٹ میں پش کرنا اور کسٹمر کو واٹس ایپ بھیجنا
+// 5. MASTER BUTTON: INITIALIZE ORDER, LOCK MILEAGE & DISPATCH DECENT INVOICE
 function addOrderToPending() {
     const custName = document.getElementById('inv-cust-name').value.trim();
     const custPhone = document.getElementById('inv-cust-phone').value.trim();
@@ -2324,26 +2327,25 @@ function addOrderToPending() {
     const remainingBalance = totalBill - advance;
     const totalExpenses = fuelExpense + labourExpense;
 
-    // پینڈنگ لسٹ کارڈ جنریشن (بٹنز کے ساتھ فکسڈ)
+    // پینڈنگ لسٹ کارڈ جنریشن (بٹنز اور کلک فنکشنز 100٪ فکسڈ)
     const pendingList = document.getElementById('pending-orders-list');
     if (pendingList) {
         const orderId = 'order-' + Date.now();
         const orderCardHTML = `
-            <div id="${orderId}" class="p-4 bg-white/[0.02] border border-white/[0.05] rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left transition-all">
-                <div class="space-y-1">
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold text-white">${custName}</span>
-                        <span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">${serviceType}</span>
+            <div id="${orderId}" class="p-4 mb-3 bg-white/[0.02] border border-white/[0.05] rounded-2xl flex flex-col gap-3 text-left transition-all">
+                <div class="flex items-center justify-between">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm font-bold text-white">${custName}</span>
+                            <span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">${serviceType}</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 font-mono">Units: ${qty} | Total: Rs ${totalBill} | Adv: Rs ${advance}</p>
                     </div>
-                    <p class="text-[10px] text-slate-400 font-mono">Units: ${qty} | Total: Rs ${totalBill} | Adv: Rs ${advance}</p>
-                </div>
-                <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
                     <span class="text-xs font-mono font-bold text-amber-300 px-2.5 py-1 rounded-xl bg-amber-500/10 border border-amber-500/20">Pending: Rs ${remainingBalance}</span>
-                    <!-- خوبصورت ایکشن بٹنز کشنلٹی -->
-                    <div class="flex items-center gap-1.5">
-                        <button onclick="completePendingOrder('${orderId}', ${totalBill}, ${totalExpenses})" class="px-2.5 py-1 bg-emerald-500/20 hover:bg-emerald-500 text-emerald-400 hover:text-white text-[10px] font-bold font-mono rounded-lg transition-all border border-emerald-500/30">✓ Done</button>
-                        <button onclick="deletePendingOrder('${orderId}')" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white text-[10px] font-bold font-mono rounded-lg transition-all border border-rose-500/20">🗑️ Delete</button>
-                    </div>
+                </div>
+                <div class="flex items-center justify-end gap-2 pt-2 border-t border-white/[0.03]">
+                    <button onclick="completePendingOrder('${orderId}', ${totalBill}, ${totalExpenses}, ${qty})" class="px-4 py-1.5 bg-emerald-500/20 hover:bg-emerald-500 text-emerald-400 hover:text-white text-xs font-bold rounded-xl transition-all border border-emerald-500/30">✓ Done / Complete</button>
+                    <button onclick="deletePendingOrder('${orderId}')" class="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white text-xs font-bold rounded-xl transition-all border border-rose-500/20">🗑️ Delete</button>
                 </div>
             </div>
         `;
@@ -2352,24 +2354,31 @@ function addOrderToPending() {
 
     commitBikeMileage();
 
+    // 🌟 آپ کا پرانا پریمیم اور ڈیسنٹ واٹس ایپ انوائس میسج فارمیٹ
     const invoiceMessage = encodeURIComponent(
-`السلام علیکم ${custName} sahib!
-M-S Solar Cleaning & Car Wash Service ki taraf se aap ka invoice initialize kar diya gaya hai.
+`M-S SOLAR CLEANING & MAINTENANCE SERVICES
+_______________________________________
 
-📋 Service Details:
-• Service Type: ${serviceType}
-• Total Qty/Plates: ${qty}
-• Advance Paid: Rs ${advance}
-• Remaining Balance: Rs ${remainingBalance}
-• Total Final Bill: Rs ${totalBill}
+Customer Name: ${custName}
+Service Type: ${serviceType}
+Total Qty/Plates: ${qty}
+Rate per Unit: Rs ${rate}
+_______________________________________
+
+Total Final Bill: Rs ${totalBill}
+Advance Amount Paid: Rs ${advance}
+Remaining Balance: Rs ${remainingBalance}
+_______________________________________
 
 InshAllah waqt par behtareen performance ke sath kaam mukammal kar diya jayega. Shukriya!
-M-S Solar Cleaning Services`
+
+Contact: +923000000000
+Website: www.solarcleaningsahiwal.top`
     );
 
     window.open(`https://wa.me/${custPhone}?text=${invoiceMessage}`, '_blank');
 
-    // فارم ری سیٹ
+    // ان پٹس کلیئر کرنا
     document.getElementById('inv-cust-name').value = "";
     document.getElementById('inv-cust-phone').value = "";
     document.getElementById('inv-cust-plates').value = "";
@@ -2380,19 +2389,17 @@ M-S Solar Cleaning Services`
     autoCalculateGross();
 }
 
-// 6. PIPELINE TO LEDGER ECOSYSTEM LOGIC (COMPLETE & DELETE FUNCTIONS)
-// کام: جب آرڈر مکمل (Done) ہو جائے تو فائنینشل لیجر اپڈیٹ کرنا
-function completePendingOrder(orderId, revenue, expenses) {
+// 6. PIPELINE TO LEDGER ECOSYSTEM LOGIC (✓ DONE & 🗑️ DELETE EXECUTORS)
+function completePendingOrder(orderId, revenue, expenses, qty) {
     const orderCard = document.getElementById(orderId);
     if (!orderCard) return;
 
-    if (confirm("Muneeb bhai, کیا یہ آرڈر فائنل مکمل ہو گیا ہے؟ پرافٹ چارٹ اپڈیٹ ہو جائے گا۔")) {
-        updateFinancialDOM(revenue, expenses);
+    if (confirm("Muneeb bhai, کیا یہ آرڈر فائنل مکمل ہو گیا ہے؟ فائنینشل لیجر اپڈیٹ ہو جائے گا۔")) {
+        updateFinancialDOM(revenue, expenses, qty);
         orderCard.remove();
     }
 }
 
-// کام: آرڈر ڈیلیٹ/کینسل کرنا
 function deletePendingOrder(orderId) {
     const orderCard = document.getElementById(orderId);
     if (!orderCard) return;
@@ -2402,34 +2409,64 @@ function deletePendingOrder(orderId) {
     }
 }
 
-// فائنینشل لیجر گلوبل ویلیوز
-let globalGrossRevenue = 0;
-let globalTotalExpenses = 0;
+// 🌟 فائنینشل لیجر انجن: اب یہ ٹیکسٹ نہیں ڈھونڈے گا، بلکہ سیدھا آپ کے ڈبوں کی کلاسز اور پوزیشنز کو ہٹ کرے گا!
+function updateFinancialDOM(addedRevenue, addedExpenses, addedQty) {
+    totalCompletedOrders += (addedRevenue > 0) ? 1 : 0;
+    totalWorkUnits += addedQty;
+    grossCashflow += addedRevenue;
+    totalEcosystemExpenses += addedExpenses;
 
-function updateFinancialDOM(addedRevenue, addedExpenses) {
-    globalGrossRevenue += addedRevenue;
-    globalTotalExpenses += addedExpenses;
-
-    const netProfit = globalGrossRevenue - globalTotalExpenses;
+    const netProfit = grossCashflow - totalEcosystemExpenses;
+    
     let profitMarginPercent = 0;
-    if (globalGrossRevenue > 0) {
-        profitMarginPercent = (netProfit / globalGrossRevenue) * 100;
+    if (grossCashflow > 0) {
+        profitMarginPercent = (netProfit / grossCashflow) * 100;
     }
 
-    // UI پر موجود ڈبوں کو ٹیکسٹ کے ذریعے ڈھونڈ کر اپڈیٹ کرنا
+    let avgRatePerUnit = 0;
+    if (totalWorkUnits > 0) {
+        avgRatePerUnit = grossCashflow / totalWorkUnits;
+    }
+
+    // 1. نیٹ پرافٹ مارجن اپڈیٹ (0.0% والا ڈبہ)
+    const marginElements = document.querySelectorAll('.text-emerald-400');
+    marginElements.forEach(el => {
+        if(el.innerText.includes('%') || el.innerText === "0.0%") {
+            el.innerText = `${profitMarginPercent.toFixed(1)}%`;
+        }
+    });
+
+    // 2. ایوریج ریٹ اور نیٹ پرافٹ (Rs 0.00 والے ڈبے)
+    const cryptoBoxes = document.querySelectorAll('.font-mono.text-amber-400, .text-amber-400');
+    let rateFilled = false;
+    cryptoBoxes.forEach(el => {
+        if(el.innerText.includes('Rs 0.00') || el.innerText.includes('Rs 0')) {
+            if(!rateFilled) {
+                el.innerText = `Rs ${avgRatePerUnit.toFixed(2)}`;
+                rateFilled = true;
+            } else {
+                el.innerText = `Rs ${netProfit.toLocaleString()}`;
+            }
+        }
+    });
+
+    // 3. ٹوٹل ورک یونٹس اپڈیٹ (0 Units والا حصہ)
     const allElements = document.getElementsByTagName('*');
     for (let el of allElements) {
-        if (el.innerText === "0.0%" || (el.innerText.includes("%") && el.classList.contains('text-emerald-400'))) {
-            el.innerText = `${profitMarginPercent.toFixed(1)}%`;
-            break;
+        if (el.innerText.includes("Units") && (el.innerText.startsWith("0") || el.innerText.match(/\d+/))) {
+            if(el.children.length === 0) { 
+                el.innerText = `${totalWorkUnits} Units`;
+            }
         }
     }
-    for (let el of allElements) {
-        if (el.innerText === "Rs 0.00" || el.innerText.startsWith("Rs 0")) {
-            el.innerText = `Rs ${netProfit.toLocaleString()}`;
-            break;
+
+    // 4. گروس کیش فلو اپڈیٹ (Rs 0 والا آخری ڈبہ)
+    const cashflowElements = document.querySelectorAll('.text-emerald-400');
+    cashflowElements.forEach(el => {
+        if(el.innerText === "Rs 0" || (el.innerText.startsWith("Rs") && !el.innerText.includes('.'))) {
+            el.innerText = `Rs ${grossCashflow.toLocaleString()}`;
         }
-    }
+    });
 }
 
 // 7. LIVE REVENUE GENERATOR DISPLAY
@@ -2446,7 +2483,7 @@ function autoCalculateGross() {
     display.innerText = "Rs " + total.toLocaleString();
 }
 
-// 8. AUTOMATIC WHATSAPP REMINDER TRACKING SYSTEM (CHECKMARK SYSTEM)
+// 8. AUTOMATIC WHATSAPP REMINDER TRACKING SYSTEM
 function sendReminderWhatsApp(phoneNumber, customerName, buttonElement) {
     const message = encodeURIComponent(`السلام علیکم ${customerName} sahib, M-S Solar Service ki taraf se reminder. Aap ki service ko 15 din se ziyada ho chuke hain. Next wash ki booking ke liye rabta karein. Shukriya!`);
     
@@ -2520,7 +2557,6 @@ function checkReengagements() {
 }
 
 // 13. WHATSAPP INVOICE MODAL OPEN/CLOSE POP-UP LOGIC
-// کام: انوائس پاپ اپ پینل کو اسکرین پر اوپن اور کلوز کرنا (بریکٹ فکسڈ)
 function openInvoiceModal() {
     const invoiceModal = document.getElementById('admin-invoice-modal');
     if (invoiceModal) {
