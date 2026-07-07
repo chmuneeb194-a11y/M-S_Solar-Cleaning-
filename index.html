@@ -2179,18 +2179,19 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
-    
 /* ========================================================================= */
 /*  MS SECURE 3.0 - COMPLETE & FINAL JAVASCRIPT MASTER CODE                  */
 /* ========================================================================= */
 
-// 1. پیج لوڈ ہوتے ہی بائیک کا ٹوٹل آئل کاؤنٹر ڈیٹا لوکل سٹوریج سے لوڈ کرنا
+// 1. پیج لوڈ ہوتے ہی بائیک کا ڈیٹا اور فائنینشل لیجر لوڈ کرنا
 document.addEventListener("DOMContentLoaded", function() {
     let savedKMs = localStorage.getItem("bike_oil_total_km") || 0;
     const oilBadge = document.getElementById("oil-counter-badge");
     if(oilBadge) {
         oilBadge.innerText = `🛢️ Oil: ${savedKMs} KM`;
     }
+    // فائنینشل فیلڈز کو شروع میں زیرو دکھانا
+    updateFinancialDOM(0, 0);
 });
 
 // 2. DYNAMIC SERVICE TYPE LABEL SWITCHER
@@ -2311,6 +2312,8 @@ function addOrderToPending() {
     const qty = parseFloat(document.getElementById('inv-cust-plates').value) || 0;
     const rate = parseFloat(document.getElementById('inv-cust-rate').value) || 0;
     const advance = parseFloat(document.getElementById('inv-cust-advance').value) || 0;
+    const fuelExpense = parseFloat(document.getElementById('admin-expense-amount').value) || 0;
+    const labourExpense = parseFloat(document.getElementById('admin-labour-amount').value) || 0;
 
     if (!custName || !custPhone) {
         alert("Muneeb bhai, براہ کرم کسٹمر کا نام اور واٹس ایپ نمبر لازمی لکھیں!");
@@ -2319,13 +2322,14 @@ function addOrderToPending() {
 
     const totalBill = qty * rate;
     const remainingBalance = totalBill - advance;
+    const totalExpenses = fuelExpense + labourExpense;
 
-    // پینڈنگ لسٹ آرڈر کارڈ جنریشن
+    // پینڈنگ لسٹ کارڈ جنریشن (بٹنز کے ساتھ فکسڈ)
     const pendingList = document.getElementById('pending-orders-list');
     if (pendingList) {
         const orderId = 'order-' + Date.now();
         const orderCardHTML = `
-            <div id="${orderId}" class="p-4 bg-white/[0.02] border border-white/[0.05] rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left">
+            <div id="${orderId}" class="p-4 bg-white/[0.02] border border-white/[0.05] rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left transition-all">
                 <div class="space-y-1">
                     <div class="flex items-center gap-2">
                         <span class="text-xs font-bold text-white">${custName}</span>
@@ -2333,18 +2337,21 @@ function addOrderToPending() {
                     </div>
                     <p class="text-[10px] text-slate-400 font-mono">Units: ${qty} | Total: Rs ${totalBill} | Adv: Rs ${advance}</p>
                 </div>
-                <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
                     <span class="text-xs font-mono font-bold text-amber-300 px-2.5 py-1 rounded-xl bg-amber-500/10 border border-amber-500/20">Pending: Rs ${remainingBalance}</span>
+                    <!-- خوبصورت ایکشن بٹنز کشنلٹی -->
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="completePendingOrder('${orderId}', ${totalBill}, ${totalExpenses})" class="px-2.5 py-1 bg-emerald-500/20 hover:bg-emerald-500 text-emerald-400 hover:text-white text-[10px] font-bold font-mono rounded-lg transition-all border border-emerald-500/30">✓ Done</button>
+                        <button onclick="deletePendingOrder('${orderId}')" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white text-[10px] font-bold font-mono rounded-lg transition-all border border-rose-500/20">🗑️ Delete</button>
+                    </div>
                 </div>
             </div>
         `;
         pendingList.insertAdjacentHTML('afterbegin', orderCardHTML);
     }
 
-    // بائیک کلومیٹر ڈیٹا کو لائف ٹائم کاؤنٹر میں پش کرنا
     commitBikeMileage();
 
-    // واٹس ایپ ٹیکسٹ انوائس جنریٹر اور ڈسپیسچ لاجک
     const invoiceMessage = encodeURIComponent(
 `السلام علیکم ${custName} sahib!
 M-S Solar Cleaning & Car Wash Service ki taraf se aap ka invoice initialize kar diya gaya hai.
@@ -2360,10 +2367,9 @@ InshAllah waqt par behtareen performance ke sath kaam mukammal kar diya jayega. 
 M-S Solar Cleaning Services`
     );
 
-    // واٹس ایپ اوپن کرنا
     window.open(`https://wa.me/${custPhone}?text=${invoiceMessage}`, '_blank');
 
-    // فارم ان پٹس فورا ری سیٹ کرنا
+    // فارم ری سیٹ
     document.getElementById('inv-cust-name').value = "";
     document.getElementById('inv-cust-phone').value = "";
     document.getElementById('inv-cust-plates').value = "";
@@ -2374,7 +2380,59 @@ M-S Solar Cleaning Services`
     autoCalculateGross();
 }
 
-// 6. LIVE REVENUE GENERATOR DISPLAY
+// 6. PIPELINE TO LEDGER ECOSYSTEM LOGIC (COMPLETE & DELETE FUNCTIONS)
+// کام: جب آرڈر مکمل (Done) ہو جائے تو فائنینشل لیجر اپڈیٹ کرنا
+function completePendingOrder(orderId, revenue, expenses) {
+    const orderCard = document.getElementById(orderId);
+    if (!orderCard) return;
+
+    if (confirm("Muneeb bhai, کیا یہ آرڈر فائنل مکمل ہو گیا ہے؟ پرافٹ چارٹ اپڈیٹ ہو جائے گا۔")) {
+        updateFinancialDOM(revenue, expenses);
+        orderCard.remove();
+    }
+}
+
+// کام: آرڈر ڈیلیٹ/کینسل کرنا
+function deletePendingOrder(orderId) {
+    const orderCard = document.getElementById(orderId);
+    if (!orderCard) return;
+
+    if (confirm("Muneeb bhai, کیا آپ واقعی یہ آرڈر ڈیلیٹ کرنا چاہتے ہیں؟")) {
+        orderCard.remove();
+    }
+}
+
+// فائنینشل لیجر گلوبل ویلیوز
+let globalGrossRevenue = 0;
+let globalTotalExpenses = 0;
+
+function updateFinancialDOM(addedRevenue, addedExpenses) {
+    globalGrossRevenue += addedRevenue;
+    globalTotalExpenses += addedExpenses;
+
+    const netProfit = globalGrossRevenue - globalTotalExpenses;
+    let profitMarginPercent = 0;
+    if (globalGrossRevenue > 0) {
+        profitMarginPercent = (netProfit / globalGrossRevenue) * 100;
+    }
+
+    // UI پر موجود ڈبوں کو ٹیکسٹ کے ذریعے ڈھونڈ کر اپڈیٹ کرنا
+    const allElements = document.getElementsByTagName('*');
+    for (let el of allElements) {
+        if (el.innerText === "0.0%" || (el.innerText.includes("%") && el.classList.contains('text-emerald-400'))) {
+            el.innerText = `${profitMarginPercent.toFixed(1)}%`;
+            break;
+        }
+    }
+    for (let el of allElements) {
+        if (el.innerText === "Rs 0.00" || el.innerText.startsWith("Rs 0")) {
+            el.innerText = `Rs ${netProfit.toLocaleString()}`;
+            break;
+        }
+    }
+}
+
+// 7. LIVE REVENUE GENERATOR DISPLAY
 function autoCalculateGross() {
     const qtyInput = document.getElementById('inv-cust-plates');
     const rateInput = document.getElementById('inv-cust-rate');
@@ -2388,7 +2446,7 @@ function autoCalculateGross() {
     display.innerText = "Rs " + total.toLocaleString();
 }
 
-// 7. AUTOMATIC WHATSAPP REMINDER TRACKING SYSTEM (CHECKMARK SYSTEM)
+// 8. AUTOMATIC WHATSAPP REMINDER TRACKING SYSTEM (CHECKMARK SYSTEM)
 function sendReminderWhatsApp(phoneNumber, customerName, buttonElement) {
     const message = encodeURIComponent(`السلام علیکم ${customerName} sahib, M-S Solar Service ki taraf se reminder. Aap ki service ko 15 din se ziyada ho chuke hain. Next wash ki booking ke liye rabta karein. Shukriya!`);
     
@@ -2405,7 +2463,7 @@ function sendReminderWhatsApp(phoneNumber, customerName, buttonElement) {
     }
 }
 
-// 8. BULK REMINDERS DISPATCHER
+// 9. BULK REMINDERS DISPATCHER
 function sendBulkReminders() {
     const allButtons = document.querySelectorAll('#overdue-alerts-list button');
     if(allButtons.length === 0) {
@@ -2420,7 +2478,7 @@ function sendBulkReminders() {
     });
 }
 
-// 9. NEXT WASH SCHEDULE CALENDAR LOADER
+// 10. NEXT WASH SCHEDULE CALENDAR LOADER
 function loadNextWashCalendar(schedulesArray) {
     const calendarContainer = document.getElementById('calendar-schedule-list');
     if(!calendarContainer) return;
@@ -2447,7 +2505,7 @@ function loadNextWashCalendar(schedulesArray) {
     calendarContainer.innerHTML = htmlContent;
 }
 
-// 10. REVIEW BOOSTER LINK TRIGGER
+// 11. REVIEW BOOSTER LINK TRIGGER
 function triggerReviewBooster(googleReviewLink = "https://g.page/r/your-profile-link/review") {
     navigator.clipboard.writeText(googleReviewLink).then(() => {
         alert("🚀 Review Link clipboard par copy ho gaya hai, Muneeb bhai!");
@@ -2456,12 +2514,12 @@ function triggerReviewBooster(googleReviewLink = "https://g.page/r/your-profile-
     });
 }
 
-// 11. ECOSYSTEM RE-ENGAGEMENT NODE SCANNER
+// 12. ECOSYSTEM RE-ENGAGEMENT NODE SCANNER
 function checkReengagements() {
     alert("🔍 Database nodes scanned. All active nodes synchronized!");
 }
 
-// 12. WHATSAPP INVOICE MODAL OPEN/CLOSE POP-UP LOGIC
+// 13. WHATSAPP INVOICE MODAL OPEN/CLOSE POP-UP LOGIC
 // کام: انوائس پاپ اپ پینل کو اسکرین پر اوپن اور کلوز کرنا (بریکٹ فکسڈ)
 function openInvoiceModal() {
     const invoiceModal = document.getElementById('admin-invoice-modal');
@@ -2481,8 +2539,7 @@ function closeInvoiceModal() {
 /* ========================================================================= */
 /*  END OF MASTER JAVASCRIPT CODE BLOCK                                      */
 /* ========================================================================= */
-        
-
+    
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
 // ========================================================
