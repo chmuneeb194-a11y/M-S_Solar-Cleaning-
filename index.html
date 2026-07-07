@@ -2178,28 +2178,34 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 
 <script>
 /* ========================================================================= */
-/*  MS SECURE 3.0 - COMPLETE & FINAL JAVASCRIPT MASTER CODE                  */
+/*  MS SECURE 4.0 - FINAL COMPREHENSIVE JAVASCRIPT MASTER CODE               */
 /* ========================================================================= */
 
-// 1. پیج لوڈ ہوتے ہی لوکل سٹوریج اور فائنینشل لیجر زیرو سیٹ کرنا
+// 1. پیج لوڈ ہوتے ہی لوکل سٹوریج سے پٹرول، ایوریج، بائیک کلومیٹر اور پرافٹ لیجر لوڈ کرنا
 document.addEventListener("DOMContentLoaded", function() {
+    // بائیک آئل ٹریکر لوڈنگ
     let savedKMs = localStorage.getItem("bike_oil_total_km") || 0;
     const oilBadge = document.getElementById("oil-counter-badge");
     if(oilBadge) {
         oilBadge.innerText = `🛢️ Oil: ${savedKMs} KM`;
     }
-    resetEcosystemDisplays();
+
+    // 🌟 پٹرول ریٹ اور بائیک ایوریج کو لوکل سٹوریج میں لاک کرنا (مہینوں بعد آپ خود بدلیں گے)
+    const avgInput = document.getElementById("bike-avg-input");
+    const priceInput = document.getElementById("petrol-price-input");
+    
+    if(avgInput) {
+        avgInput.value = localStorage.getItem("saved_bike_avg") || "40"; 
+        avgInput.addEventListener("input", () => localStorage.setItem("saved_bike_avg", avgInput.value));
+    }
+    if(priceInput) {
+        priceInput.value = localStorage.getItem("saved_petrol_price") || "270"; 
+        priceInput.addEventListener("input", () => localStorage.setItem("saved_petrol_price", priceInput.value));
+    }
+
+    // لائف ٹائم فائنینشل ڈیٹا کو لوکل سٹوریج سے لوڈ کر کے ڈسپلے کرنا
+    refreshFinancialDOM();
 });
-
-// گلوبل فائنینشل ویلیوز (آرڈرز کا لائیو ریکارڈ رکھنے کے لیے)
-let totalCompletedOrders = 0;
-let totalWorkUnits = 0;
-let grossCashflow = 0;
-let totalEcosystemExpenses = 0;
-
-function resetEcosystemDisplays() {
-    updateFinancialDOM(0, 0, 0);
-}
 
 // 2. DYNAMIC SERVICE TYPE LABEL SWITCHER
 function updateServiceLabels() {
@@ -2305,7 +2311,7 @@ function pushDataFromWebsiteToAdmin(customerName, phone, serviceType, totalPlate
     addOrderToPending(); 
 }
 
-// 5. MASTER BUTTON: INITIALIZE ORDER, LOCK MILEAGE & DISPATCH DECENT INVOICE
+// 5. MASTER BUTTON: INITIALIZE ORDER & DISPATCH DECENT INVOICE
 function addOrderToPending() {
     const custName = document.getElementById('inv-cust-name').value.trim();
     const custPhone = document.getElementById('inv-cust-phone').value.trim();
@@ -2325,7 +2331,7 @@ function addOrderToPending() {
     const remainingBalance = totalBill - advance;
     const totalExpenses = fuelExpense + labourExpense;
 
-    // پینڈنگ لسٹ کارڈ جنریشن (بٹنز اور کلک فنکشنز 100٪ فکسڈ)
+    // پینڈنگ لسٹ کارڈ جنریشن
     const pendingList = document.getElementById('pending-orders-list');
     if (pendingList) {
         const orderId = 'order-' + Date.now();
@@ -2352,7 +2358,7 @@ function addOrderToPending() {
 
     commitBikeMileage();
 
-    // 🌟 آپ کا پرانا پریمیم اور ڈیسنٹ واٹس ایپ انوائس میسج فارمیٹ
+    // 🌟 آپ کا نمبر 03084462121 مستقل واٹس ایپ ٹیکسٹ ٹیمپلیٹ میں فکسڈ ہے
     const invoiceMessage = encodeURIComponent(
 `M-S SOLAR CLEANING & MAINTENANCE SERVICES
 _______________________________________
@@ -2370,13 +2376,13 @@ _______________________________________
 
 InshAllah waqt par behtareen performance ke sath kaam mukammal kar diya jayega. Shukriya!
 
-Contact: +923000000000
+Contact: 03084462121
 Website: www.solarcleaningsahiwal.top`
     );
 
     window.open(`https://wa.me/${custPhone}?text=${invoiceMessage}`, '_blank');
 
-    // ان پٹس کلیئر کرنا
+    // ان پٹس کلیئر کرنا (سوائے لاکڈ بائیک اور پٹرول ریٹ کے)
     document.getElementById('inv-cust-name').value = "";
     document.getElementById('inv-cust-phone').value = "";
     document.getElementById('inv-cust-plates').value = "";
@@ -2387,13 +2393,23 @@ Website: www.solarcleaningsahiwal.top`
     autoCalculateGross();
 }
 
-// 6. PIPELINE TO LEDGER ECOSYSTEM LOGIC (✓ DONE & 🗑️ DELETE EXECUTORS)
+// 6. PIPELINE TO LEDGER ECOSYSTEM LOGIC (✓ DONE EXECUTOR)
 function completePendingOrder(orderId, revenue, expenses, qty) {
     const orderCard = document.getElementById(orderId);
     if (!orderCard) return;
 
     if (confirm("Muneeb bhai, کیا یہ آرڈر فائنل مکمل ہو گیا ہے؟ فائنینشل لیجر اپڈیٹ ہو جائے گا۔")) {
-        updateFinancialDOM(revenue, expenses, qty);
+        // لوکل اسٹوریج میں لائف ٹائم ڈیٹا پلس کرنا
+        let currentUnits = parseFloat(localStorage.getItem("ledger_total_units")) || 0;
+        let currentCash = parseFloat(localStorage.getItem("ledger_gross_cash")) || 0;
+        let currentExpenses = parseFloat(localStorage.getItem("ledger_total_expenses")) || 0;
+
+        localStorage.setItem("ledger_total_units", currentUnits + qty);
+        localStorage.setItem("ledger_gross_cash", currentCash + revenue);
+        localStorage.setItem("ledger_total_expenses", currentExpenses + expenses);
+
+        // لائیو پیج کی سکرین اپڈیٹ کرنا
+        refreshFinancialDOM();
         orderCard.remove();
     }
 }
@@ -2407,12 +2423,11 @@ function deletePendingOrder(orderId) {
     }
 }
 
-// 🌟 فائنینشل لیجر انجن: اب یہ ٹیکسٹ نہیں ڈھونڈے گا، بلکہ سیدھا آپ کے ڈبوں کی کلاسز اور پوزیشنز کو ہٹ کرے گا!
-function updateFinancialDOM(addedRevenue, addedExpenses, addedQty) {
-    totalCompletedOrders += (addedRevenue > 0) ? 1 : 0;
-    totalWorkUnits += addedQty;
-    grossCashflow += addedRevenue;
-    totalEcosystemExpenses += addedExpenses;
+// 🌟 سپر فکسڈ فائنینشل انجن: یہ لوکل سٹوریج سے مستقل ڈیٹا اٹھا کر ڈسپلے کرے گا
+function refreshFinancialDOM() {
+    const totalWorkUnits = parseFloat(localStorage.getItem("ledger_total_units")) || 0;
+    const grossCashflow = parseFloat(localStorage.getItem("ledger_gross_cash")) || 0;
+    const totalEcosystemExpenses = parseFloat(localStorage.getItem("ledger_total_expenses")) || 0;
 
     const netProfit = grossCashflow - totalEcosystemExpenses;
     
@@ -2426,45 +2441,25 @@ function updateFinancialDOM(addedRevenue, addedExpenses, addedQty) {
         avgRatePerUnit = grossCashflow / totalWorkUnits;
     }
 
-    // 1. نیٹ پرافٹ مارجن اپڈیٹ (0.0% والا ڈبہ)
-    const marginElements = document.querySelectorAll('.text-emerald-400');
-    marginElements.forEach(el => {
-        if(el.innerText.includes('%') || el.innerText === "0.0%") {
-            el.innerText = `${profitMarginPercent.toFixed(1)}%`;
-        }
-    });
+    // 1. نیٹ پرافٹ مارجن ڈسپلے
+    const marginBox = document.getElementById("net-profit-margin-display");
+    if (marginBox) marginBox.innerText = `${profitMarginPercent.toFixed(1)}%`;
 
-    // 2. ایوریج ریٹ اور نیٹ پرافٹ (Rs 0.00 والے ڈبے)
-    const cryptoBoxes = document.querySelectorAll('.font-mono.text-amber-400, .text-amber-400');
-    let rateFilled = false;
-    cryptoBoxes.forEach(el => {
-        if(el.innerText.includes('Rs 0.00') || el.innerText.includes('Rs 0')) {
-            if(!rateFilled) {
-                el.innerText = `Rs ${avgRatePerUnit.toFixed(2)}`;
-                rateFilled = true;
-            } else {
-                el.innerText = `Rs ${netProfit.toLocaleString()}`;
-            }
-        }
-    });
+    // 2. ایوریج ریٹ ڈسپلے
+    const avgRateBox = document.getElementById("avg-rate-display");
+    if (avgRateBox) avgRateBox.innerText = `Rs ${avgRatePerUnit.toFixed(2)}`;
 
-    // 3. ٹوٹل ورک یونٹس اپڈیٹ (0 Units والا حصہ)
-    const allElements = document.getElementsByTagName('*');
-    for (let el of allElements) {
-        if (el.innerText.includes("Units") && (el.innerText.startsWith("0") || el.innerText.match(/\d+/))) {
-            if(el.children.length === 0) { 
-                el.innerText = `${totalWorkUnits} Units`;
-            }
-        }
-    }
+    // 3. نیٹ پرافٹ ڈسپلے
+    const netProfitBox = document.getElementById("net-profit-display");
+    if (netProfitBox) netProfitBox.innerText = `Rs ${netProfit.toLocaleString()}`;
 
-    // 4. گروس کیش فلو اپڈیٹ (Rs 0 والا آخری ڈبہ)
-    const cashflowElements = document.querySelectorAll('.text-emerald-400');
-    cashflowElements.forEach(el => {
-        if(el.innerText === "Rs 0" || (el.innerText.startsWith("Rs") && !el.innerText.includes('.'))) {
-            el.innerText = `Rs ${grossCashflow.toLocaleString()}`;
-        }
-    });
+    // 4. ٹوٹل ورک یونٹس ڈسپلے
+    const totalUnitsBox = document.getElementById("total-units-display");
+    if (totalUnitsBox) totalUnitsBox.innerText = `${totalWorkUnits} Units`;
+
+    // 5. گروس کیش فلو ڈسپلے
+    const grossCashBox = document.getElementById("gross-cashflow-display");
+    if (grossCashBox) grossCashBox.innerText = `Rs ${grossCashflow.toLocaleString()}`;
 }
 
 // 7. LIVE REVENUE GENERATOR DISPLAY
@@ -2490,11 +2485,6 @@ function sendReminderWhatsApp(phoneNumber, customerName, buttonElement) {
     if(buttonElement) {
         buttonElement.innerHTML = "<i class='fas fa-check-circle text-emerald-400 mr-1'></i> Sent ✓";
         buttonElement.className = "px-3 py-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono font-bold rounded-xl transition-all shadow-sm";
-        
-        const parentCard = buttonElement.closest('.overdue-card');
-        if(parentCard) {
-            parentCard.classList.add('opacity-60', 'border-emerald-500/20');
-        }
     }
 }
 
@@ -2505,7 +2495,6 @@ function sendBulkReminders() {
         alert("Muneeb bhai, is waqt list mein koi overdue customer maujood nahi hai!");
         return;
     }
-    alert("Bulk reminders trigger ho gaye hain! WhatsApp open ho raha hai.");
     allButtons.forEach(btn => {
         if(!btn.innerText.includes('Sent')) {
             btn.click();
@@ -2540,18 +2529,23 @@ function loadNextWashCalendar(schedulesArray) {
     calendarContainer.innerHTML = htmlContent;
 }
 
-// 11. REVIEW BOOSTER LINK TRIGGER
+// 11. 🌟 فالو اپ بٹن کا فکسڈ ٹریگر فنکشن (جو آپ نے اوپر شفٹ کیا ہے)
+function triggerPendingFollowUps() {
+    const overdueList = document.getElementById('overdue-alerts-list');
+    if (overdueList) {
+        overdueList.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        alert("🔍 Scanning active re-engagement nodes... All synchronized, Muneeb bhai!");
+    }
+}
+
+// 12. REVIEW BOOSTER LINK TRIGGER
 function triggerReviewBooster(googleReviewLink = "https://g.page/r/your-profile-link/review") {
     navigator.clipboard.writeText(googleReviewLink).then(() => {
         alert("🚀 Review Link clipboard par copy ho gaya hai, Muneeb bhai!");
     }).catch(err => {
         alert("Direct link: " + googleReviewLink);
     });
-}
-
-// 12. ECOSYSTEM RE-ENGAGEMENT NODE SCANNER
-function checkReengagements() {
-    alert("🔍 Database nodes scanned. All active nodes synchronized!");
 }
 
 // 13. WHATSAPP INVOICE MODAL OPEN/CLOSE POP-UP LOGIC
@@ -2569,10 +2563,6 @@ function closeInvoiceModal() {
         invoiceModal.classList.add('hidden');
     }
 }
-
-/* ========================================================================= */
-/*  END OF MASTER JAVASCRIPT CODE BLOCK                                      */
-/* ========================================================================= */
     
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
