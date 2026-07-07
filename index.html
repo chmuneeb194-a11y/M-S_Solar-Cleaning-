@@ -2154,34 +2154,202 @@ function closeInvoiceModal() {
     }
 }
 
-function sendWhatsAppInvoice() {
+// =================================================================
+// MS SECURE 3.0 - ULTRA PREMIUM SINGLE-WINDOW CORE LOGIC
+// =================================================================
+
+// 1. AUTO REVENUE & LIVE DISPLAY REAL-TIME EVALUATOR
+function autoCalculateGross() {
+    const plates = parseFloat(document.getElementById('inv-cust-plates').value) || 0;
+    const rate = parseFloat(document.getElementById('inv-cust-rate').value) || 0;
+    const gross = plates * rate;
+    
+    // Top Mini Gross Display Hub Live Update
+    const grossDisplay = document.getElementById('gross-revenue-display');
+    if (grossDisplay) {
+        grossDisplay.innerText = `Rs ${gross.toLocaleString()}`;
+    }
+    return gross;
+}
+
+// 2. LIVE ORDER LIFECYCLE INTERCEPTION & INVOICE GATEWAY
+function addOrderToPending() {
     const name = document.getElementById('inv-cust-name').value.trim();
     const phone = document.getElementById('inv-cust-phone').value.trim();
-    const plates = document.getElementById('inv-cust-plates').value.trim();
-    const rate = document.getElementById('inv-cust-rate').value.trim();
+    const plates = parseFloat(document.getElementById('inv-cust-plates').value) || 0;
+    const rate = parseFloat(document.getElementById('inv-cust-rate').value) || 0;
+    const advance = parseFloat(document.getElementById('inv-cust-advance').value) || 0;
+    const fuel = parseFloat(document.getElementById('admin-expense-amount').value) || 0;
+    const labour = parseFloat(document.getElementById('admin-labour-amount').value) || 0;
 
-    if (!name || !phone || !plates || !rate) {
-        alert("Meherbani karke saari details darj karein!");
+    if (!name || !phone || plates <= 0 || rate <= 0) {
+        alert("Muneeb Bhai, customer records, plates count aur rate lazmi darj karein!");
         return;
     }
 
     const totalBill = plates * rate;
+    const remainingBalance = totalBill - advance;
 
-    // Professional Message Layout with icons
-    const message = `⚡ *M-S SOLAR CLEANING SERVICE* ⚡%0A` +
-                    `---------------------------------------%0A` +
+    // Local Storage Data Assembly Structuring
+    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+    
+    const newRecord = {
+        name: name,
+        phone: phone,
+        service: 'Solar',
+        totalWashedPanels: plates,
+        rate: rate,
+        advancePaid: advance,
+        fuelExpense: fuel,
+        labourExpense: labour,
+        date: new Date().toISOString().split('T')[0],
+        status: remainingBalance <= 0 ? 'Completed' : 'Booked'
+    };
+
+    savedBills.push(newRecord);
+    localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
+
+    // Instant Visual Re-rendering Engine
+    renderLivePipelineQueue();
+    compileSystemLedgerMatrix();
+    if (typeof checkStorageHealth === 'function') checkStorageHealth();
+
+    // Premium Formatted WhatsApp Message Stream
+    const message = `*⚡ M-S SOLAR CLEANING SERVICES* %0A` +
+                    `--------------------------------------%0A` +
                     `*Customer Name:* ${name}%0A` +
                     `*Total Solar Plates:* ${plates}%0A` +
                     `*Rate per Plate:* Rs. ${rate}%0A` +
-                    `---------------------------------------%0A` +
-                    `*Total Service Bill:* *Rs. ${totalBill}*%0A` +
-                    `---------------------------------------%0A` +
+                    `--------------------------------------%0A` +
+                    `*Total Service Bill:* Rs. ${totalBill.toLocaleString()}%0A` +
+                    `*Advance Amount Paid:* Rs. ${advance.toLocaleString()}%0A` +
+                    `*Remaining Net Balance:* Rs. ${remainingBalance.toLocaleString()}%0A` +
+                    `--------------------------------------%0A` +
                     `Thank you for choosing M-S Solar Cleaning! ❤️%0A` +
                     `_Sahiwal's Premium Maintenance Service_`;
 
-    const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
+    const cleanPhone = phone.replace(/[^0-9]/g, '');
+    const finalPhone = cleanPhone.startsWith('0') ? '92' + cleanPhone.substring(1) : (cleanPhone.startsWith('92') ? cleanPhone : '92' + cleanPhone);
+    
+    const whatsappUrl = `https://wa.me/${finalPhone}?text=${message}`;
     window.open(whatsappUrl, '_blank');
+
+    // Smooth UI Inputs Refresher
+    document.getElementById('inv-cust-name').value = '';
+    document.getElementById('inv-cust-phone').value = '';
+    document.getElementById('inv-cust-plates').value = '';
+    document.getElementById('inv-cust-rate').value = '';
+    document.getElementById('inv-cust-advance').value = '';
+    document.getElementById('admin-expense-amount').value = '';
+    document.getElementById('admin-labour-amount').value = '';
+    document.getElementById('gross-revenue-display').innerText = 'Rs 0.00';
+}
+
+// 3. PIPELINE STREAM RENDER ENGINE
+function renderLivePipelineQueue() {
+    const listContainer = document.getElementById('pending-orders-list');
+    if (!listContainer) return;
+
+    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+    
+    if (savedBills.length === 0) {
+        listContainer.innerHTML = `<p class="text-slate-600 text-[10px] font-mono text-center py-4 bg-slate-950/30 rounded-xl border border-white/[0.02]">Pipeline clear. Inject order parameters above.</p>`;
+        return;
     }
+
+    listContainer.innerHTML = '';
+    // Latest orders display first on view node
+    savedBills.slice().reverse().forEach((bill, index) => {
+        const actualIndex = savedBills.length - 1 - index;
+        const gross = (bill.totalWashedPanels || 0) * (bill.rate || 80);
+        const adv = bill.advancePaid || 0;
+        const bal = gross - adv;
+
+        const card = document.createElement('div');
+        card.className = "bg-slate-950/60 p-3 rounded-2xl border border-white/[0.04] flex items-center justify-between gap-2 shadow-inner";
+        card.innerHTML = `
+            <div class="space-y-0.5">
+                <span class="text-xs font-black text-white block">${bill.name}</span>
+                <span class="text-[9px] text-slate-400 font-mono block">${bill.totalWashedPanels} Plates @ Rs ${bill.rate}</span>
+                <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 inline-block mt-1">Bal: Rs ${bal}</span>
+            </div>
+            <button onclick="purgePipelineNode(${actualIndex})" class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white flex items-center justify-center transition-all">
+                <i class="fas fa-trash-alt text-[10px]"></i>
+            </button>
+        `;
+        listContainer.appendChild(card);
+    });
+}
+
+// 4. FINANCIAL STATEMENT COMPILER ENGINE
+function compileSystemLedgerMatrix() {
+    let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+    
+    let totalPlates = 0;
+    let grossCashflow = 0;
+    let totalFuel = 0;
+    let totalLabour = 0;
+
+    savedBills.forEach(bill => {
+        const panels = parseInt(bill.totalWashedPanels) || 0;
+        const rate = parseFloat(bill.rate) || 80;
+        
+        totalPlates += panels;
+        grossCashflow += (panels * rate);
+        totalFuel += parseFloat(bill.fuelExpense) || 0;
+        totalLabour += parseFloat(bill.labourExpense) || 0;
+    });
+
+    const totalExpenses = totalFuel + totalLabour;
+    const netProfit = grossCashflow - totalExpenses;
+    const profitMargin = grossCashflow > 0 ? ((netProfit / grossCashflow) * 100).toFixed(1) : '0.0';
+    const avgRate = totalPlates > 0 ? (grossCashflow / totalPlates).toFixed(2) : '0.00';
+
+    // DOM Safe Node Injector Routine
+    if(document.getElementById('lbl-profit-margin')) document.getElementById('lbl-profit-margin').innerText = `${profitMargin}%`;
+    if(document.getElementById('lbl-avg-rate')) document.getElementById('lbl-avg-rate').innerText = `Rs ${parseFloat(avgRate).toLocaleString()}`;
+    if(document.getElementById('lbl-total-plates')) document.getElementById('lbl-total-plates').innerText = `${totalPlates.toLocaleString()} Plates`;
+    if(document.getElementById('lbl-gross')) document.getElementById('lbl-gross').innerText = `Rs ${grossCashflow.toLocaleString()}`;
+    if(document.getElementById('lbl-fuel')) document.getElementById('lbl-fuel').innerText = `Rs ${totalFuel.toLocaleString()}`;
+    if(document.getElementById('lbl-labour')) document.getElementById('lbl-labour').innerText = `Rs ${totalLabour.toLocaleString()}`;
+    if(document.getElementById('lbl-net-profit')) document.getElementById('lbl-net-profit').innerText = `Rs ${netProfit.toLocaleString()}`;
+}
+
+// 5. PURGE SINGLE NODE FROM PIPELINE
+function purgePipelineNode(index) {
+    if (confirm("Muneeb Bhai, kya aap is record ko hamesha k liye delete karna chahte hain?")) {
+        let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
+        savedBills.splice(index, 1);
+        localStorage.setItem('ms_solar_bills', JSON.stringify(savedBills));
+        
+        renderLivePipelineQueue();
+        compileSystemLedgerMatrix();
+        if (typeof checkStorageHealth === 'function') checkStorageHealth();
+    }
+}
+
+// 6. SYSTEM RESET DEPLOYMENT HARDWARE CONTROL
+function resetSystemLedger() {
+    if (confirm("⚠️ WARNING: Muneeb Bhai, kya aap poora dashboard reset kar k saari memory clear karna chahte hain?")) {
+        localStorage.removeItem('ms_solar_bills');
+        renderLivePipelineQueue();
+        compileSystemLedgerMatrix();
+        if (typeof checkStorageHealth === 'function') checkStorageHealth();
+        alert("Dashboard kamyabi se reset ho gaya hai!");
+    }
+}
+
+// 7. LEDGER RUNTIME GALLERY PRINTER
+function saveStatementToGallery() {
+    alert("Ledger Ecosystem Compiled! Data sync complete with browser system storage cache.");
+}
+
+// Auto Hook Initialize on Screen System Boot
+document.addEventListener("DOMContentLoaded", () => {
+    renderLivePipelineQueue();
+    compileSystemLedgerMatrix();
+});
+    
     
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
@@ -2492,47 +2660,6 @@ document.addEventListener('DOMContentLoaded', () => {
         calculateBill();
     }
 });
-
-// POINT 19: Expense & Profit Margin Tracker
-function calculateProfitAndExpenses() {
-    try {
-        const expenseInput = document.getElementById('admin-expense-amount');
-        const labourInput = document.getElementById('admin-labour-amount');
-        const displayBox = document.getElementById('profit-display-box');
-        
-        let fuelExpense = parseFloat(expenseInput ? expenseInput.value : 0) || 0;
-        let labourWages = parseFloat(labourInput ? labourInput.value : 0) || 0;
-        let totalExpense = fuelExpense + labourWages;
-
-        let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-        
-        let totalRevenue = 0;
-        savedBills.forEach(bill => {
-            if (bill.service === 'solar') {
-                totalRevenue += (parseInt(bill.totalWashedPanels) * 80);
-            } else if (bill.service === 'car') {
-                totalRevenue += parseInt(bill.totalWashedPanels) || 0;
-            } else {
-                totalRevenue += parseInt(bill.totalWashedPanels) || 0;
-            }
-        });
-
-        let netProfit = totalRevenue - totalExpense;
-
-        if (displayBox) {
-            displayBox.classList.remove('hidden');
-            displayBox.innerHTML = `
-                <div class="text-emerald-400 font-bold border-b border-slate-800 pb-1 mb-1">📊 Today's Ledger Financials</div>
-                <div>Gross Revenue: <span class="text-white">Rs. ${totalRevenue.toLocaleString()}</span></div>
-                <div>Total Expenses: <span class="text-red-400">Rs. ${totalExpense.toLocaleString()}</span></div>
-                <div class="mt-1 pt-1 border-t border-slate-900 font-bold">Net Profit: <span class="text-yellow-400">Rs. ${netProfit.toLocaleString()}</span></div>
-            `;
-        }
-    } catch (e) {
-        console.error("Ledger calculation failed:", e);
-    }
-}
-
 function checkStorageHealth() {
     try {
         const healthBadge = document.getElementById('storage-health-badge');
@@ -3878,36 +4005,6 @@ updateSummaryStatsTiles = function() {
     
 });
 
-// 4. STATS TILES & LIVE EXPENSE TO PROFIT CALCULATOR
-function updateSummaryStatsTiles() {
-    try {
-        let savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
-        let totalPanels = 0, totalRevenue = 0, overdueCount = 0;
-        const today = new Date();
-
-        savedBills.forEach(bill => {
-            let panels = parseInt(bill.totalWashedPanels) || 0;
-            totalPanels += panels;
-            totalRevenue += (bill.service === 'solar') ? (panels * (parseFloat(localStorage.getItem('ms_solar_panel_rate')) || 70)) : panels;
-
-            const diffDays = Math.floor(Math.abs(today - new Date(bill.date)) / (1000 * 60 * 60 * 24));
-            if (diffDays >= 15) overdueCount++;
-        });
-
-        let fuel = parseFloat(document.getElementById('admin-expense-amount')?.value || 0);
-        let labour = parseFloat(document.getElementById('admin-labour-amount')?.value || 0);
-        let netProfit = totalRevenue - (fuel + labour);
-
-        if (document.getElementById('tile-total-panels')) document.getElementById('tile-total-panels').innerText = totalPanels.toLocaleString();
-        if (document.getElementById('tile-active-reminders')) document.getElementById('tile-active-reminders').innerText = overdueCount;
-        if (document.getElementById('tile-net-profit')) document.getElementById('tile-net-profit').innerText = `Rs. ${netProfit.toLocaleString()}`;
-    } catch (e) { console.error(e); }
-}
-
-const expInp = document.getElementById('admin-expense-amount');
-const labInp = document.getElementById('admin-labour-amount');
-if (expInp) expInp.addEventListener('input', updateSummaryStatsTiles);
-if (labInp) labInp.addEventListener('input', updateSummaryStatsTiles);
     // ADVANCED BULK REMINDER SMART ENGINE
 function sendBulkReminders() {
     const savedBills = JSON.parse(localStorage.getItem('ms_solar_bills')) || [];
