@@ -2681,29 +2681,64 @@ function drawAdvancedChart() {
 }
 // END FUNCTION: drawAdvancedChart
 // 🌟 پوائنٹ 3: ڈاؤن لوڈ پروفیشنل ویژول ایچ ٹی ایم ایل لیجر (HD Dark Theme)
+// 3️⃣ پوائنٹ 3: ڈاؤن لوڈ پروفیشنل پریمیئم ایچ ٹی ایم ایل لیجر (With Bottom Grand Totals)
 function saveStatementToGallery() {
     if (adminLedger.completedOrders.length === 0) {
-        alert("منیب بھائی! ابھی کوئی بھی آرڈر 'Done' نہیں ہوا، ڈیٹا خالی ہے۔");
+        alert("نہیں بھائی! ڈیٹا خالی ہے۔ 'Done' منیب بھائی! ابھی کوئی بھی آرڈر موجود نہیں ہے۔");
         return;
     }
 
     let rowsHTML = "";
+    
+    // ٹوٹل ویلیوز کیلکولیٹ کرنے کے لیے ویری ایبلز
+    let grandQty = 0;
+    let grandGross = 0;
+    let grandFuel = 0;
+    let grandPartnerShare = 0;
+    let grandNetProfit = 0;
+
     adminLedger.completedOrders.forEach((o, i) => {
+        // ہر رو کی ویلیو کو پلس کرنا
+        let currentQty = parseFloat(o.qty || 0);
+        let currentGross = parseFloat(o.gross || 0);
+        let currentFuel = parseFloat(o.fuel || 0);
+        let currentLabour = parseFloat(o.labour || 0);
+        let currentNetProfit = parseFloat(o.netProfit || 0);
+        
+        // فرض کریں پارٹنر شیئر لیبر یا مخصوص لاجک سے آتا ہے (اگر آپ کے پاس o.partnerShare الگ ہے تو وہ لکھیں، ورنہ لیبر کو ہی شیئر مانا جاتا ہے)
+        let currentPartner = parseFloat(o.labour || 0); 
+
+        grandQty += currentQty;
+        grandGross += currentGross;
+        grandFuel += currentFuel;
+        grandPartnerShare += currentPartner;
+        grandNetProfit += currentNetProfit;
+
         rowsHTML += `
             <tr style="border-bottom: 1px solid #1e293b;">
                 <td style="padding: 12px; font-weight: bold; color: #38bdf8;">#${i+1}</td>
-                <td style="padding: 12px; font-weight: bold; color: #fff;">${o.name}<br><span style="font-size: 10px; color: #94a3b8;">${o.phone || ''}</span></td>
+                <td style="padding: 12px; font-weight: bold; color: #fff;">${o.name}<br><span style="color: #64748b; font-size: 10px; font-weight: normal;">${o.phone || ''}</span></td>
                 <td style="padding: 12px; color: #e2e8f0;">${o.date}</td>
-                <td style="padding: 12px;"><span style="background: #1e3a8a; color: #93c5fd; padding: 2px 6px; border-radius: 4px; font-size: 11px;">${o.type}</span></td>
-                <td style="padding: 12px; text-align: center; color: #fff;">${o.qty}</td>
-                <td style="padding: 12px; text-align: right; color: #10b981; font-weight: bold;">Rs ${o.gross.toLocaleString()}</td>
-                <td style="padding: 12px; text-align: right; color: #f43f5e;">Rs ${o.fuel}</td>
-                <td style="padding: 12px; text-align: right; color: #fbbf24;">Rs ${o.labour}</td>
-                <td style="padding: 12px; text-align: right; color: #34d399; font-weight: bold; font-size: 15px;">Rs ${o.netProfit.toLocaleString()}</td>
+                <td style="padding: 12px;"><span style="background: #1e3a8a; color: #93c5fd; padding: 2px 8px; rounded: 4px; font-size: 10px; font-weight: bold;">${o.type}</span></td>
+                <td style="padding: 12px; text-align: center; color: #fff;">${currentQty}</td>
+                <td style="padding: 12px; text-align: right; color: #10b981; font-weight: bold;">Rs ${currentGross.toLocaleString()}</td>
+                <td style="padding: 12px; text-align: right; color: #f43f5e;">Rs ${currentFuel.toLocaleString()}</td>
+                <td style="padding: 12px; text-align: right; color: #fbbf24;">Rs ${currentPartner.toLocaleString()}</td>
+                <td style="padding: 12px; text-align: right; color: #34d399; font-weight: bold;">Rs ${currentNetProfit.toLocaleString()}</td>
             </tr>`;
     });
 
-    // خوبصورت ڈارک موڈ ایچ ٹی ایم ایل رپورٹ بنانا
+    // 🌟 ڈاؤن باٹم گرینڈ ٹوٹل والی پٹی (Grand Summary Row)
+    let totalRowHTML = `
+        <tr style="background: #0f172a; border-top: 2px solid #38bdf8; border-bottom: 2px solid #38bdf8; font-weight: 900;">
+            <td colspan="4" style="padding: 14px; text-align: left; color: #38bdf8; text-transform: uppercase; letter-spacing: 1px; font-size: 12px;">GRAND TOTALS:</td>
+            <td style="padding: 14px; text-align: center; color: #fff; font-size: 13px; border-bottom: 1px dashed #38bdf8;">${grandQty}</td>
+            <td style="padding: 14px; text-align: right; color: #10b981; font-size: 13px; border-bottom: 1px dashed #10b981;">Rs ${grandGross.toLocaleString()}</td>
+            <td style="padding: 14px; text-align: right; color: #f43f5e; font-size: 13px; border-bottom: 1px dashed #f43f5e;">Rs ${grandFuel.toLocaleString()}</td>
+            <td style="padding: 14px; text-align: right; color: #fbbf24; font-size: 13px; border-bottom: 1px dashed #fbbf24;">Rs ${grandPartnerShare.toLocaleString()}</td>
+            <td style="padding: 14px; text-align: right; color: #34d399; font-size: 13px; border-bottom: 1px dashed #34d399;">Rs ${grandNetProfit.toLocaleString()}</td>
+        </tr>`;
+
     const fullLayout = `
     <!DOCTYPE html>
     <html>
@@ -2712,15 +2747,15 @@ function saveStatementToGallery() {
         <meta charset="utf-8">
     </head>
     <body style="background-color: #0f172a; font-family: sans-serif; padding: 30px; color: #f8fafc;">
-        <div style="max-width: 900px; margin: auto; background: #1e293b; padding: 25px; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
-            <div style="text-align: center; margin-bottom: 25px; border-bottom: 2px solid #334155; padding-bottom: 15px;">
+        <div style="max-width: 900px; margin: auto; background: #1e293b; padding: 25px; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);">
+            <div style="text-align: center; margin-bottom: 25px;">
                 <h1 style="color: #38bdf8; margin: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 1px;">MS SOLAR CLEANING & CAR WASH</h1>
-                <p style="color: #94a3b8; margin: 5px 0 0 0; font-size: 14px;">Official Digital Financial Ledger Report</p>
+                <p style="color: #94a3b8; margin: 5px 0 0 0; font-size: 12px; letter-spacing: 0.5px;">Official Digital Financial Ledger Report</p>
                 <p style="color: #64748b; margin: 2px 0 0 0; font-size: 11px;">Generated on: ${new Date().toLocaleDateString()}</p>
             </div>
             <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
                 <thead>
-                    <tr style="background: #0f172a; color: #94a3b8; text-align: left; font-size: 11px; text-transform: uppercase;">
+                    <tr style="background-block: #0f172a; color: #94a3b8; text-align: left; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #334155;">
                         <th style="padding: 12px;">SR</th>
                         <th style="padding: 12px;">Customer Details</th>
                         <th style="padding: 12px;">Date</th>
@@ -2734,10 +2769,11 @@ function saveStatementToGallery() {
                 </thead>
                 <tbody>
                     ${rowsHTML}
+                    ${totalRowHTML}
                 </tbody>
             </table>
-            <div style="margin-top: 25px; text-align: right; padding-top: 15px; border-top: 2px solid #334155; font-size: 12px; color: #94a3b8;">
-                <p style="margin: 0;">MS SECURE 4.0 Smart Accounting Crypt Engine</p>
+            <div style="margin-top: 25px; text-align: right; padding-top: 15px; border-top: 2px solid #334155;">
+                <p style="margin: 0; color: #64748b; font-size: 11px; font-family: monospace;">MS SECURE 4.0 Smart Accounting Crypt Engine</p>
             </div>
         </div>
     </body>
@@ -2749,9 +2785,10 @@ function saveStatementToGallery() {
     link.download = `MS_Premium_Ledger_${new Date().toISOString().slice(0,10)}.html`;
     link.click();
     
-    alert("📥 منیب بھائی، پریمیم ایچ ٹی ایم ایل لیجر فائل کامیابی سے ڈاؤن لوڈ ہو گئی ہے! اسے اوپن کر کے فل ایچ ڈی اسکرین شاٹ لے لیں۔");
+    alert("پریمیئم ایچ ٹی ایم ایل لیجر فائل کامیابی سے ڈاؤن لوڈ ہو گئی ہے! اسے اوپن کر کے فل ایچ ڈی اسکرین شاٹ لے لیں۔");
 }
 // END FUNCTION: saveStatementToGallery
+
 
 // پورا ڈیش بورڈ ڈیٹا ری سیٹ کرنا
 function resetSystemLedger() {
