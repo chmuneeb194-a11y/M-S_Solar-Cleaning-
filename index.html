@@ -2461,7 +2461,6 @@ function deleteOrder(orderId) {
 function renderAdminDashboard() {
     let totalUnits = 0, grossCashflow = 0, totalFuel = 0, totalLabour = 0, netLiquidProfit = 0;
 
-    // فائنل لیجر کاؤنٹنگ صرف مکمل شدہ (Completed) آرڈرز پر چلے گی
     adminLedger.completedOrders.forEach(o => {
         totalUnits += o.qty;
         grossCashflow += o.gross;
@@ -2478,20 +2477,15 @@ function renderAdminDashboard() {
     if(document.getElementById("total-units-display")) document.getElementById("total-units-display").innerText = totalUnits + " Units";
     if(document.getElementById("gross-cashflow-display")) document.getElementById("gross-cashflow-display").innerText = "Rs " + grossCashflow.toLocaleString();
     if(document.getElementById("lbl-fuel")) document.getElementById("lbl-fuel").innerText = "Rs " + totalFuel.toLocaleString();
-    
     if(document.getElementById("lbl-labour")) document.getElementById("lbl-labour").innerText = "Rs " + totalLabour.toLocaleString();
     if(document.getElementById("net-profit-display")) document.getElementById("net-profit-display").innerText = "Rs " + netLiquidProfit.toLocaleString();
 
-    // پائپ لائن لسٹنگ رینڈر کرنا (جس میں پینڈنگ اور کمپلیٹڈ دونوں کا لائیو فلو نظر آتا ہے)
     const listContainer = document.getElementById("pending-orders-list");
     if (listContainer) {
         listContainer.innerHTML = "";
-        
-        // اگر پینڈنگ اور کمپلیٹڈ دونوں ہی خالی ہیں
         if (adminLedger.pendingOrders.length === 0 && adminLedger.completedOrders.length === 0) {
             listContainer.innerHTML = `<p class="text-[11px] text-slate-500 text-center py-4 font-mono">No active stream orders in pipeline.</p>`;
         } else {
-            // [POINT 01]: پینڈنگ آرڈرز اوپر اور ڈن شدہ آرڈرز نیچے شو ہوں گے
             const activePending = [...adminLedger.pendingOrders];
             const activeCompleted = [...adminLedger.completedOrders];
             const totalStream = activePending.concat(activeCompleted);
@@ -2500,8 +2494,6 @@ function renderAdminDashboard() {
                 const isDone = o.status === "Completed";
                 const card = document.createElement("div");
                 card.className = `p-3 rounded-2xl border ${isDone ? 'bg-slate-900/40 border-white/[0.02] opacity-70' : 'bg-slate-950 border-white/[0.05]'} flex items-center justify-between gap-2 mb-2`;
-                
-                // [POINT 01]: ڈن شدہ کارڈز پر ایڈٹ/ریورٹ کرنے کے لیے "Undone" کا ہک شامل کر دیا گیا ہے
                 card.innerHTML = `
                     <div class="text-left">
                         <div class="flex items-center gap-2">
@@ -2526,17 +2518,17 @@ function renderAdminDashboard() {
         }
     }
 
-    // 15-Days Overdue Alerts رینڈر کرنا
     checkOverdueAlerts();
 
-    // لائیو ریونیو/کیش فلو چارٹ چلانا
     if (typeof drawAdvancedChart === "function") {
         drawAdvancedChart();
     }
+
+    // 🌟 فالو اپس اور شیڈول کیلنڈر کو لائیو لوڈ کرنے کی لاجک
+    if (typeof renderNextWashes === "function") { renderNextWashes(); }
+    if (typeof renderBusinessFollowUps === "function") { renderBusinessFollowUps(); }
 }
 // END FUNCTION: renderAdminDashboard
-
-
 // 🌟 ریمینڈر اور اوور ڈیو کیلکولیشن فنکشن (لوکل اسٹوریج اسٹیٹ لاکنگ کے ساتھ)
 function checkOverdueAlerts() {
     const alertBox = document.getElementById("admin-overdue-alert-container");
@@ -2621,11 +2613,8 @@ function drawAdvancedChart() {
     const today = new Date();
     const currentMonth = today.getMonth();
     const currentYear = today.getFullYear();
-    
-    // موجودہ مہینے کے کل دن (e.g., 30 ya 31)
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-    // پورے مہینے کی تاریخیں اور پرافٹ ارے (Array) بنانا
     let monthLabels = [];
     let monthProfits = Array(daysInMonth).fill(0);
 
@@ -2634,12 +2623,10 @@ function drawAdvancedChart() {
         monthLabels.push(dateStr);
     }
 
-    // آرڈرز کا ڈیٹا میچ کر کے پرافٹ کیلکولیٹ کرنا (فکسڈ ڈیٹ ہینڈلنگ)
     adminLedger.completedOrders.forEach(o => {
         if (!o.date) return;
         let orderDateStr = o.date.trim();
         
-        // اگر فارمیٹ DD-MM-YYYY یا DD/MM/YYYY ہے تو اسے YYYY-MM-DD میں بدلیں
         if (orderDateStr.includes('/') || orderDateStr.includes('-')) {
             const separator = orderDateStr.includes('/') ? '/' : '-';
             const parts = orderDateStr.split(separator);
@@ -2652,13 +2639,11 @@ function drawAdvancedChart() {
 
         let idx = monthLabels.indexOf(orderDateStr);
         if (idx > -1) {
-            // پرافٹ فیلڈ کو درست نمبر میں بدلنا
-            let profitVal = parseFloat(String(o.netProfit || o.profit || 0).replace(/[^0-9.-]/g, ""));
+            let profitVal = parseFloat(o.gross || 0);
             monthProfits[idx] += isNaN(profitVal) ? 0 : profitVal;
         }
     });
 
-    // SVG لائن گراف ڈرا کرنا (پورے مہینے کے پوائنٹس)
     const maxProfit = Math.max(...monthProfits, 5000);
     let points = [];
     monthProfits.forEach((profit, i) => {
@@ -2668,7 +2653,6 @@ function drawAdvancedChart() {
     });
     chartPath.setAttribute("d", `M ${points.join(" L ")}`);
 
-    // 🌟 لائیو پٹی / بریک ڈاؤن پینل (موجودہ مہینے کی روزانہ کی رپورٹ)
     let detailsContainer = document.getElementById("chart-data-details");
     if (!detailsContainer) {
         const chartBox = chartPath.closest('.rounded-2xl') || chartPath.parentElement.parentElement;
@@ -2678,7 +2662,6 @@ function drawAdvancedChart() {
         chartBox.appendChild(detailsContainer);
     }
 
-    // صرف ان دنوں کو دکھانا جن میں آج تک کام ہوا ہے یا پرافٹ بنا ہے
     let detailsHTML = "";
     const currentDay = today.getDate();
     
@@ -2697,7 +2680,6 @@ function drawAdvancedChart() {
     detailsContainer.innerHTML = detailsHTML;
 }
 // END FUNCTION: drawAdvancedChart
-    
 // 🌟 پوائنٹ 3: ڈاؤن لوڈ پروفیشنل ویژول ایچ ٹی ایم ایل لیجر (HD Dark Theme)
 function saveStatementToGallery() {
     if (adminLedger.completedOrders.length === 0) {
