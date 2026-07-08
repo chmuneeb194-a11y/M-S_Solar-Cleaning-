@@ -980,15 +980,17 @@
                         <input type="text" id="inv-cust-phone" placeholder="e.g., 03084462121" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
                     </div>
                 </div>
-<!-- نیا کیلنڈر ان پٹ یہاں ایڈ کریں -->
-<div class="input-group">
-    <label>Select Date</label>
-    <input type="date" id="inv-cust-date" class="w-full bg-slate-900 text-white p-2 rounded-lg">
-</div>
+
+                <!-- 📆 DATE SELECTOR INPUT (Properly Formatted for Multi-Format Support) -->
+                <div class="w-full">
+                    <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Select Date</label>
+                    <input type="date" id="inv-cust-date" class="w-full bg-slate-950/60 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all" />
+                </div>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="w-full">
                         <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Select Service Type</label>
+                        <!-- [POINT 02]: Dynamic Value mapping configured for JavaScript trigger -->
                         <select id="inv-service-type" onchange="updateServiceLabels()" class="w-full bg-slate-950 border border-white/[0.06] rounded-xl px-3 py-2.5 text-xs text-white focus:border-emerald-500 focus:outline-none transition-all">
                             <option value="Solar">Solar Panel Cleaning</option>
                             <option value="Car">Car Washing Service</option>
@@ -1037,7 +1039,7 @@
                     <div class="w-full">
                         <div class="flex justify-between items-center mb-1.5">
                             <label class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Fuel Overhead (Rs)</label>
-                            <!-- Oil Change Counter Display -->
+                            <!-- [POINT 03]: Oil Change Counter Display & Reset Hook -->
                             <span id="oil-counter-badge" onclick="resetOilCounter()" class="text-[8px] font-mono bg-rose-500/10 text-rose-300 border border-rose-500/20 px-1.5 py-0.5 rounded cursor-pointer hover:bg-rose-500/20 transition-all">
                                 🛢️ Oil: 0 KM
                             </span>
@@ -1057,7 +1059,7 @@
                 </button>
             </div>
         </div>
-
+        
         <!-- ------------------------------------------ -->
         <!-- SUB-SECTION B: PIPELINE LIVE STREAMS (PENDING ORDERS) -->
         <!-- ------------------------------------------ -->
@@ -1066,6 +1068,7 @@
                 <div class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
                 <h3 class="text-xs font-black text-slate-300 tracking-widest uppercase">Pipeline Live Streams (Pending Orders)</h3>
             </div>
+            <!-- [POINT 01]: JavaScript will dynamic render cards here containing Done, Delete, and the newly requested Edit/Undone hook -->
             <div id="pending-orders-list" class="space-y-3 max-h-64 overflow-y-auto pr-1 relative z-10"></div>
         </div>
 
@@ -1081,12 +1084,10 @@
                 <div class="grid grid-cols-2 gap-3 mb-1">
                     <div class="bg-gradient-to-br from-slate-950/80 to-slate-900/40 p-3 rounded-2xl border border-white/[0.03] flex flex-col justify-between">
                         <span class="text-[9px] text-teal-400 font-bold tracking-wider uppercase">⚡ NET PROFIT MARGIN</span>
-                        <!-- 🌟 آئی ڈی فکسڈ -->
                         <span id="net-profit-margin-display" class="text-base font-extrabold text-teal-300 mt-1">0.0%</span>
                     </div>
                     <div class="bg-gradient-to-br from-slate-950/80 to-slate-900/40 p-3 rounded-2xl border border-white/[0.03] flex flex-col justify-between">
                         <span class="text-[9px] text-amber-400 font-bold tracking-wider uppercase">🏷️ AVG RATE / UNIT</span>
-                        <!-- 🌟 آئی ڈی فکسڈ -->
                         <span id="avg-rate-display" class="text-base font-extrabold text-amber-300 mt-1">Rs 0.00</span>
                     </div>
                 </div>
@@ -1094,12 +1095,10 @@
                 <div class="grid grid-cols-2 gap-2 bg-slate-950/40 p-3 rounded-2xl border border-white/[0.02]">
                     <div class="space-y-2 border-r border-white/[0.04] pr-2">
                         <span class="text-[9px] text-slate-500 block">TOTAL WORK UNITS</span>
-                        <!-- 🌟 آئی ڈی فکسڈ -->
                         <span id="total-units-display" class="text-sm font-bold text-white block">0 Units</span>
                     </div>
                     <div class="space-y-2 pl-2">
                         <span class="text-[9px] text-slate-500 block">GROSS CASHFLOW</span>
-                        <!-- 🌟 آئی ڈی فکسڈ -->
                         <span id="gross-cashflow-display" class="text-sm font-bold text-emerald-400 block">Rs 0</span>
                     </div>
                 </div>
@@ -1120,7 +1119,6 @@
                         <span class="text-[10px] text-slate-400 font-bold block uppercase tracking-wider">NET LIQUID PROFIT</span>
                         <p class="text-[9px] text-slate-500 mt-0.5">All operating costs deducted</p>
                     </div>
-                    <!-- 🌟 آئی ڈی فکسڈ -->
                     <span id="net-profit-display" class="text-xl font-extrabold text-emerald-400 tracking-tight">Rs 0</span>
                 </div>
                 
@@ -1136,10 +1134,11 @@
         </div>
 
         <!-- ------------------------------------------ -->
-        <!-- SUB-SECTION D: REAL-TIME PROFIT CHART -->
+        <!-- SUB-SECTION D: REAL-TIME TOTAL REVENUE CHART -->
         <!-- ------------------------------------------ -->
         <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
-            <h3 class="text-xs font-black text-slate-400 tracking-widest uppercase mb-3 text-left">Real-time Verified Profit Chart</h3>
+            <!-- [POINT 04]: Title shifted from Profit to Verified Total Revenue / Gross Cashflow -->
+            <h3 class="text-xs font-black text-slate-400 tracking-widest uppercase mb-3 text-left">Real-time Verified Gross Revenue Chart</h3>
             <div class="relative w-full bg-slate-950/80 rounded-2xl p-4 border border-white/[0.03] flex flex-col items-center justify-center shadow-inner">
                 <svg id="live-profit-svg" class="w-full h-32 text-emerald-400" viewBox="0 0 400 100" preserveAspectRatio="none">
                     <path id="chart-path" d="M 0 100 Q 200 100 400 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" class="transition-all duration-700"></path>
@@ -1151,7 +1150,7 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- ------------------------------------------ -->
         <!-- SUB-SECTION E: GLOBAL PANEL RATE CONTROLLER -->
         <!-- ------------------------------------------ -->
@@ -1180,7 +1179,7 @@
         <!-- ------------------------------------------ -->
         <!-- SUB-SECTION F: PREMIUM OVERDUE ALERT DASHBOARD -->
         <!-- ------------------------------------------ -->
-                <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
+        <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
             <div class="absolute -right-20 -bottom-20 h-40 w-40 rounded-full bg-red-500/5 blur-[60px] pointer-events-none"></div>
             <div class="flex items-center gap-2 mb-3">
                 <i class="fas fa-exclamation-triangle text-red-500 text-sm animate-pulse"></i>
@@ -1193,11 +1192,9 @@
                 <span>🚀 Send Bulk Reminders (1-Click List)</span>
             </button>
         
-<!-- ایڈمن پینل کے اندر موجود الرٹ باکس کی آئی ڈی یہ ہونی چاہیے -->
-<div id="admin-overdue-alert-container" class="p-4 rounded-2xl border border-white/[0.05] bg-slate-950 mb-4">
-    <!-- جاوا اسکرپٹ کا ڈیٹا یہاں رینڈر ہوگا -->
-</div>
-                    
+            <!-- [POINT 05]: Overdue Dynamic Container with proper state persistence rendering hooks -->
+            <div id="admin-overdue-alert-container" class="space-y-3 max-h-64 overflow-y-auto pr-1">
+                <!-- JavaScript stateful reminder rows will render here -->
             </div>
         </div>
 
@@ -1209,25 +1206,39 @@
                 <i class="fas fa-calendar-alt text-teal-400 text-sm"></i>
                 <h4 class="text-xs font-black text-slate-300 tracking-widest uppercase">📅 Next Wash Schedule Calendar</h4>
             </div>
-            <div id="calendar-schedule-list" class="text-xs text-slate-400 bg-slate-950/50 p-4 rounded-xl border border-white/[0.03] text-left">
+            <div id="calendar-schedule-list" class="text-xs text-slate-400 bg-slate-950/50 p-4 rounded-xl border border-white/[0.03] text-left mb-4">
                 No upcoming schedules loaded.
             </div>
         </div>
 
         <!-- ------------------------------------------ -->
-        <!-- SUB-SECTION H: RE-ENGAGEMENT & REVIEW BOOSTER -->
+        <!-- [RE-ORDERED & ALIGNED]: SUB-SECTION H: LIVE FOLLOW-UP MANAGER -->
         <!-- ------------------------------------------ -->
         <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
-            <div class="flex items-center gap-2 mb-4">
-                <i class="fas fa-rocket text-blue-400 text-sm"></i>
-                <h4 class="text-xs font-black text-slate-300 tracking-widest uppercase">🚀 Follow-Up & Review Booster</h4>
+            <div class="flex items-center gap-2 mb-3">
+                <i class="fas fa-history text-amber-400 text-sm"></i>
+                <h4 class="text-xs font-black text-slate-300 tracking-widest uppercase">⏱️ Active Business Follow-Ups</h4>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <button onclick="triggerReviewBooster()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 px-4 rounded-xl text-xs transition-all active:scale-[0.99] uppercase shadow-md shadow-blue-900/20">
-                    Generate Review Link
+            <div class="w-full text-left">
+                <!-- Aligned Premium Button Layout -->
+                <button onclick="triggerPendingFollowUps()" class="w-full bg-slate-900 hover:bg-slate-800 text-amber-400 font-extrabold py-3.5 px-4 rounded-xl text-xs border border-white/[0.06] transition-all active:scale-[0.99] uppercase shadow-inner flex items-center justify-center gap-2">
+                    <i class="fas fa-user-clock"></i> Check Pending Follow-Ups
                 </button>
-                <button onclick="triggerPendingFollowUps()" class="bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold py-3 px-4 rounded-xl text-xs border border-white/[0.06] transition-all active:scale-[0.99] uppercase">
-                    Check Pending Follow-Ups
+            </div>
+        </div>
+
+        <!-- ------------------------------------------ -->
+        <!-- [RE-ORDERED & ALIGNED]: SUB-SECTION I: PREMIUM REVIEW BOOSTER -->
+        <!-- ------------------------------------------ -->
+        <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden">
+            <div class="flex items-center gap-2 mb-3">
+                <i class="fas fa-rocket text-blue-400 text-sm"></i>
+                <h4 class="text-xs font-black text-slate-300 tracking-widest uppercase">🚀 Review Link Ecosystem</h4>
+            </div>
+            <div class="w-full text-left">
+                <!-- Aligned Premium Button Layout -->
+                <button onclick="triggerReviewBooster()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs transition-all active:scale-[0.99] uppercase shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2">
+                    <i class="fas fa-star"></i> Generate Review Link
                 </button>
             </div>
         </div>
@@ -1237,7 +1248,7 @@
 <!-- ========================================== -->
 <!-- SECTION END: COMPLETE PREMIUM ADMIN PORTAL -->
 <!-- ========================================== -->
-
+    
     <section id="tools" class="py-24 px-4">
         <div class="container mx-auto max-w-6xl">
             <div class="text-center mb-16 scroll-reveal">
@@ -2204,8 +2215,16 @@ let adminLedger = JSON.parse(localStorage.getItem('ms_admin_ledger')) || {
     globalRate: 80,
     rateReason: "",
     bikeAvg: 15,       // بائیک ایوریج لاک کرنے کے لیے
-    petrolPrice: 270   // پیٹرول پرائس لاک کرنے کے لیے
+    petrolPrice: 270,  // پیٹرول پرائس لاک کرنے کے لیے
+    bikeOdometer: 0,   // [POINT 03]: بائیک کا لائیو ٹوٹل اوڈومیٹر کلومیٹر ٹریکر
+    sentReminders: {}  // [POINT 05]: ریمائنڈرز کی اسٹیٹ سیو رکھنے کے لیے
 };
+
+// ہیلپر فنکشن: ڈیٹا اسٹوریج میں سیو کرنا
+function saveToStorage() {
+    localStorage.setItem('ms_admin_ledger', JSON.stringify(adminLedger));
+}
+// END FUNCTION: saveToStorage
 
 // پیج لوڈ ہوتے ہی سسٹم رن کرنا
 document.addEventListener("DOMContentLoaded", function() {
@@ -2215,13 +2234,17 @@ document.addEventListener("DOMContentLoaded", function() {
         dateInput.value = new Date().toISOString().split('T')[0];
     }
     
-    // 🌟 پوائنٹ 1: محفوظ شدہ فیول اور پیٹرول ویلیوز ان پٹ میں واپس لانا
+    // محفوظ شدہ فیول اور پیٹرول ویلیوز ان پٹ میں واپس لانا
     if(document.getElementById("bike-avg-input")) document.getElementById("bike-avg-input").value = adminLedger.bikeAvg;
     if(document.getElementById("petrol-price-input")) document.getElementById("petrol-price-input").value = adminLedger.petrolPrice;
+
+    // [POINT 03]: اوڈومیٹر کا لائیو بیج فرنٹ اینڈ پر رینڈر کرنا
+    updateOilCounterDisplay();
 
     calculateSmartFuel();
     renderAdminDashboard();
 });
+// END EVENT LISTENER: DOMContentLoaded
 
 // سروس تبدیل ہونے پر لیبلز بدلنا
 function updateServiceLabels() {
@@ -2231,6 +2254,7 @@ function updateServiceLabels() {
     const qtyInput = document.getElementById("inv-cust-plates");
     const rateInput = document.getElementById("inv-cust-rate");
 
+    // [POINT 02]: "WaterTank" ویلیو مینیجمنٹ فکسڈ فار نیو آپشن الائنمنٹ
     if (type === "Solar") {
         if(qtyLbl) qtyLbl.innerText = "Quantity / Plates";
         if(rateLbl) rateLbl.innerText = "Rate per Unit (Rs)";
@@ -2241,7 +2265,7 @@ function updateServiceLabels() {
         if(rateLbl) rateLbl.innerText = "Car Wash Rate (Rs)";
         if(qtyInput) qtyInput.placeholder = "e.g., 1";
         if(rateInput) rateInput.value = "500";
-    } else if (type === "WaterTank") {
+    } else if (type === "WaterTank" || type === "WaterTank Cleaning") {
         if(qtyLbl) qtyLbl.innerText = "Number of Tanks";
         if(rateLbl) rateLbl.innerText = "Tank Cleaning Rate (Rs)";
         if(qtyInput) qtyInput.placeholder = "e.g., 1";
@@ -2249,6 +2273,7 @@ function updateServiceLabels() {
     }
     autoCalculateGross();
 }
+// END FUNCTION: updateServiceLabels
 
 function autoCalculateGross() {
     const qty = parseFloat(document.getElementById("inv-cust-plates").value) || 0;
@@ -2258,6 +2283,7 @@ function autoCalculateGross() {
     if(display) display.innerText = "Rs " + gross.toLocaleString();
     return gross;
 }
+// END FUNCTION: autoCalculateGross
 
 // اسمارٹ فیول کیلکولیٹر اور ویلیو لاکنگ
 function calculateSmartFuel() {
@@ -2265,7 +2291,7 @@ function calculateSmartFuel() {
     const price = parseFloat(document.getElementById("petrol-price-input").value) || 270;
     const km = parseFloat(document.getElementById("bike-km-input").value) || 0;
     
-    // 🌟 پوائنٹ 1: جب بھی صارف ان پٹ بدلے، اسے سٹیٹ میں لاک کریں
+    // جب بھی صارف ان پٹ بدلے، اسے سٹیٹ میں لاک کریں
     adminLedger.bikeAvg = avg;
     adminLedger.petrolPrice = price;
     saveToStorage();
@@ -2276,8 +2302,27 @@ function calculateSmartFuel() {
         if(expenseInput) expenseInput.value = fuelCost;
     }
 }
+// END FUNCTION: calculateSmartFuel
 
-// آرڈر پائپ لائن میں شامل کرنا
+// [POINT 03]: آئل کاؤنٹر اوڈومیٹر کا ڈسپلے اپڈیٹ کرنے کا فنکشن
+function updateOilCounterDisplay() {
+    const oilBadge = document.getElementById("oil-counter-badge");
+    if(oilBadge) {
+        oilBadge.innerText = `🛢️ Oil: ${adminLedger.bikeOdometer || 0} KM`;
+    }
+}
+// END FUNCTION: updateOilCounterDisplay
+
+// [POINT 03]: آئل چینج ٹریکر ری سیٹ کرنے کا فنکشن
+function resetOilCounter() {
+    if(confirm("Muneeb bhai, kya aap bike ka Oil tracker wapas 0 KM karna chahte hain?")) {
+        adminLedger.bikeOdometer = 0;
+        saveToStorage();
+        updateOilCounterDisplay();
+    }
+}
+// END FUNCTION: resetOilCounter
+    // آرڈر پائپ لائن میں شامل کرنا
 function addOrderToPending() {
     const name = document.getElementById("inv-cust-name").value.trim();
     const phone = document.getElementById("inv-cust-phone").value.trim();
@@ -2288,9 +2333,13 @@ function addOrderToPending() {
     const fuel = parseFloat(document.getElementById("admin-expense-amount").value) || 0;
     const labour = parseFloat(document.getElementById("admin-labour-amount").value) || 0;
     
+    // [POINT 03]: بائیک کلومیٹر ان پٹ ریڈ کرنا
+    const kmInput = parseFloat(document.getElementById("bike-km-input").value) || 0;
+    
     const dateInput = document.getElementById("inv-cust-date");
     const selectedDate = (dateInput && dateInput.value) ? dateInput.value : new Date().toISOString().split('T')[0];
 
+    // [POINT 02]: واٹر ٹینک یا کار واش کے لیے کوانٹٹی چیک کو محفوظ بنانا
     if (!name || qty <= 0) {
         alert("منیب بھائی! کسٹمر کا نام اور کوانٹٹی لازمی درج کریں۔");
         return;
@@ -2303,7 +2352,7 @@ function addOrderToPending() {
         id: "MS-" + Date.now(),
         name: name,
         phone: phone,
-        type: type,
+        type: type, // [POINT 02]: واٹر ٹینک ڈیٹا آبجیکٹ بائنڈنگ فکسڈ
         qty: qty,
         rate: rate,
         advance: advance,
@@ -2312,11 +2361,23 @@ function addOrderToPending() {
         gross: gross,
         netProfit: netProfit,
         status: "Pending",
-        date: selectedDate
+        date: selectedDate,
+        bikeKm: kmInput // [POINT 03]: کلومیٹر کو آرڈر میں بائنڈ کرنا تاکہ ریورٹ ہو سکے
     };
+
+    // [POINT 03]: بائیک کلومیٹرز کو لائیو اوڈومیٹر ٹریکر میں جمع کرنا
+    if (kmInput > 0) {
+        adminLedger.bikeOdometer = (adminLedger.bikeOdometer || 0) + kmInput;
+    }
 
     adminLedger.pendingOrders.unshift(newOrder);
     saveToStorage();
+    
+    // [POINT 03]: اوڈومیٹر کا لائیو بیج فرنٹ اینڈ پر فوری اپڈیٹ کرنا
+    if (typeof updateOilCounterDisplay === "function") {
+        updateOilCounterDisplay();
+    }
+
     renderAdminDashboard();
 
     // ان پٹ فیلڈز صاف کرنا
@@ -2329,6 +2390,7 @@ function addOrderToPending() {
     
     alert("🚀 آرڈر کامیابی سے پائپ لائن لائیو اسٹریم میں شامل کر دیا گیا ہے!");
 }
+// END FUNCTION: addOrderToPending
 
 // آرڈر Done کرنا
 function markOrderAsDone(orderId) {
@@ -2336,32 +2398,70 @@ function markOrderAsDone(orderId) {
     if (orderIndex > -1) {
         adminLedger.pendingOrders[orderIndex].status = "Completed";
         let orderCopy = { ...adminLedger.pendingOrders[orderIndex] };
+        
+        // کمپلیٹڈ لسٹ میں پش کرنا
         adminLedger.completedOrders.push(orderCopy);
+        
+        // پینڈنگ لسٹ سے ہٹانا
+        adminLedger.pendingOrders.splice(orderIndex, 1);
         
         saveToStorage();
         renderAdminDashboard();
         alert("✅ آرڈر مکمل کر کے فائنل لیجر اکاؤنٹ میں شامل کر دیا گیا ہے!");
     }
 }
+// END FUNCTION: markOrderAsDone
+
+// [POINT 01]: آرڈر واپس پینڈنگ (Undone / Edit) کرنے کا فنکشن
+function markOrderAsUndone(orderId) {
+    const orderIndex = adminLedger.completedOrders.findIndex(o => o.id === orderId);
+    if (orderIndex > -1) {
+        let orderCopy = { ...adminLedger.completedOrders[orderIndex] };
+        orderCopy.status = "Pending";
+        
+        // پینڈنگ لسٹ میں واپس لانا
+        adminLedger.pendingOrders.unshift(orderCopy);
+        
+        // کمپلیٹڈ لسٹ سے ریموو کرنا (جس سے لیجر اور چارٹ کی رقم خود بخود مائنس ہو جائے گی)
+        adminLedger.completedOrders.splice(orderIndex, 1);
+        
+        saveToStorage();
+        renderAdminDashboard();
+        alert("🔄 آرڈر واپس پائپ لائن (Pending) میں منتقل کر دیا گیا ہے اور لیجر بیلنس ریورٹ ہو گیا ہے!");
+    }
+}
+// END FUNCTION: markOrderAsUndone
 
 // آرڈر ڈیلیٹ کرنا
 function deleteOrder(orderId) {
     if (confirm("کیا آپ واقعی یہ آرڈر ڈیلیٹ کرنا چاہتے ہیں؟")) {
+        // [POINT 03]: اگر پینڈنگ سے ڈیلیٹ ہو رہا ہو اور اس میں بائیک کلومیٹرز تھے، تو اوڈومیٹر سے مائنس کریں
+        const pendingOrder = adminLedger.pendingOrders.find(o => o.id === orderId);
+        if (pendingOrder && pendingOrder.bikeKm) {
+            adminLedger.bikeOdometer = Math.max(0, (adminLedger.bikeOdometer || 0) - pendingOrder.bikeKm);
+        }
+        
+        const completedOrder = adminLedger.completedOrders.find(o => o.id === orderId);
+        if (completedOrder && completedOrder.bikeKm) {
+            adminLedger.bikeOdometer = Math.max(0, (adminLedger.bikeOdometer || 0) - completedOrder.bikeKm);
+        }
+
         adminLedger.pendingOrders = adminLedger.pendingOrders.filter(o => o.id !== orderId);
         adminLedger.completedOrders = adminLedger.completedOrders.filter(o => o.id !== orderId);
+        
         saveToStorage();
+        if (typeof updateOilCounterDisplay === "function") {
+            updateOilCounterDisplay();
+        }
         renderAdminDashboard();
     }
 }
-
-function saveToStorage() {
-    localStorage.setItem('ms_admin_ledger', JSON.stringify(adminLedger));
-}
-
-// 🌟 ڈیش بورڈ، اوور ڈیو الرٹس اور لائیو چارٹ رینڈرنگ
+// END FUNCTION: deleteOrder
+   // 🌟 ڈیش بورڈ، اوور ڈیو الرٹس اور لائیو چارٹ رینڈرنگ
 function renderAdminDashboard() {
     let totalUnits = 0, grossCashflow = 0, totalFuel = 0, totalLabour = 0, netLiquidProfit = 0;
 
+    // فائنل لیجر کاؤنٹنگ صرف مکمل شدہ (Completed) آرڈرز پر چلے گی
     adminLedger.completedOrders.forEach(o => {
         totalUnits += o.qty;
         grossCashflow += o.gross;
@@ -2382,19 +2482,26 @@ function renderAdminDashboard() {
     if(document.getElementById("lbl-labour")) document.getElementById("lbl-labour").innerText = "Rs " + totalLabour.toLocaleString();
     if(document.getElementById("net-profit-display")) document.getElementById("net-profit-display").innerText = "Rs " + netLiquidProfit.toLocaleString();
 
-    // پائپ لائن لسٹنگ رینڈر کرنا
+    // پائپ لائن لسٹنگ رینڈر کرنا (جس میں پینڈنگ اور کمپلیٹڈ دونوں کا لائیو فلو نظر آتا ہے)
     const listContainer = document.getElementById("pending-orders-list");
     if (listContainer) {
         listContainer.innerHTML = "";
-        if (adminLedger.pendingOrders.length === 0) {
+        
+        // اگر پینڈنگ اور کمپلیٹڈ دونوں ہی خالی ہیں
+        if (adminLedger.pendingOrders.length === 0 && adminLedger.completedOrders.length === 0) {
             listContainer.innerHTML = `<p class="text-[11px] text-slate-500 text-center py-4 font-mono">No active stream orders in pipeline.</p>`;
         } else {
-            const sortedOrders = [...adminLedger.pendingOrders].sort((a, b) => (a.status === 'Completed' ? 1 : -1));
-            sortedOrders.forEach(o => {
+            // [POINT 01]: پینڈنگ آرڈرز اوپر اور ڈن شدہ آرڈرز نیچے شو ہوں گے
+            const activePending = [...adminLedger.pendingOrders];
+            const activeCompleted = [...adminLedger.completedOrders];
+            const totalStream = activePending.concat(activeCompleted);
+
+            totalStream.forEach(o => {
                 const isDone = o.status === "Completed";
                 const card = document.createElement("div");
                 card.className = `p-3 rounded-2xl border ${isDone ? 'bg-slate-900/40 border-white/[0.02] opacity-70' : 'bg-slate-950 border-white/[0.05]'} flex items-center justify-between gap-2 mb-2`;
                 
+                // [POINT 01]: ڈن شدہ کارڈز پر ایڈٹ/ریورٹ کرنے کے لیے "Undone" کا ہک شامل کر دیا گیا ہے
                 card.innerHTML = `
                     <div class="text-left">
                         <div class="flex items-center gap-2">
@@ -2404,56 +2511,80 @@ function renderAdminDashboard() {
                         <p class="text-[9px] text-slate-400 font-mono mt-0.5">${o.qty} Units @ Rs ${o.rate} | Advance: Rs ${o.advance}</p>
                     </div>
                     <div class="flex items-center gap-1.5">
-                        ${isDone ? `<span class="text-[10px] font-bold text-emerald-400"><i class="fas fa-check-circle"></i> Done</span>` : `<button onclick="markOrderAsDone('${o.id}')" class="bg-emerald-500 text-slate-950 font-bold px-2.5 py-1 rounded-lg text-[10px]">Done</button>`}
-                        <button onclick="deleteOrder('${o.id}')" class="text-rose-400 p-1.5 rounded-lg border border-rose-500/10 text-[10px]"><i class="fas fa-trash-alt"></i></button>
+                        ${isDone ? `
+                            <button onclick="markOrderAsUndone('${o.id}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 font-bold px-2 py-1 rounded-lg text-[9px] border border-amber-500/20 transition-all flex items-center gap-1">
+                                <i class="fas fa-undo-alt"></i> Undone
+                            </button>
+                            <span class="text-[10px] font-bold text-emerald-400 ml-1"><i class="fas fa-check-circle"></i> Done</span>
+                        ` : `
+                            <button onclick="markOrderAsDone('${o.id}')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-3 py-1 rounded-lg text-[10px] transition-all shadow-md active:scale-95">Done</button>
+                        `}
+                        <button onclick="deleteOrder('${o.id}')" class="text-rose-400 hover:bg-rose-500/10 p-1.5 rounded-lg border border-rose-500/10 text-[10px] transition-all"><i class="fas fa-trash-alt"></i></button>
                     </div>`;
                 listContainer.appendChild(card);
             });
         }
     }
 
-    // 🌟 پوائنٹ 2: 15-DAYS OVERDUE ALERTS AND WHATSAPP REMINDERS LOGIC
+    // 15-Days Overdue Alerts رینڈر کرنا
     checkOverdueAlerts();
 
-    // 🌟 پوائنٹ 4: لائیو ویو پرافٹ چارٹ (ڈیز بریک ڈاؤن کے ساتھ)
-    drawAdvancedChart();
+    // لائیو ریونیو/کیش فلو چارٹ چلانا
+    if (typeof drawAdvancedChart === "function") {
+        drawAdvancedChart();
+    }
 }
+// END FUNCTION: renderAdminDashboard
 
-// 🌟 ریمینڈر اور اوور ڈیو کیلکولیشن فنکشن
-// 🌟 ریمینڈر اور اوور ڈیو کیلکولیشن فنکشن (صرف ایڈمن پینل کے لیے فکسڈ)
-// 1️⃣ REMINDER TRACKING LOGIC (With Sent Status & Green Tick)
-// Sent status کو عارضی طور پر یاد رکھنے کے لیے ایک سیٹ (Set)
-const sentReminders = new Set();
 
+// 🌟 ریمینڈر اور اوور ڈیو کیلکولیشن فنکشن (لوکل اسٹوریج اسٹیٹ لاکنگ کے ساتھ)
 function checkOverdueAlerts() {
     const alertBox = document.getElementById("admin-overdue-alert-container");
     if (!alertBox) return;
 
     let overdueHTML = "";
     const today = new Date();
+    
+    // یقینی بنائیں کہ گلوبل اسٹیٹ میں آبجیکٹ موجود ہے
+    if (!adminLedger.sentReminders) {
+        adminLedger.sentReminders = {};
+    }
 
-    adminLedger.completedOrders.forEach((o, index) => {
+    adminLedger.completedOrders.forEach((o) => {
         const washDate = new Date(o.date);
         const timeDiff = today.getTime() - washDate.getTime();
         const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
 
+        // اگر سروس کو 15 دن یا اس سے زیادہ ہو چکے ہیں
         if (daysDiff >= 15) {
-            const businessMsg = `✨ *MS SOLAR CLEANING & MAINTENANCE* ✨\n----------------------------------------\n*Dear Customer,*\nApki solar plates service ko *${daysDiff} Days* ho chuke hain. Mitti aur dhool ki wajah se panels ki generation breakdown (kam) ho sakti hai.\n\n*Service Details:*\n👤 *Customer:* ${o.name}\n📅 *Last Wash:* ${o.date}\n\nKindly apna next wash schedule confirm karne k liye raabta karein.\nThank you!\n*Muneeb Sarwar*`;
+            // [POINT 02]: سروس ٹائپ کے مطابق میسج کی کسٹمائزیشن (Solar / Car / WaterTank)
+            let serviceTag = "Solar Plates Service";
+            let warningText = "Mitti aur dhool ki wajah se panels ki generation breakdown (kam) ho sakti hai.";
+            
+            if (o.type === "Car") {
+                serviceTag = "Premium Car Wash & Detailing";
+                warningText = "Gari ki shinning aur safe look ko barkrar rakhne k liye regular wash zaroori hai.";
+            } else if (o.type === "WaterTank" || o.type === "WaterTank Cleaning") {
+                serviceTag = "Water Tank Cleaning & Disinfection";
+                warningText = "Pani ki safai aur sehat mand mahool k liye tanki ki regular cleaning zaroori hai.";
+            }
+
+            const businessMsg = `✨ *MS SOLAR CLEANING & CAR WASH* ✨\n----------------------------------------\n*Dear Customer,*\nApki *${serviceTag}* ko *${daysDiff} Days* ho chuke hain. ${warningText}\n\n*Service Details:*\n👤 *Customer:* ${o.name}\n📅 *Last Wash:* ${o.date}\n\nKindly apna next wash schedule confirm karne k liye raabta karein.\nThank you!\n*Muneeb Sarwar* (Sahiwal)`;
             const whatsappLink = `https://wa.me/${o.phone ? o.phone.replace(/[^0-9]/g, "") : ''}?text=${encodeURIComponent(businessMsg)}`;
 
-            // چیک کریں کہ کیا اس انڈیکس کو ریمینڈر بھیجا جا چکا ہے
-            const isSent = sentReminders.has(index);
+            // [POINT 05]: لوکل اسٹوریج اسٹیٹ سے ڈیٹا ریڈ کرنا (ID کی بنیاد پر تا کہ انڈیکس تبدیل ہونے سے بگ نہ آئے)
+            const isSent = adminLedger.sentReminders[o.id] === true;
 
             overdueHTML += `
-                <div class="p-3 mb-2 rounded-xl bg-rose-950/20 border border-rose-500/30 flex justify-between items-center">
-                    <div>
+                <div class="p-3 mb-2 rounded-xl bg-rose-950/20 border border-rose-500/30 flex justify-between items-center gap-2">
+                    <div class="text-left">
                         <p class="text-xs font-bold text-white">${o.name} <span class="text-[10px] text-rose-400">(${daysDiff} Days Overdue)</span></p>
-                        <p class="text-[9px] text-slate-400">Last Service: ${o.date} | Contact: ${o.phone || 'N/A'}</p>
+                        <p class="text-[9px] text-slate-400">Type: ${o.type} | Last: ${o.date} | Contact: ${o.phone || 'N/A'}</p>
                     </div>
                     <a href="${whatsappLink}" 
                        target="_blank" 
-                       onclick="markAsSent(${index}, this)" 
-                       class="${isSent ? 'bg-emerald-600 text-white' : 'bg-emerald-400 text-slate-950'} font-bold px-3 py-1 rounded-lg text-[10px] flex items-center gap-1 transition-all">
+                       onclick="markAsSent('${o.id}', this)" 
+                       class="${isSent ? 'bg-emerald-600 text-white border border-emerald-500/30' : 'bg-emerald-400 text-slate-950'} font-bold px-3 py-1.5 rounded-lg text-[10px] flex items-center gap-1 transition-all active:scale-95 whitespace-nowrap">
                         <i class="${isSent ? 'fas fa-check-circle' : 'fab fa-whatsapp'}"></i> ${isSent ? 'SENT ✓' : 'SEND REMINDER'}
                     </a>
                 </div>`;
@@ -2463,19 +2594,26 @@ function checkOverdueAlerts() {
     if (overdueHTML !== "") {
         alertBox.innerHTML = overdueHTML;
     } else {
-        alertBox.innerHTML = `<div class="text-center py-2 text-emerald-400 text-xs font-mono">🎉 Muneeb bhai, sab perfect hai!</div>`;
+        alertBox.innerHTML = `<div class="text-center py-4 text-emerald-400 text-xs font-mono">🎉 Muneeb bhai, sab perfect hai! Kisi customer ka wash overdue nahi hai.</div>`;
     }
 }
+// END FUNCTION: checkOverdueAlerts
 
-// ریمینڈر کلک ہونے پر بٹن کو لائیو گرین اور ٹک کرنے کا فنکشن
-function markAsSent(index, element) {
-    sentReminders.add(index);
-    element.className = "bg-emerald-600 text-white font-bold px-3 py-1 rounded-lg text-[10px] flex items-center gap-1 transition-all";
+// [POINT 05]: ریمینڈر کلک ہونے پر اسٹیٹ کو لوکل اسٹوریج میں لائیو سیو کرنے کا فنکشن
+function markAsSent(orderId, element) {
+    if (!adminLedger.sentReminders) {
+        adminLedger.sentReminders = {};
+    }
+    // اسٹیٹ کو سچے طریقے سے سیو کرنا
+    adminLedger.sentReminders[orderId] = true;
+    saveToStorage();
+
+    // یو آئی کو فوراً گرین ٹک پر بدلنا
+    element.className = "bg-emerald-600 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] flex items-center gap-1 transition-all border border-emerald-500/30";
     element.innerHTML = `<i class="fas fa-check-circle"></i> SENT ✓`;
 }
-
-
-// 2️⃣ REAL-TIME CURRENT MONTH PROFIT CHART (Day-by-Day Calendar Breakdown)
+// END FUNCTION: markAsSent
+ // 2️⃣ REAL-TIME CURRENT MONTH PROFIT CHART (Day-by-Day Calendar Breakdown)
 function drawAdvancedChart() {
     const chartPath = document.getElementById("chart-path");
     if (!chartPath) return;
@@ -2498,6 +2636,7 @@ function drawAdvancedChart() {
 
     // آرڈرز کا ڈیٹا میچ کر کے پرافٹ کیلکولیٹ کرنا (فکسڈ ڈیٹ ہینڈلنگ)
     adminLedger.completedOrders.forEach(o => {
+        if (!o.date) return;
         let orderDateStr = o.date.trim();
         
         // اگر فارمیٹ DD-MM-YYYY یا DD/MM/YYYY ہے تو اسے YYYY-MM-DD میں بدلیں
@@ -2556,8 +2695,9 @@ function drawAdvancedChart() {
         `;
     }
     detailsContainer.innerHTML = detailsHTML;
-        }
-                    
+}
+// END FUNCTION: drawAdvancedChart
+    
 // 🌟 پوائنٹ 3: ڈاؤن لوڈ پروفیشنل ویژول ایچ ٹی ایم ایل لیجر (HD Dark Theme)
 function saveStatementToGallery() {
     if (adminLedger.completedOrders.length === 0) {
@@ -2572,7 +2712,7 @@ function saveStatementToGallery() {
                 <td style="padding: 12px; font-weight: bold; color: #38bdf8;">#${i+1}</td>
                 <td style="padding: 12px; font-weight: bold; color: #fff;">${o.name}<br><span style="font-size: 10px; color: #94a3b8;">${o.phone || ''}</span></td>
                 <td style="padding: 12px; color: #e2e8f0;">${o.date}</td>
-                <td style="padding: 12px;"><span style="background: #1e3a8a; color: #93c5fd; padding: 2px 6px; rounded: 4px; font-size: 11px;">${o.type}</span></td>
+                <td style="padding: 12px;"><span style="background: #1e3a8a; color: #93c5fd; padding: 2px 6px; border-radius: 4px; font-size: 11px;">${o.type}</span></td>
                 <td style="padding: 12px; text-align: center; color: #fff;">${o.qty}</td>
                 <td style="padding: 12px; text-align: right; color: #10b981; font-weight: bold;">Rs ${o.gross.toLocaleString()}</td>
                 <td style="padding: 12px; text-align: right; color: #f43f5e;">Rs ${o.fuel}</td>
@@ -2629,6 +2769,7 @@ function saveStatementToGallery() {
     
     alert("📥 منیب بھائی، پریمیم ایچ ٹی ایم ایل لیجر فائل کامیابی سے ڈاؤن لوڈ ہو گئی ہے! اسے اوپن کر کے فل ایچ ڈی اسکرین شاٹ لے لیں۔");
 }
+// END FUNCTION: saveStatementToGallery
 
 // پورا ڈیش بورڈ ڈیٹا ری سیٹ کرنا
 function resetSystemLedger() {
@@ -2637,11 +2778,19 @@ function resetSystemLedger() {
         adminLedger.pendingOrders = [];
         adminLedger.bikeAvg = 15;
         adminLedger.petrolPrice = 270;
+        adminLedger.bikeOdometer = 0;   // [POINT 03]: ری سیٹ پر بائیک اوڈومیٹر بھی زیرو ہو جائے گا
+        adminLedger.sentReminders = {};  // [POINT 05]: واٹس ایپ ریمینڈرز کی اسٹیٹ بھی کلیئر ہو جائے گی
+        
         saveToStorage();
+        
+        if (typeof updateOilCounterDisplay === "function") {
+            updateOilCounterDisplay();
+        }
         renderAdminDashboard();
-        alert("🔄 ڈیش بورڈ ڈیٹا مکمل طور پر ری سیٹ کر دیا گیا ہے۔");
+        alert("🔄 ڈیش بورڈ ڈیٹا اور بائیک ٹریکر مکمل طور پر ری سیٹ کر دیا گیا ہے۔");
     }
 }
+// END FUNCTION: resetSystemLedger
 
 // گلوبل ریٹ اپڈیٹ کرنا
 function saveGlobalRate() {
@@ -2653,8 +2802,7 @@ function saveGlobalRate() {
     saveToStorage();
     alert(`📢 نیا گلوبل ریٹ Rs ${rate} کامیابی سے اپڈیٹ کر دیا گیا ہے!`);
 }
-    
-
+// END FUNCTION: saveGlobalRate
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
 // ========================================================
