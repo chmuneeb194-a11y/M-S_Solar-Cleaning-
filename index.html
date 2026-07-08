@@ -1242,9 +1242,31 @@
                 </button>
             </div>
         </div>
-
+        <!-- 📊 MASTER DATA BACKUP & RECOVERY CONTROL PANEL -->
+        <div class="rounded-[2rem] border border-white/[0.06] bg-[#0d1117]/80 backdrop-blur-xl p-5 shadow-xl relative over mb-4" style="font-family: sans-serif; direction: ltr; text-align: left;">
+            <div class="flex items-center gap-2 mb-3">
+                <i class="fas fa-database text-blue-400 text-sm"></i>
+                <h4 class="text-xs font-black text-slate-300 tracking-widest uppercase">📊 All-in-One Master Backup System</h4>
+            </div>
+            <p style="font-size: 13px; color: #94a3b8; margin-bottom: 15px; line-height: 1.6;">
+                موبائل تبدیل کرنے یا ڈیٹا محفوظ کرنے کے لیے ایک کلک پر پورا ایڈمن ڈیٹا (ریمائنڈرز، ہسٹری، فیول ایوریج، لائیو چیٹس) ڈاؤن لوڈ کریں۔ نئے موبائل میں سب کچھ واپس لائیو کرنے کے لیے فائل اپلوڈ کریں۔
+            </p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <!-- ایکسپورٹ بٹن -->
+                <button type="button" onclick="exportDataBackup()" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:opacity-90 text-white font-bold py-3 px-4 rounded-xl transition duration-300 display: flex; align-items: center; justify-content: center; gap: 6px;">
+                    📥 Export & Download Backup
+                </button>
+                <!-- امپورٹ بٹن -->
+                <label for="importFileHidden" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold py-3 px-4 rounded-xl text-center cursor-pointer transition duration-300 display: flex; align-items: center; justify-content: center; gap: 6px; margin: 0;">
+                    📤 Import & Restore Backup
+                </label>
+                <input type="file" id="importFileHidden" onchange="importDataBackup(event)" accept=".json" style="display: none;">
+            </div>
+        </div>
+        
     </div>
 </section>
+
 <!-- ========================================== -->
 <!-- SECTION END: COMPLETE PREMIUM ADMIN PORTAL -->
 <!-- ========================================== -->
@@ -4892,6 +4914,53 @@ function linkCustomerBookingToAdmin() {
     return true;
 }
 // END FUNCTION: linkCustomerBookingToAdmin
+    // ==========================================================================
+// 🚀 ALL-IN-ONE MASTER BACKUP SYSTEM (EXPORT & IMPORT LOGIC)
+// ==========================================================================
+function exportDataBackup() {
+    const masterData = {};
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        masterData[key] = localStorage.getItem(key);
+    }
+    if (Object.keys(masterData).length === 0) {
+        alert("⚠️ بیک اپ کے لیے ایڈمن پینل میں کوئی ڈیٹا موجود نہیں ہے!");
+        return;
+    }
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(masterData));
+    const downloadAnchor = document.createElement('a');
+    const today = new Date().toISOString().slice(0, 10);
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `MS_Solar_MASTER_Backup_${today}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+    alert("🎉 زبردست! آپ کا پورا ایڈمن ڈیٹا (ریمائنڈرز، چیٹس، فیول ایوریج، ہسٹری) ایک ہی فائل میں محفوظ ہو چکا ہے۔ اسے اپنے پاس محفوظ کر لیں۔");
+}
+
+function importDataBackup(event) {
+    const fileReader = new FileReader();
+    const file = event.target.files[0];
+    if (!file) return;
+    fileReader.onload = function(e) {
+        try {
+            const importedMasterData = JSON.parse(e.target.result);
+            const confirmRestore = confirm("⚠️ کیا آپ واقعی پورا ماسٹر ڈیٹا بحال کرنا چاہتے ہیں؟ اس سے تمام پرانا ڈیٹا نئے فائل والے ڈیٹا سے بدل جائے گا۔");
+            if (confirmRestore) {
+                localStorage.clear();
+                Object.keys(importedMasterData).forEach(key => {
+                    localStorage.setItem(key, importedMasterData[key]);
+                });
+                alert("🎉 جادو ہو گیا! آپ کا سارا ڈیٹا، ریمائنڈرز اور سیٹنگز ایز اٹ از واپس لائیو ہو چکی ہیں۔ پیج ریفریش ہو رہا ہے...");
+                window.location.reload();
+            }
+        } catch (error) {
+            alert("❌ فائل ریڈ کرنے میں مسئلہ ہوا! برائے مہربانی صرف اصل ماسٹر بیک اپ فائل ہی اپلوڈ کریں۔");
+        }
+    };
+    fileReader.readAsText(file);
+}
+    
 </script>
 </body>
 </html>
