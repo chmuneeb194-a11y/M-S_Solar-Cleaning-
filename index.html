@@ -4790,8 +4790,17 @@ window.addEventListener('load', () => {
     }
 });
 // =================================================================
-// 🌟 فائنل اسکین شدہ ورژن: تینوں الگ الگ کیلکولیٹرز کے لیے
+// START FUNCTION: linkCustomerBookingToAdmin (With Duplicate Lock 🔒)
+
+let orderPushedLock = false; // یہ لاک آرڈر کو ڈبل (Duplicate) ہونے سے روکے گا
+
 function linkCustomerBookingToAdmin() {
+    // اگر آرڈر پہلے ہی پش ہو چکا ہے، تو دوبارہ مت کرو (ڈپلیکیٹ سے بچاؤ)
+    if (orderPushedLock) {
+        console.log("یہ آرڈر پہلے ہی پینڈنگ لسٹ میں موجود ہے!");
+        return true;
+    }
+
     const customerNameInput = document.querySelector('input[placeholder="e.g. Ali"]');
     const customerPhoneInput = document.querySelector('input[placeholder="e.g. 03084462121"]');
     
@@ -4803,52 +4812,36 @@ function linkCustomerBookingToAdmin() {
         return false;
     }
 
-    // ڈیفالٹ ویلیوز
     let serviceType = "Solar"; 
     let qty = 1;
     let grossVal = 0;
 
-    // 🕵️‍♂️ اسکیننگ لاجک: یہ چیک کرنا کہ کون سا کیلکولیٹر اس وقت اسکرین پر اوپن/Visible ہے
-    
-    // 1️⃣ اگر کار واش کا کیلکولیٹر اوپن ہے
-    // (یہاں آپ نے اپنے کار واش والے سیکشن یا مین ڈیو (Div) کی ID چیک کرنی ہے، فرض کریں وہ 'car-calculator' ہے)
+    // 🕵️‍♂️ اسکیننگ لاجک
     const carSection = document.getElementById("car-calculator") || document.querySelector('[class*="car"]');
     if (carSection && carSection.style.display !== "none" && carSection.offsetHeight > 0) {
         serviceType = "Car Wash";
-        
-        // کار واش کی کوانٹٹی اور ٹوٹل کاسٹ (اپنے کار واش کے فیلڈز کے مطابق)
         const carQtyInput = document.getElementById("car-quantity") || { value: "1" };
         qty = parseInt(carQtyInput.value || carQtyInput.textContent || 1);
-        
-        // کار واش کا فائنل بل جو اسکرین پر شو ہو رہا ہے
         const carCostElement = document.getElementById("car-total-cost") || document.querySelector('.car-cost');
         if (carCostElement) {
             let match = carCostElement.innerText.match(/\d+/);
             if (match) grossVal = parseFloat(match[0]);
         }
     }
-    
-    // 2️⃣ اگر واٹر ٹینک واش کا کیلکولیٹر اوپن ہے
     else if (document.getElementById("tank-calculator") && document.getElementById("tank-calculator").style.display !== "none") {
         serviceType = "Tank Wash";
-        
         const tankQtyInput = document.getElementById("tank-quantity") || { value: "1" };
         qty = parseInt(tankQtyInput.value || tankQtyInput.textContent || 1);
-        
         const tankCostElement = document.getElementById("tank-total-cost") || document.querySelector('.tank-cost');
         if (tankCostElement) {
             let match = tankCostElement.innerText.match(/\d+/);
             if (match) grossVal = parseFloat(match[0]);
         }
     }
-    
-    // 3️⃣ اگر اوپر دونوں اوپن نہیں ہیں، تو اس کا مطلب ہے بائی ڈیفالٹ سولر واش کا کیلکولیٹر اوپن ہے
     else {
         serviceType = "Solar";
         const platesQtyInput = document.getElementById("solar-panels-quantity") || { textContent: "8" }; 
         qty = parseInt(platesQtyInput.textContent || platesQtyInput.value || 8);
-        
-        // سولر واش کی فائنل کاسٹ والا ایلیمنٹ
         const solarCostElement = document.querySelector('[class*="cost"]') || document.body;
         if (solarCostElement) {
             let match = solarCostElement.innerText.match(/\d+/);
@@ -4856,26 +4849,23 @@ function linkCustomerBookingToAdmin() {
         }
     }
 
-    // اگر کسی وجہ سے گروس ویلیو زیرو رہ جائے تو بیک اپ ریٹ لگانا
     if (grossVal === 0) {
-        let defaultRate = serviceType === "Solar" ? 80 : (serviceType === "Tank Wash" ? 1500 : 500); // آپ کے بزنس ریٹس کے مطابق
+        let defaultRate = serviceType === "Solar" ? 80 : (serviceType === "Tank Wash" ? 1500 : 500);
         grossVal = qty * defaultRate;
     }
 
-    // ایڈمن لیجر لوڈ کرنا
     let currentLedger = JSON.parse(localStorage.getItem('ms_admin_ledger')) || {
         completedOrders: [],
         pendingOrders: [],
         bikeOdometer: 0
     };
 
-    // نیا آرڈر آبجیکٹ تیار کرنا
     const newOnlineOrder = {
         id: "ORDER_" + Date.now(),
         name: cName,
         phone: cPhone,
         date: new Date().toISOString().slice(0, 10), 
-        type: serviceType, // 👈 یہاں بالکل صحیح ایکٹو (Active) سروس جائے گی
+        type: serviceType,
         qty: qty,
         rate: Math.round(grossVal / qty),
         gross: grossVal,
@@ -4897,11 +4887,11 @@ function linkCustomerBookingToAdmin() {
         }
     }
 
+    orderPushedLock = true; // 🔒 آرڈر ایک بار چلا گیا، اب لاک لگا دو تاکہ دوبارہ نہ جائے
     console.log(`${serviceType} کا آرڈر ایڈمن پینڈنگ لسٹ میں چلا گیا! ✅`);
     return true;
 }
-    
-    
+// END FUNCTION: linkCustomerBookingToAdmin
 </script>
 </body>
 </html>
