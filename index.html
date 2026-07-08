@@ -2392,71 +2392,61 @@ function addOrderToPending() {
 }
 // END FUNCTION: addOrderToPending
 
-// آرڈر Done کرنا
+// 🌟 فکسڈ ورژن: آرڈر Done کرنے پر کلومیٹر محفوظ رہیں گے
 function markOrderAsDone(orderId) {
     const orderIndex = adminLedger.pendingOrders.findIndex(o => o.id === orderId);
     if (orderIndex > -1) {
         adminLedger.pendingOrders[orderIndex].status = "Completed";
         let orderCopy = { ...adminLedger.pendingOrders[orderIndex] };
         
-        // کمپلیٹڈ لسٹ میں پش کرنا
+        // آرڈر کو کمپلیٹڈ لسٹ میں پش کرنا
         adminLedger.completedOrders.push(orderCopy);
         
         // پینڈنگ لسٹ سے ہٹانا
         adminLedger.pendingOrders.splice(orderIndex, 1);
         
+        // 🌟 سب سے اہم فکس: اوڈومیٹر کے ٹوٹل کلومیٹرز کو دوبارہ ری-کیلکولیٹ کرنا تاکہ ڈیٹا کبھی زیرو نہ ہو
+        let totalKms = 0;
+        // پینڈنگ اور کمپلیٹڈ دونوں لسٹوں کے کلومیٹرز کو جمع کرنا
+        adminLedger.pendingOrders.forEach(o => { if(o.bikeKm) totalKms += parseFloat(o.bikeKm); });
+        adminLedger.completedOrders.forEach(o => { if(o.bikeKm) totalKms += parseFloat(o.bikeKm); });
+        
+        adminLedger.bikeOdometer = totalKms; // فائنل کلومیٹر اپڈیٹ
+
         saveToStorage();
         renderAdminDashboard();
-        alert("✅ آرڈر مکمل کر کے فائنل لیجر اکاؤنٹ میں شامل کر دیا گیا ہے!");
-    }
-}
-// END FUNCTION: markOrderAsDone
-
-// [POINT 01]: آرڈر واپس پینڈنگ (Undone / Edit) کرنے کا فنکشن
-function markOrderAsUndone(orderId) {
-    const orderIndex = adminLedger.completedOrders.findIndex(o => o.id === orderId);
-    if (orderIndex > -1) {
-        let orderCopy = { ...adminLedger.completedOrders[orderIndex] };
-        orderCopy.status = "Pending";
         
-        // پینڈنگ لسٹ میں واپس لانا
-        adminLedger.pendingOrders.unshift(orderCopy);
-        
-        // کمپلیٹڈ لسٹ سے ریموو کرنا (جس سے لیجر اور چارٹ کی رقم خود بخود مائنس ہو جائے گی)
-        adminLedger.completedOrders.splice(orderIndex, 1);
-        
-        saveToStorage();
-        renderAdminDashboard();
-        alert("🔄 آرڈر واپس پائپ لائن (Pending) میں منتقل کر دیا گیا ہے اور لیجر بیلنس ریورٹ ہو گیا ہے!");
-    }
-}
-// END FUNCTION: markOrderAsUndone
-
-// آرڈر ڈیلیٹ کرنا
-function deleteOrder(orderId) {
-    if (confirm("کیا آپ واقعی یہ آرڈر ڈیلیٹ کرنا چاہتے ہیں؟")) {
-        // [POINT 03]: اگر پینڈنگ سے ڈیلیٹ ہو رہا ہو اور اس میں بائیک کلومیٹرز تھے، تو اوڈومیٹر سے مائنس کریں
-        const pendingOrder = adminLedger.pendingOrders.find(o => o.id === orderId);
-        if (pendingOrder && pendingOrder.bikeKm) {
-            adminLedger.bikeOdometer = Math.max(0, (adminLedger.bikeOdometer || 0) - pendingOrder.bikeKm);
-        }
-        
-        const completedOrder = adminLedger.completedOrders.find(o => o.id === orderId);
-        if (completedOrder && completedOrder.bikeKm) {
-            adminLedger.bikeOdometer = Math.max(0, (adminLedger.bikeOdometer || 0) - completedOrder.bikeKm);
-        }
-
-        adminLedger.pendingOrders = adminLedger.pendingOrders.filter(o => o.id !== orderId);
-        adminLedger.completedOrders = adminLedger.completedOrders.filter(o => o.id !== orderId);
-        
-        saveToStorage();
         if (typeof updateOilCounterDisplay === "function") {
             updateOilCounterDisplay();
         }
+        
+        alert("آرڈر مکمل کر کے فائنل لیجر اکاؤنٹ میں شامل کر دیا گیا ہے! ✅");
+    }
+}
+// END FUNCTION: markOrderAsDone
+    
+// آرڈر ڈیلیٹ کرنا
+function deleteOrder(orderId) {
+    if (confirm("کیا آپ واقعی یہ آرڈر ڈیلیٹ کرنا چاہتے ہیں؟")) {
+        adminLedger.pendingOrders = adminLedger.pendingOrders.filter(o => o.id !== orderId);
+        adminLedger.completedOrders = adminLedger.completedOrders.filter(o => o.id !== orderId);
+        
+        // 🌟 ڈیلیٹ ہونے کے بعد کلومیٹرز کو دوبارہ صحیح پلس کرنا
+        let totalKms = 0;
+        adminLedger.pendingOrders.forEach(o => { if(o.bikeKm) totalKms += parseFloat(o.bikeKm); });
+        adminLedger.completedOrders.forEach(o => { if(o.bikeKm) totalKms += parseFloat(o.bikeKm); });
+        adminLedger.bikeOdometer = totalKms;
+
+        saveToStorage();
         renderAdminDashboard();
+        
+        if (typeof updateOilCounterDisplay === "function") {
+            updateOilCounterDisplay();
+        }
     }
 }
 // END FUNCTION: deleteOrder
+
    // 🌟 ڈیش بورڈ، اوور ڈیو الرٹس اور لائیو چارٹ رینڈرنگ
 function renderAdminDashboard() {
     let totalUnits = 0, grossCashflow = 0, totalFuel = 0, totalLabour = 0, netLiquidProfit = 0;
