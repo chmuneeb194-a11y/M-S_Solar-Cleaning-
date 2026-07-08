@@ -1071,16 +1071,6 @@
             <!-- [POINT 01]: JavaScript will dynamic render cards here containing Done, Delete, and the newly requested Edit/Undone hook -->
             <div id="pending-orders-list" class="space-y-3 max-h-64 overflow-y-auto pr-1 relative z-10"></div>
         </div>
-        <!-- 📜 SUB-SECTION B2: COMPLETED ORDERS STREAMS (DONE ORDERS) -->
-        <div class="rounded-[2rem] border border-white/[0.05] bg-[#0d1117]/85 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden mt-4">
-            <div class="flex items-center gap-2 mb-4 relative z-10">
-                <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-                <h3 class="text-xs font-black text-slate-300 tracking-widest uppercase">✅ Completed & Settled Orders</h3>
-            </div>
-            <!-- ⚠️ جاوا اسکرپٹ اس ID کے اندر ڈن ہوئے آرڈرز اور ان-ڈن کا بٹن رینڈر کرے گی -->
-            <div id="completed-orders-list" class="space-y-3 max-h-64 overflow-y-auto pr-1 relative z-10"></div>
-        </div>
-        
         <!-- ------------------------------------------ -->
         <!-- SUB-SECTION C: FINANCIAL LEDGER ECOSYSTEM -->
         <!-- ------------------------------------------ -->
@@ -2416,52 +2406,44 @@ function addOrderToPending() {
     alert("🚀 آرڈر کامیابی سے پائپ لائن لائیو اسٹریم میں شامل کر دیا گیا ہے!");
 }
 // END FUNCTION: addOrderToPending
-
-// START FUNCTION: markOrderAsDone (New Master Done Logic)
+// START FUNCTION: markOrderAsDone (FINAL MASTER LOGIC 🎯)
 function markOrderAsDone(orderId) {
-    // لوکل اسٹوریج سے لیجر اٹھانا
-    let currentLedger = JSON.parse(localStorage.getItem('ms_admin_ledger')) || {
-        completedOrders: [],
-        pendingOrders: [],
-        bikeOdometer: 0
-    };
+    // 1. اگر لیجر کے خانے موجود نہ ہوں تو انہیں بناؤ
+    if (!adminLedger.pendingOrders) adminLedger.pendingOrders = [];
+    if (!adminLedger.completedOrders) adminLedger.completedOrders = [];
 
-    // پینڈنگ لسٹ میں آرڈر ڈھونڈنا
-    const orderIndex = currentLedger.pendingOrders.findIndex(o => o.id === orderId);
+    // 2. پینڈنگ لسٹ میں آرڈر تلاش کرو
+    const orderIndex = adminLedger.pendingOrders.findIndex(o => o.id === orderId);
     
     if (orderIndex > -1) {
-        let order = currentLedger.pendingOrders[orderIndex];
+        let order = adminLedger.pendingOrders[orderIndex];
         
-        // ایڈمن سے کلومیٹرز، فیول اور لیبر کی ویلیوز پاپ اپ کے ذریعے لینا
+        // 3. ایڈمن سے لائیو اخراجات کا ڈیٹا لو
         let kmInvoiced = prompt("اس واش کے کل کلومیٹرز (Bike KM) لکھیں:", "0");
         let fuelSpent = prompt("اس واش پر فیول کا خرچہ (Fuel Cost) لکھیں:", "0");
         let labourPaid = prompt("اس واش پر لیبر کی دیہاڑی (Labour Wages) لکھیں:", "0");
 
-        // ڈیٹا کو آبجیکٹ میں سیو کرنا
+        // 4. ڈیٹا کو آبجیکٹ میں لائیو سیو کرو
         order.bikeKm = parseFloat(kmInvoiced) || 0;
         order.fuel = parseFloat(fuelSpent) || 0;
         order.labour = parseFloat(labourPaid) || 0;
+        order.status = "Completed"; 
         
-        // نیٹ پرافٹ کا حساب: گراس بل میں سے فیول اور لیبر مائنس کرنا
-        order.netProfit = order.gross - (order.fuel + order.labour);
-        order.status = "Completed";
+        // 5. نیٹ پرافٹ کا حساب (بل میں سے فیول اور لیبر مائنس)
+        order.netProfit = (order.gross || 0) - (order.fuel + order.labour);
 
-        // بائیک کے کل اوڈومیٹر میں کلومیٹرز پلس کرنا
-        currentLedger.bikeOdometer = parseFloat(currentLedger.bikeOdometer || 0) + order.bikeKm;
+        // 6. آرڈر کو پینڈنگ سے نکال کر کمپلیٹڈ لسٹ میں شفٹ کرو (تاکہ چارٹس اور اوڈومیٹر پلس ہوں)
+        adminLedger.completedOrders.push(order);
+        adminLedger.pendingOrders.splice(orderIndex, 1);
 
-        // آرڈر کو پینڈنگ سے نکال کر کمپلیٹڈ میں شفٹ کرنا
-        currentLedger.completedOrders.push(order);
-        currentLedger.pendingOrders.splice(orderIndex, 1);
-
-        // لوکل اسٹوریج اور ڈیش بورڈ اپڈیٹ کرنا
-        localStorage.setItem('ms_admin_ledger', JSON.stringify(currentLedger));
-        
-        if (typeof adminLedger !== 'undefined') adminLedger = currentLedger;
-        
-        alert("✔️ آرڈر کامیابی سے ڈن ہو گیا اور فائنینشل ڈیٹا اپڈیٹ ہو گیا!");
-        
-        // اسکرین لائیو اپڈیٹ کرنے کے لیے پیج ریفریش کرنا
-        window.location.reload();
+        // 7. آپ کا اپنا کیلکولیشن سسٹم لائیو رن کرو جو چارٹس اور اوڈومیٹر اپڈیٹ کرے گا
+        if (typeof updateAllCalculations === "function") {
+            updateAllCalculations();
+        } else {
+            if (typeof saveToStorage === "function") saveToStorage();
+            if (typeof renderAdminDashboard === "function") renderAdminDashboard();
+        }
+        alert("✔️ آرڈر ڈن ہو گیا اور ہر چیز لائیو چارٹس اور اوڈومیٹر میں ایڈ ہو گئی!");
     } else {
         alert("❌ آرڈر پینڈنگ لسٹ میں نہیں ملا!");
     }
@@ -2469,52 +2451,42 @@ function markOrderAsDone(orderId) {
 // END FUNCTION: markOrderAsDone
 
 
-// START FUNCTION: unmarkOrderAsDone (New Master Undone Logic)
+// START FUNCTION: unmarkOrderAsDone (FINAL MASTER REVERSE LOGIC 🔄)
 function unmarkOrderAsDone(orderId) {
-    let currentLedger = JSON.parse(localStorage.getItem('ms_admin_ledger')) || {
-        completedOrders: [],
-        pendingOrders: [],
-        bikeOdometer: 0
-    };
+    if (!adminLedger.pendingOrders) adminLedger.pendingOrders = [];
+    if (!adminLedger.completedOrders) adminLedger.completedOrders = [];
 
-    // مکمل لسٹ میں آرڈر ڈھونڈنا
-    const orderIndex = currentLedger.completedOrders.findIndex(o => o.id === orderId);
+    // 1. کمپلیٹڈ لسٹ میں آرڈر تلاش کرو
+    const orderIndex = adminLedger.completedOrders.findIndex(o => o.id === orderId);
     
     if (orderIndex > -1) {
-        let order = currentLedger.completedOrders[orderIndex];
+        let order = adminLedger.completedOrders[orderIndex];
         
-        // ⚠️ بائیک کلومیٹرز کو کل اوڈومیٹر سے مائنس (Return) کرنا
-        if (order.bikeKm && order.bikeKm > 0) {
-            currentLedger.bikeOdometer = parseFloat(currentLedger.bikeOdometer || 0) - parseFloat(order.bikeKm);
-            if (currentLedger.bikeOdometer < 0) currentLedger.bikeOdometer = 0;
-        }
-
-        // آرڈر کی ویلیوز ری سیٹ کر کے واپس پینڈنگ بنانا
+        // 2. 🔄 مکمل ریورس: ہر چیز کو واپس زیرو کرو
         order.status = "Pending";
         order.bikeKm = 0;
         order.fuel = 0;
         order.labour = 0;
-        order.netProfit = order.gross; // منافع واپس اصل بل کے برابر
+        order.netProfit = order.gross || 0; // منافع واپس اصل بل کے برابر
 
-        // آرڈر کو پینڈنگ میں بھیجنا اور کمپلیٹڈ سے ڈیلیٹ کرنا
-        currentLedger.pendingOrders.push(order);
-        currentLedger.completedOrders.splice(orderIndex, 1);
+        // 3. آرڈر کو کمپلیٹڈ سے جڑ سے نکال کر واپس پینڈنگ لسٹ میں شفٹ کرو
+        adminLedger.pendingOrders.push(order);
+        adminLedger.completedOrders.splice(orderIndex, 1);
 
-        // لوکل اسٹوریج اور ڈیش بورڈ اپڈیٹ کرنا
-        localStorage.setItem('ms_admin_ledger', JSON.stringify(currentLedger));
-        
-        if (typeof adminLedger !== 'undefined') adminLedger = currentLedger;
-        
-        alert("🔄 آرڈر ان-ڈن ہو گیا: تمام کلومیٹرز اور اخراجات ریٹرن کر دیے گئے ہیں!");
-        
-        window.location.reload();
+        // 4. دوبارہ آپ کا کیلکولیشن سسٹم رن کرو (یہ لائیو چارٹس، اخراجات اور اوڈومیٹر کو واپس مائنس/ریورس کر دے گا)
+        if (typeof updateAllCalculations === "function") {
+            updateAllCalculations();
+        } else {
+            if (typeof saveToStorage === "function") saveToStorage();
+            if (typeof renderAdminDashboard === "function") renderAdminDashboard();
+        }
+        alert("🔄 آرڈر ان-ڈن ہو گیا: تمام اخراجات اور کلومیٹر لائیو ریورس ہو گئے!");
     } else {
         alert("❌ آرڈر مکمل لسٹ میں نہیں ملا!");
     }
 }
 // END FUNCTION: unmarkOrderAsDone
     
-
 // START FUNCTION: updateAllCalculations
 function updateAllCalculations() {
     // بائیک اوڈومیٹر کلومیٹرز کو صفر کر کے صرف کمپلیٹڈ (ڈنز) آرڈرز سے دوبارہ گننا
@@ -4884,9 +4856,9 @@ window.addEventListener('load', () => {
 let orderPushedLock = false; // یہ لاک آرڈر کو ڈبل (Duplicate) ہونے سے روکے گا
 
 
-// START FUNCTION: linkCustomerBookingToAdmin (With Auto-Unlock 🔓)
+// START FUNCTION: linkCustomerBookingToAdmin (With Duplicate Lock 🔒)
 function linkCustomerBookingToAdmin() {
-    // اگر آرڈر پہلے ہی پش ہو چکا ہے، تو دوبارہ مت کرو (ڈپلیکیٹ سے بچاؤ)
+    // 1. اگر آرڈر پہلے ہی پش ہو چکا ہے، تو دوبارہ مت کرو (ڈپلیکیٹ سے بچاؤ)
     if (orderPushedLock) {
         console.log("یہ آرڈر پہلے ہی پینڈنگ لسٹ میں موجود ہے یا پروسیس ہو رہا ہے!");
         return true;
@@ -4903,99 +4875,45 @@ function linkCustomerBookingToAdmin() {
         return false;
     }
 
-    let serviceType = "Solar"; 
-    let qty = 1;
-    let grossVal = 0;
-
-    // 🕵️‍♂️ اسکیننگ لاجک (کار، ٹینک اور سولر کی پہچان)
-    const carSection = document.getElementById("car-calculator") || document.querySelector('[class*="car"]');
-    if (carSection && carSection.style.display !== "none" && carSection.offsetHeight > 0) {
-        serviceType = "Car Wash";
-        const carQtyInput = document.getElementById("car-quantity") || { value: "1" };
-        qty = parseInt(carQtyInput.value || carQtyInput.textContent || 1);
-        const carCostElement = document.getElementById("car-total-cost") || document.querySelector('.car-cost');
-        if (carCostElement) {
-            let match = carCostElement.innerText.match(/\d+/);
-            if (match) grossVal = parseFloat(match[0]);
-        }
-    }
-    else if (document.getElementById("tank-calculator") && document.getElementById("tank-calculator").style.display !== "none") {
-        serviceType = "Tank Wash";
-        const tankQtyInput = document.getElementById("tank-quantity") || { value: "1" };
-        qty = parseInt(tankQtyInput.value || tankQtyInput.textContent || 1);
-        const tankCostElement = document.getElementById("tank-total-cost") || document.querySelector('.tank-cost');
-        if (tankCostElement) {
-            let match = tankCostElement.innerText.match(/\d+/);
-            if (match) grossVal = parseFloat(match[0]);
-        }
-    }
-    else {
-        serviceType = "Solar";
-        const platesQtyInput = document.getElementById("solar-panels-quantity") || { textContent: "8" }; 
-        qty = parseInt(platesQtyInput.textContent || platesQtyInput.value || 8);
-        const solarCostElement = document.querySelector('[class*="cost"]') || document.body;
-        if (solarCostElement) {
-            let match = solarCostElement.innerText.match(/\d+/);
-            if (match) grossVal = parseFloat(match[0]);
-        }
-    }
-
-    // اگر گراس ویلیو زیرو ہو تو ڈیفالٹ ریٹ اپلائی کرنا
-    if (grossVal === 0) {
-        let defaultRate = serviceType === "Solar" ? 80 : (serviceType === "Tank Wash" ? 1500 : 500);
-        grossVal = qty * defaultRate;
-    }
-
-    // ایڈمن کا مین لیجر ڈیٹا اٹھانا
-    let currentLedger = JSON.parse(localStorage.getItem('ms_admin_ledger')) || {
-        completedOrders: [],
-        pendingOrders: [],
-        bikeOdometer: 0
-    };
-
-    // نئے آن لائن آرڈر کا پورا ڈیٹا آبجیکٹ
     const newOnlineOrder = {
         id: "ORDER_" + Date.now(),
         name: cName,
         phone: cPhone,
         date: new Date().toISOString().slice(0, 10), 
-        type: serviceType,
-        qty: qty,
-        rate: Math.round(grossVal / qty),
-        gross: grossVal,
+        type: "Solar", 
+        qty: parseInt(document.getElementById("solar-panels-quantity")?.textContent || 8),
+        gross: parseFloat(document.querySelector('[class*="cost"]')?.innerText.match(/\d+/)?.[0] || 640),
         advance: 0,
         fuel: 0,
         labour: 0,
-        netProfit: grossVal, 
-        status: "Pending",
+        status: "Pending", 
         bikeKm: 0 
     };
 
-    // ڈیٹا کو پینڈنگ لسٹ میں پش کرنا اور سیو کرنا
-    currentLedger.pendingOrders.push(newOnlineOrder);
-    localStorage.setItem('ms_admin_ledger', JSON.stringify(currentLedger));
-
-    // اگر ڈیش بورڈ رینڈر فنکشن لائیو موجود ہے تو اسکرین اپڈیٹ کرنا
-    if (typeof adminLedger !== 'undefined') {
-        adminLedger = currentLedger;
-        if (typeof renderAdminDashboard === "function") {
-            renderAdminDashboard();
-        }
+    if (typeof adminLedger !== 'undefined' && adminLedger.pendingOrders) {
+        adminLedger.pendingOrders.push(newOnlineOrder);
+    } else if (typeof adminLedger !== 'undefined' && Array.isArray(adminLedger)) {
+        adminLedger.push(newOnlineOrder);
     }
 
-    orderPushedLock = true; // 🔒 آرڈر چلا گیا، عارضی تالا لگا دو
-    console.log(`${serviceType} کا آرڈر ایڈمن پینڈنگ لسٹ میں کامیابی سے محفوظ ہو گیا! ✅`);
+    if (typeof saveToStorage === "function") saveToStorage();
+    if (typeof updateAllCalculations === "function") updateAllCalculations();
     
-    // 🚀 5 سیکنڈ بعد تالا خود بخود کھل جائے گا تاکہ اگلے آرڈرز بلاک نہ ہوں
+    // 2. 🔒 آرڈر لسٹ میں چلا گیا، اب لاک کو سائنسی طور پر 'true' کر دیں
+    orderPushedLock = true; 
+    console.log("آن لائن آرڈر سیدھا ایڈمن لسٹ میں شامل ہو گیا! ✅");
+
+    // 3. 🔓 5 سیکنڈ کا ٹائمر تاکہ اگلا آرڈر بلاک نہ ہو
     setTimeout(() => {
         orderPushedLock = false;
         console.log("آرڈر لاک دوبارہ کھول دیا گیا ہے۔ نئے آرڈرز کے لیے سسٹم ریڈی ہے! 🔓");
     }, 5000);
-
+    
     return true;
 }
 // END FUNCTION: linkCustomerBookingToAdmin
-            
+    
+    
     // ==========================================================================
 // 🚀 ALL-IN-ONE MASTER BACKUP SYSTEM (EXPORT & IMPORT LOGIC)
 // ==========================================================================
