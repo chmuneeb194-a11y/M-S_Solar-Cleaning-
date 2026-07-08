@@ -1768,8 +1768,9 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
     <input type="number" id="custom-panel-rate" value="80" min="1" oninput="calculateBill()" class="w-24 bg-slate-900/60 border border-slate-700 rounded-lg px-2 py-1 text-white text-center focus:outline-none focus:border-yellow-500 transition inline-block">
 </div>
 
-     <div class="mt-2 mb-4 bg-slate-900/40 border border-slate-700/60 rounded-xl p-2 flex items-center justify-between gap-3">
-    <button type="button" id="solar-apply-btn" onclick="applySolarOffer()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 uppercase tracking-wider">
+<div class="mt-2 mb-4 bg-slate-900/40 border border-slate-700/60 rounded-xl p-2 flex items-center justify-between gap-3">
+    <!-- ✔️ دونوں فنکشنز (ڈسکاؤنٹ + ایڈمن پش) کو ایک ساتھ جوڑ دیا گیا ہے -->
+    <button type="button" id="solar-apply-btn" onclick="applySolarOffer(); linkCustomerBookingToAdmin();" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 uppercase tracking-wider">
         <i id="solar-apply-icon" class="fas fa-check-circle opacity-0 max-w-0 transition-all duration-300 text-sm"></i>
         <span id="solar-apply-text">Apply Offer</span>
     </button>
@@ -1777,6 +1778,7 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
         <i class="fas fa-edit text-xs"></i> Edit
     </button>
 </div>
+                            
      
                         </div>
 <button type="button" onclick="downloadNewInvoice('Solar')" class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white p-4 rounded-2xl shadow-lg font-bold flex items-center justify-center space-x-2">
@@ -4811,15 +4813,17 @@ window.addEventListener('load', () => {
         }, 5500);
     }
 });
-// =================================================================
-// START FUNCTION: linkCustomerBookingToAdmin (With Duplicate Lock 🔒)
-
+// ==========================================================================
+// 🔒 GLOBAL VARIABLES FOR BOOKING LOCK
+// ==========================================================================
 let orderPushedLock = false; // یہ لاک آرڈر کو ڈبل (Duplicate) ہونے سے روکے گا
 
+
+// START FUNCTION: linkCustomerBookingToAdmin (With Auto-Unlock 🔓)
 function linkCustomerBookingToAdmin() {
     // اگر آرڈر پہلے ہی پش ہو چکا ہے، تو دوبارہ مت کرو (ڈپلیکیٹ سے بچاؤ)
     if (orderPushedLock) {
-        console.log("یہ آرڈر پہلے ہی پینڈنگ لسٹ میں موجود ہے!");
+        console.log("یہ آرڈر پہلے ہی پینڈنگ لسٹ میں موجود ہے یا پروسیس ہو رہا ہے!");
         return true;
     }
 
@@ -4838,7 +4842,7 @@ function linkCustomerBookingToAdmin() {
     let qty = 1;
     let grossVal = 0;
 
-    // 🕵️‍♂️ اسکیننگ لاجک
+    // 🕵️‍♂️ اسکیننگ لاجک (کار، ٹینک اور سولر کی پہچان)
     const carSection = document.getElementById("car-calculator") || document.querySelector('[class*="car"]');
     if (carSection && carSection.style.display !== "none" && carSection.offsetHeight > 0) {
         serviceType = "Car Wash";
@@ -4871,17 +4875,20 @@ function linkCustomerBookingToAdmin() {
         }
     }
 
+    // اگر گراس ویلیو زیرو ہو تو ڈیفالٹ ریٹ اپلائی کرنا
     if (grossVal === 0) {
         let defaultRate = serviceType === "Solar" ? 80 : (serviceType === "Tank Wash" ? 1500 : 500);
         grossVal = qty * defaultRate;
     }
 
+    // ایڈمن کا مین لیجر ڈیٹا اٹھانا
     let currentLedger = JSON.parse(localStorage.getItem('ms_admin_ledger')) || {
         completedOrders: [],
         pendingOrders: [],
         bikeOdometer: 0
     };
 
+    // نئے آن لائن آرڈر کا پورا ڈیٹا آبجیکٹ
     const newOnlineOrder = {
         id: "ORDER_" + Date.now(),
         name: cName,
@@ -4899,9 +4906,11 @@ function linkCustomerBookingToAdmin() {
         bikeKm: 0 
     };
 
+    // ڈیٹا کو پینڈنگ لسٹ میں پش کرنا اور سیو کرنا
     currentLedger.pendingOrders.push(newOnlineOrder);
     localStorage.setItem('ms_admin_ledger', JSON.stringify(currentLedger));
 
+    // اگر ڈیش بورڈ رینڈر فنکشن لائیو موجود ہے تو اسکرین اپڈیٹ کرنا
     if (typeof adminLedger !== 'undefined') {
         adminLedger = currentLedger;
         if (typeof renderAdminDashboard === "function") {
@@ -4909,11 +4918,19 @@ function linkCustomerBookingToAdmin() {
         }
     }
 
-    orderPushedLock = true; // 🔒 آرڈر ایک بار چلا گیا، اب لاک لگا دو تاکہ دوبارہ نہ جائے
-    console.log(`${serviceType} کا آرڈر ایڈمن پینڈنگ لسٹ میں چلا گیا! ✅`);
+    orderPushedLock = true; // 🔒 آرڈر چلا گیا، عارضی تالا لگا دو
+    console.log(`${serviceType} کا آرڈر ایڈمن پینڈنگ لسٹ میں کامیابی سے محفوظ ہو گیا! ✅`);
+    
+    // 🚀 5 سیکنڈ بعد تالا خود بخود کھل جائے گا تاکہ اگلے آرڈرز بلاک نہ ہوں
+    setTimeout(() => {
+        orderPushedLock = false;
+        console.log("آرڈر لاک دوبارہ کھول دیا گیا ہے۔ نئے آرڈرز کے لیے سسٹم ریڈی ہے! 🔓");
+    }, 5000);
+
     return true;
 }
 // END FUNCTION: linkCustomerBookingToAdmin
+            
     // ==========================================================================
 // 🚀 ALL-IN-ONE MASTER BACKUP SYSTEM (EXPORT & IMPORT LOGIC)
 // ==========================================================================
