@@ -1071,7 +1071,16 @@
             <!-- [POINT 01]: JavaScript will dynamic render cards here containing Done, Delete, and the newly requested Edit/Undone hook -->
             <div id="pending-orders-list" class="space-y-3 max-h-64 overflow-y-auto pr-1 relative z-10"></div>
         </div>
-
+        <!-- 📜 SUB-SECTION B2: COMPLETED ORDERS STREAMS (DONE ORDERS) -->
+        <div class="rounded-[2rem] border border-white/[0.05] bg-[#0d1117]/85 backdrop-blur-xl p-5 shadow-xl relative overflow-hidden mt-4">
+            <div class="flex items-center gap-2 mb-4 relative z-10">
+                <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+                <h3 class="text-xs font-black text-slate-300 tracking-widest uppercase">✅ Completed & Settled Orders</h3>
+            </div>
+            <!-- ⚠️ جاوا اسکرپٹ اس ID کے اندر ڈن ہوئے آرڈرز اور ان-ڈن کا بٹن رینڈر کرے گی -->
+            <div id="completed-orders-list" class="space-y-3 max-h-64 overflow-y-auto pr-1 relative z-10"></div>
+        </div>
+        
         <!-- ------------------------------------------ -->
         <!-- SUB-SECTION C: FINANCIAL LEDGER ECOSYSTEM -->
         <!-- ------------------------------------------ -->
@@ -2429,26 +2438,40 @@ function markOrderAsDone(orderId) {
 // END FUNCTION: markOrderAsDone
 
 
-// START FUNCTION: unmarkOrderAsDone
+// START FUNCTION: unmarkOrderAsDone (Fixed Ledger Stats & Kilometer Return)
 function unmarkOrderAsDone(orderId) {
     const orderIndex = adminLedger.completedOrders.findIndex(o => o.id === orderId);
+    
     if (orderIndex > -1) {
         let order = adminLedger.completedOrders[orderIndex];
-        order.status = "Pending";
         
-        // آرڈر کو واپس پینڈنگ لسٹ (ڈیش بورڈ) میں بھیجنا
+        // ⚠️ کلومیٹرز، فیول اور لیبر کو واپس مائنس (Return) کرنا
+        if (order.bikeKm && order.bikeKm > 0) {
+            adminLedger.bikeOdometer = parseFloat(adminLedger.bikeOdometer || 0) - parseFloat(order.bikeKm);
+            if (adminLedger.bikeOdometer < 0) adminLedger.bikeOdometer = 0;
+        }
+
+        // آرڈر کی ویلیوز کو واپس پینڈنگ کے مطابق ری سیٹ کرنا
+        order.status = "Pending";
+        order.bikeKm = 0;
+        order.fuel = 0;
+        order.labour = 0;
+        order.netProfit = order.gross; // نیٹ پرافٹ واپس گراس بل کے برابر
+
+        // آرڈر کو پینڈنگ لسٹ میں واپس بھیجنا
         adminLedger.pendingOrders.push(order);
-        // کمپلیٹڈ لسٹ (لیجر) سے مٹانا
+        
+        // کمپلیٹڈ لسٹ سے مٹانا
         adminLedger.completedOrders.splice(orderIndex, 1);
         
-        // لائیو چارٹ، لیجر اور اوڈومیٹر سے ڈیٹا نکالنا (مائنس کرنا)
+        // لائیو چارٹ، لیجر اور لوکل اسٹوریج کو اپڈیٹ کرنا
         updateAllCalculations();
         
-        alert("آرڈر ان-ڈن ہو گیا: ڈیٹا تمام لیجرز اور چارٹس سے نکال دیا گیا ہے! ↩️");
+        alert("🔄 آرڈر ان-ڈن ہو گیا: ڈیٹا تمام لیجرز اور چارٹس سے نکال دیا گیا ہے!");
     }
 }
 // END FUNCTION: unmarkOrderAsDone
-
+    
 
 // START FUNCTION: updateAllCalculations
 function updateAllCalculations() {
