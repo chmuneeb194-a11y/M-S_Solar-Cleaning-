@@ -2384,37 +2384,71 @@ function addOrderToPending() {
 }
 // END FUNCTION: addOrderToPending
 
-// 🌟 فکسڈ ورژن: آرڈر Done کرنے پر کلومیٹر محفوظ رہیں گے
+// START FUNCTION: markOrderAsDone
 function markOrderAsDone(orderId) {
     const orderIndex = adminLedger.pendingOrders.findIndex(o => o.id === orderId);
     if (orderIndex > -1) {
-        adminLedger.pendingOrders[orderIndex].status = "Completed";
-        let orderCopy = { ...adminLedger.pendingOrders[orderIndex] };
+        let order = adminLedger.pendingOrders[orderIndex];
+        order.status = "Completed";
         
-        // آرڈر کو کمپلیٹڈ لسٹ میں پش کرنا
-        adminLedger.completedOrders.push(orderCopy);
-        
+        // آرڈر کو کمپلیٹڈ لسٹ (لیجر) میں ڈالنا
+        adminLedger.completedOrders.push(order);
         // پینڈنگ لسٹ سے ہٹانا
         adminLedger.pendingOrders.splice(orderIndex, 1);
         
-        // 🌟 سب سے اہم فکس: اوڈومیٹر کے ٹوٹل کلومیٹرز کو دوبارہ ری-کیلکولیٹ کرنا تاکہ ڈیٹا کبھی زیرو نہ ہو
-        let totalKms = 0;
-        // پینڈنگ اور کمپلیٹڈ دونوں لسٹوں کے کلومیٹرز کو جمع کرنا
-        adminLedger.pendingOrders.forEach(o => { if(o.bikeKm) totalKms += parseFloat(o.bikeKm); });
-        adminLedger.completedOrders.forEach(o => { if(o.bikeKm) totalKms += parseFloat(o.bikeKm); });
+        // لائیو چارٹ، لیجر اور اوڈومیٹر کو اپڈیٹ کرنا
+        updateAllCalculations(); 
         
-        adminLedger.bikeOdometer = totalKms; // فائنل کلومیٹر اپڈیٹ
-
-        saveToStorage();
-        renderAdminDashboard();
-        
-        if (typeof updateOilCounterDisplay === "function") {
-            updateOilCounterDisplay();
-        }
-        
-        alert("آرڈر مکمل کر کے فائنل لیجر اکاؤنٹ میں شامل کر دیا گیا ہے! ✅");
+        alert("آرڈر ڈن ہو گیا: ڈیٹا اب تمام لیجرز اور چارٹس میں شامل ہے! ✅");
     }
 }
+// END FUNCTION: markOrderAsDone
+
+
+// START FUNCTION: unmarkOrderAsDone
+function unmarkOrderAsDone(orderId) {
+    const orderIndex = adminLedger.completedOrders.findIndex(o => o.id === orderId);
+    if (orderIndex > -1) {
+        let order = adminLedger.completedOrders[orderIndex];
+        order.status = "Pending";
+        
+        // آرڈر کو واپس پینڈنگ لسٹ (ڈیش بورڈ) میں بھیجنا
+        adminLedger.pendingOrders.push(order);
+        // کمپلیٹڈ لسٹ (لیجر) سے مٹانا
+        adminLedger.completedOrders.splice(orderIndex, 1);
+        
+        // لائیو چارٹ، لیجر اور اوڈومیٹر سے ڈیٹا نکالنا (مائنس کرنا)
+        updateAllCalculations();
+        
+        alert("آرڈر ان-ڈن ہو گیا: ڈیٹا تمام لیجرز اور چارٹس سے نکال دیا گیا ہے! ↩️");
+    }
+}
+// END FUNCTION: unmarkOrderAsDone
+
+
+// START FUNCTION: updateAllCalculations
+function updateAllCalculations() {
+    // بائیک اوڈومیٹر کلومیٹرز کو صفر کر کے صرف کمپلیٹڈ (ڈنز) آرڈرز سے دوبارہ گننا
+    adminLedger.bikeOdometer = 0;
+    adminLedger.completedOrders.forEach(o => {
+        if(o.bikeKm) adminLedger.bikeOdometer += parseFloat(o.bikeKm);
+    });
+
+    // ڈیٹا لوکل اسٹوریج میں محفوظ کرنا
+    saveToStorage();
+    
+    // ڈیش بورڈ اور لائیو چارٹس کو دوبارہ رینڈر کرنا تاکہ ڈیٹا لائیو اپڈیٹ یا مائنس ہو جائے
+    if (typeof renderAdminDashboard === "function") {
+        renderAdminDashboard();
+    }
+    
+    // انجن آئل کاؤنٹر سرکل ڈسپلے کو اپڈیٹ کرنا
+    if (typeof updateOilCounterDisplay === "function") {
+        updateOilCounterDisplay();
+    }
+}
+// END FUNCTION: updateAllCalculations
+    
 // END FUNCTION: markOrderAsDone
     
 // آرڈر ڈیلیٹ کرنا
