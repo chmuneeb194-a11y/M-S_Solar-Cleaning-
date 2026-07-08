@@ -2417,57 +2417,99 @@ function addOrderToPending() {
 }
 // END FUNCTION: addOrderToPending
 
-// START FUNCTION: markOrderAsDone
+// START FUNCTION: markOrderAsDone (New Master Done Logic)
 function markOrderAsDone(orderId) {
-    const orderIndex = adminLedger.pendingOrders.findIndex(o => o.id === orderId);
+    // لوکل اسٹوریج سے لیجر اٹھانا
+    let currentLedger = JSON.parse(localStorage.getItem('ms_admin_ledger')) || {
+        completedOrders: [],
+        pendingOrders: [],
+        bikeOdometer: 0
+    };
+
+    // پینڈنگ لسٹ میں آرڈر ڈھونڈنا
+    const orderIndex = currentLedger.pendingOrders.findIndex(o => o.id === orderId);
+    
     if (orderIndex > -1) {
-        let order = adminLedger.pendingOrders[orderIndex];
+        let order = currentLedger.pendingOrders[orderIndex];
+        
+        // ایڈمن سے کلومیٹرز، فیول اور لیبر کی ویلیوز پاپ اپ کے ذریعے لینا
+        let kmInvoiced = prompt("اس واش کے کل کلومیٹرز (Bike KM) لکھیں:", "0");
+        let fuelSpent = prompt("اس واش پر فیول کا خرچہ (Fuel Cost) لکھیں:", "0");
+        let labourPaid = prompt("اس واش پر لیبر کی دیہاڑی (Labour Wages) لکھیں:", "0");
+
+        // ڈیٹا کو آبجیکٹ میں سیو کرنا
+        order.bikeKm = parseFloat(kmInvoiced) || 0;
+        order.fuel = parseFloat(fuelSpent) || 0;
+        order.labour = parseFloat(labourPaid) || 0;
+        
+        // نیٹ پرافٹ کا حساب: گراس بل میں سے فیول اور لیبر مائنس کرنا
+        order.netProfit = order.gross - (order.fuel + order.labour);
         order.status = "Completed";
+
+        // بائیک کے کل اوڈومیٹر میں کلومیٹرز پلس کرنا
+        currentLedger.bikeOdometer = parseFloat(currentLedger.bikeOdometer || 0) + order.bikeKm;
+
+        // آرڈر کو پینڈنگ سے نکال کر کمپلیٹڈ میں شفٹ کرنا
+        currentLedger.completedOrders.push(order);
+        currentLedger.pendingOrders.splice(orderIndex, 1);
+
+        // لوکل اسٹوریج اور ڈیش بورڈ اپڈیٹ کرنا
+        localStorage.setItem('ms_admin_ledger', JSON.stringify(currentLedger));
         
-        // آرڈر کو کمپلیٹڈ لسٹ (لیجر) میں ڈالنا
-        adminLedger.completedOrders.push(order);
-        // پینڈنگ لسٹ سے ہٹانا
-        adminLedger.pendingOrders.splice(orderIndex, 1);
+        if (typeof adminLedger !== 'undefined') adminLedger = currentLedger;
         
-        // لائیو چارٹ، لیجر اور اوڈومیٹر کو اپڈیٹ کرنا
-        updateAllCalculations(); 
+        alert("✔️ آرڈر کامیابی سے ڈن ہو گیا اور فائنینشل ڈیٹا اپڈیٹ ہو گیا!");
         
-        alert("آرڈر ڈن ہو گیا: ڈیٹا اب تمام لیجرز اور چارٹس میں شامل ہے! ✅");
+        // اسکرین لائیو اپڈیٹ کرنے کے لیے پیج ریفریش کرنا
+        window.location.reload();
+    } else {
+        alert("❌ آرڈر پینڈنگ لسٹ میں نہیں ملا!");
     }
 }
 // END FUNCTION: markOrderAsDone
 
 
-// START FUNCTION: unmarkOrderAsDone (Fixed Ledger Stats & Kilometer Return)
+// START FUNCTION: unmarkOrderAsDone (New Master Undone Logic)
 function unmarkOrderAsDone(orderId) {
-    const orderIndex = adminLedger.completedOrders.findIndex(o => o.id === orderId);
+    let currentLedger = JSON.parse(localStorage.getItem('ms_admin_ledger')) || {
+        completedOrders: [],
+        pendingOrders: [],
+        bikeOdometer: 0
+    };
+
+    // مکمل لسٹ میں آرڈر ڈھونڈنا
+    const orderIndex = currentLedger.completedOrders.findIndex(o => o.id === orderId);
     
     if (orderIndex > -1) {
-        let order = adminLedger.completedOrders[orderIndex];
+        let order = currentLedger.completedOrders[orderIndex];
         
-        // ⚠️ کلومیٹرز، فیول اور لیبر کو واپس مائنس (Return) کرنا
+        // ⚠️ بائیک کلومیٹرز کو کل اوڈومیٹر سے مائنس (Return) کرنا
         if (order.bikeKm && order.bikeKm > 0) {
-            adminLedger.bikeOdometer = parseFloat(adminLedger.bikeOdometer || 0) - parseFloat(order.bikeKm);
-            if (adminLedger.bikeOdometer < 0) adminLedger.bikeOdometer = 0;
+            currentLedger.bikeOdometer = parseFloat(currentLedger.bikeOdometer || 0) - parseFloat(order.bikeKm);
+            if (currentLedger.bikeOdometer < 0) currentLedger.bikeOdometer = 0;
         }
 
-        // آرڈر کی ویلیوز کو واپس پینڈنگ کے مطابق ری سیٹ کرنا
+        // آرڈر کی ویلیوز ری سیٹ کر کے واپس پینڈنگ بنانا
         order.status = "Pending";
         order.bikeKm = 0;
         order.fuel = 0;
         order.labour = 0;
-        order.netProfit = order.gross; // نیٹ پرافٹ واپس گراس بل کے برابر
+        order.netProfit = order.gross; // منافع واپس اصل بل کے برابر
 
-        // آرڈر کو پینڈنگ لسٹ میں واپس بھیجنا
-        adminLedger.pendingOrders.push(order);
+        // آرڈر کو پینڈنگ میں بھیجنا اور کمپلیٹڈ سے ڈیلیٹ کرنا
+        currentLedger.pendingOrders.push(order);
+        currentLedger.completedOrders.splice(orderIndex, 1);
+
+        // لوکل اسٹوریج اور ڈیش بورڈ اپڈیٹ کرنا
+        localStorage.setItem('ms_admin_ledger', JSON.stringify(currentLedger));
         
-        // کمپلیٹڈ لسٹ سے مٹانا
-        adminLedger.completedOrders.splice(orderIndex, 1);
+        if (typeof adminLedger !== 'undefined') adminLedger = currentLedger;
         
-        // لائیو چارٹ، لیجر اور لوکل اسٹوریج کو اپڈیٹ کرنا
-        updateAllCalculations();
+        alert("🔄 آرڈر ان-ڈن ہو گیا: تمام کلومیٹرز اور اخراجات ریٹرن کر دیے گئے ہیں!");
         
-        alert("🔄 آرڈر ان-ڈن ہو گیا: ڈیٹا تمام لیجرز اور چارٹس سے نکال دیا گیا ہے!");
+        window.location.reload();
+    } else {
+        alert("❌ آرڈر مکمل لسٹ میں نہیں ملا!");
     }
 }
 // END FUNCTION: unmarkOrderAsDone
