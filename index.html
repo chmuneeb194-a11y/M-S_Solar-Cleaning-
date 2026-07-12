@@ -3183,8 +3183,8 @@ function calculateMonthlyAnalytics() {
 // ==========================================================================
 // END FEATURE: calculateMonthlyAnalytics
 // ==========================================================================
-  // ==========================================================================
-// START FEATURE: WHATSAPP IMAGE REPORT GENERATOR (ALL FIELDS MAPPED)
+// ==========================================================================
+// UPDATED FEATURE: WHATSAPP IMAGE REPORT GENERATOR (KM FIX)
 // ==========================================================================
 function generateDailyImageReport() {
     if (typeof adminLedger === "undefined" || !adminLedger.completedOrders) {
@@ -3218,10 +3218,12 @@ function generateDailyImageReport() {
         if (o.date === todayString) {
             todayOrdersCount++;
             
-            // آپ کے فارم کے تمام فیلڈز کو لائیو یہاں سے اٹھایا جا رہا ہے
             const qty = parseFloat(o.qty || 0);
             const rate = parseFloat(o.rate || 0);
-            const km = parseFloat(o.km || 0);
+            
+            // 🛠️ کلومیٹر فکس: یہاں ہم نے تمام ممکنہ نام چیک کر لیے ہیں جو آپ کے ڈیٹا بیس میں ہو سکتے ہیں
+            const km = parseFloat(o.km || o.bikeKm || o.distance || o.travel || o.bike_km || 0);
+            
             const gross = parseFloat(o.gross || (qty * rate));
             const fuel = parseFloat(o.fuel || 0);
             const labour = parseFloat(o.labour || 0);
@@ -3234,11 +3236,9 @@ function generateDailyImageReport() {
             totalNet += net;
             totalKm += km;
 
-            // کسٹمر کا بلاک (بشمول کلومیٹر، ریٹ اور ایکسٹرا چیزیں)
             const row = document.createElement("div");
             row.className = "p-2 bg-slate-900/40 border border-white/[0.03] rounded-xl flex flex-col gap-1";
             row.innerHTML = `
-                <!-- پہلی لائن: مین فائنینشل ڈیٹا -->
                 <div class="grid grid-cols-7 gap-1 items-center text-center font-mono text-[10px]">
                     <div class="text-left col-span-2 pl-1 truncate font-sans font-bold text-white">
                         <span class="text-slate-500 font-mono text-[9px] mr-1">#${todayOrdersCount}</span>
@@ -3250,7 +3250,6 @@ function generateDailyImageReport() {
                     <div class="text-amber-400 font-bold">Rs ${labour}</div>
                     <div class="text-sky-400 font-bold">Rs ${net}</div>
                 </div>
-                <!-- دوسری لائن: اسمارٹ پٹی (کلو میٹر، ریٹ اور ایکسٹرا فیلڈز) -->
                 <div class="flex gap-4 text-[8px] text-slate-500 font-mono pl-5 border-t border-white/[0.02] pt-0.5">
                     <span><i class="fas fa-money-bill text-emerald-600"></i> Rate: <strong class="text-slate-300">Rs ${rate}</strong></span>
                     <span><i class="fas fa-motorcycle text-sky-600"></i> Bike Travel: <strong class="text-slate-300">${km} KM</strong></span>
@@ -3265,7 +3264,6 @@ function generateDailyImageReport() {
         rowsContainer.innerHTML = `<p class="text-center py-5 text-slate-500 font-mono text-[10px]">No orders completed today (${dd}/${mm}/${yyyy}).</p>`;
     }
 
-    // باٹم سمری پینل کو اپڈیٹ کرنا
     document.getElementById("rep-total-qty").innerText = totalQty;
     document.getElementById("rep-total-gross").innerText = "Rs " + totalGross.toLocaleString();
     document.getElementById("rep-total-fuel").innerText = "Rs " + totalFuel.toLocaleString();
@@ -3275,7 +3273,6 @@ function generateDailyImageReport() {
     if(document.getElementById("rep-total-km")) document.getElementById("rep-total-km").innerText = totalKm + " KM";
     if(document.getElementById("rep-total-orders")) document.getElementById("rep-total-orders").innerText = todayOrdersCount;
 
-    // 📸 ہائی ڈیفینیشن سکرین شاٹ انجن
     const reportTemplate = document.getElementById("hidden-report-card");
     
     html2canvas(reportTemplate, {
@@ -3303,9 +3300,10 @@ function generateDailyImageReport() {
     });
 }
 // ==========================================================================
-// END FEATURE: WHATSAPP IMAGE REPORT GENERATOR (ALL FIELDS MAPPED)
+// END FEATURE: WHATSAPP IMAGE REPORT GENERATOR (KM FIX)
 // ==========================================================================
     
+
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
 // ========================================================
