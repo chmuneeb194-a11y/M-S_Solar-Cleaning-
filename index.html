@@ -2535,7 +2535,9 @@ function deleteOrder(orderId) {
 // MS SECURE 4.0 - PREMIUM FULL SCALE PRODUCTION SCRIPT (PART 3)
 // ==========================================================================
 
-// START FUNCTION: renderAdminDashboard
+// ==========================================================================
+// START FUNCTION: renderAdminDashboard (WITH LIVE MONTHLY SYNC)
+// ==========================================================================
 function renderAdminDashboard() {
     let totalUnits = 0, grossCashflow = 0, totalFuel = 0, totalLabour = 0, netLiquidProfit = 0;
 
@@ -2604,8 +2606,14 @@ function renderAdminDashboard() {
 
     if (typeof renderNextWashes === "function") { renderNextWashes(); }
     if (typeof renderBusinessFollowUps === "function") { renderBusinessFollowUps(); }
+    
+    // یہ لائن موجودہ اور پچھلے مہینے کی لائیو کیلکولیشن کو ٹرگر کرے گی
+    calculateMonthlyAnalytics(); 
 }
+// ==========================================================================
 // END FUNCTION: renderAdminDashboard
+// ==========================================================================
+    
 
 // START FUNCTION: checkOverdueAlerts
 function checkOverdueAlerts() {
