@@ -3314,7 +3314,6 @@ function generateDailyImageReport() {
     const today = new Date();
     const currentMonth = today.getMonth();
     const currentYear = today.getFullYear();
-    
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
@@ -3328,16 +3327,12 @@ function generateDailyImageReport() {
     if (!rowsContainer) return;
     rowsContainer.innerHTML = "";
 
-    // 1. آج کے متغیرات (Today Variables)
     let totalQty = 0, totalGross = 0, totalFuel = 0, totalLabour = 0, totalNet = 0, totalKm = 0, todayOrdersCount = 0;
-
-    // 2. ماہانہ متغیرات (Monthly Variables)
     let mTotalUnits = 0, mTotalGross = 0, mTotalExpenses = 0, mTotalNet = 0;
 
     adminLedger.completedOrders.forEach(o => {
         if (!o.date) return;
         const orderDate = new Date(o.date);
-        
         const qty = parseFloat(o.qty || 0);
         const rate = parseFloat(o.rate || 0);
         const km = parseFloat(o.km || o.bikeKm || o.distance || o.travel || o.bike_km || 0);
@@ -3346,15 +3341,9 @@ function generateDailyImageReport() {
         const labour = parseFloat(o.labour || 0);
         const net = parseFloat(o.netProfit || (gross - fuel - labour));
 
-        // [الف] صرف آج کے آرڈرز کا ڈیٹا فلٹر کرنا
         if (o.date === todayString) {
             todayOrdersCount++;
-            totalQty += qty;
-            totalGross += gross;
-            totalFuel += fuel;
-            totalLabour += labour;
-            totalNet += net;
-            totalKm += km;
+            totalQty += qty; totalGross += gross; totalFuel += fuel; totalLabour += labour; totalNet += net; totalKm += km;
 
             const row = document.createElement("div");
             row.className = "p-2 bg-slate-900/40 border border-white/[0.03] rounded-xl flex flex-col gap-1";
@@ -3378,12 +3367,8 @@ function generateDailyImageReport() {
             rowsContainer.appendChild(row);
         }
 
-        // [ب] پورے چالو مہینے کا ڈیٹا جمع کرنا (فار منتھلی کارڈز)
         if (orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear) {
-            mTotalUnits += qty;
-            mTotalGross += gross;
-            mTotalExpenses += fuel + labour;
-            mTotalNet += net;
+            mTotalUnits += qty; mTotalGross += gross; mTotalExpenses += fuel + labour; mTotalNet += net;
         }
     });
 
@@ -3391,7 +3376,6 @@ function generateDailyImageReport() {
         rowsContainer.innerHTML = `<p class="text-center py-5 text-slate-500 font-mono text-[10px]">No orders completed today (${dd}/${mm}/${yyyy}).</p>`;
     }
 
-    // آج کے ٹوٹلز اپڈیٹ کرنا
     document.getElementById("rep-total-qty").innerText = totalQty;
     document.getElementById("rep-total-gross").innerText = "Rs " + totalGross.toLocaleString();
     document.getElementById("rep-total-fuel").innerText = "Rs " + totalFuel.toLocaleString();
@@ -3400,11 +3384,9 @@ function generateDailyImageReport() {
     if(document.getElementById("rep-total-km")) document.getElementById("rep-total-km").innerText = totalKm + " KM";
     if(document.getElementById("rep-total-orders")) document.getElementById("rep-total-orders").innerText = todayOrdersCount;
 
-    // 🌟 پورے مہینے کا ڈیٹا لائیو پش کرنا (اسکرین شاٹ والی ویلیوز) 🌟
     document.getElementById("rep-month-gross").innerText = "Rs " + mTotalGross.toLocaleString();
     document.getElementById("rep-month-net").innerText = "Rs " + mTotalNet.toLocaleString();
 
-    // 60,000 ریونیو کے مطابق ٹارگٹ یونٹس نکالنا
     const monthlyRevenueTarget = 60000;
     const avgRatePerUnit = mTotalUnits > 0 ? (mTotalGross / mTotalUnits) : 80;
     const breakEvenUnits = Math.ceil(monthlyRevenueTarget / avgRatePerUnit);
@@ -3424,28 +3406,20 @@ function generateDailyImageReport() {
         statusText.className = "text-[9px] font-bold text-amber-400 font-sans mt-1";
     }
 
-    // ==========================================================================
-    // 100% FIXED: INJECT LIVE DATA INTO WHATSAPP IMAGE TEMPLATE
-    // ==========================================================================
-    // کلومیٹر خرچہ اپڈیٹ کرنا (لوکل اسٹوریج یا ٹیکسٹ ایلیمنٹ سے)
     if (document.getElementById("img-report-avg-cost")) {
         const liveAvgCost = document.getElementById("rep-total-km") ? "Rs " + (parseFloat(document.getElementById("rep-total-fuel")?.innerText.replace(/[^0-9.]/g, '') || 0) / parseFloat(document.getElementById("rep-total-km")?.innerText || 1)).toFixed(1) + " / KM" : "Rs 0.0 / KM";
-        // اگر اوپر والا لاجک کام نہ کرے تو ڈیش بورڈ کے مین ٹیکسٹ کو بیک اپ کے طور پر استعمال کریں
         const backupAvg = document.querySelector('[id*="avg-bike-cost"]') || document.querySelector('[id*="fuel-avg-cost-km"]');
-        document.getElementById("img-report-avg-cost").innerText = backupAvg ? backupAvg.innerText : "Rs 5.4 / KM";
+        document.getElementById("img-report-avg-cost").innerText = backupAvg ? backupAvg.innerText : liveAvgCost;
     }
 
-    // فیول ٹو گروس ریشو اپڈیٹ کرنا
     if (document.getElementById("img-report-ratio")) {
         const totalFuelVal = parseFloat(document.getElementById("rep-total-fuel")?.innerText.replace(/[^0-9.]/g, '') || 0);
         const totalGrossVal = parseFloat(document.getElementById("rep-total-gross")?.innerText.replace(/[^0-9.]/g, '') || 1);
         const liveRatio = ((totalFuelVal / totalGrossVal) * 100).toFixed(1) + "%";
-        
         const backupRatio = document.querySelector('[id*="fuel-to-gross"]') || document.querySelector('[id*="fuel-revenue-ratio"]');
         document.getElementById("img-report-ratio").innerText = backupRatio ? backupRatio.innerText : liveRatio;
     }
 
-    // پیک منتھ کو فکس کرنا (دونوں آئی ڈیز کو ہینڈل کر لیا تاکہ فیل نہ ہو)
     const peakMonthElem = document.getElementById("img-report-peak-month") || document.getElementById("img-report-paak-month");
     if (peakMonthElem) {
         let peakMonthName = "JUL";
@@ -3465,14 +3439,7 @@ function generateDailyImageReport() {
         }
         peakMonthElem.innerText = peakMonthName;
     }
-    // ==========================================================================
 
-    // یہ آپ کی اگلی پرانی لائن ہے
-    const reportTemplate = document.getElementById("hidden-report-card");
-    html2canvas(reportTemplate, {
-        
-    
-    // 📸 ہائی ڈیفینیشن امیج جنریٹر اور واٹس ایپ ٹریگر
     const reportTemplate = document.getElementById("hidden-report-card");
     html2canvas(reportTemplate, {
         backgroundColor: "#020617",
@@ -3481,7 +3448,6 @@ function generateDailyImageReport() {
     }).then(canvas => {
         canvas.toBlob(blob => {
             const file = new File([blob], `MS-Solar-Full-Report-${todayString}.png`, { type: "image/png" });
-            
             if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
                 navigator.share({
                     files: [file],
@@ -3501,6 +3467,7 @@ function generateDailyImageReport() {
 // ==========================================================================
 // END FEATURE: WHATSAPP IMAGE REPORT GENERATOR (WITH MONTHLY INSIGHTS)
 // ==========================================================================
+        
     // ==========================================================================
 // START FEATURE: LIVE FUEL EFFICIENCY & PROFIT ALERT ENGINE
 // ==========================================================================
