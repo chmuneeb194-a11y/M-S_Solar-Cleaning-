@@ -1183,7 +1183,7 @@
 <!-- END UI: MONTHLY ANALYTICS DASHBOARD CARD -->
 <!-- ========================================================================== -->
 <!-- ========================================================================== -->
-<!-- START UI: WHATSAPP IMAGE REPORT GENERATOR (ALL FIELDS INCLUDED) -->
+<!-- START UI: WHATSAPP IMAGE REPORT GENERATOR (WITH MONTHLY INSIGHTS) -->
 <!-- ========================================================================== -->
 
 <div class="mb-4">
@@ -1192,7 +1192,7 @@
     </button>
 </div>
 
-<!-- ہڈن رپورٹ ٹیمپلیٹ (سارے فیلڈز کے ساتھ) -->
+<!-- ہڈن رپورٹ ٹیمپلیٹ -->
 <div style="position: absolute; top: -9999px; left: -9999px;">
     <div id="hidden-report-card" class="p-6 rounded-3xl bg-slate-950 border border-white/10 text-white font-sans" style="width: 650px;">
         <!-- ہیڈر -->
@@ -1217,34 +1217,62 @@
             <!-- ڈیٹا یہاں رینڈر ہوگا -->
         </div>
 
-        <!-- گرینڈ ٹوٹل پینل -->
+        <!-- گرینڈ ٹوٹل پینل (آج کا دن) -->
         <div class="mt-4 bg-sky-950/20 border border-sky-500/30 rounded-2xl p-3">
             <div class="grid grid-cols-7 gap-1 text-[11px] font-black font-mono text-center items-center">
-                <span class="text-left col-span-2 text-sky-400 uppercase tracking-wide pl-1">GRAND TOTALS:</span>
+                <span class="text-left col-span-2 text-sky-400 uppercase tracking-wide pl-1">TODAY TOTALS:</span>
                 <span id="rep-total-qty" class="text-white">-</span>
                 <span id="rep-total-gross" class="text-emerald-400">-</span>
                 <span id="rep-total-fuel" class="text-rose-400">-</span>
                 <span id="rep-total-labour" class="text-amber-400">-</span>
                 <span id="rep-total-net" class="text-sky-400">-</span>
             </div>
-            <!-- کلومیٹرز اور باقی چیزوں کا سمری نچوڑ -->
             <div class="flex justify-between items-center mt-2 pt-2 border-t border-white/[0.05] text-[9px] text-slate-400 font-mono px-1">
-                <span>Total Bike Travel: <strong id="rep-total-km" class="text-white">0 KM</strong></span>
-                <span>Active Orders: <strong id="rep-total-orders" class="text-white">0</strong></span>
+                <span>Today Bike Travel: <strong id="rep-total-km" class="text-white">0 KM</strong></span>
+                <span>Today Orders: <strong id="rep-total-orders" class="text-white">0</strong></span>
+            </div>
+        </div>
+
+        <!-- 🌟 نیا سیکشن: ماہانہ پرفارمنس اور ٹارگٹ رپورٹ (اسکرین شاٹ کے مطابق) 🌟 -->
+        <div class="mt-4 bg-slate-900/60 border border-white/[0.05] rounded-2xl p-4">
+            <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3"><i class="fas fa-chart-bar text-purple-500 mr-1"></i> Current Month Performance Overview</h3>
+            
+            <div class="grid grid-cols-2 gap-4 mb-3">
+                <div class="bg-slate-950/80 p-2.5 rounded-xl border border-white/[0.02]">
+                    <p class="text-[9px] text-slate-400 font-medium">This Month Gross</p>
+                    <p id="rep-month-gross" class="text-sm font-black text-white mt-0.5">Rs 0</p>
+                </div>
+                <div class="bg-slate-950/80 p-2.5 rounded-xl border border-white/[0.02]">
+                    <p class="text-[9px] text-slate-400 font-medium">This Month Net Profit</p>
+                    <p id="rep-month-net" class="text-sm font-black text-emerald-400 mt-0.5">Rs 0</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-950/80 p-3 rounded-xl border border-white/[0.02]">
+                <div class="flex justify-between items-center text-[9px] font-mono text-slate-400 mb-1">
+                    <span>60K TARGET STATUS: <strong id="rep-month-done-units" class="text-white">0 Done</strong></span>
+                    <span>Target: <strong id="rep-month-target-units" class="text-white">0 Units</strong></span>
+                </div>
+                <!-- پروگریس بار -->
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mb-1.5">
+                    <div id="rep-month-progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full transition-all" style="width: 0%"></div>
+                </div>
+                <p id="rep-month-status-text" class="text-[9px] font-bold text-amber-400 font-sans mt-1">Calculating target status...</p>
             </div>
         </div>
 
         <!-- فوٹر -->
         <div class="text-center mt-5 pt-2 border-t border-white/[0.03]">
-            <p class="text-[8px] text-slate-600 font-mono tracking-widest uppercase">M-S SECURE 5.0 Smart Accounting Crypt Engine</p>
+            <p class="text-[8px] text-slate-600 font-mono tracking-widest uppercase">M-S SECURE 5.5 Premium Analytics Engine</p>
         </div>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <!-- ========================================================================== -->
-<!-- END UI: WHATSAPP IMAGE REPORT GENERATOR (ALL FIELDS INCLUDED) -->
+<!-- END UI: WHATSAPP IMAGE REPORT GENERATOR (WITH MONTHLY INSIGHTS) -->
 <!-- ========================================================================== -->
+        
         
         <!-- ========================================================================== -->
 <!-- START UI: COMBINED CRM LEADERBOARD & BREAK-EVEN ANALYTICS GRAPHICS -->
@@ -3184,7 +3212,7 @@ function calculateMonthlyAnalytics() {
 // END FEATURE: calculateMonthlyAnalytics
 // ==========================================================================
 // ==========================================================================
-// UPDATED FEATURE: WHATSAPP IMAGE REPORT GENERATOR (KM FIX)
+// START FEATURE: WHATSAPP IMAGE REPORT GENERATOR (WITH MONTHLY INSIGHTS)
 // ==========================================================================
 function generateDailyImageReport() {
     if (typeof adminLedger === "undefined" || !adminLedger.completedOrders) {
@@ -3193,6 +3221,9 @@ function generateDailyImageReport() {
     }
 
     const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+    
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
@@ -3206,29 +3237,27 @@ function generateDailyImageReport() {
     if (!rowsContainer) return;
     rowsContainer.innerHTML = "";
 
-    let totalQty = 0;
-    let totalGross = 0;
-    let totalFuel = 0;
-    let totalLabour = 0;
-    let totalNet = 0;
-    let totalKm = 0;
-    let todayOrdersCount = 0;
+    // 1. آج کے متغیرات (Today Variables)
+    let totalQty = 0, totalGross = 0, totalFuel = 0, totalLabour = 0, totalNet = 0, totalKm = 0, todayOrdersCount = 0;
+
+    // 2. ماہانہ متغیرات (Monthly Variables)
+    let mTotalUnits = 0, mTotalGross = 0, mTotalExpenses = 0, mTotalNet = 0;
 
     adminLedger.completedOrders.forEach(o => {
+        if (!o.date) return;
+        const orderDate = new Date(o.date);
+        
+        const qty = parseFloat(o.qty || 0);
+        const rate = parseFloat(o.rate || 0);
+        const km = parseFloat(o.km || o.bikeKm || o.distance || o.travel || o.bike_km || 0);
+        const gross = parseFloat(o.gross || (qty * rate));
+        const fuel = parseFloat(o.fuel || 0);
+        const labour = parseFloat(o.labour || 0);
+        const net = parseFloat(o.netProfit || (gross - fuel - labour));
+
+        // [الف] صرف آج کے آرڈرز کا ڈیٹا فلٹر کرنا
         if (o.date === todayString) {
             todayOrdersCount++;
-            
-            const qty = parseFloat(o.qty || 0);
-            const rate = parseFloat(o.rate || 0);
-            
-            // 🛠️ کلومیٹر فکس: یہاں ہم نے تمام ممکنہ نام چیک کر لیے ہیں جو آپ کے ڈیٹا بیس میں ہو سکتے ہیں
-            const km = parseFloat(o.km || o.bikeKm || o.distance || o.travel || o.bike_km || 0);
-            
-            const gross = parseFloat(o.gross || (qty * rate));
-            const fuel = parseFloat(o.fuel || 0);
-            const labour = parseFloat(o.labour || 0);
-            const net = parseFloat(o.netProfit || (gross - fuel - labour));
-
             totalQty += qty;
             totalGross += gross;
             totalFuel += fuel;
@@ -3253,10 +3282,17 @@ function generateDailyImageReport() {
                 <div class="flex gap-4 text-[8px] text-slate-500 font-mono pl-5 border-t border-white/[0.02] pt-0.5">
                     <span><i class="fas fa-money-bill text-emerald-600"></i> Rate: <strong class="text-slate-300">Rs ${rate}</strong></span>
                     <span><i class="fas fa-motorcycle text-sky-600"></i> Bike Travel: <strong class="text-slate-300">${km} KM</strong></span>
-                    ${o.service ? `<span><i class="fas fa-layer-group text-purple-600"></i> Job: <strong class="text-slate-300 uppercase">${o.service}</strong></span>` : ''}
                 </div>
             `;
             rowsContainer.appendChild(row);
+        }
+
+        // [ب] پورے چالو مہینے کا ڈیٹا جمع کرنا (فار منتھلی کارڈز)
+        if (orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear) {
+            mTotalUnits += qty;
+            mTotalGross += gross;
+            mTotalExpenses += fuel + labour;
+            mTotalNet += net;
         }
     });
 
@@ -3264,17 +3300,41 @@ function generateDailyImageReport() {
         rowsContainer.innerHTML = `<p class="text-center py-5 text-slate-500 font-mono text-[10px]">No orders completed today (${dd}/${mm}/${yyyy}).</p>`;
     }
 
+    // آج کے ٹوٹلز اپڈیٹ کرنا
     document.getElementById("rep-total-qty").innerText = totalQty;
     document.getElementById("rep-total-gross").innerText = "Rs " + totalGross.toLocaleString();
     document.getElementById("rep-total-fuel").innerText = "Rs " + totalFuel.toLocaleString();
     document.getElementById("rep-total-labour").innerText = "Rs " + totalLabour.toLocaleString();
     document.getElementById("rep-total-net").innerText = "Rs " + totalNet.toLocaleString();
-    
     if(document.getElementById("rep-total-km")) document.getElementById("rep-total-km").innerText = totalKm + " KM";
     if(document.getElementById("rep-total-orders")) document.getElementById("rep-total-orders").innerText = todayOrdersCount;
 
+    // 🌟 پورے مہینے کا ڈیٹا لائیو پش کرنا (اسکرین شاٹ والی ویلیوز) 🌟
+    document.getElementById("rep-month-gross").innerText = "Rs " + mTotalGross.toLocaleString();
+    document.getElementById("rep-month-net").innerText = "Rs " + mTotalNet.toLocaleString();
+
+    // 60,000 ریونیو کے مطابق ٹارگٹ یونٹس نکالنا
+    const monthlyRevenueTarget = 60000;
+    const avgRatePerUnit = mTotalUnits > 0 ? (mTotalGross / mTotalUnits) : 80;
+    const breakEvenUnits = Math.ceil(monthlyRevenueTarget / avgRatePerUnit);
+    const progressPercent = Math.min(((mTotalUnits / breakEvenUnits) * 100), 100);
+
+    document.getElementById("rep-month-done-units").innerText = mTotalUnits + " Done";
+    document.getElementById("rep-month-target-units").innerText = breakEvenUnits + " Units";
+    document.getElementById("rep-month-progress-bar").style.width = progressPercent + "%";
+
+    const statusText = document.getElementById("rep-month-status-text");
+    if (mTotalGross >= monthlyRevenueTarget) {
+        statusText.innerText = `Rs 60K Target Achieved!`;
+        statusText.className = "text-[9px] font-bold text-emerald-400 font-sans mt-1";
+    } else {
+        const remainingRevenue = monthlyRevenueTarget - mTotalGross;
+        statusText.innerText = `Need Rs ${Math.ceil(remainingRevenue).toLocaleString()} more for 60K Target`;
+        statusText.className = "text-[9px] font-bold text-amber-400 font-sans mt-1";
+    }
+
+    // 📸 ہائی ڈیفینیشن امیج جنریٹر اور واٹس ایپ ٹریگر
     const reportTemplate = document.getElementById("hidden-report-card");
-    
     html2canvas(reportTemplate, {
         backgroundColor: "#020617",
         scale: 2,
@@ -3300,10 +3360,9 @@ function generateDailyImageReport() {
     });
 }
 // ==========================================================================
-// END FEATURE: WHATSAPP IMAGE REPORT GENERATOR (KM FIX)
+// END FEATURE: WHATSAPP IMAGE REPORT GENERATOR (WITH MONTHLY INSIGHTS)
 // ==========================================================================
     
-
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
 // ========================================================
