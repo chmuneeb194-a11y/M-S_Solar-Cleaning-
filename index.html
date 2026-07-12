@@ -1217,29 +1217,40 @@
 <!-- ========================================================================== -->
 <!-- END UI: SMART FUEL EFFICIENCY & PROFIT ALERT CARD -->
 <!-- ========================================================================== -->
-        <!-- ========================================================================== -->
-<!-- START UI: SMART SEASONAL EFFICIENCY INTERCEPTOR -->
+<!-- ========================================================================== -->
+<!-- START UI: LIVE SEASONAL EFFICIENCY INTERCEPTOR (LINE CHART) -->
 <!-- ========================================================================== -->
 <div class="mt-3 bg-slate-900/80 border border-white/[0.04] rounded-2xl p-4">
-    <div class="flex items-center gap-2 mb-2">
-        <span class="w-7 h-7 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xs border border-purple-500/20">
-            <i class="fas fa-cloud-sun"></i>
-        </span>
-        <div>
-            <h4 class="text-[11px] font-black text-white uppercase tracking-wider">Seasonal Efficiency Interceptor</h4>
-            <p class="text-[9px] text-slate-500 font-mono">Sahiwal Regional Business Peak Analyst</p>
+    <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+            <span class="w-7 h-7 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xs border border-purple-500/20">
+                <i class="fas fa-chart-line"></i>
+            </span>
+            <div>
+                <h4 class="text-[11px] font-black text-white uppercase tracking-wider">Seasonal Efficiency Interceptor</h4>
+                <p class="text-[9px] text-slate-500 font-mono">Live Monthly Gross Revenue Analytics</p>
+            </div>
         </div>
+        <!-- لائیو اسٹیٹس انڈیکیٹر -->
+        <span class="flex items-center gap-1.5 text-[8px] font-black uppercase bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded-md border border-purple-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span> Live Chart
+        </span>
     </div>
     
-    <!-- آٹومیٹک سیزنل گائیڈنس نوٹ (جاوا اسکرپٹ سے خود بخود بدلے گا) -->
-    <div class="bg-slate-950/60 p-3 rounded-xl border border-white/[0.02] mt-2">
-        <p id="seasonal-analysis-text" class="text-[10px] text-slate-300 font-sans leading-relaxed">
-            Analyzing historical order data to calculate seasonal peak months...
-        </p>
+    <!-- لائیو لائن گراف کنٹینر -->
+    <div class="bg-slate-950/60 p-3 rounded-xl border border-white/[0.02] relative min-h-[160px] flex flex-col justify-between">
+        <canvas id="seasonalLineChart" class="w-full h-28"></canvas>
+        
+        <!-- ٹیکسٹ سمری (گراف کے نیچے لائیو اپڈیٹ ہوگی) -->
+        <div class="mt-2 pt-2 border-t border-white/[0.02]">
+            <p id="seasonal-chart-text" class="text-[9px] text-slate-400 font-sans leading-relaxed">
+                Calculating historical trends...
+            </p>
+        </div>
     </div>
 </div>
 <!-- ========================================================================== -->
-<!-- END UI: SMART SEASONAL EFFICIENCY INTERCEPTOR -->
+<!-- END UI: LIVE SEASONAL EFFICIENCY INTERCEPTOR (LINE CHART) -->
 <!-- ========================================================================== -->
         
         <!-- ========================================================================== -->
@@ -3504,76 +3515,134 @@ document.addEventListener("DOMContentLoaded", () => {
 // ==========================================================================
 // END FEATURE: LIVE FUEL EFFICIENCY & PROFIT ALERT ENGINE
 // ==========================================================================
-    // ==========================================================================
-// START FEATURE: SMART SEASONAL EFFICIENCY INTERCEPTOR ENGINE
 // ==========================================================================
-function updateSeasonalInterceptor() {
+// START FEATURE: LIVE LINE CHART ENGINE FOR SEASONAL INTERCEPTOR
+// ==========================================================================
+function renderSeasonalLineChart() {
     if (typeof adminLedger === "undefined" || !adminLedger.completedOrders) return;
 
-    // تمام 12 مہینوں کا ڈیٹا جمع کرنے کے لیے لسٹ
-    const monthData = Array(12).fill(0).map(() => ({ totalOrders: 0, totalGross: 0 }));
+    const canvas = document.getElementById("seasonalLineChart");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
 
-    // ڈیٹا بیس سے خود بخود تمام آرڈرز کا نچوڑ نکالنا
+    // براؤزر کے سائز کے مطابق پکسل سیٹ کرنا
+    const rect = canvas.parentNode.getBoundingClientRect();
+    canvas.width = rect.width * 2;
+    canvas.height = 112 * 2; // 28rem * 4 = 112px
+    ctx.scale(2, 2);
+
+    // 12 مہینوں کی کل گراس کمائی کا اٹو اکاؤنٹنٹ
+    const monthlyRevenue = Array(12).fill(0);
     adminLedger.completedOrders.forEach(o => {
         if (!o.date) return;
         const orderDate = new Date(o.date);
-        const monthIndex = orderDate.getMonth(); // 0 سے 11 تک مہینے
-
+        const mIndex = orderDate.getMonth();
+        
         const qty = parseFloat(o.qty || 0);
         const rate = parseFloat(o.rate || 0);
         const gross = parseFloat(o.gross || (qty * rate));
-
-        monthData[monthIndex].totalOrders += 1;
-        monthData[monthIndex].totalGross += gross;
+        monthlyRevenue[mIndex] += gross;
     });
 
-    // سب سے زیادہ کمائی اور آرڈرز والا مہینا (Peak Month) فائنڈ کرنا
-    let peakMonthIndex = 0;
-    let maxGross = 0;
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const maxRev = Math.max(...monthlyRevenue, 1000); // 0 ڈیوائیڈ سے بچنے کے لیے کم از کم 1000
+
+    const width = rect.width;
+    const height = 90; // گراف ایریا کی ہائٹ
+    const paddingLeft = 15;
+    const paddingRight = 15;
+    const chartWidth = width - paddingLeft - paddingRight;
+
+    // کینوس صاف کرنا
+    ctx.clearRect(0, 0, width, 112);
+
+    // 📈 لائن گراف کے پوائنٹس کی لسٹ بنانا
+    const points = monthlyRevenue.map((rev, i) => {
+        const x = paddingLeft + (i * (chartWidth / 11));
+        const y = height - (rev / maxRev * (height - 20));
+        return { x, y, rev, month: months[i] };
+    });
+
+    // 1. نیچے کی ہلکی گریڈ لائنز اور مہینوں کے نام ڈرا کرنا
+    ctx.textAlign = "center";
+    ctx.font = "bold 8px monospace";
     
-    monthData.forEach((data, index) => {
-        if (data.totalGross > maxGross) {
-            maxGross = data.totalGross;
-            peakMonthIndex = index;
+    points.forEach((p, i) => {
+        // مہینے کا نام نیچے لکھنا
+        ctx.fillStyle = "#64748b"; // slate-500
+        ctx.fillText(p.month, p.x, height + 15);
+
+        // بیک گراؤنڈ باریک ڈاٹڈ ورٹیکل لائنز
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.02)";
+        ctx.beginPath();
+        ctx.moveTo(p.x, 10);
+        ctx.lineTo(p.x, height);
+        ctx.stroke();
+    });
+
+    // 2. خوبصورت پرپل گریڈینٹ شیڈو (لائن کے نیچے کا رنگ)
+    const gradient = ctx.createLinearGradient(0, 0, 0, height);
+    gradient.addColorStop(0, "rgba(168, 85, 247, 0.15)"); // purple-500 fading
+    gradient.addColorStop(1, "rgba(168, 85, 247, 0)");
+    
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, height);
+    points.forEach(p => ctx.lineTo(p.x, p.y));
+    ctx.lineTo(points[11].x, height);
+    ctx.closePath();
+    ctx.fill();
+
+    // 3. مین چمکتی ہوئی پرپل لائن بنانا (جو اوپر کی طرف موو ہوگی)
+    ctx.strokeStyle = "#a855f7"; // purple-500
+    ctx.lineWidth = 2;
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    points.forEach(p => ctx.lineTo(p.x, p.y));
+    ctx.stroke();
+
+    // 4. ہر مہینے کی ویلیو اور ڈاٹ اوپر پرنٹ کرنا
+    points.forEach(p => {
+        if (p.rev > 0) {
+            // چھوٹا انڈیکیٹر ڈاٹ
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = "#a855f7";
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // روپے کی ویلیو اوپر لکھنا (تاکہ واضح ہو کتنا بزنس ہوا)
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "black 7px monospace";
+            ctx.fillText(`Rs${Math.round(p.rev)}`, p.x, p.y - 6);
         }
     });
 
-    const monthNames = [
-        "January", "February", "March", "April", "May", "June", 
-        "July", "August", "September", "October", "November", "December"
-    ];
-
-    const currentMonthIndex = new Date().getMonth();
-    const peakMonthName = monthNames[peakMonthIndex];
-    const textElement = document.getElementById("seasonal-analysis-text");
-
-    if (textElement) {
-        if (maxGross === 0) {
-            textElement.innerHTML = `<span class="text-amber-400 font-bold">ℹ️ Not enough order history yet to calculate seasonal trends. Keep saving orders!</span>`;
-            return;
-        }
-
-        // سمارٹ آٹو نوٹ جنریشن
-        let analysisReport = `📊 آپ کے ڈیٹا کے مطابق ساہیوال میں آپ کا سب سے زیادہ بزنس <strong class="text-purple-400 font-black">${peakMonthName}</strong> کے مہینے میں چلتا ہے۔ `;
-        
-        if (currentMonthIndex === peakMonthIndex) {
-            analysisReport += `🔥 <span class="text-emerald-400 font-bold">کرنٹ اسٹیٹس:</span> ابھی آپ کا پیک سیزن چل رہا ہے! اپنی واٹس ایپ اور فیس بک مارکیٹنگ کو فل تیز رکھیں تاکہ زیادہ سے زیادہ آرڈرز مل سکیں۔`;
-        } else if (currentMonthIndex === 10 || currentMonthIndex === 11 || currentMonthIndex === 0) { // نومبر، دسمبر، جنوری
-            analysisReport += `❄️ <span class="text-sky-400 font-bold">سردیوں کا الرٹ:</span> نومبر سے جنوری کے دوران پینلز پر مٹی اور دھند زیادہ جمتی ہے، کسٹمرز کو صفائی کی یاد دہانی کے میسجز خود بھیجیں۔`;
+    // 5. لائیو ٹیکسٹ سمری اپڈیٹ کرنا
+    let peakIndex = monthlyRevenue.indexOf(Math.max(...monthlyRevenue));
+    const textElem = document.getElementById("seasonal-chart-text");
+    if (textElem) {
+        if (Math.max(...monthlyRevenue) === 0) {
+            textElem.innerHTML = `ℹ️ ڈیٹا بیس خالی ہے، آرڈرز سیو ہوتے ہی گراف لائیو چل پڑے گا۔`;
         } else {
-            analysisReport += `📢 <span class="text-amber-400 font-bold">مارکیٹنگ ٹپ:</span> آنے والے سیزن کی تیاری کے لیے پرانے VIP گاہکوں سے واٹس ایپ پر دوبارہ رابطہ شروع کریں۔`;
+            textElem.innerHTML = `📊 گراف کے مطابق <strong class="text-purple-400">${months[peakIndex]}</strong> آپ کا فُل پیک مہینا رہا۔ ساہیوال ریجنل ٹرینڈ کے حساب سے اپنا شیڈول مانیٹر کریں۔`;
         }
-
-        textElement.innerHTML = analysisReport;
     }
 }
 
-// ڈیش بورڈ لوڈ ہوتے ہی اور ہر ڈیٹا اپڈیٹ پر خود رن ہونا
+// ڈیش بورڈ لوڈ ہوتے ہی اور کسٹمر لسٹ اپڈیٹ ہوتے ہی گراف چلانا
 document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(updateSeasonalInterceptor, 1500);
+    setTimeout(renderSeasonalLineChart, 1500);
+    
+    // سکرین چھوٹی بڑی ہونے پر گراف خراب نہ ہو، خود ری-ڈرا ہو جائے
+    window.addEventListener('resize', renderSeasonalLineChart);
 });
 // ==========================================================================
-// END FEATURE: SMART SEASONAL EFFICIENCY INTERCEPTOR ENGINE
+// END FEATURE: LIVE LINE CHART ENGINE FOR SEASONAL INTERCEPTOR
 // ==========================================================================
     
 // ========================================================
