@@ -1350,7 +1350,29 @@
                 <span>Today Orders: <strong id="rep-total-orders" class="text-white">0</strong></span>
             </div>
         </div>
+<!-- ========================================================================== -->
+<!-- ADD THIS INSIDE YOUR WHATSAPP IMAGE TEMPLATE (BELOW GRAND TOTALS / TRAVEL) -->
+<!-- ========================================================================== -->
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); font-family: monospace;">
+    
+    <!-- 1. فیول ایفیشنسی ڈیٹا (تصویر کے بائیں طرف) -->
+    <div style="font-size: 10px; color: #64748b; text-align: left;">
+        <span style="color: #38bdf8; font-weight: bold;">⛽ FUEL EFFICIENCY:</span> 
+        <span id="img-report-avg-cost" style="color: #ffffff; font-weight: 900;">Rs 0.0 / KM</span>
+        <span style="margin: 0 6px; color: rgba(255,255,255,0.1);">|</span>
+        <span style="color: #64748b;">Ratio:</span> 
+        <span id="img-report-ratio" style="color: #fbbf24; font-weight: 900;">0.0%</span>
+    </div>
 
+    <!-- 2. سیزنل انٹیلیجنس الرٹ (تصویر کے دائیں طرف) -->
+    <div style="font-size: 10px; color: #a855f7; font-weight: bold; text-align: right;">
+        <span style="background: rgba(168, 85, 247, 0.1); padding: 2px 6px; rounded-md: 4px; border: 1px solid rgba(168, 85, 247, 0.2);">
+            📈 Peak Month: <span id="img-report-peak-month" style="color: #ffffff; font-weight: 900; uppercase;">Calculating...</span>
+        </span>
+    </div>
+
+</div>
+        
         <!-- 🌟 نیا سیکشن: ماہانہ پرفارمنس اور ٹارگٹ رپورٹ (اسکرین شاٹ کے مطابق) 🌟 -->
         <div class="mt-4 bg-slate-900/60 border border-white/[0.05] rounded-2xl p-4">
             <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3"><i class="fas fa-chart-bar text-purple-500 mr-1"></i> Current Month Performance Overview</h3>
@@ -3401,7 +3423,42 @@ function generateDailyImageReport() {
         statusText.innerText = `Need Rs ${Math.ceil(remainingRevenue).toLocaleString()} more for 60K Target`;
         statusText.className = "text-[9px] font-bold text-amber-400 font-sans mt-1";
     }
+// یہ لائنز آپ کے امیج جنریٹ کرنے والے مین فنکشن کے اندر جائیں گی، کیپچر ہونے سے پہلے:
+function injectDataIntoWhatsappImage() {
+    // ڈیش بورڈ پر موجود لائیو ویلیوز کو ریڈ کرنا
+    const currentAvgCost = document.getElementById("fuel-avg-cost-km") ? document.getElementById("fuel-avg-cost-km").innerText : "Rs 0.0 / KM";
+    const currentRatio = document.getElementById("fuel-revenue-ratio") ? document.getElementById("fuel-revenue-ratio").innerText : "0.0%";
+    
+    // سیزنل چارٹ سے ہائیسٹ مہینا نکالنا
+    let peakMonthName = "Jul"; // ڈیفالٹ
+    if (typeof adminLedger !== "undefined" && adminLedger.completedOrders) {
+        const monthlyRevenue = Array(12).fill(0);
+        adminLedger.completedOrders.forEach(o => {
+            if (!o.date) return;
+            const mIndex = new Date(o.date).getMonth();
+            const qty = parseFloat(o.qty || 0);
+            const rate = parseFloat(o.rate || 0);
+            monthlyRevenue[mIndex] += parseFloat(o.gross || (qty * rate));
+        });
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        let peakIndex = monthlyRevenue.indexOf(Math.max(...monthlyRevenue));
+        if (Math.max(...monthlyRevenue) > 0) {
+            peakMonthName = months[peakIndex];
+        }
+    }
 
+    // امیج ٹیمپلیٹ کے اندر لائیو ڈیٹا پش کرنا
+    if (document.getElementById("img-report-avg-cost")) {
+        document.getElementById("img-report-avg-cost").innerText = currentAvgCost;
+    }
+    if (document.getElementById("img-report-ratio")) {
+        document.getElementById("img-report-ratio").innerText = currentRatio;
+    }
+    if (document.getElementById("img-report-peak-month")) {
+        document.getElementById("img-report-peak-month").innerText = peakMonthName.toUpperCase();
+    }
+}
+    
     // 📸 ہائی ڈیفینیشن امیج جنریٹر اور واٹس ایپ ٹریگر
     const reportTemplate = document.getElementById("hidden-report-card");
     html2canvas(reportTemplate, {
