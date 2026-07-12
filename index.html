@@ -2661,7 +2661,7 @@ function renderAdminDashboard() {
 // END FUNCTION: renderAdminDashboard
 // ==========================================================================
 // ==========================================================================
-// START FEATURE: SELF-EXECUTING CRM & BREAK-EVEN ANALYTICS ENGINE
+// START FEATURE: SELF-EXECUTING CRM & BREAK-EVEN ANALYTICS ENGINE (NO FIXED COSTS)
 // ==========================================================================
 function runCrmAndBreakEven() {
     // چیک کرنا کہ ڈیٹا موجود ہے یا نہیں
@@ -2700,21 +2700,10 @@ function runCrmAndBreakEven() {
         customerMap[custName].totalRevenue += parseFloat(o.gross || 0);
     });
 
-    // --- [الف] بریک ایون رینڈر لاجک ---
-    const avgRatePerUnit = totalUnits > 0 ? (totalGross / totalUnits) : 0;
-    const avgExpensePerUnit = totalUnits > 0 ? (totalExpenses / totalUnits) : 0;
-    const marginPerUnit = avgRatePerUnit - avgExpensePerUnit;
-    const monthlyFixedCosts = 15000; 
-    
-    let breakEvenUnits = 0;
-    if (marginPerUnit > 0) {
-        breakEvenUnits = Math.ceil(monthlyFixedCosts / marginPerUnit);
-    }
-
-    let progressPercent = 0;
-    if (breakEvenUnits > 0) {
-        progressPercent = Math.min(((totalUnits / breakEvenUnits) * 100), 100);
-    }
+    // --- [الف] بریک ایون رینڈر لاجک (منیب بھائی کے بزنس کے مطابق فکسڈ خرچہ 0 کر دیا) ---
+    const monthlyFixedCosts = 0; 
+    let breakEvenUnits = 0; // چونکہ فکسڈ خرچہ زیرو ہے، اس لیے ہدف بھی زیرو ہوگا
+    let progressPercent = 100; // منیب بھائی ہمیشہ سیف اور پرافٹ زون میں ہیں
 
     if (document.getElementById("be-target-units")) document.getElementById("be-target-units").innerText = breakEvenUnits + " Units";
     if (document.getElementById("be-current-units")) document.getElementById("be-current-units").innerText = totalUnits + " Done";
@@ -2722,14 +2711,9 @@ function runCrmAndBreakEven() {
     
     const statusText = document.getElementById("be-status-text");
     if (statusText) {
-        if (totalUnits >= breakEvenUnits && breakEvenUnits > 0) {
-            statusText.className = "text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-lg";
-            statusText.innerHTML = `<i class="fas fa-smile"></i> Safe Zone (In Profit)`;
-        } else {
-            const remaining = breakEvenUnits - totalUnits;
-            statusText.className = "text-[10px] font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-lg";
-            statusText.innerHTML = `<i class="fas fa-calculator"></i> Need ${remaining > 0 ? remaining : 0} more units to clear expense`;
-        }
+        // چونکہ کوئی فکسڈ خرچہ نہیں ہے، یہ ہمیشہ ہرا اور سیف زون دکھائے گا
+        statusText.className = "text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-500/20";
+        statusText.innerHTML = `<i class="fas fa-smile"></i> Safe Zone (In Profit)`;
     }
 
     // --- [ب] CRM لیڈر بورڈ رینڈر لاجک ---
@@ -2765,16 +2749,15 @@ function runCrmAndBreakEven() {
     }
 }
 
-// اٹو-ٹرگر انجن: پیج لوڈ ہوتے ہی اور ہر 2 سیکنڈ بعد ڈیٹا خود بخود ری-اسکین ہوگا
+// اٹو-ٹرگر انجن
 document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(runCrmAndBreakEven, 1000); // پہلی بار ڈیٹا لوڈ ہونے کا ایک سیکنڈ ویٹ کرے گا
-    setInterval(runCrmAndBreakEven, 2000); // ہر دو سیکنڈ بعد بیک گراؤنڈ میں ڈیٹا لائیو چیک کرتا رہے گا
+    setTimeout(runCrmAndBreakEven, 1000); 
+    setInterval(runCrmAndBreakEven, 2000); 
 });
 // ==========================================================================
-// END FEATURE: SELF-EXECUTING CRM & BREAK-EVEN ANALYTICS ENGINE
+// END FEATURE: SELF-EXECUTING CRM & BREAK-EVEN ANALYTICS ENGINE (NO FIXED COSTS)
 // ==========================================================================
-    
-
+            
 // START FUNCTION: checkOverdueAlerts
 function checkOverdueAlerts() {
     const alertBox = document.getElementById("admin-overdue-alert-container");
