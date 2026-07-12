@@ -1149,6 +1149,39 @@
                 </div>
             </div>
         </div>
+        <!-- ========================================================================== -->
+<!-- START UI: MONTHLY ANALYTICS DASHBOARD CARD -->
+<!-- ========================================================================== -->
+<div class="p-4 rounded-3xl bg-gradient-to-br from-slate-950 to-slate-900 border border-white/[0.05] shadow-2xl mb-4">
+    <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+            <div class="p-1.5 bg-sky-500/10 rounded-xl border border-sky-500/20 text-sky-400 text-xs">
+                <i class="fas fa-chart-bar"></i>
+            </div>
+            <h3 class="text-xs font-black text-white tracking-wide uppercase">Monthly Performance</h3>
+        </div>
+        <!-- یہ بیج خود بخود پرافٹ اپ یا ڈاؤن ہونے پر رنگ بدلے گا -->
+        <span id="lm-growth-badge" class="text-[10px] font-bold text-slate-400 bg-white/5 px-2 py-0.5 rounded-lg border border-white/10">
+            0.0% vs Last Month
+        </span>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+        <!-- کرنٹ منتھ ریونیو -->
+        <div class="p-3 bg-slate-900/60 rounded-2xl border border-white/[0.02]">
+            <p class="text-[10px] text-slate-400 font-medium">This Month Gross</p>
+            <p id="cm-gross-display" class="text-sm font-black text-white mt-1 font-sans">Rs 0</p>
+        </div>
+        <!-- کرنٹ منتھ خالص منافع -->
+        <div class="p-3 bg-slate-900/60 rounded-2xl border border-white/[0.02]">
+            <p class="text-[10px] text-slate-400 font-medium">This Month Net Profit</p>
+            <p id="cm-net-display" class="text-sm font-black text-emerald-400 mt-1 font-sans">Rs 0</p>
+        </div>
+    </div>
+</div>
+<!-- ========================================================================== -->
+<!-- END UI: MONTHLY ANALYTICS DASHBOARD CARD -->
+<!-- ========================================================================== -->
         
         <!-- ------------------------------------------ -->
         <!-- SUB-SECTION E: GLOBAL PANEL RATE CONTROLLER -->
@@ -2850,6 +2883,69 @@ function saveGlobalRate() {
     alert(`📢 نیا گلوبل ریٹ Rs ${rate} کامیابی سے اپڈیٹ کر دیا گیا ہے!`);
 }
 // END FUNCTION: saveGlobalRate
+    // ==========================================================================
+// START FEATURE: calculateMonthlyAnalytics
+// ==========================================================================
+function calculateMonthlyAnalytics() {
+    const today = new Date();
+    const currentMonth = today.getMonth(); // 0 = Jan, 1 = Feb, etc.
+    const currentYear = today.getFullYear();
+
+    // پچھلے مہینے کی تاریخیں سیٹ کرنا
+    let lastMonth = currentMonth - 1;
+    let lastMonthYear = currentYear;
+    if (lastMonth < 0) {
+        lastMonth = 11;
+        lastMonthYear = currentYear - 1;
+    }
+
+    let currentMonthGross = 0;
+    let currentMonthNet = 0;
+    let lastMonthGross = 0;
+    let lastMonthNet = 0;
+
+    // تمام مکمل شدہ آرڈرز کا لوپ چلا کر موازنہ کرنا
+    adminLedger.completedOrders.forEach(o => {
+        if (!o.date) return;
+        const orderDate = new Date(o.date);
+        const oMonth = orderDate.getMonth();
+        const oYear = orderDate.getFullYear();
+
+        if (oMonth === currentMonth && oYear === currentYear) {
+            currentMonthGross += parseFloat(o.gross || 0);
+            currentMonthNet += parseFloat(o.netProfit || 0);
+        } else if (oMonth === lastMonth && oYear === lastMonthYear) {
+            lastMonthGross += parseFloat(o.gross || 0);
+            lastMonthNet += parseFloat(o.netProfit || 0);
+        }
+    });
+
+    // گروتھ کی فیصد (Growth Percentage) کیلکولیٹ کرنا
+    let netGrowthPercent = 0;
+    if (lastMonthNet > 0) {
+        netGrowthPercent = ((currentMonthNet - lastMonthNet) / lastMonthNet) * 100;
+    } else if (currentMonthNet > 0 && lastMonthNet === 0) {
+        netGrowthPercent = 100; // اگر پچھلے مہینے زیرو منافع تھا اور اب ہوا ہے
+    }
+
+    // ڈوم (DOM) میں ڈیٹا پش کرنا اگر کارڈز موجود ہوں
+    if(document.getElementById("cm-gross-display")) document.getElementById("cm-gross-display").innerText = "Rs " + currentMonthGross.toLocaleString();
+    if(document.getElementById("cm-net-display")) document.getElementById("cm-net-display").innerText = "Rs " + currentMonthNet.toLocaleString();
+    
+    const growthBadge = document.getElementById("lm-growth-badge");
+    if(growthBadge) {
+        if (netGrowthPercent >= 0) {
+            growthBadge.className = "text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-500/20";
+            growthBadge.innerHTML = `<i class="fas fa-arrow-trend-up"></i> +${netGrowthPercent.toFixed(1)}% vs Last Month`;
+        } else {
+            growthBadge.className = "text-[10px] font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-lg border border-rose-500/20";
+            growthBadge.innerHTML = `<i class="fas fa-arrow-trend-down"></i> ${netGrowthPercent.toFixed(1)}% vs Last Month`;
+        }
+    }
+}
+// ==========================================================================
+// END FEATURE: calculateMonthlyAnalytics
+// ==========================================================================
     
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
