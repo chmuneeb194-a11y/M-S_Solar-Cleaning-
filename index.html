@@ -1217,6 +1217,30 @@
 <!-- ========================================================================== -->
 <!-- END UI: SMART FUEL EFFICIENCY & PROFIT ALERT CARD -->
 <!-- ========================================================================== -->
+        <!-- ========================================================================== -->
+<!-- START UI: SMART SEASONAL EFFICIENCY INTERCEPTOR -->
+<!-- ========================================================================== -->
+<div class="mt-3 bg-slate-900/80 border border-white/[0.04] rounded-2xl p-4">
+    <div class="flex items-center gap-2 mb-2">
+        <span class="w-7 h-7 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xs border border-purple-500/20">
+            <i class="fas fa-cloud-sun"></i>
+        </span>
+        <div>
+            <h4 class="text-[11px] font-black text-white uppercase tracking-wider">Seasonal Efficiency Interceptor</h4>
+            <p class="text-[9px] text-slate-500 font-mono">Sahiwal Regional Business Peak Analyst</p>
+        </div>
+    </div>
+    
+    <!-- آٹومیٹک سیزنل گائیڈنس نوٹ (جاوا اسکرپٹ سے خود بخود بدلے گا) -->
+    <div class="bg-slate-950/60 p-3 rounded-xl border border-white/[0.02] mt-2">
+        <p id="seasonal-analysis-text" class="text-[10px] text-slate-300 font-sans leading-relaxed">
+            Analyzing historical order data to calculate seasonal peak months...
+        </p>
+    </div>
+</div>
+<!-- ========================================================================== -->
+<!-- END UI: SMART SEASONAL EFFICIENCY INTERCEPTOR -->
+<!-- ========================================================================== -->
         
         <!-- ========================================================================== -->
 <!-- START UI: COMBINED CRM LEADERBOARD & BREAK-EVEN ANALYTICS GRAPHICS -->
@@ -3479,6 +3503,77 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 // ==========================================================================
 // END FEATURE: LIVE FUEL EFFICIENCY & PROFIT ALERT ENGINE
+// ==========================================================================
+    // ==========================================================================
+// START FEATURE: SMART SEASONAL EFFICIENCY INTERCEPTOR ENGINE
+// ==========================================================================
+function updateSeasonalInterceptor() {
+    if (typeof adminLedger === "undefined" || !adminLedger.completedOrders) return;
+
+    // تمام 12 مہینوں کا ڈیٹا جمع کرنے کے لیے لسٹ
+    const monthData = Array(12).fill(0).map(() => ({ totalOrders: 0, totalGross: 0 }));
+
+    // ڈیٹا بیس سے خود بخود تمام آرڈرز کا نچوڑ نکالنا
+    adminLedger.completedOrders.forEach(o => {
+        if (!o.date) return;
+        const orderDate = new Date(o.date);
+        const monthIndex = orderDate.getMonth(); // 0 سے 11 تک مہینے
+
+        const qty = parseFloat(o.qty || 0);
+        const rate = parseFloat(o.rate || 0);
+        const gross = parseFloat(o.gross || (qty * rate));
+
+        monthData[monthIndex].totalOrders += 1;
+        monthData[monthIndex].totalGross += gross;
+    });
+
+    // سب سے زیادہ کمائی اور آرڈرز والا مہینا (Peak Month) فائنڈ کرنا
+    let peakMonthIndex = 0;
+    let maxGross = 0;
+    
+    monthData.forEach((data, index) => {
+        if (data.totalGross > maxGross) {
+            maxGross = data.totalGross;
+            peakMonthIndex = index;
+        }
+    });
+
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June", 
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    const currentMonthIndex = new Date().getMonth();
+    const peakMonthName = monthNames[peakMonthIndex];
+    const textElement = document.getElementById("seasonal-analysis-text");
+
+    if (textElement) {
+        if (maxGross === 0) {
+            textElement.innerHTML = `<span class="text-amber-400 font-bold">ℹ️ Not enough order history yet to calculate seasonal trends. Keep saving orders!</span>`;
+            return;
+        }
+
+        // سمارٹ آٹو نوٹ جنریشن
+        let analysisReport = `📊 آپ کے ڈیٹا کے مطابق ساہیوال میں آپ کا سب سے زیادہ بزنس <strong class="text-purple-400 font-black">${peakMonthName}</strong> کے مہینے میں چلتا ہے۔ `;
+        
+        if (currentMonthIndex === peakMonthIndex) {
+            analysisReport += `🔥 <span class="text-emerald-400 font-bold">کرنٹ اسٹیٹس:</span> ابھی آپ کا پیک سیزن چل رہا ہے! اپنی واٹس ایپ اور فیس بک مارکیٹنگ کو فل تیز رکھیں تاکہ زیادہ سے زیادہ آرڈرز مل سکیں۔`;
+        } else if (currentMonthIndex === 10 || currentMonthIndex === 11 || currentMonthIndex === 0) { // نومبر، دسمبر، جنوری
+            analysisReport += `❄️ <span class="text-sky-400 font-bold">سردیوں کا الرٹ:</span> نومبر سے جنوری کے دوران پینلز پر مٹی اور دھند زیادہ جمتی ہے، کسٹمرز کو صفائی کی یاد دہانی کے میسجز خود بھیجیں۔`;
+        } else {
+            analysisReport += `📢 <span class="text-amber-400 font-bold">مارکیٹنگ ٹپ:</span> آنے والے سیزن کی تیاری کے لیے پرانے VIP گاہکوں سے واٹس ایپ پر دوبارہ رابطہ شروع کریں۔`;
+        }
+
+        textElement.innerHTML = analysisReport;
+    }
+}
+
+// ڈیش بورڈ لوڈ ہوتے ہی اور ہر ڈیٹا اپڈیٹ پر خود رن ہونا
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(updateSeasonalInterceptor, 1500);
+});
+// ==========================================================================
+// END FEATURE: SMART SEASONAL EFFICIENCY INTERCEPTOR ENGINE
 // ==========================================================================
     
 // ========================================================
