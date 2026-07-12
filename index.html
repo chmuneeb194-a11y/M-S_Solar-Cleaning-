@@ -1183,6 +1183,64 @@
 <!-- END UI: MONTHLY ANALYTICS DASHBOARD CARD -->
 <!-- ========================================================================== -->
         <!-- ========================================================================== -->
+<!-- START UI: WHATSAPP IMAGE REPORT GENERATOR -->
+<!-- ========================================================================== -->
+
+<!-- رپورٹ جنریٹ کرنے کا بٹن (اسے آپ ڈیش بورڈ میں کہیں بھی رکھ سکتے ہیں) -->
+<div class="mb-4">
+    <button onclick="generateDailyImageReport()" class="w-full py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs rounded-2xl border border-white/10 shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 uppercase tracking-wider">
+        <i class="fas fa-image"></i> Generate & Download Daily Image Report
+    </button>
+</div>
+
+<!-- ہڈن رپورٹ ٹیمپلیٹ (یہ تصویر بننے کے لیے بیک گراؤنڈ میں کام کرے گا) -->
+<div style="position: absolute; top: -9999px; left: -9999px;">
+    <div id="hidden-report-card" class="p-6 rounded-3xl bg-slate-950 border border-white/10 text-white font-sans" style="width: 500px;">
+        <!-- ہیڈر -->
+        <div class="text-center border-b border-white/10 pb-4 mb-4">
+            <h2 class="text-lg font-black text-sky-400 uppercase tracking-wide">M-S SOLAR CLEANING & CAR WASH</h2>
+            <p class="text-[10px] text-slate-400">Official Daily Financial Ledger Report</p>
+            <p id="report-date-display" class="text-[9px] text-slate-500 font-mono mt-0.5">Generated on: --/--/----</p>
+        </div>
+
+        <!-- ٹیبل ہیڈنگز -->
+        <div class="grid grid-cols-6 gap-1 border-b border-white/[0.05] pb-2 mb-2 text-[9px] font-black uppercase tracking-wider text-slate-400 text-center font-mono">
+            <span class="text-left col-span-2">Customer</span>
+            <span>Qty</span>
+            <span>Gross</span>
+            <span>Fuel</span>
+            <span>Net</span>
+        </div>
+
+        <!-- لائیو لسٹ (جاوا اسکرپٹ کے ذریعے بھرے گی) -->
+        <div id="report-rows-container" class="flex flex-col gap-1.5 text-[10px]">
+            <!-- یہاں روزانہ کی لسٹ اٹو رینڈر ہوگی -->
+        </div>
+
+        <!-- گرینڈ ٹوٹل -->
+        <div class="grid grid-cols-6 gap-1 border-t border-sky-500/30 pt-3 mt-3 text-[10px] font-black font-mono text-center items-center bg-sky-500/5 p-2 rounded-xl border border-white/[0.02]">
+            <span class="text-left col-span-2 text-sky-400 uppercase tracking-wide">GRAND TOTALS:</span>
+            <span id="rep-total-qty" class="text-white">-</span>
+            <span id="rep-total-gross" class="text-emerald-400">-</span>
+            <span id="rep-total-fuel" class="text-rose-400">-</span>
+            <span id="rep-total-net" class="text-sky-400">-</span>
+        </div>
+
+        <!-- فوٹر -->
+        <div class="text-center mt-4 pt-2 border-t border-white/[0.03]">
+            <p class="text-[8px] text-slate-600 font-mono tracking-widest uppercase">M-S SECURE Smart Accounting Engine</p>
+        </div>
+    </div>
+</div>
+
+<!-- html2canvas لائبریری کا اسکرپٹ (رپورٹ کارڈ کو تصویر میں بدلنے کے لیے ضروری ہے) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<!-- ========================================================================== -->
+<!-- END UI: WHATSAPP IMAGE REPORT GENERATOR -->
+<!-- ========================================================================== -->
+        
+        <!-- ========================================================================== -->
 <!-- START UI: COMBINED CRM LEADERBOARD & BREAK-EVEN ANALYTICS GRAPHICS -->
 <!-- ========================================================================== -->
 
@@ -3118,6 +3176,105 @@ function calculateMonthlyAnalytics() {
 }
 // ==========================================================================
 // END FEATURE: calculateMonthlyAnalytics
+// ==========================================================================
+    // ==========================================================================
+// START FEATURE: WHATSAPP IMAGE REPORT GENERATOR ENGINE
+// ==========================================================================
+function generateDailyImageReport() {
+    // چیک کرنا کہ ڈیٹا موجود ہے یا نہیں
+    if (typeof adminLedger === "undefined" || !adminLedger.completedOrders) {
+        alert("Data ledger not loaded yet!");
+        return;
+    }
+
+    // آج کی تاریخ نکالنا (YYYY-MM-DD فارمیٹ میں میچ کرنے کے لیے)
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const todayString = `${yyyy}-${mm}-${dd}`;
+
+    // ہیڈر میں آج کی تاریخ شو کرنا
+    if(document.getElementById("report-date-display")) {
+        document.getElementById("report-date-display").innerText = `Generated on: ${dd}/${mm}/${yyyy}`;
+    }
+
+    const rowsContainer = document.getElementById("report-rows-container");
+    if (!rowsContainer) return;
+    rowsContainer.innerHTML = "";
+
+    let totalQty = 0;
+    let totalGross = 0;
+    let totalFuel = 0;
+    let totalNet = 0;
+    let todayOrdersCount = 0;
+
+    // صرف آج کے مکمل ہونے والے آرڈرز فلٹر کرنا
+    adminLedger.completedOrders.forEach(o => {
+        if (o.date === todayString) {
+            todayOrdersCount++;
+            
+            const qty = parseFloat(o.qty || 0);
+            const gross = parseFloat(o.gross || 0);
+            const fuel = parseFloat(o.fuel || 0);
+            const net = parseFloat(o.netProfit || (gross - fuel - parseFloat(o.labour || 0)));
+
+            totalQty += qty;
+            totalGross += gross;
+            totalFuel += fuel;
+            totalNet += net;
+
+            // رپورٹ کے لیے سنگل رو (Row) بنانا
+            const row = document.createElement("div");
+            row.className = "grid grid-cols-6 gap-1 py-1.5 border-b border-white/[0.02] items-center text-center font-mono";
+            row.innerHTML = `
+                <div class="text-left col-span-2 pr-1 truncate">
+                    <span class="text-slate-400 font-bold mr-1">#${todayOrdersCount}</span>
+                    <span class="text-white font-sans font-bold">${o.name || 'Walk-in'}</span>
+                </div>
+                <div class="text-slate-300 font-bold">${qty}</div>
+                <div class="text-emerald-400 font-bold">Rs ${gross}</div>
+                <div class="text-rose-400 font-bold">Rs ${fuel}</div>
+                <div class="text-sky-400 font-bold">Rs ${net}</div>
+            `;
+            rowsContainer.appendChild(row);
+        }
+    });
+
+    // اگر آج کوئی آرڈر نہیں ملا
+    if (todayOrdersCount === 0) {
+        rowsContainer.innerHTML = `<p class="text-center py-4 text-slate-500 font-mono text-[10px]">No orders completed today (${dd}/${mm}/${yyyy}).</p>`;
+    }
+
+    // گرینڈ ٹوٹلز کی ویلیوز اپڈیٹ کرنا
+    document.getElementById("rep-total-qty").innerText = totalQty;
+    document.getElementById("rep-total-gross").innerText = "Rs " + totalGross.toLocaleString();
+    document.getElementById("rep-total-fuel").innerText = "Rs " + totalFuel.toLocaleString();
+    document.getElementById("rep-total-net").innerText = "Rs " + totalNet.toLocaleString();
+
+    // 📸 تصویر بنانے اور ڈاؤن لوڈ کرنے کا جادوئی انجن
+    const reportTemplate = document.getElementById("hidden-report-card");
+    
+    // سکرین شاٹ بنانے والی لائبریری کو رن کرنا
+    html2canvas(reportTemplate, {
+        backgroundColor: "#020617", // گہرا خوبصورت بیک گراؤنڈ کلر (Slate-950)
+        scale: 2, // تصویر کو ایچ ڈی (High Quality) بنانے کے لیے سکل ڈبل کی
+        logging: false
+    }).then(canvas => {
+        // امیج کو ڈیٹا یو آر ایل میں تبدیل کرنا
+        const image = canvas.toDataURL("image/png");
+        
+        // اٹو ڈاؤن لوڈ لنک بنانا
+        const link = document.createElement("a");
+        link.download = `MS-Solar-Report-${todayString}.png`;
+        link.href = image;
+        link.click(); // تصویر خود بخود موبائل یا کمپیوٹر میں سیو ہو جائے گی
+    }).catch(err => {
+        console.error("Error creating image report:", err);
+    });
+}
+// ==========================================================================
+// END FEATURE: WHATSAPP IMAGE REPORT GENERATOR ENGINE
 // ==========================================================================
     
 // ========================================================
