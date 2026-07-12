@@ -2220,7 +2220,7 @@ Real-time bill check karein (Rs. <span id="dynamic-text-rate">80</span> Per Pane
 
 <script>
 // ==========================================================================
-// MS SECURE 4.0 - PREMIUM FULL SCALE PRODUCTION SCRIPT
+// MS SECURE 4.0 - PREMIUM FULL SCALE PRODUCTION SCRIPT (PART 1)
 // ==========================================================================
 
 // 1. گلوبل ڈیٹا اسٹرکچر لوڈ کرنا
@@ -2229,13 +2229,13 @@ let adminLedger = JSON.parse(localStorage.getItem('ms_admin_ledger')) || {
     pendingOrders: [],
     globalRate: 80,
     rateReason: "",
-    bikeAvg: 15,       // بائیک ایوریج لاک کرنے کے لیے
-    petrolPrice: 270,  // پیٹرول پرائس لاک کرنے کے لیے
-    bikeOdometer: 0,   // [POINT 03]: بائیک کا لائیو ٹوٹل اوڈومیٹر کلومیٹر ٹریکر
-    sentReminders: {}  // [POINT 05]: ریمائنڈرز کی اسٹیٹ سیو رکھنے کے لیے
+    bikeAvg: 15,       
+    petrolPrice: 270,  
+    bikeOdometer: 0,   
+    sentReminders: {}  
 };
 
-// ہیلپر فنکشن: ڈیٹا اسٹوریج میں سیو کرنا
+// START FUNCTION: saveToStorage
 function saveToStorage() {
     localStorage.setItem('ms_admin_ledger', JSON.stringify(adminLedger));
 }
@@ -2253,15 +2253,12 @@ document.addEventListener("DOMContentLoaded", function() {
     if(document.getElementById("bike-avg-input")) document.getElementById("bike-avg-input").value = adminLedger.bikeAvg;
     if(document.getElementById("petrol-price-input")) document.getElementById("petrol-price-input").value = adminLedger.petrolPrice;
 
-    // [POINT 03]: اوڈومیٹر کا لائیو بیج فرنٹ اینڈ پر رینڈر کرنا
     updateOilCounterDisplay();
-
     calculateSmartFuel();
     renderAdminDashboard();
 });
-// END EVENT LISTENER: DOMContentLoaded
 
-// سروس تبدیل ہونے پر لیبلز بدلنا
+// START FUNCTION: updateServiceLabels
 function updateServiceLabels() {
     const type = document.getElementById("inv-service-type").value;
     const qtyLbl = document.getElementById("lbl-dynamic-qty");
@@ -2269,7 +2266,6 @@ function updateServiceLabels() {
     const qtyInput = document.getElementById("inv-cust-plates");
     const rateInput = document.getElementById("inv-cust-rate");
 
-    // [POINT 02]: "WaterTank" ویلیو مینیجمنٹ فکسڈ فار نیو آپشن الائنمنٹ
     if (type === "Solar") {
         if(qtyLbl) qtyLbl.innerText = "Quantity / Plates";
         if(rateLbl) rateLbl.innerText = "Rate per Unit (Rs)";
@@ -2290,6 +2286,7 @@ function updateServiceLabels() {
 }
 // END FUNCTION: updateServiceLabels
 
+// START FUNCTION: autoCalculateGross
 function autoCalculateGross() {
     const qty = parseFloat(document.getElementById("inv-cust-plates").value) || 0;
     const rate = parseFloat(document.getElementById("inv-cust-rate").value) || 0;
@@ -2300,13 +2297,12 @@ function autoCalculateGross() {
 }
 // END FUNCTION: autoCalculateGross
 
-// اسمارٹ فیول کیلکولیٹر اور ویلیو لاکنگ
+// START FUNCTION: calculateSmartFuel
 function calculateSmartFuel() {
     const avg = parseFloat(document.getElementById("bike-avg-input").value) || 15;
     const price = parseFloat(document.getElementById("petrol-price-input").value) || 270;
     const km = parseFloat(document.getElementById("bike-km-input").value) || 0;
     
-    // جب بھی صارف ان پٹ بدلے، اسے سٹیٹ میں لاک کریں
     adminLedger.bikeAvg = avg;
     adminLedger.petrolPrice = price;
     saveToStorage();
@@ -2318,8 +2314,11 @@ function calculateSmartFuel() {
     }
 }
 // END FUNCTION: calculateSmartFuel
+    // ==========================================================================
+// MS SECURE 4.0 - PREMIUM FULL SCALE PRODUCTION SCRIPT (PART 2)
+// ==========================================================================
 
-// [POINT 03]: آئل کاؤنٹر اوڈومیٹر کا ڈسپلے اپڈیٹ کرنے کا فنکشن
+// START FUNCTION: updateOilCounterDisplay
 function updateOilCounterDisplay() {
     const oilBadge = document.getElementById("oil-counter-badge");
     if(oilBadge) {
@@ -2328,7 +2327,7 @@ function updateOilCounterDisplay() {
 }
 // END FUNCTION: updateOilCounterDisplay
 
-// [POINT 03]: آئل چینج ٹریکر ری سیٹ کرنے کا فنکشن
+// START FUNCTION: resetOilCounter
 function resetOilCounter() {
     if(confirm("Muneeb bhai, kya aap bike ka Oil tracker wapas 0 KM karna chahte hain?")) {
         adminLedger.bikeOdometer = 0;
@@ -2337,7 +2336,8 @@ function resetOilCounter() {
     }
 }
 // END FUNCTION: resetOilCounter
-    // آرڈر پائپ لائن میں شامل کرنا
+
+// START FUNCTION: addOrderToPending
 function addOrderToPending() {
     const name = document.getElementById("inv-cust-name").value.trim();
     const phone = document.getElementById("inv-cust-phone").value.trim();
@@ -2347,14 +2347,11 @@ function addOrderToPending() {
     const rate = parseFloat(document.getElementById("inv-cust-rate").value) || 0;
     const fuel = parseFloat(document.getElementById("admin-expense-amount").value) || 0;
     const labour = parseFloat(document.getElementById("admin-labour-amount").value) || 0;
-    
-    // [POINT 03]: بائیک کلومیٹر ان پٹ ریڈ کرنا
     const kmInput = parseFloat(document.getElementById("bike-km-input").value) || 0;
     
     const dateInput = document.getElementById("inv-cust-date");
     const selectedDate = (dateInput && dateInput.value) ? dateInput.value : new Date().toISOString().split('T')[0];
 
-    // [POINT 02]: واٹر ٹینک یا کار واش کے لیے کوانٹٹی چیک کو محفوظ بنانا
     if (!name || qty <= 0) {
         alert("منیب بھائی! کسٹمر کا نام اور کوانٹٹی لازمی درج کریں۔");
         return;
@@ -2367,7 +2364,7 @@ function addOrderToPending() {
         id: "MS-" + Date.now(),
         name: name,
         phone: phone,
-        type: type, // [POINT 02]: واٹر ٹینک ڈیٹا آبجیکٹ بائنڈنگ فکسڈ
+        type: type, 
         qty: qty,
         rate: rate,
         advance: advance,
@@ -2377,23 +2374,15 @@ function addOrderToPending() {
         netProfit: netProfit,
         status: "Pending",
         date: selectedDate,
-        bikeKm: kmInput // [POINT 03]: کلومیٹر کو آرڈر میں بائنڈ کرنا تاکہ ریورٹ ہو سکے
+        bikeKm: kmInput 
     };
-
-    // [POINT 03]: بائیک کلومیٹرز کو لائیو اوڈومیٹر ٹریکر میں جمع کرنا
-    if (kmInput > 0) {
-        adminLedger.bikeOdometer = (adminLedger.bikeOdometer || 0) + kmInput;
-    }
 
     adminLedger.pendingOrders.unshift(newOrder);
     saveToStorage();
     
-    // [POINT 03]: اوڈومیٹر کا لائیو بیج فرنٹ اینڈ پر فوری اپڈیٹ کرنا
-    if (typeof updateOilCounterDisplay === "function") {
-        updateOilCounterDisplay();
+    if (typeof updateAllCalculations === "function") {
+        updateAllCalculations();
     }
-
-    renderAdminDashboard();
 
     // ان پٹ فیلڈز صاف کرنا
     document.getElementById("inv-cust-name").value = "";
@@ -2406,42 +2395,36 @@ function addOrderToPending() {
     alert("🚀 آرڈر کامیابی سے پائپ لائن لائیو اسٹریم میں شامل کر دیا گیا ہے!");
 }
 // END FUNCTION: addOrderToPending
-// START FUNCTION: markOrderAsDone (FINAL MASTER LOGIC 🎯)
+
+// START FUNCTION: markOrderAsDone
 function markOrderAsDone(orderId) {
-    // 1. اگر لیجر کے خانے موجود نہ ہوں تو انہیں بناؤ
     if (!adminLedger.pendingOrders) adminLedger.pendingOrders = [];
     if (!adminLedger.completedOrders) adminLedger.completedOrders = [];
 
-    // 2. پینڈنگ لسٹ میں آرڈر تلاش کرو
     const orderIndex = adminLedger.pendingOrders.findIndex(o => o.id === orderId);
     
     if (orderIndex > -1) {
         let order = adminLedger.pendingOrders[orderIndex];
         
-        // 3. ایڈمن سے لائیو اخراجات کا ڈیٹا لو
-        let kmInvoiced = prompt("اس واش کے کل کلومیٹرز (Bike KM) لکھیں:", "0");
-        let fuelSpent = prompt("اس واش پر فیول کا خرچہ (Fuel Cost) لکھیں:", "0");
-        let labourPaid = prompt("اس واش پر لیبر کی دیہاڑی (Labour Wages) لکھیں:", "0");
+        let kmInvoiced = prompt("اس واش کے کل کلومیٹرز (Bike KM) لکھیں:", order.bikeKm || "0");
+        let fuelSpent = prompt("اس واش پر فیول کا خرچہ (Fuel Cost) لکھیں:", order.fuel || "0");
+        let labourPaid = prompt("اس واش پر لیبر کی دیہاڑی (Labour Wages) لکھیں:", order.labour || "0");
 
-        // 4. ڈیٹا کو آبجیکٹ میں لائیو سیو کرو
         order.bikeKm = parseFloat(kmInvoiced) || 0;
         order.fuel = parseFloat(fuelSpent) || 0;
         order.labour = parseFloat(labourPaid) || 0;
         order.status = "Completed"; 
         
-        // 5. نیٹ پرافٹ کا حساب (بل میں سے فیول اور لیبر مائنس)
         order.netProfit = (order.gross || 0) - (order.fuel + order.labour);
 
-        // 6. آرڈر کو پینڈنگ سے نکال کر کمپلیٹڈ لسٹ میں شفٹ کرو (تاکہ چارٹس اور اوڈومیٹر پلس ہوں)
         adminLedger.completedOrders.push(order);
         adminLedger.pendingOrders.splice(orderIndex, 1);
 
-        // 7. آپ کا اپنا کیلکولیشن سسٹم لائیو رن کرو جو چارٹس اور اوڈومیٹر اپڈیٹ کرے گا
         if (typeof updateAllCalculations === "function") {
             updateAllCalculations();
         } else {
-            if (typeof saveToStorage === "function") saveToStorage();
-            if (typeof renderAdminDashboard === "function") renderAdminDashboard();
+            saveToStorage();
+            renderAdminDashboard();
         }
         alert("✔️ آرڈر ڈن ہو گیا اور ہر چیز لائیو چارٹس اور اوڈومیٹر میں ایڈ ہو گئی!");
     } else {
@@ -2450,35 +2433,30 @@ function markOrderAsDone(orderId) {
 }
 // END FUNCTION: markOrderAsDone
 
-
-// START FUNCTION: unmarkOrderAsDone (FINAL MASTER REVERSE LOGIC 🔄)
+// START FUNCTION: unmarkOrderAsDone
 function unmarkOrderAsDone(orderId) {
     if (!adminLedger.pendingOrders) adminLedger.pendingOrders = [];
     if (!adminLedger.completedOrders) adminLedger.completedOrders = [];
 
-    // 1. کمپلیٹڈ لسٹ میں آرڈر تلاش کرو
     const orderIndex = adminLedger.completedOrders.findIndex(o => o.id === orderId);
     
     if (orderIndex > -1) {
         let order = adminLedger.completedOrders[orderIndex];
         
-        // 2. 🔄 مکمل ریورس: ہر چیز کو واپس زیرو کرو
         order.status = "Pending";
         order.bikeKm = 0;
         order.fuel = 0;
         order.labour = 0;
-        order.netProfit = order.gross || 0; // منافع واپس اصل بل کے برابر
+        order.netProfit = order.gross || 0; 
 
-        // 3. آرڈر کو کمپلیٹڈ سے جڑ سے نکال کر واپس پینڈنگ لسٹ میں شفٹ کرو
         adminLedger.pendingOrders.push(order);
         adminLedger.completedOrders.splice(orderIndex, 1);
 
-        // 4. دوبارہ آپ کا کیلکولیشن سسٹم رن کرو (یہ لائیو چارٹس، اخراجات اور اوڈومیٹر کو واپس مائنس/ریورس کر دے گا)
         if (typeof updateAllCalculations === "function") {
             updateAllCalculations();
         } else {
-            if (typeof saveToStorage === "function") saveToStorage();
-            if (typeof renderAdminDashboard === "function") renderAdminDashboard();
+            saveToStorage();
+            renderAdminDashboard();
         }
         alert("🔄 آرڈر ان-ڈن ہو گیا: تمام اخراجات اور کلومیٹر لائیو ریورس ہو گئے!");
     } else {
@@ -2486,55 +2464,45 @@ function unmarkOrderAsDone(orderId) {
     }
 }
 // END FUNCTION: unmarkOrderAsDone
-    
+
 // START FUNCTION: updateAllCalculations
 function updateAllCalculations() {
-    // بائیک اوڈومیٹر کلومیٹرز کو صفر کر کے صرف کمپلیٹڈ (ڈنز) آرڈرز سے دوبارہ گننا
     adminLedger.bikeOdometer = 0;
     adminLedger.completedOrders.forEach(o => {
         if(o.bikeKm) adminLedger.bikeOdometer += parseFloat(o.bikeKm);
     });
 
-    // ڈیٹا لوکل اسٹوریج میں محفوظ کرنا
     saveToStorage();
     
-    // ڈیش بورڈ اور لائیو چارٹس کو دوبارہ رینڈر کرنا تاکہ ڈیٹا لائیو اپڈیٹ یا مائنس ہو جائے
     if (typeof renderAdminDashboard === "function") {
         renderAdminDashboard();
     }
-    
-    // انجن آئل کاؤنٹر سرکل ڈسپلے کو اپڈیٹ کرنا
     if (typeof updateOilCounterDisplay === "function") {
         updateOilCounterDisplay();
     }
 }
 // END FUNCTION: updateAllCalculations
-    
-// END FUNCTION: markOrderAsDone
-    
-// آرڈر ڈیلیٹ کرنا
+
+// START FUNCTION: deleteOrder
 function deleteOrder(orderId) {
     if (confirm("کیا آپ واقعی یہ آرڈر ڈیلیٹ کرنا چاہتے ہیں؟")) {
         adminLedger.pendingOrders = adminLedger.pendingOrders.filter(o => o.id !== orderId);
         adminLedger.completedOrders = adminLedger.completedOrders.filter(o => o.id !== orderId);
         
-        // 🌟 ڈیلیٹ ہونے کے بعد کلومیٹرز کو دوبارہ صحیح پلس کرنا
-        let totalKms = 0;
-        adminLedger.pendingOrders.forEach(o => { if(o.bikeKm) totalKms += parseFloat(o.bikeKm); });
-        adminLedger.completedOrders.forEach(o => { if(o.bikeKm) totalKms += parseFloat(o.bikeKm); });
-        adminLedger.bikeOdometer = totalKms;
-
-        saveToStorage();
-        renderAdminDashboard();
-        
-        if (typeof updateOilCounterDisplay === "function") {
-            updateOilCounterDisplay();
+        if (typeof updateAllCalculations === "function") {
+            updateAllCalculations();
+        } else {
+            saveToStorage();
+            renderAdminDashboard();
         }
     }
 }
 // END FUNCTION: deleteOrder
+    // ==========================================================================
+// MS SECURE 4.0 - PREMIUM FULL SCALE PRODUCTION SCRIPT (PART 3)
+// ==========================================================================
 
-   // 🌟 ڈیش بورڈ، اوور ڈیو الرٹس اور لائیو چارٹ رینڈرنگ
+// START FUNCTION: renderAdminDashboard
 function renderAdminDashboard() {
     let totalUnits = 0, grossCashflow = 0, totalFuel = 0, totalLabour = 0, netLiquidProfit = 0;
 
@@ -2581,7 +2549,7 @@ function renderAdminDashboard() {
                     </div>
                     <div class="flex items-center gap-1.5">
                         ${isDone ? `
-                            <button onclick="markOrderAsUndone('${o.id}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 font-bold px-2 py-1 rounded-lg text-[9px] border border-amber-500/20 transition-all flex items-center gap-1">
+                            <button onclick="unmarkOrderAsDone('${o.id}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 font-bold px-2 py-1 rounded-lg text-[9px] border border-amber-500/20 transition-all flex items-center gap-1">
                                 <i class="fas fa-undo-alt"></i> Undone
                             </button>
                             <span class="text-[10px] font-bold text-emerald-400 ml-1"><i class="fas fa-check-circle"></i> Done</span>
@@ -2601,12 +2569,12 @@ function renderAdminDashboard() {
         drawAdvancedChart();
     }
 
-    // 🌟 فالو اپس اور شیڈول کیلنڈر کو لائیو لوڈ کرنے کی لاجک
     if (typeof renderNextWashes === "function") { renderNextWashes(); }
     if (typeof renderBusinessFollowUps === "function") { renderBusinessFollowUps(); }
 }
 // END FUNCTION: renderAdminDashboard
-// 🌟 ریمینڈر اور اوور ڈیو کیلکولیشن فنکشن (لوکل اسٹوریج اسٹیٹ لاکنگ کے ساتھ)
+
+// START FUNCTION: checkOverdueAlerts
 function checkOverdueAlerts() {
     const alertBox = document.getElementById("admin-overdue-alert-container");
     if (!alertBox) return;
@@ -2614,7 +2582,6 @@ function checkOverdueAlerts() {
     let overdueHTML = "";
     const today = new Date();
     
-    // یقینی بنائیں کہ گلوبل اسٹیٹ میں آبجیکٹ موجود ہے
     if (!adminLedger.sentReminders) {
         adminLedger.sentReminders = {};
     }
@@ -2624,9 +2591,7 @@ function checkOverdueAlerts() {
         const timeDiff = today.getTime() - washDate.getTime();
         const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
 
-        // اگر سروس کو 15 دن یا اس سے زیادہ ہو چکے ہیں
         if (daysDiff >= 15) {
-            // [POINT 02]: سروس ٹائپ کے مطابق میسج کی کسٹمائزیشن (Solar / Car / WaterTank)
             let serviceTag = "Solar Plates Service";
             let warningText = "Mitti aur dhool ki wajah se panels ki generation breakdown (kam) ho sakti hai.";
             
@@ -2640,49 +2605,43 @@ function checkOverdueAlerts() {
 
             const businessMsg = `✨ *MS SOLAR CLEANING & CAR WASH* ✨\n----------------------------------------\n*Dear Customer,*\nApki *${serviceTag}* ko *${daysDiff} Days* ho chuke hain. ${warningText}\n\n*Service Details:*\n👤 *Customer:* ${o.name}\n📅 *Last Wash:* ${o.date}\n\nKindly apna next wash schedule confirm karne k liye raabta karein.\nThank you!\n*Muneeb Sarwar* (Sahiwal)`;
             const whatsappLink = `https://wa.me/${o.phone ? o.phone.replace(/[^0-9]/g, "") : ''}?text=${encodeURIComponent(businessMsg)}`;
-
-            // [POINT 05]: لوکل اسٹوریج اسٹیٹ سے ڈیٹا ریڈ کرنا (ID کی بنیاد پر تا کہ انڈیکس تبدیل ہونے سے بگ نہ آئے)
-            const isSent = adminLedger.sentReminders[o.id] === true;
+            const isSent = adminLedger.sentReminders[o.id] || false;
 
             overdueHTML += `
-                <div class="p-3 mb-2 rounded-xl bg-rose-950/20 border border-rose-500/30 flex justify-between items-center gap-2">
-                    <div class="text-left">
-                        <p class="text-xs font-bold text-white">${o.name} <span class="text-[10px] text-rose-400">(${daysDiff} Days Overdue)</span></p>
-                        <p class="text-[9px] text-slate-400">Type: ${o.type} | Last: ${o.date} | Contact: ${o.phone || 'N/A'}</p>
+                <div class="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl flex items-center justify-between gap-2 mb-2">
+                    <div>
+                        <p class="text-xs font-bold text-rose-400">${o.name} - <span class="text-[10px] text-slate-400">${daysDiff} Days Overdue</span></p>
+                        <p class="text-[10px] text-slate-400 font-mono">${o.type} (${o.date})</p>
                     </div>
-                    <a href="${whatsappLink}" 
-                       target="_blank" 
-                       onclick="markAsSent('${o.id}', this)" 
-                       class="${isSent ? 'bg-emerald-600 text-white border border-emerald-500/30' : 'bg-emerald-400 text-slate-950'} font-bold px-3 py-1.5 rounded-lg text-[10px] flex items-center gap-1 transition-all active:scale-95 whitespace-nowrap">
-                        <i class="${isSent ? 'fas fa-check-circle' : 'fab fa-whatsapp'}"></i> ${isSent ? 'SENT ✓' : 'SEND REMINDER'}
-                    </a>
+                    <div class="flex items-center gap-2">
+                        <a href="${whatsappLink}" target="_blank" onclick="markAsSent('${o.id}', this)" class="${isSent ? 'bg-emerald-600' : 'bg-amber-600'} text-white font-bold px-3 py-1.5 rounded-lg text-[10px] flex items-center gap-1 transition-all">
+                            <i class="${isSent ? 'fas fa-check-circle' : 'fab fa-whatsapp'}"></i> ${isSent ? 'SENT ✓' : 'REMIND'}
+                        </a>
+                    </div>
                 </div>`;
         }
     });
-
-    if (overdueHTML !== "") {
-        alertBox.innerHTML = overdueHTML;
-    } else {
-        alertBox.innerHTML = `<div class="text-center py-4 text-emerald-400 text-xs font-mono">🎉 Muneeb bhai, sab perfect hai! Kisi customer ka wash overdue nahi hai.</div>`;
-    }
+    alertBox.innerHTML = overdueHTML || `<p class="text-[11px] text-slate-500 text-center py-2 font-mono">No overdue client alerts today.</p>`;
 }
 // END FUNCTION: checkOverdueAlerts
 
-// [POINT 05]: ریمینڈر کلک ہونے پر اسٹیٹ کو لوکل اسٹوریج میں لائیو سیو کرنے کا فنکشن
+// START FUNCTION: markAsSent
 function markAsSent(orderId, element) {
     if (!adminLedger.sentReminders) {
         adminLedger.sentReminders = {};
     }
-    // اسٹیٹ کو سچے طریقے سے سیو کرنا
     adminLedger.sentReminders[orderId] = true;
     saveToStorage();
 
-    // یو آئی کو فوراً گرین ٹک پر بدلنا
     element.className = "bg-emerald-600 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] flex items-center gap-1 transition-all border border-emerald-500/30";
     element.innerHTML = `<i class="fas fa-check-circle"></i> SENT ✓`;
 }
 // END FUNCTION: markAsSent
- // 2️⃣ REAL-TIME CURRENT MONTH PROFIT CHART (Day-by-Day Calendar Breakdown)
+    // ==========================================================================
+// MS SECURE 4.0 - PREMIUM FULL SCALE PRODUCTION SCRIPT (PART 4)
+// ==========================================================================
+
+// START FUNCTION: drawAdvancedChart
 function drawAdvancedChart() {
     const chartPath = document.getElementById("chart-path");
     if (!chartPath) return;
@@ -2757,8 +2716,8 @@ function drawAdvancedChart() {
     detailsContainer.innerHTML = detailsHTML;
 }
 // END FUNCTION: drawAdvancedChart
-// 🌟 پوائنٹ 3: ڈاؤن لوڈ پروفیشنل ویژول ایچ ٹی ایم ایل لیجر (HD Dark Theme)
-// 3️⃣ پوائنٹ 3: ڈاؤن لوڈ پروفیشنل پریمیئم ایچ ٹی ایم ایل لیجر (With Bottom Grand Totals)
+
+// START FUNCTION: saveStatementToGallery
 function saveStatementToGallery() {
     if (adminLedger.completedOrders.length === 0) {
         alert("نہیں بھائی! ڈیٹا خالی ہے۔ 'Done' منیب بھائی! ابھی کوئی بھی آرڈر موجود نہیں ہے۔");
@@ -2766,8 +2725,6 @@ function saveStatementToGallery() {
     }
 
     let rowsHTML = "";
-    
-    // ٹوٹل ویلیوز کیلکولیٹ کرنے کے لیے ویری ایبلز
     let grandQty = 0;
     let grandGross = 0;
     let grandFuel = 0;
@@ -2775,15 +2732,11 @@ function saveStatementToGallery() {
     let grandNetProfit = 0;
 
     adminLedger.completedOrders.forEach((o, i) => {
-        // ہر رو کی ویلیو کو پلس کرنا
         let currentQty = parseFloat(o.qty || 0);
         let currentGross = parseFloat(o.gross || 0);
         let currentFuel = parseFloat(o.fuel || 0);
-        let currentLabour = parseFloat(o.labour || 0);
-        let currentNetProfit = parseFloat(o.netProfit || 0);
-        
-        // فرض کریں پارٹنر شیئر لیبر یا مخصوص لاجک سے آتا ہے (اگر آپ کے پاس o.partnerShare الگ ہے تو وہ لکھیں، ورنہ لیبر کو ہی شیئر مانا جاتا ہے)
         let currentPartner = parseFloat(o.labour || 0); 
+        let currentNetProfit = parseFloat(o.netProfit || 0);
 
         grandQty += currentQty;
         grandGross += currentGross;
@@ -2796,7 +2749,7 @@ function saveStatementToGallery() {
                 <td style="padding: 12px; font-weight: bold; color: #38bdf8;">#${i+1}</td>
                 <td style="padding: 12px; font-weight: bold; color: #fff;">${o.name}<br><span style="color: #64748b; font-size: 10px; font-weight: normal;">${o.phone || ''}</span></td>
                 <td style="padding: 12px; color: #e2e8f0;">${o.date}</td>
-                <td style="padding: 12px;"><span style="background: #1e3a8a; color: #93c5fd; padding: 2px 8px; rounded: 4px; font-size: 10px; font-weight: bold;">${o.type}</span></td>
+                <td style="padding: 12px;"><span style="background-color: #1e3a8a; color: #93c5fd; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: bold;">${o.type}</span></td>
                 <td style="padding: 12px; text-align: center; color: #fff;">${currentQty}</td>
                 <td style="padding: 12px; text-align: right; color: #10b981; font-weight: bold;">Rs ${currentGross.toLocaleString()}</td>
                 <td style="padding: 12px; text-align: right; color: #f43f5e;">Rs ${currentFuel.toLocaleString()}</td>
@@ -2805,9 +2758,8 @@ function saveStatementToGallery() {
             </tr>`;
     });
 
-    // 🌟 ڈاؤن باٹم گرینڈ ٹوٹل والی پٹی (Grand Summary Row)
     let totalRowHTML = `
-        <tr style="background: #0f172a; border-top: 2px solid #38bdf8; border-bottom: 2px solid #38bdf8; font-weight: 900;">
+        <tr style="background-color: #0f172a; border-top: 2px solid #38bdf8; border-bottom: 2px solid #38bdf8; font-weight: 900;">
             <td colspan="4" style="padding: 14px; text-align: left; color: #38bdf8; text-transform: uppercase; letter-spacing: 1px; font-size: 12px;">GRAND TOTALS:</td>
             <td style="padding: 14px; text-align: center; color: #fff; font-size: 13px; border-bottom: 1px dashed #38bdf8;">${grandQty}</td>
             <td style="padding: 14px; text-align: right; color: #10b981; font-size: 13px; border-bottom: 1px dashed #10b981;">Rs ${grandGross.toLocaleString()}</td>
@@ -2824,7 +2776,7 @@ function saveStatementToGallery() {
         <meta charset="utf-8">
     </head>
     <body style="background-color: #0f172a; font-family: sans-serif; padding: 30px; color: #f8fafc;">
-        <div style="max-width: 900px; margin: auto; background: #1e293b; padding: 25px; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);">
+        <div style="max-width: 900px; margin: auto; background-color: #1e293b; padding: 25px; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);">
             <div style="text-align: center; margin-bottom: 25px;">
                 <h1 style="color: #38bdf8; margin: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 1px;">MS SOLAR CLEANING & CAR WASH</h1>
                 <p style="color: #94a3b8; margin: 5px 0 0 0; font-size: 12px; letter-spacing: 0.5px;">Official Digital Financial Ledger Report</p>
@@ -2832,7 +2784,7 @@ function saveStatementToGallery() {
             </div>
             <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
                 <thead>
-                    <tr style="background-block: #0f172a; color: #94a3b8; text-align: left; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #334155;">
+                    <tr style="background-color: #0f172a; color: #94a3b8; text-align: left; font-size: 11px; text-transform: uppercase; border-bottom: 2px solid #334155;">
                         <th style="padding: 12px;">SR</th>
                         <th style="padding: 12px;">Customer Details</th>
                         <th style="padding: 12px;">Date</th>
@@ -2866,16 +2818,15 @@ function saveStatementToGallery() {
 }
 // END FUNCTION: saveStatementToGallery
 
-
-// پورا ڈیش بورڈ ڈیٹا ری سیٹ کرنا
+// START FUNCTION: resetSystemLedger
 function resetSystemLedger() {
     if (confirm("وارننگ! کیا آپ واقعی پورا فائنل لیجر اور پائپ لائن ڈیٹا صاف کرنا چاہتے ہیں؟")) {
         adminLedger.completedOrders = [];
         adminLedger.pendingOrders = [];
         adminLedger.bikeAvg = 15;
         adminLedger.petrolPrice = 270;
-        adminLedger.bikeOdometer = 0;   // [POINT 03]: ری سیٹ پر بائیک اوڈومیٹر بھی زیرو ہو جائے گا
-        adminLedger.sentReminders = {};  // [POINT 05]: واٹس ایپ ریمینڈرز کی اسٹیٹ بھی کلیئر ہو جائے گی
+        adminLedger.bikeOdometer = 0;   
+        adminLedger.sentReminders = {};  
         
         saveToStorage();
         
@@ -2888,7 +2839,7 @@ function resetSystemLedger() {
 }
 // END FUNCTION: resetSystemLedger
 
-// گلوبل ریٹ اپڈیٹ کرنا
+// START FUNCTION: saveGlobalRate
 function saveGlobalRate() {
     const rate = parseFloat(document.getElementById("global-panel-rate").value) || 80;
     const reason = document.getElementById("global-rate-reason").value.trim();
@@ -2899,6 +2850,7 @@ function saveGlobalRate() {
     alert(`📢 نیا گلوبل ریٹ Rs ${rate} کامیابی سے اپڈیٹ کر دیا گیا ہے!`);
 }
 // END FUNCTION: saveGlobalRate
+    
 // ========================================================
 // SECRET ADMIN PORTAL UNLOCK LOGIC (PASSWORD SYSTEM)
 // ========================================================
