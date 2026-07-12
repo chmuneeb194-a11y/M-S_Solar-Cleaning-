@@ -3622,16 +3622,17 @@ function renderSeasonalLineChart() {
         }
     });
 
-    // 5. لائیو ٹیکسٹ سمری اپڈیٹ کرنا
-    let peakIndex = monthlyRevenue.indexOf(Math.max(...monthlyRevenue));
-    const textElem = document.getElementById("seasonal-chart-text");
-    if (textElem) {
-        if (Math.max(...monthlyRevenue) === 0) {
-            textElem.innerHTML = `ℹ️ ڈیٹا بیس خالی ہے، آرڈرز سیو ہوتے ہی گراف لائیو چل پڑے گا۔`;
-        } else {
-            textElem.innerHTML = `📊 گراف کے مطابق <strong class="text-purple-400">${months[peakIndex]}</strong> آپ کا فُل پیک مہینا رہا۔ ساہیوال ریجنل ٹرینڈ کے حساب سے اپنا شیڈول مانیٹر کریں۔`;
-        }
+    // 5. لائیو ٹیکسٹ سمری (Professional English Version)
+let peakIndex = monthlyRevenue.indexOf(Math.max(...monthlyRevenue));
+const textElem = document.getElementById("seasonal-chart-text");
+if (textElem) {
+    if (Math.max(...monthlyRevenue) === 0) {
+        textElem.innerHTML = `<span class="text-slate-500">ℹ️ Analytics: Waiting for order data to populate trends.</span>`;
+    } else {
+        textElem.innerHTML = `<span class="text-slate-400">📊 Peak Performance: <strong class="text-purple-400 font-bold">${months[peakIndex]}</strong> represents your highest revenue period. Optimize your schedule based on these regional insights.</span>`;
     }
+}
+    
 }
 
 // ڈیش بورڈ لوڈ ہوتے ہی اور کسٹمر لسٹ اپڈیٹ ہوتے ہی گراف چلانا
