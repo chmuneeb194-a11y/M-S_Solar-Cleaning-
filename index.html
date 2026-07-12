@@ -1182,7 +1182,54 @@
 <!-- ========================================================================== -->
 <!-- END UI: MONTHLY ANALYTICS DASHBOARD CARD -->
 <!-- ========================================================================== -->
+        <!-- ========================================================================== -->
+<!-- START UI: COMBINED CRM LEADERBOARD & BREAK-EVEN ANALYTICS GRAPHICS -->
 <!-- ========================================================================== -->
+
+<!-- 1. بریک ایون ٹارگٹ کارڈ -->
+<div class="p-4 rounded-3xl bg-gradient-to-br from-slate-950 to-slate-900 border border-white/[0.05] shadow-2xl mb-4">
+    <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+            <div class="p-1.5 bg-amber-500/10 rounded-xl border border-amber-500/20 text-amber-400 text-xs">
+                <i class="fas fa-scale-balanced"></i>
+            </div>
+            <h3 class="text-xs font-black text-white tracking-wide uppercase">Expense vs Profit Target</h3>
+        </div>
+        <span id="be-status-text" class="text-[10px] font-bold text-slate-400 bg-white/5 px-2 py-0.5 rounded-lg">
+            Calculating...
+        </span>
+    </div>
+
+    <div class="mt-2">
+        <div class="flex justify-between text-[10px] text-slate-400 mb-1 font-mono">
+            <span id="be-current-units">0 Done</span>
+            <span class="text-slate-500">Target: <strong id="be-target-units" class="text-white">0 Units</strong></span>
+        </div>
+        <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-white/[0.03]">
+            <div id="be-progress-bar" class="h-full bg-gradient-to-r from-amber-500 to-emerald-500 transition-all duration-500" style="width: 0%;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 2. کسٹمر سی آر ایم لیڈر بورڈ کارڈ -->
+<div class="p-4 rounded-3xl bg-gradient-to-br from-slate-950 to-slate-900 border border-white/[0.05] shadow-2xl mb-4">
+    <div class="flex items-center gap-2 mb-3">
+        <div class="p-1.5 bg-purple-500/10 rounded-xl border border-purple-500/20 text-purple-400 text-xs">
+            <i class="fas fa-crown"></i>
+        </div>
+        <h3 class="text-xs font-black text-white tracking-wide uppercase">Top Business Customers (CRM)</h3>
+    </div>
+    
+    <!-- لائیو کسٹمرز کا ڈیٹا یہاں شو ہوگا -->
+    <div id="crm-leaderboard-list" class="flex flex-col gap-1">
+        <p class="text-[10px] text-slate-500 text-center py-2 font-mono">Syncing CRM pipeline data...</p>
+    </div>
+</div>
+
+<!-- ========================================================================== -->
+<!-- END UI: COMBINED CRM LEADERBOARD & BREAK-EVEN ANALYTICS GRAPHICS -->
+<!-- ========================================================================== -->
+        <!-- ========================================================================== -->
 <!-- START UI: WHATSAPP IMAGE REPORT GENERATOR (WITH MONTHLY INSIGHTS) -->
 <!-- ========================================================================== -->
 
@@ -1271,55 +1318,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <!-- ========================================================================== -->
 <!-- END UI: WHATSAPP IMAGE REPORT GENERATOR (WITH MONTHLY INSIGHTS) -->
-<!-- ========================================================================== -->
-        
-        
-        <!-- ========================================================================== -->
-<!-- START UI: COMBINED CRM LEADERBOARD & BREAK-EVEN ANALYTICS GRAPHICS -->
-<!-- ========================================================================== -->
-
-<!-- 1. بریک ایون ٹارگٹ کارڈ -->
-<div class="p-4 rounded-3xl bg-gradient-to-br from-slate-950 to-slate-900 border border-white/[0.05] shadow-2xl mb-4">
-    <div class="flex items-center justify-between mb-3">
-        <div class="flex items-center gap-2">
-            <div class="p-1.5 bg-amber-500/10 rounded-xl border border-amber-500/20 text-amber-400 text-xs">
-                <i class="fas fa-scale-balanced"></i>
-            </div>
-            <h3 class="text-xs font-black text-white tracking-wide uppercase">Expense vs Profit Target</h3>
-        </div>
-        <span id="be-status-text" class="text-[10px] font-bold text-slate-400 bg-white/5 px-2 py-0.5 rounded-lg">
-            Calculating...
-        </span>
-    </div>
-
-    <div class="mt-2">
-        <div class="flex justify-between text-[10px] text-slate-400 mb-1 font-mono">
-            <span id="be-current-units">0 Done</span>
-            <span class="text-slate-500">Target: <strong id="be-target-units" class="text-white">0 Units</strong></span>
-        </div>
-        <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-white/[0.03]">
-            <div id="be-progress-bar" class="h-full bg-gradient-to-r from-amber-500 to-emerald-500 transition-all duration-500" style="width: 0%;"></div>
-        </div>
-    </div>
-</div>
-
-<!-- 2. کسٹمر سی آر ایم لیڈر بورڈ کارڈ -->
-<div class="p-4 rounded-3xl bg-gradient-to-br from-slate-950 to-slate-900 border border-white/[0.05] shadow-2xl mb-4">
-    <div class="flex items-center gap-2 mb-3">
-        <div class="p-1.5 bg-purple-500/10 rounded-xl border border-purple-500/20 text-purple-400 text-xs">
-            <i class="fas fa-crown"></i>
-        </div>
-        <h3 class="text-xs font-black text-white tracking-wide uppercase">Top Business Customers (CRM)</h3>
-    </div>
-    
-    <!-- لائیو کسٹمرز کا ڈیٹا یہاں شو ہوگا -->
-    <div id="crm-leaderboard-list" class="flex flex-col gap-1">
-        <p class="text-[10px] text-slate-500 text-center py-2 font-mono">Syncing CRM pipeline data...</p>
-    </div>
-</div>
-
-<!-- ========================================================================== -->
-<!-- END UI: COMBINED CRM LEADERBOARD & BREAK-EVEN ANALYTICS GRAPHICS -->
 <!-- ========================================================================== -->
         
         <!-- ------------------------------------------ -->
