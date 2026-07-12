@@ -1183,6 +1183,42 @@
 <!-- END UI: MONTHLY ANALYTICS DASHBOARD CARD -->
 <!-- ========================================================================== -->
         <!-- ========================================================================== -->
+<!-- START UI: SMART FUEL EFFICIENCY & PROFIT ALERT CARD -->
+<!-- ========================================================================== -->
+<div class="mt-3 bg-slate-900/80 border border-white/[0.04] rounded-2xl p-3.5">
+    <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-2">
+            <span class="w-7 h-7 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xs border border-indigo-500/20">
+                <i class="fas fa-gas-pump"></i>
+            </span>
+            <div>
+                <h4 class="text-[11px] font-black text-white uppercase tracking-wider">Fuel Efficiency Tracker</h4>
+                <p class="text-[9px] text-slate-500 font-mono">Bike Travel vs Fuel Costs</p>
+            </div>
+        </div>
+        <!-- لائیو الرٹ بیج (جاوا اسکرپٹ سے بدلے گا) -->
+        <span id="fuel-alert-badge" class="text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-800 text-slate-400">
+            Analyzing...
+        </span>
+    </div>
+
+    <!-- لائیو سٹیٹس ریڈنگ -->
+    <div class="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-white/[0.02]">
+        <div class="bg-slate-950/60 p-2 rounded-xl border border-white/[0.01]">
+            <p class="text-[8px] text-slate-500 font-bold uppercase tracking-wide">Avg Bike Cost</p>
+            <p id="fuel-avg-cost-km" class="text-xs font-black text-white font-mono mt-0.5">Rs 0.0 / KM</p>
+        </div>
+        <div class="bg-slate-950/60 p-2 rounded-xl border border-white/[0.01]">
+            <p class="text-[8px] text-slate-500 font-bold uppercase tracking-wide">Fuel-to-Gross Ratio</p>
+            <p id="fuel-revenue-ratio" class="text-xs font-black text-emerald-400 font-mono mt-0.5">0.0%</p>
+        </div>
+    </div>
+</div>
+<!-- ========================================================================== -->
+<!-- END UI: SMART FUEL EFFICIENCY & PROFIT ALERT CARD -->
+<!-- ========================================================================== -->
+        
+        <!-- ========================================================================== -->
 <!-- START UI: COMBINED CRM LEADERBOARD & BREAK-EVEN ANALYTICS GRAPHICS -->
 <!-- ========================================================================== -->
 
@@ -3359,6 +3395,90 @@ function generateDailyImageReport() {
 }
 // ==========================================================================
 // END FEATURE: WHATSAPP IMAGE REPORT GENERATOR (WITH MONTHLY INSIGHTS)
+// ==========================================================================
+    // ==========================================================================
+// START FEATURE: LIVE FUEL EFFICIENCY & PROFIT ALERT ENGINE
+// ==========================================================================
+function updateFuelEfficiencyTracker() {
+    if (typeof adminLedger === "undefined" || !adminLedger.completedOrders) return;
+
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+
+    let mTotalKm = 0;
+    let mTotalFuel = 0;
+    let mTotalGross = 0;
+
+    // چالو مہینے کا ڈیٹا فلٹر کرنا
+    adminLedger.completedOrders.forEach(o => {
+        if (!o.date) return;
+        const orderDate = new Date(o.date);
+
+        if (orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear) {
+            const km = parseFloat(o.km || o.bikeKm || o.distance || o.travel || o.bike_km || 0);
+            const fuel = parseFloat(o.fuel || 0);
+            const gross = parseFloat(o.gross || 0);
+
+            mTotalKm += km;
+            mTotalFuel += fuel;
+            mTotalGross += gross;
+        }
+    });
+
+    // 1. فی کلومیٹر بائیک کا اوسط خرچہ نکالنا
+    let avgCostPerKm = 0;
+    if (mTotalKm > 0) {
+        avgCostPerKm = mTotalFuel / mTotalKm;
+    }
+
+    // 2. کمائی کے مقابلے میں فیول کا کتنا فیصد حصہ لگا
+    let fuelToGrossRatio = 0;
+    if (mTotalGross > 0) {
+        fuelToGrossRatio = (mTotalFuel / mTotalGross) * 100;
+    }
+
+    // UI میں ویلیوز پش کرنا
+    const costKmElem = document.getElementById("fuel-avg-cost-km");
+    const ratioElem = document.getElementById("fuel-revenue-ratio");
+    const alertBadge = document.getElementById("fuel-alert-badge");
+
+    if (costKmElem) costKmElem.innerText = `Rs ${avgCostPerKm.toFixed(1)} / KM`;
+    if (ratioElem) {
+        ratioElem.innerText = `${fuelToGrossRatio.toFixed(1)}%`;
+        // اگر ریشو کم ہو تو ہرا رنگ، زیادہ ہو تو اورنج
+        if (fuelToGrossRatio > 15) {
+            ratioElem.className = "text-xs font-black text-amber-400 font-mono mt-0.5";
+        } else {
+            ratioElem.className = "text-xs font-black text-emerald-400 font-mono mt-0.5";
+        }
+    }
+
+    // 🚨 اسمارٹ الرٹ لاجک (اگر پرافٹ مارجن متاثر ہو رہا ہو)
+    if (alertBadge) {
+        if (mTotalFuel === 0) {
+            alertBadge.className = "text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-800 text-slate-400";
+            alertBadge.innerText = "No Fuel Data";
+        } else if (fuelToGrossRatio > 20) {
+            alertBadge.className = "text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-400 border border-rose-500/20";
+            alertBadge.innerText = "⚠️ High Fuel Cost";
+        } else if (fuelToGrossRatio > 12) {
+            alertBadge.className = "text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20";
+            alertBadge.innerText = "⚡ Moderate Expense";
+        } else {
+            alertBadge.className = "text-[8px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            alertBadge.innerText = "✅ High Efficiency";
+        }
+    }
+}
+
+// اس انجن کو اٹو رن لوپ میں شامل کرنا
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(updateFuelEfficiencyTracker, 1200);
+    setInterval(updateFuelEfficiencyTracker, 3000); // ہر 3 سیکنڈ بعد لائیو ڈیٹا چیک کرے گا
+});
+// ==========================================================================
+// END FEATURE: LIVE FUEL EFFICIENCY & PROFIT ALERT ENGINE
 // ==========================================================================
     
 // ========================================================
