@@ -2661,7 +2661,7 @@ function renderAdminDashboard() {
 // END FUNCTION: renderAdminDashboard
 // ==========================================================================
 // ==========================================================================
-// START FEATURE: SELF-EXECUTING CRM & BREAK-EVEN ANALYTICS ENGINE (NO FIXED COSTS)
+// START FEATURE: SELF-EXECUTING CRM & MONTHLY REVENUE TARGET ENGINE
 // ==========================================================================
 function runCrmAndBreakEven() {
     // چیک کرنا کہ ڈیٹا موجود ہے یا نہیں
@@ -2676,7 +2676,6 @@ function runCrmAndBreakEven() {
 
     let totalUnits = 0;
     let totalGross = 0;
-    let totalExpenses = 0;
     let customerMap = {}; 
 
     // پورے پرانے اور نئے ڈیٹا کا لوپ چلا کر اینالیٹکس نکالنا
@@ -2684,11 +2683,10 @@ function runCrmAndBreakEven() {
         if (!o.date) return;
         const orderDate = new Date(o.date);
         
-        // 1. بریک ایون (صرف موجودہ مہینے کا ریکارڈ)
+        // 1. موجودہ مہینے کا ٹوٹل ریونیو اور یونٹس جمع کرنا
         if (orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear) {
             totalUnits += parseFloat(o.qty || 0);
             totalGross += parseFloat(o.gross || 0);
-            totalExpenses += parseFloat(o.fuel || 0) + parseFloat(o.labour || 0);
         }
 
         // 2. CRM لیڈر بورڈ (لائف ٹائم کسٹمر ریکارڈ)
@@ -2700,20 +2698,43 @@ function runCrmAndBreakEven() {
         customerMap[custName].totalRevenue += parseFloat(o.gross || 0);
     });
 
-    // --- [الف] بریک ایون رینڈر لاجک (منیب بھائی کے بزنس کے مطابق فکسڈ خرچہ 0 کر دیا) ---
-    const monthlyFixedCosts = 0; 
-    let breakEvenUnits = 0; // چونکہ فکسڈ خرچہ زیرو ہے، اس لیے ہدف بھی زیرو ہوگا
-    let progressPercent = 100; // منیب بھائی ہمیشہ سیف اور پرافٹ زون میں ہیں
+    // --- [الف] منیب بھائی کا 60,000 روپے ماہانہ ریونیو ٹارگٹ فارمولا ---
+    const monthlyRevenueTarget = 60000; 
+    const avgRatePerUnit = totalUnits > 0 ? (totalGross / totalUnits) : 0;
+    
+    // 60,000 روپے پورے کرنے کے لیے کتنے یونٹس چاہیے
+    let breakEvenUnits = 0;
+    if (avgRatePerUnit > 0) {
+        breakEvenUnits = Math.ceil(monthlyRevenueTarget / avgRatePerUnit);
+    } else {
+        // اگر ابھی مہینے کا کوئی آرڈر نہیں ہوا، تو موجودہ ریٹ (مثلاً 80 روپے) کے حساب سے عارضی ٹارگٹ دکھائے
+        const currentRateInput = document.getElementById("current-rate-input"); // یا جو بھی آپ کا ریٹ ان پٹ آئی ڈی ہے
+        const backupRate = currentRateInput ? parseFloat(currentRateInput.value) : 80;
+        breakEvenUnits = Math.ceil(monthlyRevenueTarget / backupRate);
+    }
 
+    // پروگریس فیصد نکالنا (60,000 روپے کے ہدف کے مطابق)
+    let progressPercent = 0;
+    if (breakEvenUnits > 0) {
+        progressPercent = Math.min(((totalUnits / breakEvenUnits) * 100), 100);
+    }
+
+    // UI میں ڈیٹا پش کرنا
     if (document.getElementById("be-target-units")) document.getElementById("be-target-units").innerText = breakEvenUnits + " Units";
     if (document.getElementById("be-current-units")) document.getElementById("be-current-units").innerText = totalUnits + " Done";
     if (document.getElementById("be-progress-bar")) document.getElementById("be-progress-bar").style.width = progressPercent + "%";
     
     const statusText = document.getElementById("be-status-text");
     if (statusText) {
-        // چونکہ کوئی فکسڈ خرچہ نہیں ہے، یہ ہمیشہ ہرا اور سیف زون دکھائے گا
-        statusText.className = "text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-500/20";
-        statusText.innerHTML = `<i class="fas fa-smile"></i> Safe Zone (In Profit)`;
+        if (totalGross >= monthlyRevenueTarget) {
+            statusText.className = "text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-500/20";
+            statusText.innerHTML = `<i class="fas fa-trophy"></i> Rs 60K Target Achieved!`;
+        } else {
+            const remainingUnits = breakEvenUnits - totalUnits;
+            const remainingRevenue = monthlyRevenueTarget - totalGross;
+            statusText.className = "text-[10px] font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-lg border border-amber-500/20";
+            statusText.innerHTML = `<i class="fas fa-bullseye"></i> Need Rs ${Math.ceil(remainingRevenue).toLocaleString()} more for 60K`;
+        }
     }
 
     // --- [ب] CRM لیڈر بورڈ رینڈر لاجک ---
@@ -2755,8 +2776,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(runCrmAndBreakEven, 2000); 
 });
 // ==========================================================================
-// END FEATURE: SELF-EXECUTING CRM & BREAK-EVEN ANALYTICS ENGINE (NO FIXED COSTS)
+// END FEATURE: SELF-EXECUTING CRM & MONTHLY REVENUE TARGET ENGINE
 // ==========================================================================
+                
             
 // START FUNCTION: checkOverdueAlerts
 function checkOverdueAlerts() {
