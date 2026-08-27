@@ -5744,34 +5744,56 @@ function importDataBackup(event) {
     };
     fileReader.readAsText(file);
 }
-// Exact Function Fix based on HTML Line 1801, 1813, 1825
-function switchServiceLayout(type) {
-    // 1. Hide all calculator blocks
-    const solar = document.getElementById('solar-calc-block');
-    const carwash = document.getElementById('carwash-calc-block');
-    const tankwash = document.getElementById('tankwash-calc-block');
+// Complete Fix for Custom Dropdown & Calculator Switcher
+function switchServiceLayout(serviceType) {
+    // 1. All Calculator Block IDs
+    const solarCalc = document.getElementById('solar-calc-block');
+    const carwashCalc = document.getElementById('carwash-calc-block');
+    const tankwashCalc = document.getElementById('tankwash-calc-block');
 
-    if (solar) { solar.classList.add('hidden'); solar.style.display = 'none'; }
-    if (carwash) { carwash.classList.add('hidden'); carwash.style.display = 'none'; }
-    if (tankwash) { tankwash.classList.add('hidden'); tankwash.style.display = 'none'; }
+    // 2. Hide ALL Calculator Blocks completely
+    [solarCalc, carwashCalc, tankwashCalc].forEach(block => {
+        if (block) {
+            block.classList.add('hidden');
+            block.style.display = 'none'; // Force CSS override
+        }
+    });
 
-    // 2. Show only the clicked option
-    if (type === 'solar' && solar) {
-        solar.classList.remove('hidden');
-        solar.style.display = 'block';
-    } else if (type === 'carwash' && carwash) {
-        carwash.classList.remove('hidden');
-        carwash.style.display = 'block';
-    } else if ((type === 'tank' || type === 'tankwash') && tankwash) {
-        tankwash.classList.remove('hidden');
-        tankwash.style.display = 'block';
+    // 3. Show ONLY the requested Calculator Block
+    let targetBlock = null;
+    if (serviceType === 'solar') targetBlock = solarCalc;
+    else if (serviceType === 'carwash') targetBlock = carwashCalc;
+    else if (serviceType === 'tank' || serviceType === 'tankwash') targetBlock = tankwashCalc;
+
+    if (targetBlock) {
+        targetBlock.classList.remove('hidden');
+        targetBlock.style.display = 'block'; // Force visibility
+        
+        // Smoothly scroll down to the visible calculator
+        targetBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // 4. Close all dropdown panels after selection
+    const panels = ['panel-main-tab-solar', 'panel-main-tab-carwash', 'panel-main-tab-tank'];
+    panels.forEach(id => {
+        const p = document.getElementById(id);
+        if (p) p.classList.add('hidden');
+    });
+}
+
+// Ensure Dropdown Toggle function also exists
+function openCustomDropdown(panelId) {
+    const targetPanel = document.getElementById(panelId);
+    if (targetPanel) {
+        targetPanel.classList.toggle('hidden');
     }
 }
 
-// Show only Solar by default on load
+// Show only Solar Calculator when page loads initially
 document.addEventListener("DOMContentLoaded", function () {
     switchServiceLayout('solar');
 });
+    
     
 </script>
 </body>
