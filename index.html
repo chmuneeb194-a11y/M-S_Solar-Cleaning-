@@ -5744,6 +5744,32 @@ function importDataBackup(event) {
     };
     fileReader.readAsText(file);
 }
+  // Tab Swapping Functionality Fix
+function showCalculatorTab(tabName) {
+    const solarBlock = document.getElementById('solar-calc-block');
+    const carwashBlock = document.getElementById('carwash-calc-block');
+    const tankwashBlock = document.getElementById('tankwash-calc-block');
+
+    if (solarBlock) solarBlock.classList.add('hidden');
+    if (carwashBlock) carwashBlock.classList.add('hidden');
+    if (tankwashBlock) tankwashBlock.classList.add('hidden');
+
+    if (tabName === 'solar' && solarBlock) {
+        solarBlock.classList.remove('hidden');
+    } else if (tabName === 'carwash' && carwashBlock) {
+        carwashBlock.classList.remove('hidden');
+    } else if (tabName === 'tankwash' && tankwashBlock) {
+        tankwashBlock.classList.remove('hidden');
+    }
+}
+
+function scrollToSection(sectionId) {
+    const el = document.getElementById(sectionId);
+    if (el) {
+        el.classList.remove('hidden');
+        el.scrollIntoView({ behavior: 'smooth' });
+    }
+    }
     
 </script>
 </body>
