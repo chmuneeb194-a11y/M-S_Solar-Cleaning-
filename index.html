@@ -5744,9 +5744,8 @@ function importDataBackup(event) {
     };
     fileReader.readAsText(file);
 }
-// Universal Calculator Tab Switcher Fix
+// Universal Fix - Connects all old & new function calls
 function openCalcTab(tabId) {
-    // 1. Hide ALL calculators first
     const tabs = ['solar-calc-block', 'carwash-calc-block', 'tankwash-calc-block'];
     tabs.forEach(id => {
         const el = document.getElementById(id);
@@ -5756,15 +5755,25 @@ function openCalcTab(tabId) {
         }
     });
 
-    // 2. Show ONLY the selected active calculator
-    const selectedEl = document.getElementById(tabId);
+    // Handle short names like 'carwash', 'solar', 'tankwash'
+    let targetId = tabId;
+    if (!tabId.includes('-calc-block')) {
+        targetId = tabId + '-calc-block';
+    }
+
+    const selectedEl = document.getElementById(targetId);
     if (selectedEl) {
         selectedEl.classList.remove('hidden');
         selectedEl.style.display = 'block';
     }
 }
 
-// Show only Solar Calculator on page load
+// Redirect old function names to the new one automatically
+function showCalculatorTab(name) { openCalcTab(name); }
+function showTab(name) { openCalcTab(name); }
+function scrollToSection(name) { openCalcTab(name); }
+
+// Default: Show Solar on load
 document.addEventListener("DOMContentLoaded", function () {
     openCalcTab('solar-calc-block');
 });
