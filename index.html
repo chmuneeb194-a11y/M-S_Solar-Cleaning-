@@ -5756,50 +5756,33 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Universal Tab Switcher
+// Clean Dropdown / Tab Switcher Fix
 function openCalcTab(tabId) {
+    // 1. Hide ALL calculators first
     const tabs = ['solar-calc-block', 'carwash-calc-block', 'tankwash-calc-block'];
+    
     tabs.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-            if (id === tabId) {
-                el.classList.remove('hidden');
-                el.style.display = 'block';
-                el.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                el.classList.add('hidden');
-                el.style.display = 'none';
-            }
+            el.classList.add('hidden');
+            el.style.display = 'none'; // Force hide
         }
     });
+
+    // 2. Show ONLY the selected calculator
+    const selectedEl = document.getElementById(tabId);
+    if (selectedEl) {
+        selectedEl.classList.remove('hidden');
+        selectedEl.style.display = 'block'; // Force show only active one
+        selectedEl.scrollIntoView({ behavior: 'smooth' });
+    }
 }
+
+// Set Default Active Calculator on Page Load (Solar Only)
+document.addEventListener("DOMContentLoaded", function () {
+    openCalcTab('solar-calc-block');
+});
     
-  // Tab Swapping Functionality Fix
-function showCalculatorTab(tabName) {
-    const solarBlock = document.getElementById('solar-calc-block');
-    const carwashBlock = document.getElementById('carwash-calc-block');
-    const tankwashBlock = document.getElementById('tankwash-calc-block');
-
-    if (solarBlock) solarBlock.classList.add('hidden');
-    if (carwashBlock) carwashBlock.classList.add('hidden');
-    if (tankwashBlock) tankwashBlock.classList.add('hidden');
-
-    if (tabName === 'solar' && solarBlock) {
-        solarBlock.classList.remove('hidden');
-    } else if (tabName === 'carwash' && carwashBlock) {
-        carwashBlock.classList.remove('hidden');
-    } else if (tabName === 'tankwash' && tankwashBlock) {
-        tankwashBlock.classList.remove('hidden');
-    }
-}
-
-function scrollToSection(sectionId) {
-    const el = document.getElementById(sectionId);
-    if (el) {
-        el.classList.remove('hidden');
-        el.scrollIntoView({ behavior: 'smooth' });
-    }
-    }
     
 </script>
 </body>
