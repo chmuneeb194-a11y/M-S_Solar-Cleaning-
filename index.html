@@ -5744,40 +5744,34 @@ function importDataBackup(event) {
     };
     fileReader.readAsText(file);
 }
-// Universal Fix - Connects all old & new function calls
-function openCalcTab(tabId) {
-    const tabs = ['solar-calc-block', 'carwash-calc-block', 'tankwash-calc-block'];
-    tabs.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.classList.add('hidden');
-            el.style.display = 'none';
-        }
-    });
+// Exact Function Fix based on HTML Line 1801, 1813, 1825
+function switchServiceLayout(type) {
+    // 1. Hide all calculator blocks
+    const solar = document.getElementById('solar-calc-block');
+    const carwash = document.getElementById('carwash-calc-block');
+    const tankwash = document.getElementById('tankwash-calc-block');
 
-    // Handle short names like 'carwash', 'solar', 'tankwash'
-    let targetId = tabId;
-    if (!tabId.includes('-calc-block')) {
-        targetId = tabId + '-calc-block';
-    }
+    if (solar) { solar.classList.add('hidden'); solar.style.display = 'none'; }
+    if (carwash) { carwash.classList.add('hidden'); carwash.style.display = 'none'; }
+    if (tankwash) { tankwash.classList.add('hidden'); tankwash.style.display = 'none'; }
 
-    const selectedEl = document.getElementById(targetId);
-    if (selectedEl) {
-        selectedEl.classList.remove('hidden');
-        selectedEl.style.display = 'block';
+    // 2. Show only the clicked option
+    if (type === 'solar' && solar) {
+        solar.classList.remove('hidden');
+        solar.style.display = 'block';
+    } else if (type === 'carwash' && carwash) {
+        carwash.classList.remove('hidden');
+        carwash.style.display = 'block';
+    } else if ((type === 'tank' || type === 'tankwash') && tankwash) {
+        tankwash.classList.remove('hidden');
+        tankwash.style.display = 'block';
     }
 }
 
-// Redirect old function names to the new one automatically
-function showCalculatorTab(name) { openCalcTab(name); }
-function showTab(name) { openCalcTab(name); }
-function scrollToSection(name) { openCalcTab(name); }
-
-// Default: Show Solar on load
+// Show only Solar by default on load
 document.addEventListener("DOMContentLoaded", function () {
-    openCalcTab('solar-calc-block');
+    switchServiceLayout('solar');
 });
-    
     
 </script>
 </body>
