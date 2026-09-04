@@ -4612,38 +4612,51 @@ function switchServiceLayout(serviceType) {
     var labelSolar = document.getElementById('label-main-tab-solar');
     var labelCarwash = document.getElementById('label-main-tab-carwash');
     var labelTank = document.getElementById('label-main-tab-tank');
+<!-- START FIX: LINE 4578 TO 4615 -->
+<script>
+function switchServiceLayout(serviceType) {
+    if (!serviceType) return;
+    
+    // Safety selection of elements
+    var solarBlock = document.getElementById('solar-calc-block');
+    var carwashBlock = document.getElementById('carwash-calc-block');
+    var tankBlock = document.getElementById('tank-calc-block');
 
-    // Sabhi Blocks ko Pehle Hide karein
-    if (solarBlock) solarBlock.classList.add('hidden');
-    if (carwashBlock) carwashBlock.classList.add('hidden');
-    if (tankBlock) tankBlock.classList.add('hidden');
+    var labelSolar = document.getElementById('label-main-tab-solar');
+    var labelCarwash = document.getElementById('label-main-tab-carwash');
+    var labelTank = document.getElementById('label-main-tab-tank');
 
-    // Selected Calculator Unhide karein aur Labels Update karein
+    // Hide all blocks using safe inline style
+    if (solarBlock) { solarBlock.style.display = 'none'; solarBlock.classList.add('hidden'); }
+    if (carwashBlock) { carwashBlock.style.display = 'none'; carwashBlock.classList.add('hidden'); }
+    if (tankBlock) { tankBlock.style.display = 'none'; tankBlock.classList.add('hidden'); }
+
+    // Display selected block
     if (serviceType === 'carwash') {
-        if (carwashBlock) carwashBlock.classList.remove('hidden');
+        if (carwashBlock) { carwashBlock.style.display = 'block'; carwashBlock.classList.remove('hidden'); }
         if (labelCarwash) labelCarwash.innerText = "🚗 Car Wash Active";
         if (labelSolar) labelSolar.innerText = "⚡ Open Solar Setup";
         if (labelTank) labelTank.innerText = "🚰 Open Tanki Wash";
     } else if (serviceType === 'tank') {
-        if (tankBlock) tankBlock.classList.remove('hidden');
+        if (tankBlock) { tankBlock.style.display = 'block'; tankBlock.classList.remove('hidden'); }
         if (labelTank) labelTank.innerText = "🚰 Tanki Wash Active";
         if (labelSolar) labelSolar.innerText = "⚡ Open Solar Setup";
         if (labelCarwash) labelCarwash.innerText = "🚗 Open Car Wash";
-    } else { // 'solar'
-        if (solarBlock) solarBlock.classList.remove('hidden');
+    } else {
+        if (solarBlock) { solarBlock.style.display = 'block'; solarBlock.classList.remove('hidden'); }
         if (labelSolar) labelSolar.innerText = "⚡ Solar Active";
         if (labelCarwash) labelCarwash.innerText = "🚗 Open Car Wash";
         if (labelTank) labelTank.innerText = "🚰 Open Tanki Wash";
     }
 
-    // Option select hone ke baad dropdown panel ko auto-close karein
+    // Auto-close open dropdown panels
     var panels = document.querySelectorAll('.custom-dropdown-panel');
     panels.forEach(function(p) {
+        p.style.display = 'none';
         p.classList.add('hidden');
     });
 }
 
-/* --- END FIX: COMPLETE DROPDOWN & CALCULATOR SWITCHER --- */
     
         
         function changeCarWashQty(amount) {
