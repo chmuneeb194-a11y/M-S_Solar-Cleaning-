@@ -4575,30 +4575,30 @@ function editSolarOffer() {
             }
         });
 
-/* --- START FIX: robust switchServiceLayout --- */
+/* --- START FIX: Fully Working switchServiceLayout --- */
 function switchServiceLayout(serviceType) {
-    // 1. All possible calculator blocks fetch karein
+    // 1. Fetch all calculator block elements
     var solarBlock = document.getElementById('solar-calc-block');
     var carwashBlock = document.getElementById('carwash-calc-block');
     var tankBlock = document.getElementById('tank-calc-block') || document.getElementById('water-tank-calc-block') || document.getElementById('tanki-calc-block');
 
-    // 2. All labels fetch karein
+    // 2. Fetch main tab label elements
     var labelSolar = document.getElementById('label-main-tab-solar');
     var labelCarwash = document.getElementById('label-main-tab-carwash');
     var labelTank = document.getElementById('label-main-tab-tank');
 
-    // 3. Pehle sab calculators hide kar dein
+    // 3. Hide all calculator blocks first
     if (solarBlock) solarBlock.classList.add('hidden');
     if (carwashBlock) carwashBlock.classList.add('hidden');
     if (tankBlock) tankBlock.classList.add('hidden');
 
-    // 4. Selected calculator show karein & Labels update karein
+    // 4. Show selected calculator & update labels dynamically
     if (serviceType === 'carwash') {
         if (carwashBlock) carwashBlock.classList.remove('hidden');
         if (labelCarwash) labelCarwash.innerText = "🚗 Car Wash Active";
         if (labelSolar) labelSolar.innerText = "⚡ Open Solar Setup";
         if (labelTank) labelTank.innerText = "🚰 Open Tanki Wash";
-    } else if (serviceType === 'tank') {
+    } else if (serviceType === 'tank' || serviceType === 'tanki') {
         if (tankBlock) tankBlock.classList.remove('hidden');
         if (labelTank) labelTank.innerText = "🚰 Tanki Wash Active";
         if (labelSolar) labelSolar.innerText = "⚡ Open Solar Setup";
@@ -4610,13 +4610,21 @@ function switchServiceLayout(serviceType) {
         if (labelTank) labelTank.innerText = "🚰 Open Tanki Wash";
     }
 
-    // 5. Open Dropdown panels ko close karein
-    var openPanels = document.querySelectorAll('.custom-dropdown-panel');
-    openPanels.forEach(function(panel) {
+    // 5. Automatically close open dropdown panels after selection
+    var panels = document.querySelectorAll('.custom-dropdown-panel');
+    panels.forEach(function(panel) {
         panel.classList.add('hidden');
     });
+
+    // 6. Refresh image slider if active
+    setTimeout(function() {
+        var sliderInput = document.getElementById('image-split-slider');
+        if (sliderInput && typeof moveSlider === 'function') {
+            moveSlider(sliderInput.value);
+        }
+    }, 300);
 }
-/* --- END FIX: robust switchServiceLayout --- */
+/* --- END FIX: Fully Working switchServiceLayout --- */
     
         
         function changeCarWashQty(amount) {
