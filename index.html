@@ -5776,6 +5776,99 @@ function importDataBackup(event) {
     fileReader.readAsText(file);
 }
 
+    <!-- ======================================================== -->
+<!-- START: UNIVERSAL AUTONOMOUS SWITCHER SHORTCUT (PASTE AT END) -->
+<!-- ======================================================== -->
+<script>
+(function() {
+    // 1. Core Logic to locate and toggle elements automatically
+    window.switchServiceLayout = function(serviceType) {
+        if (!serviceType) return;
+        var type = serviceType.toString().toLowerCase().trim();
+
+        // Dynamically find ALL Calculator Blocks in the entire document
+        var solarBlocks = document.querySelectorAll('#solar-calc-block, [id*="solar-calc"], [id*="solar-block"]');
+        var carBlocks = document.querySelectorAll('#carwash-calc-block, [id*="carwash-calc"], [id*="carwash-block"]');
+        var tankBlocks = document.getElementById('tank-calc-block') ? [document.getElementById('tank-calc-block')] : document.querySelectorAll('[id*="tank-calc"], [id*="tanki-calc"], [id*="water-tank"]');
+
+        // Helper function to hide node lists
+        function hideNodes(nodes) {
+            nodes.forEach(function(el) {
+                el.style.display = 'none';
+                el.classList.add('hidden');
+            });
+        }
+
+        // Helper function to show node lists
+        function showNodes(nodes) {
+            nodes.forEach(function(el) {
+                el.style.display = 'block';
+                el.classList.remove('hidden');
+            });
+        }
+
+        // Hide ALL calculators first
+        hideNodes(solarBlocks);
+        hideNodes(carBlocks);
+        hideNodes(tankBlocks);
+
+        // Show ONLY the target calculator block
+        if (type.indexOf('car') !== -1) {
+            showNodes(carBlocks);
+        } else if (type.indexOf('tank') !== -1) {
+            showNodes(tankBlocks);
+        } else {
+            showNodes(solarBlocks); // Solar active by default
+        }
+
+        // Auto Close all Custom Dropdown Panels
+        var openPanels = document.querySelectorAll('.custom-dropdown-panel, [id^="panel-"]');
+        openPanels.forEach(function(panel) {
+            panel.style.display = 'none';
+            panel.classList.add('hidden');
+        });
+    };
+
+    // 2. Open Custom Dropdown Function
+    window.openCustomDropdown = function(id) {
+        var target = document.getElementById('panel-' + id) || document.getElementById('panel-main-tab-' + id);
+        var allPanels = document.querySelectorAll('.custom-dropdown-panel, [id^="panel-"]');
+
+        if (!target) return;
+
+        var isHidden = target.classList.contains('hidden') || target.style.display === 'none';
+
+        // Close all active dropdown panels
+        allPanels.forEach(function(p) {
+            p.classList.add('hidden');
+            p.style.display = 'none';
+        });
+
+        // Toggle clicked panel
+        if (isHidden) {
+            target.classList.remove('hidden');
+            target.style.display = 'block';
+        }
+    };
+
+    // 3. Global Click Handler (Self-healing Event Interceptor)
+    document.addEventListener('click', function(e) {
+        var trigger = e.target.closest('[onclick*="switchServiceLayout"]');
+        if (trigger) {
+            var rawAttr = trigger.getAttribute('onclick');
+            if (rawAttr) {
+                var match = rawAttr.match(/switchServiceLayout\(['"]?([^'"]+)['"]?\)/);
+                if (match && match[1]) {
+                    window.switchServiceLayout(match[1]);
+                }
+            }
+        }
+    }, true);
+})();
+</script>
+<!-- ======================================================== -->
+<!-- END: UNIVERSAL AUTONOMOUS SWITCHER SHORTCUT -->
+<!-- ======================================================== -->
     
 </script>
 </body>
