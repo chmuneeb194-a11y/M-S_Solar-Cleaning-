@@ -1789,44 +1789,48 @@
     <section id="calculator-section" class="py-16 px-4">
         <div class="container mx-auto max-w-4xl">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-10">
-    <!-- 1. SOLAR WASH DROPDOWN (Ab sab se pehle) -->
+<!-- START FIX: DROPDOWN SECTION -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-10">
+
+    <!-- 1. SOLAR WASH DROPDOWN -->
     <div class="relative">
-        <label class="block text-[11px] font-black uppercase text-slate-600 dark:text-slate-400 mb-2">☀️ Solar Wash Services</label>
-        <div id="trigger-main-tab-solar" onclick="openCustomDropdown('main-tab-solar')" class="w-full flex items-center justify-between p-4 bg-slate-800/20 border border-slate-700/50 rounded-xl cursor-pointer hover:bg-slate-800/40 transition-colors">
-            <span id="label-main-tab-solar" class="text-amber-600 font-bold">Solar Active</span>
-            <i class="fas fa-chevron-down text-xs opacity-60 text-amber-600"></i>
+        <label class="block text-[11px] font-black uppercase text-slate-600 dark:text-slate-400 mb-2">☀️ Solar Wash Service</label>
+        <div id="trigger-main-tab-solar" onclick="openCustomDropdown('solar')" class="w-full flex items-center justify-between p-3 bg-slate-800 rounded-xl cursor-pointer">
+            <span id="label-main-tab-solar" class="text-amber-500 font-bold">⚡ Solar Active</span>
+            <i class="fas fa-chevron-down text-xs opacity-60 text-amber-500"></i>
         </div>
-        <div id="panel-main-tab-solar" class="custom-dropdown-panel hidden absolute left-0 mt-2 w-full bg-slate-900 border border-slate-800 rounded-xl shadow-2xl z-50 p-2">
-            <div onclick="switchServiceLayout('solar')" class="p-3 hover:bg-slate-800 rounded-lg cursor-pointer text-sm text-slate-300 flex items-center gap-2">⚡ Activate Solar System Calculator</div>
+        <div id="panel-solar" class="custom-dropdown-panel hidden absolute left-0 mt-2 w-full bg-slate-900 border border-slate-800 rounded-xl z-50 p-2 shadow-2xl">
+            <div onclick="switchServiceLayout('solar')" class="p-3 hover:bg-slate-800 rounded-lg cursor-pointer text-sm text-white font-bold">☀️ Solar Panel Wash</div>
         </div>
     </div>
 
-    <!-- 2. CAR WASH DROPDOWN (Ab darmiyan mein) -->
+    <!-- 2. CAR WASH DROPDOWN -->
     <div class="relative">
-        <label class="block text-[11px] font-black uppercase text-slate-600 dark:text-slate-400 mb-2">🚗 Car Wash Services</label>
-        <div id="trigger-main-tab-carwash" onclick="openCustomDropdown('main-tab-carwash')" class="w-full flex items-center justify-between p-4 bg-slate-800/20 border border-slate-700/50 rounded-xl cursor-pointer hover:bg-slate-800/40 transition-colors">
-            <span id="label-main-tab-carwash" class="text-blue-600 font-bold">Open Car Wash</span>
-            <i class="fas fa-chevron-down text-xs opacity-60 text-blue-600"></i>
+        <label class="block text-[11px] font-black uppercase text-slate-600 dark:text-slate-400 mb-2">🚗 Car Wash Service</label>
+        <div id="trigger-main-tab-carwash" onclick="openCustomDropdown('carwash')" class="w-full flex items-center justify-between p-3 bg-slate-800 rounded-xl cursor-pointer">
+            <span id="label-main-tab-carwash" class="text-blue-500 font-bold">🚗 Open Car Wash</span>
+            <i class="fas fa-chevron-down text-xs opacity-60 text-blue-500"></i>
         </div>
-        <div id="panel-main-tab-carwash" class="custom-dropdown-panel hidden absolute left-0 mt-2 w-full bg-slate-900 border border-slate-800 rounded-xl shadow-2xl z-50 p-2">
-            <div onclick="switchServiceLayout('carwash')" class="p-3 hover:bg-slate-800 rounded-lg cursor-pointer text-sm text-slate-300 flex items-center gap-2">🧽 Activate Car Wash Calculator</div>
+        <div id="panel-carwash" class="custom-dropdown-panel hidden absolute left-0 mt-2 w-full bg-slate-900 border border-slate-800 rounded-xl z-50 p-2 shadow-2xl">
+            <div onclick="switchServiceLayout('carwash')" class="p-3 hover:bg-slate-800 rounded-lg cursor-pointer text-sm text-white font-bold">🚗 Car Wash</div>
         </div>
     </div>
 
-    <!-- 3. WATER TANKI WASH DROPDOWN (Aakhir mein) -->
+    <!-- 3. WATER TANK WASH DROPDOWN -->
     <div class="relative">
-        <label class="block text-[11px] font-black uppercase text-slate-600 dark:text-slate-400 mb-2">🪣 Tanki Wash Services</label>
-        <div id="trigger-main-tab-tank" onclick="openCustomDropdown('main-tab-tank')" class="w-full flex items-center justify-between p-4 bg-slate-800/20 border border-slate-700/50 rounded-xl cursor-pointer hover:bg-slate-800/40 transition-colors">
-            <span id="label-main-tab-tank" class="text-cyan-600 font-bold">Open Tanki Wash</span>
-            <i class="fas fa-chevron-down text-xs opacity-60 text-cyan-600"></i>
+        <label class="block text-[11px] font-black uppercase text-slate-600 dark:text-slate-400 mb-2">🚰 Tanki Wash Service</label>
+        <div id="trigger-main-tab-tank" onclick="openCustomDropdown('tank')" class="w-full flex items-center justify-between p-3 bg-slate-800 rounded-xl cursor-pointer">
+            <span id="label-main-tab-tank" class="text-cyan-500 font-bold">🚰 Open Tanki Wash</span>
+            <i class="fas fa-chevron-down text-xs opacity-60 text-cyan-500"></i>
         </div>
-        <div id="panel-main-tab-tank" class="custom-dropdown-panel hidden absolute left-0 mt-2 w-full bg-slate-900 border border-slate-800 rounded-xl shadow-2xl z-50 p-2">
-            <div onclick="switchServiceLayout('tank')" class="p-3 hover:bg-slate-800 rounded-lg cursor-pointer text-sm text-slate-300 flex items-center gap-2">💧 Activate Water Tanki Calculator</div>
+        <div id="panel-tank" class="custom-dropdown-panel hidden absolute left-0 mt-2 w-full bg-slate-900 border border-slate-800 rounded-xl z-50 p-2 shadow-2xl">
+            <div onclick="switchServiceLayout('tank')" class="p-3 hover:bg-slate-800 rounded-lg cursor-pointer text-sm text-white font-bold">🚰 Water Tanki Wash</div>
         </div>
     </div>
+
 </div>
-
+<!-- END FIX: DROPDOWN SECTION -->
+            
 
             <div id="solar-calc-block" class="hidden">
                 <div class="text-center mb-10">
@@ -4575,30 +4579,52 @@ function editSolarOffer() {
             }
         });
 
-/* --- START FIX: Fully Working switchServiceLayout --- */
+/* --- START FIX: COMPLETE DROPDOWN & CALCULATOR SWITCHER --- */
+
+// 1. Dropdown Open/Close karne wala function
+function openCustomDropdown(id) {
+    var targetPanel = document.getElementById('panel-' + id);
+    if (!targetPanel) return;
+
+    var isHidden = targetPanel.classList.contains('hidden');
+
+    // Baqi sabhi khule hue dropdown panels ko pehle close karein
+    var activePanels = document.querySelectorAll('.custom-dropdown-panel');
+    activePanels.forEach(function(p) {
+        p.classList.add('hidden');
+    });
+
+    // Toggle target panel
+    if (isHidden) {
+        targetPanel.classList.remove('hidden');
+    }
+}
+
+// 2. Calculator Switch karne wala function
 function switchServiceLayout(serviceType) {
-    // 1. Fetch all calculator block elements
+    if (!serviceType) return;
+
+    // Elements Select karein
     var solarBlock = document.getElementById('solar-calc-block');
     var carwashBlock = document.getElementById('carwash-calc-block');
-    var tankBlock = document.getElementById('tank-calc-block') || document.getElementById('water-tank-calc-block') || document.getElementById('tanki-calc-block');
+    var tankBlock = document.getElementById('tank-calc-block') || document.getElementById('water-tank-calc-block');
 
-    // 2. Fetch main tab label elements
     var labelSolar = document.getElementById('label-main-tab-solar');
     var labelCarwash = document.getElementById('label-main-tab-carwash');
     var labelTank = document.getElementById('label-main-tab-tank');
 
-    // 3. Hide all calculator blocks first
+    // Sabhi Blocks ko Pehle Hide karein
     if (solarBlock) solarBlock.classList.add('hidden');
     if (carwashBlock) carwashBlock.classList.add('hidden');
     if (tankBlock) tankBlock.classList.add('hidden');
 
-    // 4. Show selected calculator & update labels dynamically
+    // Selected Calculator Unhide karein aur Labels Update karein
     if (serviceType === 'carwash') {
         if (carwashBlock) carwashBlock.classList.remove('hidden');
         if (labelCarwash) labelCarwash.innerText = "🚗 Car Wash Active";
         if (labelSolar) labelSolar.innerText = "⚡ Open Solar Setup";
         if (labelTank) labelTank.innerText = "🚰 Open Tanki Wash";
-    } else if (serviceType === 'tank' || serviceType === 'tanki') {
+    } else if (serviceType === 'tank') {
         if (tankBlock) tankBlock.classList.remove('hidden');
         if (labelTank) labelTank.innerText = "🚰 Tanki Wash Active";
         if (labelSolar) labelSolar.innerText = "⚡ Open Solar Setup";
@@ -4610,21 +4636,14 @@ function switchServiceLayout(serviceType) {
         if (labelTank) labelTank.innerText = "🚰 Open Tanki Wash";
     }
 
-    // 5. Automatically close open dropdown panels after selection
+    // Option select hone ke baad dropdown panel ko auto-close karein
     var panels = document.querySelectorAll('.custom-dropdown-panel');
-    panels.forEach(function(panel) {
-        panel.classList.add('hidden');
+    panels.forEach(function(p) {
+        p.classList.add('hidden');
     });
-
-    // 6. Refresh image slider if active
-    setTimeout(function() {
-        var sliderInput = document.getElementById('image-split-slider');
-        if (sliderInput && typeof moveSlider === 'function') {
-            moveSlider(sliderInput.value);
-        }
-    }, 300);
 }
-/* --- END FIX: Fully Working switchServiceLayout --- */
+
+/* --- END FIX: COMPLETE DROPDOWN & CALCULATOR SWITCHER --- */
     
         
         function changeCarWashQty(amount) {
