@@ -4605,10 +4605,14 @@ function editSolarOffer() {
         if(labelCarwash) labelCarwash.innerText = "🚗 Open Car Wash";
     }
 
-    if(document.getElementById('panel-main-tab-carwash')) document.getElementById('panel-main-tab-carwash').classList.add('hidden');
-    if(document.getElementById('panel-main-tab-solar')) document.getElementById('panel-main-tab-solar').classList.add('hidden');
-    if(document.getElementById('panel-main-tab-tank')) document.getElementById('panel-main-tab-tank').classList.add('hidden');
+var pCarwash = document.getElementById('panel-main-tab-carwash');
+var pSolar = document.getElementById('panel-main-tab-solar');
+var pTank = document.getElementById('panel-main-tab-tank');
 
+if(pCarwash) pCarwash.classList.toggle('hidden', serviceType !== 'carwash');
+if(pSolar) pSolar.classList.toggle('hidden', serviceType !== 'solar' && serviceType !== undefined);
+if(pTank) pTank.classList.toggle('hidden', serviceType !== 'tank');
+        
     setTimeout(function() {
         var sliderInput = document.getElementById('image-split-slider');
         if(sliderInput) moveSlider(sliderInput.value);
@@ -5022,11 +5026,14 @@ var ratePerPanel = rateInput ? (parseFloat(rateInput.value) || parseFloat(curren
                     // Automatic system color scheme layout engine activator
         applyAutomaticSystemTheme();
 
+
             switchServiceLayout('solar');
-            calculateBill();
-            calculateCarWashBill();
-            runAnimatedCounters();
-            initScrollAnimations();
+if(typeof calculateBill === 'function') calculateBill();
+if(typeof calculateCarWashBill === 'function') calculateCarWashBill();
+if(typeof calculateTankBill === 'function') calculateTankBill();
+if(typeof runAnimatedCounters === 'function') runAnimatedCounters();
+if(typeof initScrollAnimations === 'function') initScrollAnimations();
+    
 
             var initSlider = setInterval(function(){
                 var shell = document.getElementById("slider-box-shell");
