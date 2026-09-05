@@ -5015,7 +5015,11 @@ var ratePerPanel = rateInput ? (parseFloat(rateInput.value) || parseFloat(curren
             var sliderInput = document.getElementById("image-split-slider");
             if(sliderInput) moveSlider(sliderInput.value);
         };
-
+window.onload = function() {
+  // شروعاتی ڈسپلے سیٹ کرنے کے لیے
+  switchServiceLayout('solar');
+};
+    
         window.onload = function() {
             if(localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark');
@@ -5751,55 +5755,79 @@ function importDataBackup(event) {
     };
     fileReader.readAsText(file);
 }
-// 1. ڈراپ ڈاؤن سوئچنگ کا فنکشن (تمام کیلکولیٹرز کو دکھانے / چھپانے کے لیے)
-function showCalculator(selectedCalc) {
-  // تمام کیلکولیٹرز کے کنٹینرز کو چھپائیں
-  const calculators = document.querySelectorAll('.calculator-card');
-  calculators.forEach(calc => {
-    calc.style.display = 'none';
-  });
+// 1. سروس تبدیل کرنے اور ڈراپ ڈاؤن سوئچ کا مین فنکشن
+function switchServiceLayout(serviceType) {
+  // تمام بلاکس حاصل کریں
+  var solarBlock = document.getElementById('solar-calc-block');
+  var carwashBlock = document.getElementById('carwash-calc-block');
+  var tankBlock = document.getElementById('tank-calc-block');
 
-  // منتخب کردہ کیلکولیٹر دکھائیں
-  if (selectedCalc) {
-    const activeCalc = document.getElementById(selectedCalc);
-    if (activeCalc) {
-      activeCalc.style.display = 'block';
-    }
+  // لیبلز
+  var labelTank = document.getElementById('label-main-tab-tank');
+  var labelSolar = document.getElementById('label-main-tab-solar');
+  var labelCarwash = document.getElementById('label-main-tab-carwash');
+
+  // تمام بلاکس کو پہلے چھپا دیں
+  if (solarBlock) solarBlock.classList.add('hidden');
+  if (carwashBlock) carwashBlock.classList.add('hidden');
+  if (tankBlock) tankBlock.classList.add('hidden');
+
+  // منتخب کردہ بلاک کو ظاہر کریں
+  if (serviceType === 'carwash') {
+    if (carwashBlock) carwashBlock.classList.remove('hidden');
+    if (labelCarwash) labelCarwash.innerText = "🚗 Car Wash Active";
+    if (labelSolar) labelSolar.innerText = "⚡ Open Solar Setup";
+    if (labelTank) labelTank.innerText = "💧 Open Tanki Wash";
+    calculateCarWashBill();
+  } else if (serviceType === 'tank') {
+    if (tankBlock) tankBlock.classList.remove('hidden');
+    if (labelTank) labelTank.innerText = "💧 Tanki Wash Active";
+    if (labelSolar) labelSolar.innerText = "⚡ Open Solar Setup";
+    if (labelCarwash) labelCarwash.innerText = "🚗 Open Car Wash";
+    calculateTankBill();
+  } else {
+    if (solarBlock) solarBlock.classList.remove('hidden');
+    if (labelSolar) labelSolar.innerText = "⚡ Solar Active";
+    if (labelCarwash) labelCarwash.innerText = "🚗 Open Car Wash";
+    if (labelTank) labelTank.innerText = "💧 Open Tanki Wash";
+    calculateBill();
   }
 }
 
-// 2. سولر پینل واش کا حساب
-function calculateSolar() {
-  const plates = parseFloat(document.getElementById('solarPlates')?.value) || 0;
-  const ratePerPlate = 150; // اپنے ریٹ کے مطابق تبدیل کریں
-  const total = plates * ratePerPlate;
-  
-  const resultElem = document.getElementById('solarResult');
-  if (resultElem) resultElem.innerText = `کل قیمت: Rs. ${total}`;
+// 2. محفوظ طریقہ سے بل کیلکولیٹ کرنے کے فنکشنز
+function calculateCarWashBill() {
+  var selectElem = document.getElementById('carwash-type');
+  var qtyInput = document.getElementById('carwash-qty');
+  var totalElem = document.getElementById('carwash-total-price');
+
+  if (!selectElem || !qtyInput || !totalElem) return;
+
+  var vehicleRate = parseInt(selectElem.value) || 0;
+  var qty = parseInt(qtyInput.value) || 1;
+  var total = vehicleRate * qty;
+  totalElem.innerText = total;
 }
 
-// 3. کار واش کا حساب
-function calculateCar() {
-  const carType = document.getElementById('carType')?.value;
-  let price = 0;
+function calculateTankBill() {
+  var gallonElem = document.getElementById('tank-gallon-type');
+  var qtyInput = document.getElementById('tank-qty');
+  var totalElem = document.getElementById('tank-total-price');
 
-  if (carType === 'small') price = 800;       // Small / Hatchback
-  else if (carType === 'sedan') price = 1200;  // Sedan
-  else if (carType === 'suv') price = 1800;    // SUV / 7 Seater
+  if (!gallonElem || !qtyInput || !totalElem) return;
 
-  const resultElem = document.getElementById('carResult');
-  if (resultElem) resultElem.innerText = `کل قیمت: Rs. ${price}`;
-}
+  var gallonType = gallonElem.value;
+  var baseRate = 1500;
 
-// 4. واٹر ٹینک واش کا حساب
-function calculateTank() {
-  const tankCapacity = parseFloat(document.getElementById('tankCapacity')?.value) || 0;
-  const ratePerGallon = 2; // یا فی ٹینک فکس ریٹ لگائیں
-  const total = tankCapacity * ratePerGallon;
+  if (gallonType === "500") baseRate = 1500;
+  else if (gallonType === "1000") baseRate = 3000;
+  else if (gallonType === "1500") baseRate = 4500;
+  else if (gallonType === "2000") baseRate = 6000;
 
-  const resultElem = document.getElementById('tankResult');
-  if (resultElem) resultElem.innerText = `کل قیمت: Rs. ${total}`;
+  var qty = parseInt(qtyInput.value) || 1;
+  var total = baseRate * qty;
+  totalElem.innerText = total;
     }
+    
                       
     
 </script>
