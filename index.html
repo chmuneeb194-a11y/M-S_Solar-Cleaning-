@@ -5744,56 +5744,56 @@ function importDataBackup(event) {
     };
     fileReader.readAsText(file);
 }
-// Complete Fix for Custom Dropdown & Calculator Switcher
-function switchServiceLayout(serviceType) {
-    // 1. All Calculator Block IDs
-    const solarCalc = document.getElementById('solar-calc-block');
-    const carwashCalc = document.getElementById('carwash-calc-block');
-    const tankwashCalc = document.getElementById('tankwash-calc-block');
+// 1. ڈراپ ڈاؤن سوئچنگ کا فنکشن (تمام کیلکولیٹرز کو دکھانے / چھپانے کے لیے)
+function showCalculator(selectedCalc) {
+  // تمام کیلکولیٹرز کے کنٹینرز کو چھپائیں
+  const calculators = document.querySelectorAll('.calculator-card');
+  calculators.forEach(calc => {
+    calc.style.display = 'none';
+  });
 
-    // 2. Hide ALL Calculator Blocks completely
-    [solarCalc, carwashCalc, tankwashCalc].forEach(block => {
-        if (block) {
-            block.classList.add('hidden');
-            block.style.display = 'none'; // Force CSS override
-        }
-    });
-
-    // 3. Show ONLY the requested Calculator Block
-    let targetBlock = null;
-    if (serviceType === 'solar') targetBlock = solarCalc;
-    else if (serviceType === 'carwash') targetBlock = carwashCalc;
-    else if (serviceType === 'tank' || serviceType === 'tankwash') targetBlock = tankwashCalc;
-
-    if (targetBlock) {
-        targetBlock.classList.remove('hidden');
-        targetBlock.style.display = 'block'; // Force visibility
-        
-        // Smoothly scroll down to the visible calculator
-        targetBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // منتخب کردہ کیلکولیٹر دکھائیں
+  if (selectedCalc) {
+    const activeCalc = document.getElementById(selectedCalc);
+    if (activeCalc) {
+      activeCalc.style.display = 'block';
     }
-
-    // 4. Close all dropdown panels after selection
-    const panels = ['panel-main-tab-solar', 'panel-main-tab-carwash', 'panel-main-tab-tank'];
-    panels.forEach(id => {
-        const p = document.getElementById(id);
-        if (p) p.classList.add('hidden');
-    });
+  }
 }
 
-// Ensure Dropdown Toggle function also exists
-function openCustomDropdown(panelId) {
-    const targetPanel = document.getElementById(panelId);
-    if (targetPanel) {
-        targetPanel.classList.toggle('hidden');
-    }
+// 2. سولر پینل واش کا حساب
+function calculateSolar() {
+  const plates = parseFloat(document.getElementById('solarPlates')?.value) || 0;
+  const ratePerPlate = 150; // اپنے ریٹ کے مطابق تبدیل کریں
+  const total = plates * ratePerPlate;
+  
+  const resultElem = document.getElementById('solarResult');
+  if (resultElem) resultElem.innerText = `کل قیمت: Rs. ${total}`;
 }
 
-// Show only Solar Calculator when page loads initially
-document.addEventListener("DOMContentLoaded", function () {
-    switchServiceLayout('solar');
-});
-    
+// 3. کار واش کا حساب
+function calculateCar() {
+  const carType = document.getElementById('carType')?.value;
+  let price = 0;
+
+  if (carType === 'small') price = 800;       // Small / Hatchback
+  else if (carType === 'sedan') price = 1200;  // Sedan
+  else if (carType === 'suv') price = 1800;    // SUV / 7 Seater
+
+  const resultElem = document.getElementById('carResult');
+  if (resultElem) resultElem.innerText = `کل قیمت: Rs. ${price}`;
+}
+
+// 4. واٹر ٹینک واش کا حساب
+function calculateTank() {
+  const tankCapacity = parseFloat(document.getElementById('tankCapacity')?.value) || 0;
+  const ratePerGallon = 2; // یا فی ٹینک فکس ریٹ لگائیں
+  const total = tankCapacity * ratePerGallon;
+
+  const resultElem = document.getElementById('tankResult');
+  if (resultElem) resultElem.innerText = `کل قیمت: Rs. ${total}`;
+    }
+                      
     
 </script>
 </body>
